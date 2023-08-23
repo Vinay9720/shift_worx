@@ -1,7 +1,7 @@
 'use client';
 
-import styled from 'styled-components';
 import Link from 'next/link';
+import styled from 'styled-components';
 
 export const HeaderContainer = styled.div`
     display: flex;
@@ -14,16 +14,27 @@ export const HeaderContainer = styled.div`
     background-color: ${({ theme }) => theme.backgroundColor.blue};
 `;
 
-export const StyledLink = styled(Link)``;
-
 export const StyledLinkContainer = styled.button`
     display: flex;
     gap: 6px;
     align-items: center;
     margin-right: 23px;
     padding: 7px 10px;
-    background-color: ${({ theme, active }) => active && theme.backgroundColor.darkBlue};
-    color: ${({ theme, active }) => (active ? theme.fontColor.white : theme.fontColor.lightBlue)};
-    font-weight: ${({ theme, active }) => active && theme.fontWeight.semiBold};
+    border: none;
+    background-color: ${({ theme, active }) => (active ? theme.backgroundColor.darkBlue : 'transparent')};
+    font-weight: ${({ theme, active }) => (active ? theme.fontWeight.semiBold : theme.fontWeight.extraThin)};
     border-radius: ${({ theme, active }) => active && theme.borderRadius.large};
+    a {
+        color: ${({ theme, active }) => (active ? theme.fontColor.white : theme.fontColor.lightBlue)};
+        text-decoration: none;
+    }
+`;
+
+export const StyledLink = styled(Link)`
+    ${({ theme }) => `
+        font-size: ${theme.fontSize.semiMedium};
+        font-weight: ${theme.fontWeight.thin};
+        color: ${theme.fontColor.white};
+        text-decoration: none;
+    `}
 `;

@@ -1,3 +1,5 @@
-export default function AdminEmployees() {
-    return <div>Admin Employees</div>;
+import AdminLayout from '@/modules/admin-layout';
+
+export default function Page() {
+    return <AdminLayout>Admin Employees</AdminLayout>;
 }

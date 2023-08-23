@@ -28,7 +28,10 @@ module.exports = {
     },
     rules: {
         /* Common rules */
-        'prettier/prettier': 'error',
+        'prettier/prettier': [
+            "error",
+            { endOfLine: "auto" }
+        ],
         'no-undef': 'error',
         'arrow-body-style': 'off',
         'arrow-parens': 'off',

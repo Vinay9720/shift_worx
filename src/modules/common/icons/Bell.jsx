@@ -3,7 +3,7 @@ export default function Bell({ width, height, fill, styles, ...rest }) {
         <svg
             width={width}
             height={height}
-            className={styles}
+            style={{ ...styles }}
             viewBox='0 0 16 20'
             fill='none'
             {...rest}

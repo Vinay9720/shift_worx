@@ -19,12 +19,12 @@ export const ADMIN_NAV_LINKS = [
         destination: '/admin/home',
     },
     {
-        label: 'Employees',
-        destination: '/admin/employees/overview',
+        label: 'Schedule',
+        destination: '/admin/schedule',
     },
     {
-        label: 'Schedule',
-        destination: '/admin/schedule/overview',
+        label: 'Employees',
+        destination: '/admin/employees',
     },
     {
         label: 'Reports',

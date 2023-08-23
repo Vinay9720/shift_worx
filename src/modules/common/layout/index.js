@@ -1,3 +1,4 @@
 import NavBar from './navbar';
+import WidgetCard from './widget-card';
 
-export { NavBar };
+export { NavBar, WidgetCard };

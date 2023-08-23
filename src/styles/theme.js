@@ -32,15 +32,15 @@ export const white = {
         small: '8px',
     },
     fontSize: {
-        smallest: '12px',
-        small: '14px',
-        smallOdd: '15px',
-        semiMedium: '16px',
-        medium: '18px',
-        semiLarge: '20px',
-        large: '24px',
-        extraLarge: '28px',
-        largest: '56px',
+        smallest: '0.75rem', // 12px
+        small: '0.875rem', // 14px
+        smallOdd: '0.938rem', // 15px
+        semiMedium: '1rem', // 16px
+        medium: '1.125rem', // 18px
+        semiLarge: '1.25rem', // 20px
+        large: '1.5rem', // 24px
+        extraLarge: '1.75rem', // 28px
+        largest: '3.5rem', // 56px
     },
     fontWeight: {
         extraThin: '400',

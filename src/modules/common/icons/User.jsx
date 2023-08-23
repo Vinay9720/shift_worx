@@ -3,7 +3,7 @@ export default function User({ width, height, fill, styles, ...rest }) {
         <svg
             width={width}
             height={height}
-            className={styles}
+            style={{ ...styles }}
             viewBox='0 0 16 16'
             fill='none'
             {...rest}

@@ -1,10 +1,10 @@
-/* eslint-disable lines-around-directive */
 'use client';
 
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { signOut, useSession } from 'next-auth/react';
 import Image from 'next/image';
+import { Stack } from '@mui/material';
 
 import { HeaderContainer, StyledLink, StyledLinkContainer } from './header.styles';
 
@@ -44,7 +44,7 @@ const NavBar = ({ navLinks }) => {
                     return (
                         <StyledLinkContainer key={index} active={isActive(link.destination)}>
                             <Icon name={getIconName(link.label)} height={18} width={18} />
-                            <StyledLink href={link.destination}>{link.label}</StyledLink>
+                            <Link href={link.destination}>{link.label}</Link>
                         </StyledLinkContainer>
                     );
                 })}
@@ -65,30 +65,36 @@ const NavBar = ({ navLinks }) => {
 
     return (
         <HeaderContainer>
-            <div className='flex gap-24'>
-                <div className='flex items-center'>
-                    <Image src='/white-theme-images/swx-logo.png' alt='logo' width={137} height={25} />
-                </div>
-                <div className='flex items-center'>{renderLinks()}</div>
-            </div>
-            <div className='flex items-center'>
-                <Link className='font-bold text-light text-[16px] ml-[2vw] md:ml-[32px]' href='/'>
-                    <Icon styles='fill-light' name='bell' aria-hidden='true' height={20} width={20} />
+            <Stack spacing={3} direction='row'>
+                <Stack direction='row' alignItems='center'>
+                    <Image src='/images/swx-logo.png' alt='logo' width={137} height={25} />
+                </Stack>
+                <Stack direction='row' alignItems='center'>
+                    {renderLinks()}
+                </Stack>
+            </Stack>
+            <Stack spacing={3} direction='row'>
+                <Link href='/'>
+                    <Icon styles={{ fill: '#ffffff' }} name='bell' aria-hidden='true' height={20} width={20} />
                 </Link>
                 <div>
                     <SwxPopupMenu
-                        headerElement={
-                            <div className='flex items-center gap-3 ml-5'>
-                                <Icon styles='fill-light' name='user' aria-hidden='true' height={20} width={20} />
-                                <Link className='font-medium text-light text-[16px]' href='/'>
-                                    {data ? (data.user ? data.user.name : 'User') : 'User'}
-                                </Link>
-                            </div>
+                        buttonElement={
+                            <Stack direction='row' spacing={1.5} alignItems='center'>
+                                <Icon
+                                    styles={{ fill: '#ffffff' }}
+                                    name='user'
+                                    aria-hidden='true'
+                                    height={20}
+                                    width={20}
+                                />
+                                <StyledLink href='/'>{data ? (data.user ? data.user.name : 'User') : ''}</StyledLink>
+                            </Stack>
                         }
-                        menuOptions={menuOptions}
+                        options={menuOptions}
                     />
                 </div>
-            </div>
+            </Stack>
         </HeaderContainer>
     );
 };

@@ -17,7 +17,9 @@ export default function SwxPopupMenu({ buttonElement, options }) {
         <>
             <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
                 <Tooltip title='Account settings'>
-                    <button onClick={handleClick}>{buttonElement || 'menu'}</button>
+                    <button style={{ background: 'none', border: 'none' }} onClick={handleClick}>
+                        {buttonElement || 'menu'}
+                    </button>
                 </Tooltip>
             </Box>
             <Menu
