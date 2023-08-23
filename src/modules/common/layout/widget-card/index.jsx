@@ -10,7 +10,7 @@ import {
     StyledH1,
     StyledTitle,
     StyledTopRightSlot,
-} from './WidgetCard.styles';
+} from './widget-card.styles';
 
 import { Icon } from '../../icons';
 

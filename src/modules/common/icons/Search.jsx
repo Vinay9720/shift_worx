@@ -3,7 +3,7 @@ export default function Search({ width, height, fill, styles, ...rest }) {
         <svg
             width={width}
             height={height}
-            className={styles}
+            style={{ ...styles }}
             viewBox='0 0 18 18'
             fill='none'
             {...rest}

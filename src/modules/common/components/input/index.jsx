@@ -12,32 +12,21 @@ const SwxInput = ({
     startIcon: StartIcon,
     endIcon: EndIcon,
     type,
+    style,
     placeholder,
     errorText,
     ...restProps
 }) => {
     return (
-        <InputContainer style={{ width }}>
+        <InputContainer style={{ width, ...style }}>
             {label && <label>{label}</label>}
             <StyledOutlinedInput
                 // id='outlined-adornment-password'
                 type={type}
                 placeholder={placeholder}
                 {...restProps}
-                startAdornment={
-                    StartIcon && (
-                        <InputAdornment position='start'>
-                            <StartIcon />
-                        </InputAdornment>
-                    )
-                }
-                endAdornment={
-                    EndIcon && (
-                        <InputAdornment position='start'>
-                            <EndIcon />
-                        </InputAdornment>
-                    )
-                }
+                startAdornment={StartIcon && <InputAdornment position='start'>{StartIcon}</InputAdornment>}
+                endAdornment={EndIcon && <InputAdornment position='start'>{EndIcon}</InputAdornment>}
             />
             {errorText && (
                 <SwxTypography color='red' size='smallest' weight='thin'>
