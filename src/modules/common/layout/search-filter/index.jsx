@@ -48,7 +48,7 @@ function SearchFilter({ actionButton: ActionButton }) {
                     endIcon={<Icon width={17} height={12} name='close' styles={{ fill: '#030303' }} />}
                     size='semiMedium'
                     weight='thin'
-                    themeColor='swxBlack'
+                    themecolor='swxBlack'
                     variant='text'>
                     Clear all
                 </SwxButton>

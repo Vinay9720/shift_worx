@@ -10,7 +10,7 @@ export const StyledButton = styled(Button)`
             background: ${theme.backgroundColor.lightGray} !important;
         }
   `}
-    ${({ theme, variant, size, padding, radius, weight, themeColor }) =>
+    ${({ theme, variant, size, padding, radius, weight, themecolor }) =>
         variant === 'contained'
             ? `
           padding: ${padding || '15px 50px'} !important;
@@ -24,7 +24,7 @@ export const StyledButton = styled(Button)`
       `
             : variant === 'text'
             ? `
-          color: ${theme.fontColor[themeColor || 'darkBlue']} !important;
+          color: ${theme.fontColor[themecolor || 'darkBlue']} !important;
           font-size: ${theme.fontSize[size]} !important;
           font-weight: ${theme.fontWeight[weight || 'semiBold']} !important;
           font-style: normal;

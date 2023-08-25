@@ -2,14 +2,14 @@
 
 import { StyledButton } from './button.styles';
 
-function SwxButton({ startIcon, size, padding, radius, variant, endIcon, children, themeColor, styles, ...rest }) {
+function SwxButton({ startIcon, size, padding, radius, variant, endIcon, children, themecolor, styles, ...rest }) {
     return (
         <StyledButton
             style={{ ...styles }}
             padding={padding}
             size={size}
             radius={radius}
-            themeColor={themeColor}
+            themecolor={themecolor}
             {...rest}
             variant={variant}
             startIcon={startIcon}

@@ -1,7 +1,13 @@
 import './globals.css';
 import { Manrope } from 'next/font/google';
 
-import { SessionProvider, StyledComponentsRegistry, StyledThemeProvider, QueryProvider } from '@/lib/providers';
+import {
+    SessionProvider,
+    StyledComponentsRegistry,
+    StyledThemeProvider,
+    QueryProvider,
+    StoreProvider,
+} from '@/lib/providers';
 
 const appFont = Manrope({ subsets: ['latin'] });
 
@@ -19,11 +25,13 @@ export default function RootLayout({ children }) {
             </head>
             <body className={appFont.className} suppressHydrationWarning>
                 <SessionProvider>
-                    <QueryProvider>
-                        <StyledComponentsRegistry>
-                            <StyledThemeProvider>{children}</StyledThemeProvider>
-                        </StyledComponentsRegistry>
-                    </QueryProvider>
+                    <StoreProvider>
+                        <QueryProvider>
+                            <StyledComponentsRegistry>
+                                <StyledThemeProvider>{children}</StyledThemeProvider>
+                            </StyledComponentsRegistry>
+                        </QueryProvider>
+                    </StoreProvider>
                 </SessionProvider>
             </body>
         </html>

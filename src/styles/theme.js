@@ -14,17 +14,20 @@ export const white = {
     backgroundColor: {
         darkBlue: '#1B6397',
         blue: '#1F6FA9',
+        lightBlue: '#DCEEFF',
+        swxBlue: '#027EF4',
         white: '#FFFFFF',
         lightGray: '#E6E8E9',
         lighterGray: '#F1F1F1',
         lightestGray: '#F7F7F8',
         lightGreen: '#D8FED2',
         lightRed: '#FFE0D7',
-        lightBlue: '#DCEEFF',
+        lightPink: '#FAE0E9',
     },
     borderColor: {
         blue: '#027EF4',
         lightGray: '#E6E8E9',
+        white: '#FFFFFF',
     },
     borderRadius: {
         large: '100px',

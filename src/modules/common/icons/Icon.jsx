@@ -9,7 +9,7 @@ import LastPageArrow from './LastPageArrow';
 import LeftArrow from './LeftArrow';
 import RightArrow from './RightArrow';
 import SelectDownArrow from './SelectDownArrow';
-import ThreeDots from './Threedots';
+import VerticalMenu from './VerticalMenu';
 import UpArrow from './UpArrow';
 import People from './People';
 import Schedule from './Schedule';
@@ -53,8 +53,8 @@ export const Icon = ({ name, width, height, fill, styles, ...rest }) => {
             return <Settings width={width} height={height} fill={fill} styles={styles} {...rest} />;
         case 'facebook':
             return <Facebook width={width} height={height} fill={fill} styles={styles} {...rest} />;
-        case 'vertical-dots':
-            return <ThreeDots width={width} height={height} fill={fill} styles={styles} {...rest} />;
+        case 'vertical-menu':
+            return <VerticalMenu width={width} height={height} fill={fill} styles={styles} {...rest} />;
         case 'first-page-arrow':
             return <FirstPageArrow width={width} height={height} fill={fill} styles={styles} {...rest} />;
         case 'last-page-arrow':

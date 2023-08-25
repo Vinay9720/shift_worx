@@ -7,7 +7,7 @@ export default function Layout({ children }) {
     return (
         <>
             <NavBar navLinks={ADMIN_NAV_LINKS} />
-            <div style={{ maxWidth: '1420px', margin: '0px auto' }}>{children}</div>
+            <div style={{ maxWidth: '1280px', margin: '0px auto' }}>{children}</div>
         </>
     );
 }

@@ -1,9 +1,9 @@
-export default function ThreeDots({ width, height, fill, styles, ...rest }) {
+export default function VerticalMenu({ width, height, fill, styles, ...rest }) {
     return (
         <svg
             width={width}
             height={height}
-            className={styles}
+            style={{ ...styles }}
             viewBox='0 0 4 16'
             fill='none'
             {...rest}
