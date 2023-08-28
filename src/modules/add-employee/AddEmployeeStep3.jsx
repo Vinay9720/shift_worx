@@ -2,16 +2,13 @@
 
 import { useState } from 'react';
 import { isEmpty } from 'lodash';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { Divider, Stack } from '@mui/material';
 
-import { SwxButton, Hr, Icon } from '@/components/common';
-// import { FormSubmitButton, Form } from '@/components/form-components';
-import { getS3Url } from '@/lib/utils';
-import { fetchEmployees } from '@/redux/actions/thunks/employees';
+import { getS3Url } from '@/lib/util';
+import { closeModal } from '@/lib/store/slices/modal-slice';
 
 import {
-    HeadingsContainer,
-    StyledText,
     FooterContainer,
     CertificationsWrapper,
     CertificationsContainer,
@@ -20,53 +17,58 @@ import {
     CertificationUpperRightSection,
     CertificationLowerSection,
     CertificationLowerLeftSection,
-    StyledInlineText,
     CertificationLowerRightSection,
-} from './AddEmployee.styles';
-import AddCerfification from './AddCertifications';
+} from './add-employee.styles';
 
-function AddEmployeeStep3({ setIsModalOpen, setCurrentStep }) {
+import { Icon } from '../common/icons';
+import { SwxButton, SwxTypography } from '../common/components';
+
+function AddEmployeeStep3() {
     const dispatch = useDispatch();
-    const { certificates } = useSelector(state => state.employees);
     const [isCertificationPopUp, setIsCertificationPopUp] = useState(false);
+    const certificates = [
+        {
+            name: 'RN',
+            file_upload_key: '4543',
+            effective_date: '23/2/2023',
+            expiration_date: '23/2/2023',
+            jurisdiction: 'AL',
+            speciality: ['one', 'two', 'three'],
+        },
+    ];
 
     const onSubmit = () => {
-        dispatch(fetchEmployees({ itemsPerPage: 10, currentPage: 1, searchParams: '' })).then(res => {
-            if (res.payload) {
-                setIsModalOpen(false);
-                setCurrentStep(1);
-            }
-        });
+        console.log('step3 sumit');
     };
     return (
         <>
-            <HeadingsContainer>
-                <StyledText color='swxBlack' size='semiLarge' weight='bold'>
+            <Stack direction='column' spacing={1} sx={{ padding: '0px 24px' }}>
+                <SwxTypography color='swxBlack' size='semiLarge' weight='bold'>
                     Certifications
-                </StyledText>
-                <StyledText color='lightGray' size='small' weight='thin'>
+                </SwxTypography>
+                <SwxTypography color='lightGray' size='small' weight='thin'>
                     Select certifications and specialities
-                </StyledText>
-            </HeadingsContainer>
+                </SwxTypography>
+            </Stack>
             {!isCertificationPopUp ? (
                 <>
                     <CertificationsWrapper>
-                        <StyledText
+                        <SwxTypography
                             style={{ marginBottom: '12px', marginTop: '24px' }}
                             color='swxSlightlyBlack'
                             size='semiMedium'
                             weight='semiBold'>
                             Licenses
-                        </StyledText>
+                        </SwxTypography>
                         <CertificationsContainer>
                             {!isEmpty(certificates) &&
                                 certificates.map((certification, index) => {
                                     return (
                                         <CertificationContainer key={index}>
                                             <CertificationUpperSection>
-                                                <StyledText color='darkestGray' size='semiMedium' weight='bold'>
+                                                <SwxTypography color='darkestGray' size='semiMedium' weight='bold'>
                                                     Registered Nurse ({certification.name || ''})
-                                                </StyledText>
+                                                </SwxTypography>
                                                 <CertificationUpperRightSection>
                                                     <a href={getS3Url(certification.file_upload_key)}>
                                                         <SwxButton
@@ -75,7 +77,7 @@ function AddEmployeeStep3({ setIsModalOpen, setCurrentStep }) {
                                                                     width={17}
                                                                     height={12}
                                                                     name='eye'
-                                                                    className='fill-newBrand'
+                                                                    styles={{ fill: '#1F6FA9' }}
                                                                 />
                                                             }
                                                             variant='text'
@@ -104,45 +106,62 @@ function AddEmployeeStep3({ setIsModalOpen, setCurrentStep }) {
                                             <CertificationLowerSection>
                                                 <CertificationLowerLeftSection>
                                                     <div className='flex items-baseline'>
-                                                        <StyledText color='darkestGray' size='small' weight='bold'>
-                                                            Effective Date:{'  '}
-                                                        </StyledText>
-                                                        <StyledInlineText
-                                                            color='darkestGray'
-                                                            size='smallest'
-                                                            weight='extraThin'>
-                                                            {certification.effective_date}
-                                                        </StyledInlineText>
+                                                        <Stack direction='row' spacing={0.5} alignItems='center'>
+                                                            <SwxTypography
+                                                                color='darkestGray'
+                                                                size='small'
+                                                                weight='bold'>
+                                                                Effective Date:
+                                                            </SwxTypography>
+                                                            <SwxTypography
+                                                                color='darkestGray'
+                                                                size='smallest'
+                                                                weight='extraThin'>
+                                                                {certification.effective_date}
+                                                            </SwxTypography>
+                                                        </Stack>
                                                     </div>
                                                     <div className='flex items-baseline'>
-                                                        <StyledText color='darkestGray' size='small' weight='bold'>
-                                                            Expiration Date:{'  '}
-                                                        </StyledText>
-                                                        <StyledInlineText
-                                                            color='darkestGray'
-                                                            size='smallest'
-                                                            weight='extraThin'>
-                                                            {certification.expiration_date}
-                                                        </StyledInlineText>
+                                                        <Stack direction='row' spacing={0.5} alignItems='center'>
+                                                            <SwxTypography
+                                                                color='darkestGray'
+                                                                size='small'
+                                                                weight='bold'>
+                                                                Expiration Date:{'  '}
+                                                            </SwxTypography>
+                                                            <SwxTypography
+                                                                variant='body1'
+                                                                color='darkestGray'
+                                                                size='smallest'
+                                                                weight='extraThin'>
+                                                                {certification.expiration_date}
+                                                            </SwxTypography>
+                                                        </Stack>
                                                     </div>
                                                 </CertificationLowerLeftSection>
                                                 <CertificationLowerRightSection>
                                                     <>
-                                                        <StyledText color='darkestGray' size='small' weight='bold'>
+                                                        <SwxTypography color='darkestGray' size='small' weight='bold'>
                                                             Jurisdiction: {certification.jurisdiction}
-                                                        </StyledText>
+                                                        </SwxTypography>
                                                     </>
                                                     <div className='flex items-baseline'>
-                                                        <StyledText color='darkestGray' size='small' weight='bold'>
-                                                            Specialties:{'   '}
-                                                        </StyledText>
-                                                        <StyledInlineText
-                                                            color='darkestGray'
-                                                            style={{ marginLeft: '2px' }}
-                                                            size='smallest'
-                                                            weight='extraThin'>
-                                                            {(certification.speciality || []).join(', ')}
-                                                        </StyledInlineText>
+                                                        <Stack direction='row' spacing={0.5} alignItems='center'>
+                                                            <SwxTypography
+                                                                color='darkestGray'
+                                                                size='small'
+                                                                weight='bold'>
+                                                                Specialties:{'   '}
+                                                            </SwxTypography>
+                                                            <SwxTypography
+                                                                variant='body1'
+                                                                color='darkestGray'
+                                                                style={{ marginLeft: '2px' }}
+                                                                size='smallest'
+                                                                weight='extraThin'>
+                                                                {(certification.speciality || []).join(', ')}
+                                                            </SwxTypography>
+                                                        </Stack>
                                                     </div>
                                                 </CertificationLowerRightSection>
                                             </CertificationLowerSection>
@@ -152,101 +171,21 @@ function AddEmployeeStep3({ setIsModalOpen, setCurrentStep }) {
                         </CertificationsContainer>
                         <SwxButton
                             onClick={() => setIsCertificationPopUp(true)}
-                            startIcon={<Icon width={17} height={12} name='addition' className='fill-newBrand' />}
+                            startIcon={<Icon width={17} height={12} name='addition' styles={{ fill: '#1F6FA9' }} />}
                             size='medium'
                             variant='text'
                             weight='semiBold'>
                             Add more
                         </SwxButton>
                     </CertificationsWrapper>
-                    {/* <Hr /> */}
-                    {/* <CertificationsWrapper>
-                        <StyledText
-                            style={{ marginBottom: '12px', marginTop: '12px' }}
-                            color='swxSlightlyBlack'
-                            size='semiMedium'
-                            weight='semiBold'>
-                            Certifications
-                        </StyledText>
-                        <CertificationsContainer>
-                            <CertificationContainer>
-                                <CertificationUpperSection>
-                                    <StyledText color='darkestGray' size='semiMedium' weight='bold'>
-                                        Registered Nurse (RN)
-                                    </StyledText>
-                                    <CertificationUpperRightSection>
-                                        <SwxButton
-                                            startIcon={
-                                                <Icon width={17} height={12} name='eye' className='fill-newBrand' />
-                                            }
-                                            variant='text'
-                                            size='small'
-                                            weight='bold'>
-                                            View Document
-                                        </SwxButton>
-                                        <SwxButton
-                                            startIcon={
-                                                <Icon width={15} height={16} name='edit' className='fill-newBrand' />
-                                            }
-                                            variant='text'
-                                            size='small'
-                                            weight='bold'>
-                                            Edit
-                                        </SwxButton>
-                                    </CertificationUpperRightSection>
-                                </CertificationUpperSection>
-                                <CertificationLowerSection>
-                                    <CertificationLowerLeftSection>
-                                        <div className='flex items-baseline'>
-                                            <StyledText color='darkestGray' size='small' weight='bold'>
-                                                Effective Date:{'  '}
-                                            </StyledText>
-                                            <StyledInlineText color='darkestGray' size='smallest' weight='extraThin'>
-                                                06/1/2011
-                                            </StyledInlineText>
-                                        </div>
-                                        <div className='flex items-baseline'>
-                                            <StyledText color='darkestGray' size='small' weight='bold'>
-                                                Expiration Date:{'  '}
-                                            </StyledText>
-                                            <StyledInlineText color='darkestGray' size='smallest' weight='extraThin'>
-                                                06/1/2023
-                                            </StyledInlineText>
-                                        </div>
-                                    </CertificationLowerLeftSection>
-                                    <CertificationLowerRightSection>
-                                        <>
-                                            <StyledText color='darkestGray' size='small' weight='bold'>
-                                                Jurisdiction: Fl
-                                            </StyledText>
-                                        </>
-                                        <div className='flex items-baseline'>
-                                            <StyledText color='darkestGray' size='small' weight='bold'>
-                                                Specialties:{'  '}
-                                            </StyledText>
-                                            <StyledInlineText color='darkestGray' size='smallest' weight='extraThin'>
-                                                Skilled Nursing, Geriatrics, Hospice
-                                            </StyledInlineText>
-                                        </div>
-                                    </CertificationLowerRightSection>
-                                </CertificationLowerSection>
-                            </CertificationContainer>
-                        </CertificationsContainer>
-                        <SwxButton
-                            startIcon={<Icon width={17} height={12} name='addition' className='fill-newBrand' />}
-                            size='medium'
-                            variant='text'
-                            weight='semiBold'>
-                            Add more
-                        </SwxButton>
-                    </CertificationsWrapper> */}
                 </>
             ) : (
-                <AddCerfification setIsCertificationPopUp={setIsCertificationPopUp} />
+                // <AddCerfification setIsCertificationPopUp={setIsCertificationPopUp} />
+                <div>certification add</div>
             )}
-            <Hr />
+            <Divider orientation='vertical' flexItem />
             <FooterContainer>
-                <SwxButton onClick={() => setIsModalOpen(false)} variant='text'>
+                <SwxButton onClick={() => dispatch(closeModal())} variant='text'>
                     Cancel
                 </SwxButton>
                 <SwxButton onClick={onSubmit} variant='contained'>

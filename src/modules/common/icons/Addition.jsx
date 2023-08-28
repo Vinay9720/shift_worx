@@ -3,7 +3,7 @@ export default function Addition({ width, height, fill, styles, ...rest }) {
         <svg
             width={width}
             height={height}
-            className={styles}
+            style={{ ...styles }}
             viewBox='0 0 14 15'
             fill='none'
             {...rest}

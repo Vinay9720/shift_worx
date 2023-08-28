@@ -19,10 +19,8 @@ export const StyledProgress = styled(LinearProgress)`
 export const ModalContainer = styled.div`
     position: absolute;
     top: 50%;
-    width: 786px;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 400;
     max-height: 600px;
     overflow-y: auto;
     box-shadow: 24;
@@ -32,7 +30,14 @@ export const ModalContainer = styled.div`
         background-color: ${theme.backgroundColor.white};
         border: 1px solid ${theme.borderColor.lightGray};
         box-shadow: ${theme.boxShadow.grayShadow};
-  `}
+    `}
+
+    @media (max-width: 800px) {
+        width: 90%;
+        padding: 20px;
+        box-sizing: border-box;
+        max-height: 80vh;
+    }
 `;
 
 export const StyledTitle = styled.h1`
@@ -54,6 +59,7 @@ export const StyledStep = styled.div`
     gap: 10px;
     padding: 1px 0px;
     align-items: center;
+    cursor: pointer;
 `;
 
 export const StyledNumber = styled.span`
@@ -95,35 +101,6 @@ export const BodyContainer = styled.div`
     flex-direction: column;
     gap: 24px;
     margin-top: 40px;
-`;
-
-export const RowContainer = styled.div`
-    ${({ padding, gap }) => `
-        padding: ${padding || '0px 24px'};
-        gap: ${gap || '16px'};
-    `}
-    display: flex;
-
-    @media (max-width: 800px) {
-        flex-direction: column; /* Switch to column layout when screen size is not enough */
-    }
-`;
-
-export const HeadingsContainer = styled.div`
-    ${({ padding, gap }) => `
-        padding: ${padding || '0px 24px'};
-        gap: ${gap || '8px'};
-    `}
-    display: flex;
-    flex-direction: column;
-`;
-
-export const StyledLabel = styled.label`
-    ${({ theme, size, color, weight }) => `
-        color: ${theme.fontColor[color]};
-        font-size: ${theme.fontSize[size]};
-        font-weight: ${theme.fontWeight[weight]};
-  `}
 `;
 
 export const FooterContainer = styled.div`

@@ -1,23 +1,23 @@
 'use client';
 
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { Divider, Stack } from '@mui/material';
 
-import { Form, InputField, DatePickerField, FormSubmitButton } from '@/components/form-components';
-import { showToast } from '@/lib/utils';
-import { Hr, SwxButton } from '@/components/common';
-import { addEmployee } from '@/redux/actions/thunks/employees';
+import { setCurrentStep } from '@/lib/store/slices/add-employee-steps-slice';
 
-import { HeadingsContainer, RowContainer, StyledText, StyledLabel, FooterContainer } from './AddEmployee.styles';
+import { FooterContainer } from './add-employee.styles';
 
-function AddEmployeeStep2({ setCurrentStep, setIsModalOpen }) {
+import { SwxButton, SwxTypography } from '../common/components';
+import { Form, InputField, DatePickerField, FormSubmitButton } from '../common/form-components';
+
+function AddEmployeeStep2() {
     const dispatch = useDispatch();
-    const { employee } = useSelector(state => state.employees);
 
     const ssnProps = {
         label: (
-            <StyledLabel color='swxSlightlyBlack' size='semiMedium' weight='semiBold'>
+            <SwxTypography color='swxSlightlyBlack' size='semiMedium' weight='thin'>
                 SSN#
-            </StyledLabel>
+            </SwxTypography>
         ),
         placeholder: 'xxx-xxx-xxx',
         type: 'number',
@@ -26,9 +26,9 @@ function AddEmployeeStep2({ setCurrentStep, setIsModalOpen }) {
 
     const driverLicenseProps = {
         label: (
-            <StyledLabel color='swxSlightlyBlack' size='semiMedium' weight='semiBold'>
+            <SwxTypography color='swxSlightlyBlack' size='semiMedium' weight='thin'>
                 Driver&apos;s License #
-            </StyledLabel>
+            </SwxTypography>
         ),
         placeholder: 'xxx-xxx-xxx',
         type: 'number',
@@ -37,70 +37,51 @@ function AddEmployeeStep2({ setCurrentStep, setIsModalOpen }) {
 
     const driverLicenseIssueProps = {
         label: (
-            <StyledLabel color='swxSlightlyBlack' size='semiMedium' weight='semiBold'>
+            <SwxTypography color='swxSlightlyBlack' size='semiMedium' weight='thin'>
                 Driver&apos;s License Issue date
-            </StyledLabel>
+            </SwxTypography>
         ),
         required: true,
     };
 
     const driverLicenseExpireProps = {
         label: (
-            <StyledLabel color='swxSlightlyBlack' size='semiMedium' weight='semiBold'>
+            <SwxTypography color='swxSlightlyBlack' size='semiMedium' weight='thin'>
                 Driver&apos;s License Expiration Date
-            </StyledLabel>
+            </SwxTypography>
         ),
         required: true,
     };
 
     const onSubmit = userData => {
-        const profileableAttributes = {
-            profileable_attributes: {
-                facility_id: 1,
-            },
-            profileable_type: 'Nurse',
-        };
-        dispatch(
-            addEmployee({
-                employee: {
-                    user: { ...userData, ...profileableAttributes },
-                    step: 'personal_documents',
-                    facility_user_id: employee.id,
-                },
-            })
-        ).then(res => {
-            if (res.payload && res.payload.facility_user) {
-                setCurrentStep(3);
-            } else {
-                showToast('error', 'Please try again later.');
-                setIsModalOpen(false);
-            }
-        });
+        console.log('step 2', userData);
+        dispatch(setCurrentStep(3));
     };
 
     return (
         <>
-            <HeadingsContainer>
-                <StyledText color='swxBlack' size='semiLarge' weight='bold'>
+            <Stack direction='column' spacing={1} sx={{ padding: '0px 24px' }}>
+                <SwxTypography color='swxBlack' size='semiLarge' weight='bold'>
                     Personal Documents
-                </StyledText>
-                <StyledText color='lightGray' size='small' weight='thin'>
+                </SwxTypography>
+                <SwxTypography color='lightGray' size='small' weight='thin'>
                     Upload employee personal documents
-                </StyledText>
-            </HeadingsContainer>
+                </SwxTypography>
+            </Stack>
             <Form onSubmit={onSubmit} styles='flex flex-col gap-y-5'>
-                <RowContainer>
-                    <InputField name='ssn' SWXInputProps={ssnProps} />
-                </RowContainer>
-                <RowContainer>
-                    <InputField name='dl_number' SWXInputProps={driverLicenseProps} />
-                </RowContainer>
-                <Hr />
-                <RowContainer>
-                    <DatePickerField name='dl_issue_date' SWXInputProps={driverLicenseIssueProps} />
-                    <DatePickerField name='dl_expiration_date' SWXInputProps={driverLicenseExpireProps} />
-                </RowContainer>
-                {/* {footer} */}
+                <Stack direction='column' spacing={3}>
+                    <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2} sx={{ padding: '0px 24px' }}>
+                        <InputField name='ssn' SWXInputProps={ssnProps} />
+                    </Stack>
+                    <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2} sx={{ padding: '0px 24px' }}>
+                        <InputField name='dl_number' SWXInputProps={driverLicenseProps} />
+                    </Stack>
+                    <Divider orientation='vertical' flexItem />
+                    <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2} sx={{ padding: '0px 24px' }}>
+                        <DatePickerField name='dl_issue_date' SWXInputProps={driverLicenseIssueProps} />
+                        <DatePickerField name='dl_expiration_date' SWXInputProps={driverLicenseExpireProps} />
+                    </Stack>
+                </Stack>
                 <FooterContainer>
                     <SwxButton variant='text'>Cancel</SwxButton>
                     <FormSubmitButton variant='contained' buttonName='Next' />

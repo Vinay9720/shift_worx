@@ -6,6 +6,7 @@ import { WidgetCardsContainer } from './admin-overview.styles';
 import { SearchFilter, WidgetCard } from '../common/layout';
 import { SwxDataGrid, SwxChip, SwxTypography, SwxLinearProgress } from '../common/components';
 import { Icon } from '../common/icons';
+import AddEmployee from '../add-employee';
 
 export default function AdminOverview() {
     const columns = [
@@ -245,7 +246,7 @@ export default function AdminOverview() {
                     );
                 })}
             </WidgetCardsContainer>
-            <SearchFilter />
+            <SearchFilter actionButton={AddEmployee} />
             <SwxDataGrid rows={rows} columns={columns} />
         </>
     );

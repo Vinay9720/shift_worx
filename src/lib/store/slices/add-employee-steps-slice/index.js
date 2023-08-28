@@ -1,7 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-    currectStep: 1,
+    currentStep: 1,
+    totalSteps: 3,
+    isPreviousStep: false,
+    isNextStep: true,
 };
 
 const addEmployeeStepsSlice = createSlice({
@@ -9,13 +12,34 @@ const addEmployeeStepsSlice = createSlice({
     initialState,
     reducers: {
         HandleNext: state => {
-            state.currectStep += 1;
+            state.currentStep += 1;
+            if (state.currentStep > 1) {
+                state.isPreviousStep = true;
+            }
+            if (state.currentStep < 3) {
+                state.isNextStep = true;
+            }
         },
-        previousState: state => {
-            state.currectStep -= 1;
+        handlePrevious: state => {
+            state.currentStep -= 1;
+            if (state.currentStep > 1) {
+                state.isPreviousStep = true;
+            }
+            if (state.currentStep < 3) {
+                state.isNextStep = true;
+            }
+        },
+        setCurrentStep: (state, action) => {
+            state.currentStep = action.payload;
+            if (state.currentStep > 1) {
+                state.isPreviousStep = true;
+            }
+            if (state.currentStep < 3) {
+                state.isNextStep = true;
+            }
         },
     },
 });
 
-export const { HandleNext, previousState } = addEmployeeStepsSlice.actions;
+export const { HandleNext, handlePrevious, setCurrentStep } = addEmployeeStepsSlice.actions;
 export default addEmployeeStepsSlice.reducer;

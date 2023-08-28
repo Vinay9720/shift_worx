@@ -15,9 +15,9 @@ export default function AdminLayout({ children }) {
             </SwxTypography>
             <SwxTabs
                 tabs={[
-                    { label: 'General Information', step: 'general' },
-                    { label: 'Personal Documents', step: 'documents' },
-                    { label: 'Certs/Licenses', step: 'certifications' },
+                    { label: 'Overview', step: 'overview' },
+                    { label: 'Expirtations', step: 'expirations' },
+                    { label: 'PTO', step: 'pto' },
                     { label: 'Notes', step: 'notes' },
                 ]}
                 currentStep={currentStep}

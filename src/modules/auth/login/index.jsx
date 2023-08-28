@@ -18,8 +18,7 @@ export default function LoginForm() {
     const [isPasswordVisible, setIsPasswordVisible] = useState(false);
     const [isPasswordFocused, setIsPasswordFocused] = useState(false);
 
-    const { mutate: login, isLoading } = useLogin();
-    console.log('loading', isLoading);
+    const { mutate: login } = useLogin();
     const onSubmit = async credentials => {
         login(credentials);
     };

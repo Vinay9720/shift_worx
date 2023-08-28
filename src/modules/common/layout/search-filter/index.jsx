@@ -53,7 +53,7 @@ function SearchFilter({ actionButton: ActionButton }) {
                     Clear all
                 </SwxButton>
             </LeftContent>
-            {ActionButton}
+            <ActionButton />
         </SearchFilterContainer>
     );
 }

@@ -8,6 +8,7 @@ import SwxMultiSelect from './multi-select';
 import SwxDataGrid from './datagrid';
 import SwxChip from './chip';
 import SwxLinearProgress from './linear-progress';
+import SwxPhoneNumberInput from './phone-number';
 
 export {
     SwxInput,
@@ -20,4 +21,5 @@ export {
     SwxDataGrid,
     SwxChip,
     SwxLinearProgress,
+    SwxPhoneNumberInput,
 };

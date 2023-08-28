@@ -1,29 +1,29 @@
 'use client';
 
-// import { useDispatch } from 'react-redux';
+import { Divider, Stack } from '@mui/material';
 
+import { UsStates } from '@/lib/constants';
+
+import { FooterContainer } from './add-employee.styles';
+
+import { SwxButton, SwxTypography } from '../common/components';
 import {
     Form,
+    FormSubmitButton,
     InputField,
     DatePickerField,
+    SelectField,
     PhoneNumberField,
-    SelectField1,
-    FormSubmitButton,
-} from '@/components/form-components';
-import { Hr, SwxButton } from '@/components/common';
-import { UsStates } from '@/constants';
-// import { openModal } from '@/lib/store/slices/modal-slice';
-
-import { HeadingsContainer, RowContainer, StyledText, StyledLabel, FooterContainer } from './AddEmployee.styles';
+} from '../common/form-components';
 
 function AddEmployeeStep1() {
     // const dispatch = useDispatch();
 
     const firstNameProps = {
         label: (
-            <StyledLabel color='swxSlightlyBlack' size='semiMedium' weight='semiBold'>
+            <SwxTypography color='swxSlightlyBlack' size='semiMedium' weight='thin'>
                 First Name
-            </StyledLabel>
+            </SwxTypography>
         ),
         placeholder: 'Employee first name',
         required: 'Enter first name',
@@ -31,9 +31,9 @@ function AddEmployeeStep1() {
 
     const emailProps = {
         label: (
-            <StyledLabel color='swxSlightlyBlack' size='semiMedium' weight='semiBold'>
+            <SwxTypography color='swxSlightlyBlack' size='semiMedium' weight='thin'>
                 Email
-            </StyledLabel>
+            </SwxTypography>
         ),
         placeholder: 'Employee email',
         required: 'Enter email',
@@ -41,9 +41,9 @@ function AddEmployeeStep1() {
 
     const passwordProps = {
         label: (
-            <StyledLabel color='swxSlightlyBlack' size='semiMedium' weight='semiBold'>
+            <SwxTypography color='swxSlightlyBlack' size='semiMedium' weight='thin'>
                 Password
-            </StyledLabel>
+            </SwxTypography>
         ),
         type: 'password',
         placeholder: 'Employee password',
@@ -52,9 +52,9 @@ function AddEmployeeStep1() {
 
     const addressLine1Props = {
         label: (
-            <StyledLabel color='swxSlightlyBlack' size='semiMedium' weight='semiBold'>
+            <SwxTypography color='swxSlightlyBlack' size='semiMedium' weight='thin'>
                 Address
-            </StyledLabel>
+            </SwxTypography>
         ),
         placeholder: 'Employee address',
         required: 'Enter address',
@@ -62,9 +62,9 @@ function AddEmployeeStep1() {
 
     const addressLine2Props = {
         label: (
-            <StyledLabel color='swxSlightlyBlack' size='semiMedium' weight='semiBold'>
+            <SwxTypography color='swxSlightlyBlack' size='semiMedium' weight='thin'>
                 Address line 2
-            </StyledLabel>
+            </SwxTypography>
         ),
         placeholder: 'Employee address',
         required: 'Enter address',
@@ -72,9 +72,9 @@ function AddEmployeeStep1() {
 
     const lastNameProps = {
         label: (
-            <StyledLabel color='swxSlightlyBlack' size='semiMedium' weight='semiBold'>
+            <SwxTypography color='swxSlightlyBlack' size='semiMedium' weight='thin'>
                 Last Name
-            </StyledLabel>
+            </SwxTypography>
         ),
         placeholder: 'Employee last name',
         required: 'Enter last name',
@@ -82,18 +82,19 @@ function AddEmployeeStep1() {
 
     const phoneNumberProps = {
         label: (
-            <StyledLabel color='swxSlightlyBlack' size='semiMedium' weight='semiBold'>
+            <SwxTypography color='swxSlightlyBlack' size='semiMedium' weight='thin'>
                 Phone number
-            </StyledLabel>
+            </SwxTypography>
         ),
+        width: '100%',
         required: 'Enter phone number',
     };
 
     const cityProps = {
         label: (
-            <StyledLabel color='swxSlightlyBlack' size='semiMedium' weight='semiBold'>
+            <SwxTypography color='swxSlightlyBlack' size='semiMedium' weight='thin'>
                 City
-            </StyledLabel>
+            </SwxTypography>
         ),
         placeholder: 'City',
         required: 'Enter city',
@@ -101,9 +102,9 @@ function AddEmployeeStep1() {
 
     const zipProps = {
         label: (
-            <StyledLabel color='swxSlightlyBlack' size='semiMedium' weight='semiBold'>
+            <SwxTypography color='swxSlightlyBlack' size='semiMedium' weight='thin'>
                 ZIP Code
-            </StyledLabel>
+            </SwxTypography>
         ),
         placeholder: 'XXXXX',
         type: 'number',
@@ -112,63 +113,64 @@ function AddEmployeeStep1() {
 
     const dateProps = {
         label: (
-            <StyledLabel color='swxSlightlyBlack' size='semiMedium' weight='semiBold'>
+            <SwxTypography color='swxSlightlyBlack' size='semiMedium' weight='thin'>
                 Date of Birth
-            </StyledLabel>
+            </SwxTypography>
         ),
         multiple: false,
+        width: '100%',
         required: true,
         range: false,
     };
 
     const stateProps = {
-        outsideLabel: () => {
-            return (
-                <StyledLabel color='swxSlightlyBlack' size='semiMedium' weight='semiBold'>
-                    State
-                </StyledLabel>
-            );
-        },
+        label: (
+            <SwxTypography color='swxSlightlyBlack' size='semiMedium' weight='thin'>
+                State
+            </SwxTypography>
+        ),
         options: UsStates,
+        width: '100%',
         multiple: false,
     };
 
     return (
         <>
-            <HeadingsContainer>
-                <StyledText color='swxBlack' size='semiLarge' weight='bold'>
+            <Stack direction='column' spacing={1} sx={{ padding: '0px 24px' }}>
+                <SwxTypography color='swxBlack' size='semiLarge' weight='bold'>
                     Profile Information
-                </StyledText>
-                <StyledText color='lightGray' size='small' weight='thin'>
+                </SwxTypography>
+                <SwxTypography color='lightGray' size='small' weight='thin'>
                     Add employee profile information here
-                </StyledText>
-            </HeadingsContainer>
+                </SwxTypography>
+            </Stack>
             <Form>
-                <RowContainer>
-                    <InputField name='first_name' SWXInputProps={firstNameProps} />
-                    <InputField name='last_name' SWXInputProps={lastNameProps} />
-                </RowContainer>
-                <RowContainer>
-                    <DatePickerField name='date_of_birth' SWXInputProps={dateProps} />
-                    <PhoneNumberField name='phone_number' SWXInputProps={phoneNumberProps} />
-                </RowContainer>
-                <RowContainer>
-                    <InputField name='email' SWXInputProps={emailProps} />
-                    <InputField name='password' SWXInputProps={passwordProps} />
-                </RowContainer>
-                <Hr />
-                <RowContainer>
-                    <InputField name='address1' SWXInputProps={addressLine1Props} />
-                    <InputField name='address2' SWXInputProps={addressLine2Props} />
-                </RowContainer>
-                <RowContainer>
-                    <InputField name='city' SWXInputProps={cityProps} />
-                    <div>
-                        <SelectField1 name='State' value='' SWXInputProps={stateProps} />
-                        <InputField name='zipcode' SWXInputProps={zipProps} />
-                    </div>
-                </RowContainer>
-                {/* {footer} */}
+                <Stack direction='column' spacing={3}>
+                    <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2} sx={{ padding: '0px 24px' }}>
+                        <InputField name='first_name' SWXInputProps={firstNameProps} />
+                        <InputField name='last_name' SWXInputProps={lastNameProps} />
+                    </Stack>
+                    <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2} sx={{ padding: '0px 24px' }}>
+                        <DatePickerField name='date_of_birth' SWXInputProps={dateProps} />
+                        <PhoneNumberField name='phone_number' SWXInputProps={phoneNumberProps} />
+                    </Stack>
+                    <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2} sx={{ padding: '0px 24px' }}>
+                        <InputField name='email' SWXInputProps={emailProps} />
+                        <InputField name='password' SWXInputProps={passwordProps} />
+                    </Stack>
+                    <Divider orientation='vertical' flexItem />
+                    <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2} sx={{ padding: '0px 24px' }}>
+                        <InputField name='address1' SWXInputProps={addressLine1Props} />
+                        <InputField name='address2' SWXInputProps={addressLine2Props} />
+                    </Stack>
+                    <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2} sx={{ padding: '0px 24px' }}>
+                        <InputField name='city' SWXInputProps={cityProps} />
+                        <Stack direction='row' spacing={2} style={{ width: '100%' }}>
+                            <SelectField name='State' value='' SWXInputProps={stateProps} />
+                            <InputField name='zipcode' SWXInputProps={zipProps} />
+                        </Stack>
+                    </Stack>
+                </Stack>
                 <FooterContainer>
                     <SwxButton variant='text'>Cancel</SwxButton>
                     <FormSubmitButton variant='contained' buttonName='Next' />

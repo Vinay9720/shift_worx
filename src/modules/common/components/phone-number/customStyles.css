@@ -1,0 +1,8 @@
+.ReactPhoneInput__icon {
+    display: none;
+}
+
+/* Adjust the input width to make space for the country code */
+.ReactPhoneInput__input {
+    padding-left: 30px; /* Adjust this value according to your preference */
+}
