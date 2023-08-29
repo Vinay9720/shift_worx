@@ -18,13 +18,14 @@ const SelectField = props => {
                 return (
                     <SwxSelect
                         width={SWXInputProps.width}
+                        placeholder={SWXInputProps.placeholder}
                         options={SWXInputProps.options || []}
                         errorText={error?.message}
                         label={SWXInputProps.label}
                         multiple={SWXInputProps.multiple}
                         outsideLabel={SWXInputProps.outsideLabel}
                         value={field.value || ''}
-                        onChange={evt => field.onChange(evt.target.value)}
+                        onChange={field.onChange}
                     />
                 );
             }}

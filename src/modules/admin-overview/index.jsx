@@ -1,14 +1,54 @@
 import { useMemo } from 'react';
 import { Stack, Avatar, IconButton } from '@mui/material';
+import { capitalize } from 'lodash';
+
+import { useEmployees } from '@/hooks/admin-employee';
 
 import { WidgetCardsContainer } from './admin-overview.styles';
 
 import { SearchFilter, WidgetCard } from '../common/layout';
-import { SwxDataGrid, SwxChip, SwxTypography, SwxLinearProgress } from '../common/components';
+import { SwxDataGrid, SwxChip, SwxTypography, SwxLinearProgress, SwxPopupMenu } from '../common/components';
 import { Icon } from '../common/icons';
 import AddEmployee from '../add-employee';
+import SwxPagination from '../common/layout/pagination';
 
 export default function AdminOverview() {
+    const { data: overviewData, isSuccess } = useEmployees();
+
+    const employees = useMemo(() => {
+        if (isSuccess) {
+            return (overviewData.employees || []).map(employee => employee.user);
+        }
+        return [];
+    }, [overviewData]);
+
+    const menuOptions = [
+        {
+            label: 'Send Message',
+            action: () => {
+                console.log('send message clicked');
+            },
+        },
+        {
+            label: 'Edit Employee',
+            action: () => {
+                console.log('Edit Employee clicked');
+            },
+        },
+        {
+            label: 'Note',
+            action: () => {
+                console.log('send message clicked');
+            },
+        },
+        {
+            label: 'Delete Employee',
+            action: () => {
+                console.log('send message clicked');
+            },
+        },
+    ];
+
     const columns = [
         {
             field: 'fullName',
@@ -16,10 +56,10 @@ export default function AdminOverview() {
             width: 300,
             renderCell: params => (
                 <Stack direction='row' spacing={1} alignItems='center'>
-                    <Avatar sx={{ width: 32, height: 32 }}>{`${params.row.firstName.split('')[0] || ''}${
-                        params.row.lastName.split('')[0] || ''
+                    <Avatar sx={{ width: 32, height: 32 }}>{`${params.row.first_name.split('')[0] || ''}${
+                        params.row.last_name.split('')[0] || ''
                     }`}</Avatar>
-                    <SwxTypography>{`${params.row.firstName || ''} ${params.row.lastName || ''}`}</SwxTypography>
+                    <SwxTypography>{`${params.row.first_name || ''} ${params.row.last_name || ''}`}</SwxTypography>
                 </Stack>
             ),
             align: 'left',
@@ -35,7 +75,9 @@ export default function AdminOverview() {
             minWidth: 120,
             sortable: false,
             filterable: false,
-            renderCell: params => <SwxChip label={params.value} color='white' background='swxBlue' size='semiMedium' />,
+            renderCell: params => (
+                <SwxChip label={params.value || 'RN'} color='white' background='swxBlue' size='semiMedium' />
+            ),
         },
         {
             field: 'status',
@@ -45,7 +87,7 @@ export default function AdminOverview() {
             // flex: 1,
             renderCell: params => (
                 <SwxChip
-                    label={params.value}
+                    label={capitalize(params.value)}
                     kind='rounded'
                     color='swxBlack'
                     background='lightPink'
@@ -84,7 +126,7 @@ export default function AdminOverview() {
             flex: 1,
             sortable: false,
             filterable: false,
-            renderCell: params => <SwxLinearProgress value={params.value} />,
+            renderCell: params => <SwxLinearProgress value={params.value || 40} />,
             minWidth: 120,
         },
         {
@@ -94,113 +136,21 @@ export default function AdminOverview() {
             sortable: false,
             filterable: false,
             renderCell: () => (
-                <IconButton>
-                    <Icon styles={{ fill: '#838A91' }} name='vertical-menu' aria-hidden='true' height={15} width={10} />
-                </IconButton>
+                <SwxPopupMenu
+                    buttonElement={
+                        <IconButton>
+                            <Icon
+                                styles={{ fill: '#838A91' }}
+                                name='vertical-menu'
+                                aria-hidden='true'
+                                height={15}
+                                width={10}
+                            />
+                        </IconButton>
+                    }
+                    options={menuOptions}
+                />
             ),
-        },
-    ];
-
-    const rows = [
-        {
-            id: 1,
-            firstName: 'Ross',
-            lastName: 'Geller',
-            role: 'RN',
-            status: 'Active',
-            lastShift: 'Jan 4, 2023',
-            nextShift: 'Jan 4, 2023',
-            utilization: 30,
-        },
-        {
-            id: 2,
-            firstName: 'Rachel',
-            lastName: 'Green',
-            role: 'RN',
-            status: 'Active',
-            lastShift: 'Jan 4, 2023',
-            nextShift: 'Jan 4, 2023',
-            utilization: 70,
-        },
-        {
-            id: 3,
-            firstName: 'Monica',
-            lastName: 'Geller',
-            role: 'LPN',
-            status: 'Inactive',
-            lastShift: 'Jan 6, 2023',
-            nextShift: 'Jan 10, 2023',
-            utilization: 40,
-        },
-        {
-            id: 4,
-            firstName: 'Joe',
-            lastName: 'Tribiani',
-            role: 'LPN',
-            status: 'Active',
-            lastShift: 'Jan 1, 2023',
-            nextShift: 'Jan 23, 2023',
-            utilization: 90,
-        },
-        {
-            id: 5,
-            firstName: 'Pheobe',
-            lastName: 'Buffey',
-            role: 'RN',
-            status: 'Active',
-            lastShift: 'Jan 4, 2023',
-            nextShift: 'Jan 4, 2023',
-            utilization: 97,
-        },
-        {
-            id: 6,
-            firstName: 'Ross',
-            lastName: 'Geller',
-            role: 'RN',
-            status: 'Active',
-            lastShift: 'Jan 4, 2023',
-            nextShift: 'Jan 4, 2023',
-            utilization: 30,
-        },
-        {
-            id: 7,
-            firstName: 'Rachel',
-            lastName: 'Green',
-            role: 'RN',
-            status: 'Active',
-            lastShift: 'Jan 4, 2023',
-            nextShift: 'Jan 4, 2023',
-            utilization: 70,
-        },
-        {
-            id: 8,
-            firstName: 'Monica',
-            lastName: 'Geller',
-            role: 'LPN',
-            status: 'Inactive',
-            lastShift: 'Jan 6, 2023',
-            nextShift: 'Jan 10, 2023',
-            utilization: 40,
-        },
-        {
-            id: 9,
-            firstName: 'Joe',
-            lastName: 'Tribiani',
-            role: 'LPN',
-            status: 'Active',
-            lastShift: 'Jan 1, 2023',
-            nextShift: 'Jan 23, 2023',
-            utilization: 90,
-        },
-        {
-            id: 10,
-            firstName: 'Pheobe',
-            lastName: 'Buffey',
-            role: 'RN',
-            status: 'Active',
-            lastShift: 'Jan 4, 2023',
-            nextShift: 'Jan 4, 2023',
-            utilization: 97,
         },
     ];
 
@@ -230,6 +180,7 @@ export default function AdminOverview() {
         ],
         []
     );
+
     return (
         <>
             <WidgetCardsContainer>
@@ -247,7 +198,8 @@ export default function AdminOverview() {
                 })}
             </WidgetCardsContainer>
             <SearchFilter actionButton={AddEmployee} />
-            <SwxDataGrid rows={rows} columns={columns} />
+            <SwxDataGrid rows={employees} columns={columns} />
+            <SwxPagination itemsPerPageOptions={['5', '10', '15']} style={{ marginBottom: '20px' }} />
         </>
     );
 }

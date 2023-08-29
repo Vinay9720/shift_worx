@@ -32,8 +32,8 @@ export const StyledButton = styled(Button)`
             : variant === 'outlined'
             ? `
           padding: ${padding || '15px 50px'} !important;
-          border: 2px solid ${theme.backgroundColor.darkBlue} !important;
-          color: ${theme.fontColor.darkBlue} !important;
+          border: 2px solid ${theme.fontColor[themecolor || 'darkBlue']} !important;
+          color: ${theme.fontColor[themecolor || 'darkBlue']} !important;
           font-size: ${theme.fontSize[size || 'medium']} !important;
           font-weight: ${theme.fontWeight.semiBold} !important;
           border-radius: ${theme.borderRadius[radius || 'small']} !important;

@@ -19,6 +19,7 @@ export const StyledPhone = styled(Input)`
             border-radius: ${theme.borderRadius.small};
             color: ${theme.fontColor.swxSlightlyBlack};
             background-color: ${theme.backgroundColor.white};
+            font-size: ${theme.fontSize.semiMedium};
             border: 1px solid ${theme.borderColor.lightGray};
         `}
     }

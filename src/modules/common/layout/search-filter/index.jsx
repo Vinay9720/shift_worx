@@ -1,20 +1,10 @@
 'use client';
 
 import { useState } from 'react';
-import styled from 'styled-components';
+import { Stack } from '@mui/material';
 
 import { SwxInput, SwxSelect, SwxMultiSelect, SwxButton } from '../../components';
 import { Icon } from '../../icons';
-
-const SearchFilterContainer = styled.div`
-    display: flex;
-    justify-content: space-between;
-`;
-
-const LeftContent = styled.div`
-    display: flex;
-    gap: 1rem;
-`;
 
 function SearchFilter({ actionButton: ActionButton }) {
     const [multiple, setMultiple] = useState([]);
@@ -24,8 +14,8 @@ function SearchFilter({ actionButton: ActionButton }) {
     };
 
     return (
-        <SearchFilterContainer>
-            <LeftContent>
+        <Stack direction='row' justifyContent='space-between'>
+            <Stack direction='row' spacing={2}>
                 <SwxInput
                     type='text'
                     style={{ width: '20rem' }}
@@ -52,9 +42,9 @@ function SearchFilter({ actionButton: ActionButton }) {
                     variant='text'>
                     Clear all
                 </SwxButton>
-            </LeftContent>
+            </Stack>
             <ActionButton />
-        </SearchFilterContainer>
+        </Stack>
     );
 }
 

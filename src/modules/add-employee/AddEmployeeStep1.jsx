@@ -130,6 +130,7 @@ function AddEmployeeStep1() {
             </SwxTypography>
         ),
         options: UsStates,
+        placeholder: 'state',
         width: '100%',
         multiple: false,
     };
@@ -166,7 +167,7 @@ function AddEmployeeStep1() {
                     <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2} sx={{ padding: '0px 24px' }}>
                         <InputField name='city' SWXInputProps={cityProps} />
                         <Stack direction='row' spacing={2} style={{ width: '100%' }}>
-                            <SelectField name='State' value='' SWXInputProps={stateProps} />
+                            <SelectField name='State' SWXInputProps={stateProps} />
                             <InputField name='zipcode' SWXInputProps={zipProps} />
                         </Stack>
                     </Stack>

@@ -5,6 +5,7 @@ export const white = {
         darkBlue: '#1F6FA9',
         white: '#FFFFFF',
         lightGray: '#838A91',
+        lighterGray: '#E6E8E9',
         darkestGray: '#373E40',
         swxBlack: '#030303',
         mediumGreen: '#1DB304',

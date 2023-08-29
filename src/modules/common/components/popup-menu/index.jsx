@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/no-static-element-interactions */
 import { useState } from 'react';
 import Box from '@mui/material/Box';
 import Menu from '@mui/material/Menu';
@@ -17,9 +18,9 @@ export default function SwxPopupMenu({ buttonElement, options }) {
         <>
             <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
                 <Tooltip title='Account settings'>
-                    <button style={{ background: 'none', border: 'none' }} onClick={handleClick}>
+                    <div style={{ background: 'none', border: 'none', display: 'inline-block' }} onClick={handleClick}>
                         {buttonElement || 'menu'}
-                    </button>
+                    </div>
                 </Tooltip>
             </Box>
             <Menu
@@ -60,8 +61,8 @@ export default function SwxPopupMenu({ buttonElement, options }) {
                 anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}>
                 {options.map((item, index) => {
                     return (
-                        <MenuItem key={index} onClick={item.event}>
-                            {item.component}
+                        <MenuItem key={index} onClick={item.action}>
+                            {item.label}
                         </MenuItem>
                     );
                 })}

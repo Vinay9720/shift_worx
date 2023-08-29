@@ -6,10 +6,7 @@ import { Stack } from '@mui/material';
 
 import { StyledAutoCompleteSelect } from './select.styles';
 
-const options = ['Option 1', 'Option 2'];
-
-export default function SwxSelect({ width, style, label }) {
-    const [value, setValue] = useState(null);
+export default function SwxSelect({ width, style, label, options, value, onChange, placeholder, ...rest }) {
     const [inputValue, setInputValue] = useState('');
 
     return (
@@ -18,7 +15,7 @@ export default function SwxSelect({ width, style, label }) {
             <StyledAutoCompleteSelect
                 value={value}
                 onChange={(event, newValue) => {
-                    setValue(newValue);
+                    onChange(newValue);
                 }}
                 style={{ width, ...style }}
                 inputValue={inputValue}
@@ -29,16 +26,16 @@ export default function SwxSelect({ width, style, label }) {
                 // popupIcon={
                 //     <Icon styles={{ fill: '#838A91' }} name='select-down-arrow' aria-hidden='true' height={18} width={16} />
                 // }
-                id='controllable-states'
-                options={options}
-                // sx={{ width: 300 }}
+                id={`single-select-${label}`}
+                options={options || []}
+                {...rest}
                 renderInput={params => (
                     <TextField
                         {...params}
                         InputLabelProps={{
                             shrink: false,
                         }}
-                        placeholder='Status'
+                        placeholder={placeholder}
                     />
                 )}
             />

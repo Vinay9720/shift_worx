@@ -24,7 +24,7 @@ export const ADMIN_NAV_LINKS = [
     },
     {
         label: 'Employees',
-        destination: '/admin/employees',
+        destination: '/admin/employees/?step=overview',
     },
     {
         label: 'Reports',

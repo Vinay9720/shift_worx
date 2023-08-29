@@ -16,7 +16,7 @@ const NavBar = ({ navLinks }) => {
     const { data } = useSession();
     const router = useRouter();
     const isActive = href => {
-        return pathname.includes(href);
+        return href.includes(pathname);
     };
 
     const getIconName = label => {
