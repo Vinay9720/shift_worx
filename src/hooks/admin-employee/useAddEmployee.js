@@ -1,30 +1,54 @@
+/* eslint-disable prefer-destructuring */
 import { useMutation } from 'react-query';
+import { useDispatch, useSelector } from 'react-redux';
+
 import AdminEmployeeService from '@/services/admin-employee';
-import { setCurrentStep } from '@/lib/store/slices/add-employee-steps-slice';
-// import { useRouter } from 'next/navigation';
-// import { getSession, signIn } from 'next-auth/react';
-
-// import { redirectUser } from '@/lib/util';
-
-// const userSignIn = credentials => {
-//     return signIn('credentials', {
-//         email: credentials.email,
-//         password: credentials.password,
-//         redirect: false,
-//     });
-// };
+import {
+    closeAddCertificateForm,
+    handleNext,
+    setFacilityUserId,
+    setCertificates,
+} from '@/lib/store/slices/add-employee-module';
 
 export const useAddEmployee = () => {
-    // const router = useRouter();
-    return useMutation(AdminEmployeeService.addEmployee, {
+    const { currentStepName, currentStep, facilityUserId } = useSelector(state => state.addEmployeeModule);
+    const dispatch = useDispatch();
+    const isCertificationStep = currentStep === 3;
+
+    const addEmployee = employeeData => {
+        const profileableAttributes = {
+            profileable_attributes: {
+                facility_id: 1,
+            },
+            profileable_type: 'Nurse',
+        };
+
+        const nurseCertificateDetails = { nurse_certificate: { ...employeeData } };
+        if (isCertificationStep) {
+            nurseCertificateDetails.nurse_certificate.certificate_id = employeeData.certificate_id[0];
+            nurseCertificateDetails.nurse_certificate.jurisdiction = employeeData.jurisdiction[0];
+        }
+
+        const payload = {
+            user: { ...(!isCertificationStep ? employeeData : {}), ...profileableAttributes },
+            step: currentStepName,
+            ...(isCertificationStep ? nurseCertificateDetails : {}),
+            ...(facilityUserId ? { facility_user_id: facilityUserId } : {}),
+        };
+        return AdminEmployeeService.addEmployee(payload);
+    };
+
+    return useMutation(addEmployee, {
         onSuccess: async response => {
-            debugger
-            // const session = await getSession();
-            // if (response.status === 200 && session) {
-            //     redirectUser(session, router);
-            // } else if (response.status === 401) {
-            //     console.log('error', 'Invalid credentials');
-            // }
+            if (currentStep !== 3) {
+                dispatch(handleNext());
+                dispatch(setFacilityUserId(response.data.facility_user.id));
+            }
+            dispatch(closeAddCertificateForm());
+            dispatch(setCertificates(response.data.certificates));
+        },
+        onError: error => {
+            console.log('error', error.response.data.errors[0]);
         },
     });
 };

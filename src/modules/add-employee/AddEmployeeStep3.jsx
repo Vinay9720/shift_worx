@@ -1,12 +1,13 @@
 'use client';
 
-import { useState } from 'react';
 import { isEmpty } from 'lodash';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Divider, Stack } from '@mui/material';
+import { useQueryClient } from 'react-query';
 
 import { getS3Url } from '@/lib/util';
 import { closeModal } from '@/lib/store/slices/modal-slice';
+import { openAddCertificateForm } from '@/lib/store/slices/add-employee-module';
 
 import {
     FooterContainer,
@@ -26,20 +27,12 @@ import AddCerfification from '../add-certificate';
 
 function AddEmployeeStep3() {
     const dispatch = useDispatch();
-    const [isCertificationPopUp, setIsCertificationPopUp] = useState(false);
-    const certificates = [
-        {
-            name: 'RN',
-            file_upload_key: '4543',
-            effective_date: '23/2/2023',
-            expiration_date: '23/2/2023',
-            jurisdiction: 'AL',
-            speciality: ['one', 'two', 'three'],
-        },
-    ];
+    const queryClient = useQueryClient();
+    const { addingCertificate, certificates } = useSelector(state => state.addEmployeeModule);
 
     const onSubmit = () => {
-        console.log('step3 sumit');
+        queryClient.invalidateQueries('admin-employees');
+        dispatch(closeModal());
     };
     return (
         <>
@@ -51,7 +44,7 @@ function AddEmployeeStep3() {
                     Select certifications and specialities
                 </SwxTypography>
             </Stack>
-            {!isCertificationPopUp ? (
+            {!addingCertificate ? (
                 <>
                     <CertificationsWrapper>
                         <SwxTypography
@@ -171,7 +164,7 @@ function AddEmployeeStep3() {
                                 })}
                         </CertificationsContainer>
                         <SwxButton
-                            onClick={() => setIsCertificationPopUp(true)}
+                            onClick={() => dispatch(openAddCertificateForm())}
                             startIcon={<Icon width={17} height={12} name='addition' styles={{ fill: '#1F6FA9' }} />}
                             size='medium'
                             variant='text'

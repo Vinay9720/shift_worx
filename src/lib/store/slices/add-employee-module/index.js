@@ -12,13 +12,16 @@ const initialState = {
     isPreviousStep: false,
     isNextStep: true,
     currentStepName: 'profile_information',
+    facilityUserId: null,
+    addingCertificate: false,
+    certificates: [],
 };
 
 const addEmployeeModule = createSlice({
     name: 'addEmployeeModule',
     initialState,
     reducers: {
-        HandleNext: state => {
+        handleNext: state => {
             const nextStep = state.currentStep + 1;
             state.currentStep = nextStep;
             state.currentStepName = stepsMap[nextStep];
@@ -49,8 +52,28 @@ const addEmployeeModule = createSlice({
                 state.isNextStep = true;
             }
         },
+        setFacilityUserId: (state, action) => {
+            state.facilityUserId = action.payload;
+        },
+        openAddCertificateForm: state => {
+            state.addingCertificate = true;
+        },
+        closeAddCertificateForm: state => {
+            state.addingCertificate = false;
+        },
+        setCertificates: (state, action) => {
+            state.certificates = action.payload;
+        },
     },
 });
 
-export const { HandleNext, handlePrevious, setCurrentStep } = addEmployeeModule.actions;
+export const {
+    handleNext,
+    handlePrevious,
+    setCurrentStep,
+    setFacilityUserId,
+    openAddCertificateForm,
+    closeAddCertificateForm,
+    setCertificates,
+} = addEmployeeModule.actions;
 export default addEmployeeModule.reducer;

@@ -2,20 +2,22 @@
 
 'use client';
 
-import { useState } from 'react';
 import { Stack } from '@mui/material';
+import { useDispatch } from 'react-redux';
 
 import { statesWithkeys } from '@/lib/constants';
-// import { addEmployee } from '@/redux/actions/thunks/employees';
 import { restrictEmptyArray } from '@/lib/validators';
-import { useFacilityOptions, useCertificateOptions, useFileUpload } from '@/hooks';
+import { useFacilityOptions, useCertificateOptions, useFileUpload, useAddEmployee } from '@/hooks';
+import { closeAddCertificateForm } from '@/lib/store/slices/add-employee-module';
 
 import { Form, InputField, DatePickerField, ListBoxField, FormSubmitButton } from '../common/form-components';
 import { SwxTypography, SwxButton } from '../common/components';
 
-function AddCerfification({ setIsCertificationPopUp, defaultValues, updateCertificate }) {
-    const { mutate: upload, data: fileUploadData, isImageLoading } = useFileUpload();
-    const [formValues, setFormValues] = useState(null);
+function AddCerfification({ defaultValues }) {
+    const { mutate: upload, isImageLoading } = useFileUpload();
+    const dispatch = useDispatch();
+
+    const { mutate: addEmployee } = useAddEmployee();
     const { data: certificationOptions, isLoading: isCertificateOptionsLoading } = useCertificateOptions();
     const { data: facilityOptions, isLoading: isFacilityOptionsLoading } = useFacilityOptions();
 
@@ -85,60 +87,8 @@ function AddCerfification({ setIsCertificationPopUp, defaultValues, updateCertif
         }
     };
 
-    const saveCertificate = () => {
-        const profileableAttributes = {
-            profileable_attributes: {
-                facility_id: 1,
-            },
-            profileable_type: 'Nurse',
-        };
-        const certificationDetails = {
-            nurse_certificate: {
-                ...formValues,
-                file_upload_key: fileUploadData,
-            },
-        };
-
-        certificationDetails.nurse_certificate.certificate_id = formValues.certificate_id[0];
-        certificationDetails.nurse_certificate.jurisdiction = formValues.jurisdiction[0];
-
-        // dispatch(
-        //     addEmployee({
-        //         employee: {
-        //             user: { ...profileableAttributes },
-        //             step: 'certificates',
-        //             ...certificationDetails,
-        //             facility_user_id: employee.id,
-        //         },
-        //     })
-        // ).then(res => {
-        //     if (res.payload && res.payload.certificates) {
-        //         dispatch(addEmployeeCertificates(res.payload.certificates));
-        //     } else {
-        //         console.log('error', 'Please try again later.');
-        //     }
-        // });
-    };
-
     const onFormStateChange = values => {
-        setFormValues(values);
-    };
-
-    const onSave = event => {
-        event.preventDefault();
-        const certificationDetails = {
-            nurse_certificate: {
-                ...formValues,
-                file_upload_key: fileUploadData,
-            },
-        };
-        certificationDetails.nurse_certificate.certificate_id = formValues.certificate_id[0];
-        certificationDetails.nurse_certificate.jurisdiction = formValues.jurisdiction[0];
-        if (updateCertificate) {
-            updateCertificate(certificationDetails);
-        } else {
-            saveCertificate();
-        }
+        console.log(values);
     };
 
     if (isCertificateOptionsLoading || isFacilityOptionsLoading) {
@@ -147,7 +97,7 @@ function AddCerfification({ setIsCertificationPopUp, defaultValues, updateCertif
 
     return (
         <Stack direction='column' spacing={3} style={{ padding: '52px 140px 13px 160px' }}>
-            <Form onSubmit={onSave} defaultValues={defaultValues} onFormStateChange={onFormStateChange}>
+            <Form onSubmit={addEmployee} defaultValues={defaultValues} onFormStateChange={onFormStateChange}>
                 <Stack direction='column' spacing={3} style={{ width: '100%' }}>
                     <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2} sx={{ padding: '0px 24px' }}>
                         <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', width: '100%' }}>
@@ -214,7 +164,7 @@ function AddCerfification({ setIsCertificationPopUp, defaultValues, updateCertif
                         <div style={{ display: 'flex', gap: '8px' }}>
                             <SwxButton
                                 size='small'
-                                onClick={() => setIsCertificationPopUp(false)}
+                                onClick={() => dispatch(closeAddCertificateForm())}
                                 padding='6px 24px'
                                 radius='large'
                                 variant='outlined'
@@ -223,7 +173,6 @@ function AddCerfification({ setIsCertificationPopUp, defaultValues, updateCertif
                             </SwxButton>
                             <FormSubmitButton
                                 size='small'
-                                onClick={onSave}
                                 padding='6px 24px'
                                 radius='large'
                                 variant='contained'

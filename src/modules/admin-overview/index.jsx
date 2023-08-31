@@ -14,6 +14,7 @@ import SwxPagination from '../common/layout/pagination';
 
 export default function AdminOverview() {
     const { data: overviewData, isSuccess } = useEmployees();
+    console.log('overviewData', overviewData);
 
     const employees = useMemo(() => {
         if (isSuccess) {
@@ -105,6 +106,7 @@ export default function AdminOverview() {
             align: 'left',
             // flex: 1,
             sortable: false,
+            valueGetter: params => params.value || 'Jan 23, 2023',
             filterable: false,
             minWidth: 120,
         },
@@ -115,6 +117,7 @@ export default function AdminOverview() {
             align: 'left',
             // flex: 1,
             sortable: false,
+            valueGetter: params => params.value || 'Jan 28, 2023',
             filterable: false,
             minWidth: 120,
         },
@@ -159,7 +162,7 @@ export default function AdminOverview() {
             {
                 title: 'Total Employees',
                 iconName: 'people-group',
-                totalCount: 12,
+                totalCount: overviewData ? overviewData.paginationData.total_count : 0,
                 percentage: '80%',
                 badgeArrow: 'up-arrow',
             },
@@ -178,7 +181,7 @@ export default function AdminOverview() {
                 badgeArrow: 'down-arrow',
             },
         ],
-        []
+        [overviewData]
     );
 
     return (

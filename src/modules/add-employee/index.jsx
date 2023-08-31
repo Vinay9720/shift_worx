@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Modal } from '@mui/material';
 
 import { openModal, closeModal } from '@/lib/store/slices/modal-slice';
-import { setCurrentStep } from '@/lib/store/slices/add-employee-steps-slice';
+import { setCurrentStep } from '@/lib/store/slices/add-employee-module';
 
 import {
     ModalContainer,
@@ -29,6 +29,7 @@ export default function AddEmployee() {
     const dispatch = useDispatch();
     const { isOpen } = useSelector(state => state.modal);
     const { currentStep } = useSelector(state => state.addEmployeeModule);
+    console.log('current step', currentStep);
 
     const renderFooterSection = () => {
         return (

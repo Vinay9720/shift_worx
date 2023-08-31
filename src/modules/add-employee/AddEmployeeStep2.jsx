@@ -1,9 +1,9 @@
 'use client';
 
-import { useDispatch } from 'react-redux';
 import { Divider, Stack } from '@mui/material';
 
-import { setCurrentStep } from '@/lib/store/slices/add-employee-steps-slice';
+// import { setCurrentStep } from '@/lib/store/slices/add-employee-module';
+import { useAddEmployee } from '@/hooks';
 
 import { FooterContainer } from './add-employee.styles';
 
@@ -11,7 +11,7 @@ import { SwxButton, SwxTypography } from '../common/components';
 import { Form, InputField, DatePickerField, FormSubmitButton } from '../common/form-components';
 
 function AddEmployeeStep2() {
-    const dispatch = useDispatch();
+    const { mutate: addEmployee } = useAddEmployee();
 
     const ssnProps = {
         label: (
@@ -53,9 +53,9 @@ function AddEmployeeStep2() {
         required: true,
     };
 
-    const onSubmit = userData => {
-        dispatch(setCurrentStep(3));
-    };
+    // const onSubmit = userData => {
+    //     dispatch(setCurrentStep(3));
+    // };
 
     return (
         <>
@@ -67,7 +67,7 @@ function AddEmployeeStep2() {
                     Upload employee personal documents
                 </SwxTypography>
             </Stack>
-            <Form onSubmit={onSubmit} styles='flex flex-col gap-y-5'>
+            <Form onSubmit={addEmployee} styles='flex flex-col gap-y-5'>
                 <Stack direction='column' spacing={3}>
                     <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2} sx={{ padding: '0px 24px' }}>
                         <InputField name='ssn' SWXInputProps={ssnProps} />
