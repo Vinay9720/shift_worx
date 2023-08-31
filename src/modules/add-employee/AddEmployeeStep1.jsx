@@ -3,6 +3,7 @@
 import { Divider, Stack } from '@mui/material';
 
 import { UsStates } from '@/lib/constants';
+import { useAddEmployee } from '@/hooks';
 
 import { FooterContainer } from './add-employee.styles';
 
@@ -17,8 +18,7 @@ import {
 } from '../common/form-components';
 
 function AddEmployeeStep1() {
-    // const dispatch = useDispatch();
-
+    const { mutate: addEmployee } = useAddEmployee();
     const firstNameProps = {
         label: (
             <SwxTypography color='swxSlightlyBlack' size='semiMedium' weight='thin'>

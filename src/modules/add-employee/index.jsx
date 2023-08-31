@@ -28,7 +28,7 @@ import { SwxButton, SwxTypography } from '../common/components';
 export default function AddEmployee() {
     const dispatch = useDispatch();
     const { isOpen } = useSelector(state => state.modal);
-    const { currentStep } = useSelector(state => state.addEmployeeSteps);
+    const { currentStep } = useSelector(state => state.addEmployeeModule);
 
     const renderFooterSection = () => {
         return (

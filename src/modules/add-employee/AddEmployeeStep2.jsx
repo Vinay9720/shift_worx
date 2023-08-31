@@ -54,7 +54,6 @@ function AddEmployeeStep2() {
     };
 
     const onSubmit = userData => {
-        console.log('step 2', userData);
         dispatch(setCurrentStep(3));
     };
 

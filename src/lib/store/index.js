@@ -2,12 +2,12 @@ import { configureStore, combineReducers } from '@reduxjs/toolkit';
 import thunk from 'redux-thunk';
 
 import ModalReducer from './slices/modal-slice';
-import addEmployeeStepsReducer from './slices/add-employee-steps-slice';
+import addEmployeeModuleReducer from './slices/add-employee-steps-slice';
 import paginationSlice from './slices/paginationSlice';
 
 const rootReducer = combineReducers({
     modal: ModalReducer,
-    addEmployeeSteps: addEmployeeStepsReducer,
+    addEmployeeModule: addEmployeeModuleReducer,
     pagination: paginationSlice,
 });
 

@@ -1,18 +1,27 @@
 import { createSlice } from '@reduxjs/toolkit';
 
+const stepsMap = {
+    1: 'profile_information',
+    2: 'personal_documents',
+    3: 'certificates',
+};
+
 const initialState = {
     currentStep: 1,
     totalSteps: 3,
     isPreviousStep: false,
     isNextStep: true,
+    currentStepName: 'profile_information',
 };
 
-const addEmployeeStepsSlice = createSlice({
-    name: 'modal',
+const addEmployeeModule = createSlice({
+    name: 'addEmployeeModule',
     initialState,
     reducers: {
         HandleNext: state => {
-            state.currentStep += 1;
+            const nextStep = state.currentStep + 1;
+            state.currentStep = nextStep;
+            state.currentStepName = stepsMap[nextStep];
             if (state.currentStep > 1) {
                 state.isPreviousStep = true;
             }
@@ -21,7 +30,9 @@ const addEmployeeStepsSlice = createSlice({
             }
         },
         handlePrevious: state => {
-            state.currentStep -= 1;
+            const prevStep = state.currentStep - 1;
+            state.currentStep = prevStep;
+            state.currentStepName = stepsMap[prevStep];
             if (state.currentStep > 1) {
                 state.isPreviousStep = true;
             }
@@ -41,5 +52,5 @@ const addEmployeeStepsSlice = createSlice({
     },
 });
 
-export const { HandleNext, handlePrevious, setCurrentStep } = addEmployeeStepsSlice.actions;
-export default addEmployeeStepsSlice.reducer;
+export const { HandleNext, handlePrevious, setCurrentStep } = addEmployeeModule.actions;
+export default addEmployeeModule.reducer;

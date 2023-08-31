@@ -22,6 +22,7 @@ import {
 
 import { Icon } from '../common/icons';
 import { SwxButton, SwxTypography } from '../common/components';
+import AddCerfification from '../add-certificate';
 
 function AddEmployeeStep3() {
     const dispatch = useDispatch();
@@ -180,8 +181,7 @@ function AddEmployeeStep3() {
                     </CertificationsWrapper>
                 </>
             ) : (
-                // <AddCerfification setIsCertificationPopUp={setIsCertificationPopUp} />
-                <div>certification add</div>
+                <AddCerfification />
             )}
             <Divider orientation='vertical' flexItem />
             <FooterContainer>
