@@ -6,7 +6,7 @@ import { signOut, useSession } from 'next-auth/react';
 import Image from 'next/image';
 import { Stack } from '@mui/material';
 
-import { HeaderContainer, StyledLink, StyledLinkContainer } from './header.styles';
+import { HeaderContainer, HeaderWrapper, StyledLink, StyledLinkContainer } from './header.styles';
 
 import { SwxPopupMenu } from '../../components';
 import { Icon } from '../../icons';
@@ -64,38 +64,42 @@ const NavBar = ({ navLinks }) => {
     ];
 
     return (
-        <HeaderContainer>
-            <Stack spacing={3} direction='row'>
-                <Stack direction='row' alignItems='center'>
-                    <Image src='/images/swx-logo.png' alt='logo' width={137} height={25} />
+        <HeaderWrapper>
+            <HeaderContainer>
+                <Stack spacing={3} direction='row'>
+                    <Stack direction='row' alignItems='center'>
+                        <Image src='/images/swx-logo.png' alt='logo' width={137} height={25} />
+                    </Stack>
+                    <Stack direction='row' alignItems='center'>
+                        {renderLinks()}
+                    </Stack>
                 </Stack>
-                <Stack direction='row' alignItems='center'>
-                    {renderLinks()}
+                <Stack spacing={3} direction='row'>
+                    <Link href='/'>
+                        <Icon styles={{ fill: '#ffffff' }} name='bell' aria-hidden='true' height={20} width={20} />
+                    </Link>
+                    <div>
+                        <SwxPopupMenu
+                            buttonElement={
+                                <Stack direction='row' spacing={1.5} alignItems='center'>
+                                    <Icon
+                                        styles={{ fill: '#ffffff' }}
+                                        name='user'
+                                        aria-hidden='true'
+                                        height={20}
+                                        width={20}
+                                    />
+                                    <StyledLink href='/'>
+                                        {data ? (data.user ? data.user.name : 'User') : ''}
+                                    </StyledLink>
+                                </Stack>
+                            }
+                            options={menuOptions}
+                        />
+                    </div>
                 </Stack>
-            </Stack>
-            <Stack spacing={3} direction='row'>
-                <Link href='/'>
-                    <Icon styles={{ fill: '#ffffff' }} name='bell' aria-hidden='true' height={20} width={20} />
-                </Link>
-                <div>
-                    <SwxPopupMenu
-                        buttonElement={
-                            <Stack direction='row' spacing={1.5} alignItems='center'>
-                                <Icon
-                                    styles={{ fill: '#ffffff' }}
-                                    name='user'
-                                    aria-hidden='true'
-                                    height={20}
-                                    width={20}
-                                />
-                                <StyledLink href='/'>{data ? (data.user ? data.user.name : 'User') : ''}</StyledLink>
-                            </Stack>
-                        }
-                        options={menuOptions}
-                    />
-                </div>
-            </Stack>
-        </HeaderContainer>
+            </HeaderContainer>
+        </HeaderWrapper>
     );
 };
 

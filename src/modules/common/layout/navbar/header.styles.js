@@ -6,11 +6,14 @@ import styled from 'styled-components';
 export const HeaderContainer = styled.div`
     display: flex;
     padding: 0.25rem;
-    padding-left: 2rem;
-    padding-right: 2rem;
     justify-content: space-between;
     align-items: center;
     height: 4.6rem;
+    max-width: 1280px;
+    margin: 0 auto;
+`;
+
+export const HeaderWrapper = styled.div`
     background-color: ${({ theme }) => theme.backgroundColor.blue};
 `;
 
