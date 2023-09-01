@@ -6,7 +6,7 @@ import { Stack } from '@mui/material';
 import { SwxInput, SwxSelect, SwxMultiSelect, SwxButton } from '../../components';
 import { Icon } from '../../icons';
 
-function SearchFilter({ actionButton: ActionButton }) {
+function SearchFilter({ actionButton: ActionButton, style }) {
     const [multiple, setMultiple] = useState([]);
 
     const onRoleChange = event => {
@@ -14,7 +14,7 @@ function SearchFilter({ actionButton: ActionButton }) {
     };
 
     return (
-        <Stack direction='row' justifyContent='space-between'>
+        <Stack direction='row' justifyContent='space-between' style={{ ...style }}>
             <Stack direction='row' spacing={2}>
                 <SwxInput
                     type='text'

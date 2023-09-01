@@ -73,14 +73,6 @@ export const StyledNumber = styled.span`
   `}
 `;
 
-export const StyledText = styled.p`
-    ${({ theme, size, color, weight }) => `
-        color: ${theme.fontColor[color]};
-        font-size: ${theme.fontSize[size]};
-        font-weight: ${theme.fontWeight[weight]};
-  `}
-`;
-
 export const StyledInlineText = styled.span`
     ${({ theme, size, color, weight }) => `
         color: ${theme.fontColor[color]};
@@ -121,25 +113,6 @@ export const CertificationsWrapper = styled.div`
     margin: 0px 76px 0px 24px;
 `;
 
-export const CertificationContainer = styled.div`
-    display: flex;
-    flex-direction: column;
-    padding: 16px;
-    display: flex;
-    gap: 8px;
-    ${({ theme }) => `
-        border-radius: ${theme.borderRadius.verySmall};
-        background: ${theme.backgroundColor.lighterGray};
-    `}
-`;
-
-export const StyledContainer = styled.div`
-    display: flex;
-    padding: 52px 140px 13px 160px;
-    flex-direction: column;
-    gap: 24px;
-`;
-
 export const StyledBorderContainer = styled.div`
     padding: 8px 16px;
     width: 64%;
@@ -147,37 +120,4 @@ export const StyledBorderContainer = styled.div`
         border: 1px solid ${theme.borderColor.lightGray};
         border-radius: ${theme.borderRadius.verySmall} !important;
     `}
-`;
-
-export const CertificationUpperSection = styled.div`
-    display: flex;
-    justify-content: space-between;
-    @media (max-width: 800px) {
-        flex-direction: column; /* Switch to column layout when screen size is not enough */
-    }
-`;
-
-export const CertificationUpperRightSection = styled.div`
-    display: flex;
-    gap: 16px;
-`;
-
-export const CertificationLowerSection = styled.div`
-    display: flex;
-    gap: 48px;
-    @media (max-width: 800px) {
-        flex-direction: column; /* Switch to column layout when screen size is not enough */
-        gap: 12px;
-    }
-`;
-
-export const CertificationLowerLeftSection = styled.div`
-    display: flex;
-    flex-direction: column;
-`;
-
-export const CertificationLowerRightSection = styled.div`
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
 `;

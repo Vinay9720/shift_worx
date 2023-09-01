@@ -14,7 +14,6 @@ import SwxPagination from '../common/layout/pagination';
 
 export default function AdminOverview() {
     const { data: overviewData, isSuccess } = useEmployees();
-    console.log('overviewData', overviewData);
 
     const employees = useMemo(() => {
         if (isSuccess) {
@@ -186,7 +185,7 @@ export default function AdminOverview() {
 
     return (
         <>
-            <WidgetCardsContainer>
+            <WidgetCardsContainer style={{ marginTop: '1rem' }}>
                 {cardsData.map((card, index) => {
                     return (
                         <WidgetCard
@@ -200,7 +199,7 @@ export default function AdminOverview() {
                     );
                 })}
             </WidgetCardsContainer>
-            <SearchFilter actionButton={AddEmployee} />
+            <SearchFilter actionButton={AddEmployee} style={{ marginTop: '3.5rem' }} />
             <SwxDataGrid rows={employees} columns={columns} />
             <SwxPagination itemsPerPageOptions={['5', '10', '15']} style={{ marginBottom: '20px' }} />
         </>

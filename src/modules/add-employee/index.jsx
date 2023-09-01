@@ -9,7 +9,6 @@ import { setCurrentStep } from '@/lib/store/slices/add-employee-module';
 import {
     ModalContainer,
     HeaderContainer,
-    FooterContainer,
     BodyContainer,
     StyledNumber,
     StyledProgress,
@@ -21,7 +20,6 @@ import AddEmployeeStep1 from './AddEmployeeStep1';
 import AddEmployeeStep2 from './AddEmployeeStep2';
 import AddEmployeeStep3 from './AddEmployeeStep3';
 
-import { FormSubmitButton } from '../common/form-components';
 import { Icon } from '../common/icons';
 import { SwxButton, SwxTypography } from '../common/components';
 
@@ -29,22 +27,6 @@ export default function AddEmployee() {
     const dispatch = useDispatch();
     const { isOpen } = useSelector(state => state.modal);
     const { currentStep } = useSelector(state => state.addEmployeeModule);
-    console.log('current step', currentStep);
-
-    const renderFooterSection = () => {
-        return (
-            <FooterContainer>
-                <SwxButton onClick={() => dispatch(closeModal())} variant='text'>
-                    Cancel
-                </SwxButton>
-                <FormSubmitButton variant='contained' buttonName={currentStep === 3 ? 'Submit' : 'Next'} />
-            </FooterContainer>
-        );
-    };
-
-    // if (isLoading) {
-    //     return <Loader />;
-    // }
 
     return (
         <div className='flex items-center mt-0'>
@@ -87,8 +69,8 @@ export default function AddEmployee() {
                     </HeaderContainer>
                     <StyledProgress variant='determinate' value={currentStep * 33.3} />
                     <BodyContainer>
-                        {currentStep === 1 && <AddEmployeeStep1 footer={renderFooterSection()} />}
-                        {currentStep === 2 && <AddEmployeeStep2 footer={renderFooterSection()} />}
+                        {currentStep === 1 && <AddEmployeeStep1 />}
+                        {currentStep === 2 && <AddEmployeeStep2 />}
                         {currentStep === 3 && <AddEmployeeStep3 />}
                     </BodyContainer>
                 </ModalContainer>
