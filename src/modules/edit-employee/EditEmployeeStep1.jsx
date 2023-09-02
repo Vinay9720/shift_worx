@@ -1,24 +1,13 @@
 'use client';
 
-// import { useSelector } from 'react-redux';
 import { Stack, Divider } from '@mui/material';
 
 import { UsStates } from '@/lib/constants';
 
-import { SwxTypography, SwxButton } from '../common/components';
-import {
-    SelectField,
-    Form,
-    InputField,
-    DatePickerField,
-    PhoneNumberField,
-    FormSubmitButton,
-} from '../common/form-components';
+import { SwxTypography } from '../common/components';
+import { SelectField, Form, InputField, DatePickerField, PhoneNumberField } from '../common/form-components';
 
-function EditEmployeeStep1() {
-    // const dispatch = useDispatch();
-    // const { employee } = useSelector(state => state.employees);
-
+function EditEmployeeStep1({ employeeData, footer }) {
     const firstNameProps = {
         label: (
             <SwxTypography color='swxSlightlyBlack' size='semiMedium' weight='thin'>
@@ -138,8 +127,8 @@ function EditEmployeeStep1() {
 
     return (
         <>
-            <Form onSubmit={data => console.log('su', data)}>
-                <Stack direction='column' spacing={8}>
+            <Form onSubmit={data => console.log('su', data)} defaultValues={employeeData}>
+                <Stack direction='column' spacing={4}>
                     <SwxTypography color='swxBlack' size='semiLarge' weight='bold'>
                         General Information
                     </SwxTypography>
@@ -181,40 +170,7 @@ function EditEmployeeStep1() {
                         <InputField name='zipcode' SWXInputProps={zipProps} />
                     </Stack>
                 </Stack>
-                <Stack spacing={0.5} style={{ float: 'right', padding: '60px 80px' }}>
-                    <FormSubmitButton
-                        variant='contained'
-                        size='small'
-                        padding='6px 24px'
-                        radius='large'
-                        weight='bold'
-                        buttonName='Save'
-                    />
-                    {/* {numberedStep !== 1 && ( */}
-                    <SwxButton
-                        size='small'
-                        // onClick={() => handleNavigationClick(numberedStep - 1)}
-                        padding='6px 24px'
-                        radius='large'
-                        // disabled={numberedStep === 1 && true}
-                        variant='outlined'
-                        weight='bold'>
-                        {'< '}Previous
-                    </SwxButton>
-                    {/* )} */}
-                    {/* {numberedStep !== 3 && ( */}
-                    <SwxButton
-                        size='small'
-                        // onClick={() => handleNavigationClick(numberedStep + 1)}
-                        padding='6px 24px'
-                        radius='large'
-                        // disabled={numberedStep === 3 && true}
-                        variant='outlined'
-                        weight='bold'>
-                        Next{' >'}
-                    </SwxButton>
-                    {/* )} */}
-                </Stack>
+                {footer}
             </Form>
         </>
     );

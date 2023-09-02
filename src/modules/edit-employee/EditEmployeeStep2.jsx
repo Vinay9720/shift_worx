@@ -2,11 +2,10 @@
 
 import { Stack } from '@mui/material';
 
-import { Form, InputField, DatePickerField, FormSubmitButton } from '../common/form-components';
-import { SwxTypography, SwxButton } from '../common/components';
+import { Form, InputField, DatePickerField } from '../common/form-components';
+import { SwxTypography } from '../common/components';
 
-function EditEmployeeStep2() {
-    // const dispatch = useDispatch();
+function EditEmployeeStep2({ employeeData, footer }) {
     const ssnProps = {
         label: (
             <SwxTypography color='swxSlightlyBlack' size='semiMedium' weight='semiBold'>
@@ -50,8 +49,8 @@ function EditEmployeeStep2() {
     };
 
     return (
-        <Form>
-            <Stack direction='column' spacing={8}>
+        <Form defaultValues={employeeData}>
+            <Stack direction='column' spacing={4}>
                 <SwxTypography color='swxBlack' size='semiLarge' weight='bold'>
                     Personal Documents
                 </SwxTypography>
@@ -68,35 +67,35 @@ function EditEmployeeStep2() {
                     <DatePickerField name='dl_expiration_date' SWXInputProps={driverLicenseExpireProps} width='30%' />
                 </Stack>
             </Stack>
-            {/* <FooterContainer> */}
-            <FormSubmitButton
-                variant='contained'
-                size='small'
-                padding='6px 24px'
-                radius='large'
-                weight='bold'
-                buttonName='Save'
-            />
-            {/* {numberedStep !== 1 && ( */}
-            <SwxButton
-                size='small'
-                // onClick={() => handleNavigationClick(numberedStep - 1)}
-                padding='6px 24px'
-                radius='large'
-                variant='outlined'
-                weight='bold'>
-                {'< '}Previous
-            </SwxButton>
-            <SwxButton
-                size='small'
-                // onClick={() => handleNavigationClick(numberedStep + 1)}
-                padding='6px 24px'
-                radius='large'
-                // disabled={numberedStep === 3 && true}
-                variant='outlined'
-                weight='bold'>
-                Next{' >'}
-            </SwxButton>
+            {/* <Stack spacing={0.5} direction='row' style={{ float: 'right', padding: '60px 0px' }}>
+                <FormSubmitButton
+                    variant='contained'
+                    size='small'
+                    padding='6px 24px'
+                    radius='large'
+                    weight='bold'
+                    buttonName='Save'
+                />
+                <SwxButton
+                    size='small'
+                    onClick={() => navigateTo(currentStep - 1)}
+                    padding='6px 24px'
+                    radius='large'
+                    variant='outlined'
+                    weight='bold'>
+                    {'< '}Previous
+                </SwxButton>
+                <SwxButton
+                    size='small'
+                    onClick={() => navigateTo(currentStep + 1)}
+                    padding='6px 24px'
+                    radius='large'
+                    variant='outlined'
+                    weight='bold'>
+                    Next{' >'}
+                </SwxButton>
+            </Stack> */}
+            {footer}
         </Form>
     );
 }

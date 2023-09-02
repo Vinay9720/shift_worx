@@ -9,7 +9,7 @@ export default function SwxModal({ children, modalName }) {
     const dispatch = useDispatch();
     const isOpen = useSelector(state => state.modals[modalName]);
     return (
-        <Modal open={isOpen} onClose={() => dispatch(closeModal({ modalName }))}>
+        <Modal open={isOpen || false} onClose={() => dispatch(closeModal({ modalName }))}>
             {children}
         </Modal>
     );

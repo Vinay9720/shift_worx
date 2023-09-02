@@ -26,7 +26,7 @@ export default function NoteCard({ note }) {
                         </SwxTypography>
                         <div style={{ display: 'flex ', alignItems: 'center' }}>
                             <Icon
-                                styles='fill-lightGray'
+                                styles={{ fill: '#E6E8E9' }}
                                 name='activity-status'
                                 aria-hidden='true'
                                 height={6}

@@ -12,7 +12,7 @@ const updateEmployee = (id, employeeData) => {
     return http.patch(`/facility_users/${id}`, employeeData);
 };
 
-const getEmployee = id => {
+const fetchEmployee = id => {
     return http.get(`/facility_users/${id}`);
 };
 
@@ -22,7 +22,7 @@ const deleteEmployee = id => {
 
 const AdminEmployeeService = {
     fetchEmployees,
-    getEmployee,
+    fetchEmployee,
     updateEmployee,
     addEmployee,
     deleteEmployee,

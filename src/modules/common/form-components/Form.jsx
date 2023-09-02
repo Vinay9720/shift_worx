@@ -5,14 +5,15 @@ import { useForm, FormProvider } from 'react-hook-form';
 
 const Form = ({ defaultValues, children, onSubmit, onFormStateChange, styles }) => {
     const methods = useForm({ defaultValues, mode: 'onChange' });
-    const { handleSubmit, watch, formState } = methods;
+    const { handleSubmit, watch, formState, reset } = methods;
 
     useEffect(() => {
         if (onFormStateChange) {
             const subscription = watch(values => onFormStateChange(values, formState));
             return () => subscription.unsubscribe();
         }
-    }, [onFormStateChange]);
+        reset(defaultValues);
+    }, [onFormStateChange, defaultValues]);
 
     return (
         <FormProvider {...methods}>
