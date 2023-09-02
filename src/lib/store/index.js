@@ -6,7 +6,7 @@ import addEmployeeModuleReducer from './slices/add-employee-module';
 import paginationSlice from './slices/paginationSlice';
 
 const rootReducer = combineReducers({
-    modal: ModalReducer,
+    modals: ModalReducer,
     addEmployeeModule: addEmployeeModuleReducer,
     pagination: paginationSlice,
 });

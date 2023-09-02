@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import Input from 'react-phone-number-input/input';
 
 export const StyledPhone = styled(Input)`
-    padding: 17px 16px;
+    padding: 18px 16px;
     &:focus-visible {
         outline: none;
     }
@@ -13,13 +13,13 @@ export const StyledPhone = styled(Input)`
         color: ${theme.fontColor.swxSlightlyBlack} !important;
         background-color: ${theme.backgroundColor.white} !important;
         border: 1px solid ${theme.borderColor.lightGray} !important;
+        font-size: ${theme.fontSize.semiMedium} !important;
         `}
     & input {
         ${({ theme }) => `
             border-radius: ${theme.borderRadius.small};
             color: ${theme.fontColor.swxSlightlyBlack};
             background-color: ${theme.backgroundColor.white};
-            font-size: ${theme.fontSize.semiMedium};
             border: 1px solid ${theme.borderColor.lightGray};
         `}
     }

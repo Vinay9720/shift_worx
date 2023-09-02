@@ -1,9 +1,10 @@
 'use client';
 
 import { Divider, Stack } from '@mui/material';
+import { useDispatch } from 'react-redux';
 
-// import { setCurrentStep } from '@/lib/store/slices/add-employee-module';
 import { useAddEmployee } from '@/hooks';
+import { closeModal } from '@/lib/store/slices/modal-slice';
 
 import { FooterContainer } from './add-employee.styles';
 
@@ -11,6 +12,7 @@ import { SwxButton, SwxTypography } from '../common/components';
 import { Form, InputField, DatePickerField, FormSubmitButton } from '../common/form-components';
 
 function AddEmployeeStep2() {
+    const dispatch = useDispatch();
     const { mutate: addEmployee } = useAddEmployee();
 
     const ssnProps = {
@@ -82,7 +84,9 @@ function AddEmployeeStep2() {
                     </Stack>
                 </Stack>
                 <FooterContainer>
-                    <SwxButton variant='text'>Cancel</SwxButton>
+                    <SwxButton onClick={() => dispatch(closeModal({ modalName: 'addEmployeeModal' }))} variant='text'>
+                        Cancel
+                    </SwxButton>
                     <FormSubmitButton variant='contained' buttonName='Next' />
                 </FooterContainer>
             </Form>

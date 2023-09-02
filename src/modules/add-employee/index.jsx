@@ -1,9 +1,8 @@
 'use client';
 
 import { useSelector, useDispatch } from 'react-redux';
-import { Modal } from '@mui/material';
 
-import { openModal, closeModal } from '@/lib/store/slices/modal-slice';
+import { openModal } from '@/lib/store/slices/modal-slice';
 import { setCurrentStep } from '@/lib/store/slices/add-employee-module';
 
 import {
@@ -22,10 +21,11 @@ import AddEmployeeStep3 from './AddEmployeeStep3';
 
 import { Icon } from '../common/icons';
 import { SwxButton, SwxTypography } from '../common/components';
+import { SwxModal } from '../common/layout';
 
 export default function AddEmployee() {
     const dispatch = useDispatch();
-    const { isOpen } = useSelector(state => state.modal);
+    // const { isOpen } = useSelector(state => state.modal);
     const { currentStep } = useSelector(state => state.addEmployeeModule);
 
     return (
@@ -35,14 +35,14 @@ export default function AddEmployee() {
                 size='small'
                 onClick={e => {
                     e.preventDefault();
-                    dispatch(openModal());
+                    dispatch(openModal({ modalName: 'addEmployeeModal' }));
                 }}
                 padding='10px 16px'
                 variant='contained'
                 weight='semiBold'>
                 Add Employee
             </SwxButton>
-            <Modal open={isOpen} onClose={() => dispatch(closeModal())}>
+            <SwxModal modalName='addEmployeeModal'>
                 <ModalContainer>
                     <HeaderContainer>
                         <StyledTitle>Add Employee</StyledTitle>
@@ -74,7 +74,7 @@ export default function AddEmployee() {
                         {currentStep === 3 && <AddEmployeeStep3 />}
                     </BodyContainer>
                 </ModalContainer>
-            </Modal>
+            </SwxModal>
         </div>
     );
 }

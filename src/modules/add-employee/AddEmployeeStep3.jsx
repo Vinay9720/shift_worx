@@ -22,7 +22,7 @@ function AddEmployeeStep3() {
 
     const onSubmit = () => {
         queryClient.invalidateQueries('admin-employees');
-        dispatch(closeModal());
+        dispatch(closeModal({ modalName: 'addEmployeeModal' }));
     };
     return (
         <>
@@ -65,7 +65,7 @@ function AddEmployeeStep3() {
             )}
             <Divider orientation='vertical' flexItem />
             <FooterContainer>
-                <SwxButton onClick={() => dispatch(closeModal())} variant='text'>
+                <SwxButton onClick={() => dispatch(closeModal({ modalName: 'addEmployeeModal' }))} variant='text'>
                     Cancel
                 </SwxButton>
                 <SwxButton onClick={onSubmit} variant='contained'>

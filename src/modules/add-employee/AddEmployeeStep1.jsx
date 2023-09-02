@@ -1,9 +1,11 @@
 'use client';
 
 import { Divider, Stack } from '@mui/material';
+import { useDispatch } from 'react-redux';
 
 import { UsStates } from '@/lib/constants';
 import { useAddEmployee } from '@/hooks';
+import { closeModal } from '@/lib/store/slices/modal-slice';
 
 import { FooterContainer } from './add-employee.styles';
 
@@ -19,6 +21,7 @@ import {
 
 function AddEmployeeStep1() {
     const { mutate: addEmployee } = useAddEmployee();
+    const dispatch = useDispatch();
     const firstNameProps = {
         label: (
             <SwxTypography color='swxSlightlyBlack' size='semiMedium' weight='thin'>
@@ -173,7 +176,9 @@ function AddEmployeeStep1() {
                     </Stack>
                 </Stack>
                 <FooterContainer>
-                    <SwxButton variant='text'>Cancel</SwxButton>
+                    <SwxButton onClick={() => dispatch(closeModal({ modalName: 'addEmployeeModal' }))} variant='text'>
+                        Cancel
+                    </SwxButton>
                     <FormSubmitButton variant='contained' buttonName='Next' />
                 </FooterContainer>
             </Form>

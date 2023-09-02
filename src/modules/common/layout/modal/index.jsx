@@ -5,15 +5,12 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import { closeModal } from '@/lib/store/slices/modal-slice';
 
-import { StyledModalContent } from './modal.styles';
-
-export default function SwxModal({ children }) {
+export default function SwxModal({ children, modalName }) {
     const dispatch = useDispatch();
-    const open = useSelector(state => state.modal.isOpen);
-
+    const isOpen = useSelector(state => state.modals[modalName]);
     return (
-        <Modal open={open} onClose={() => dispatch(closeModal())}>
-            <StyledModalContent>{children}</StyledModalContent>
+        <Modal open={isOpen} onClose={() => dispatch(closeModal({ modalName }))}>
+            {children}
         </Modal>
     );
 }

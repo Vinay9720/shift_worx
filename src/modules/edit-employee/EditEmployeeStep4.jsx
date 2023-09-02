@@ -6,6 +6,7 @@ import { Form } from '../common/form-components';
 import { SwxButton, SwxTypography, SwxSelect, SwxInput } from '../common/components';
 import { Icon } from '../common/icons';
 import { NoteCard } from '../common/layout';
+import AddNote from '../add-note';
 
 const notes = [
     {
@@ -64,18 +65,7 @@ function EditEmployeeStep4() {
                         Clear all
                     </SwxButton>
                 </Stack>
-                <SwxButton
-                    startIcon={<Icon width={17} height={12} name='addition' styles={{ fill: '#FFFFFF' }} />}
-                    size='small'
-                    onClick={e => {
-                        e.preventDefault();
-                        // setIsModalOpen(true);
-                    }}
-                    padding='10px 16px'
-                    variant='contained'
-                    weight='semiBold'>
-                    Add New
-                </SwxButton>
+                <AddNote />
             </Stack>
             <Stack direction='column' spacing={5} sx={{ mt: 7.5 }}>
                 <SwxTypography color='swxBlack' size='semiLarge' weight='bold'>
