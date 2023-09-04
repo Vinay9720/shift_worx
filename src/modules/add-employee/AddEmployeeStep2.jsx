@@ -3,7 +3,7 @@
 import { Divider, Stack } from '@mui/material';
 import { useDispatch } from 'react-redux';
 
-import { useAddEmployee } from '@/hooks';
+import { useAddEmployee } from '@/hooks/admin-employee';
 import { closeModal } from '@/lib/store/slices/modal-slice';
 
 import { FooterContainer } from './add-employee.styles';

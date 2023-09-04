@@ -2,10 +2,13 @@
 
 import { Stack } from '@mui/material';
 
+import { useUpdateEmployee } from '@/hooks/admin-employee';
+
 import { Form, InputField, DatePickerField } from '../common/form-components';
 import { SwxTypography } from '../common/components';
 
 function EditEmployeeStep2({ employeeData, footer }) {
+    const { mutate: updateEmployee } = useUpdateEmployee();
     const ssnProps = {
         label: (
             <SwxTypography color='swxSlightlyBlack' size='semiMedium' weight='semiBold'>
@@ -49,7 +52,9 @@ function EditEmployeeStep2({ employeeData, footer }) {
     };
 
     return (
-        <Form defaultValues={employeeData}>
+        <Form
+            onSubmit={updatedData => updateEmployee({ id: employeeData.id, employeeData: updatedData })}
+            defaultValues={employeeData}>
             <Stack direction='column' spacing={4}>
                 <SwxTypography color='swxBlack' size='semiLarge' weight='bold'>
                     Personal Documents

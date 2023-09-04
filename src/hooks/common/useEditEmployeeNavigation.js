@@ -5,8 +5,8 @@ import { useDispatch } from 'react-redux';
 import { setCurrentStep } from '@/lib/store/slices/edit-employee-module';
 
 const stepsMap = {
-    1: 'general',
-    2: 'documents',
+    1: 'profile_information',
+    2: 'personal_documents',
     3: 'certificates',
     4: 'notes',
 };

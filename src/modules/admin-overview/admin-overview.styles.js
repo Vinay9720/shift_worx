@@ -6,4 +6,8 @@ export const WidgetCardsContainer = styled.div`
     grid-auto-flow: column;
     gap: 1rem;
     margin-top: ;
+    @media (max-width: 767px) {
+        display: flex;
+        flex-direction: column;
+    }
 `;

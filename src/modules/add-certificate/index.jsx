@@ -7,7 +7,10 @@ import { useDispatch } from 'react-redux';
 
 import { statesWithkeys } from '@/lib/constants';
 import { restrictEmptyArray } from '@/lib/validators';
-import { useFacilityOptions, useCertificateOptions, useFileUpload, useAddEmployee } from '@/hooks';
+import { useAddEmployee } from '@/hooks/admin-employee';
+import { useFileUpload } from '@/hooks/common';
+import { useCertificateOptions } from '@/hooks/certificate';
+import { useFacilityOptions } from '@/hooks/facility';
 import { closeAddCertificateForm } from '@/lib/store/slices/add-employee-module';
 
 import { Form, InputField, DatePickerField, ListBoxField, FormSubmitButton } from '../common/form-components';

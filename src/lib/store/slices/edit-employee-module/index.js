@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const stepsMap = {
-    1: 'general',
+    1: 'profile_information',
     2: 'personal_documents',
     3: 'certificates',
     4: 'notes',
@@ -14,7 +14,7 @@ const initialState = {
     totalSteps: TOTAL_STEPS,
     isPreviousStep: false,
     isNextStep: true,
-    currentStepName: 'general',
+    currentStepName: 'profile_information',
     employee: {},
     addingCertificate: false,
 };

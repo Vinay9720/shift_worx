@@ -32,7 +32,7 @@ export default function SwxMultiSelect({
     errorText,
 }) {
     return (
-        <div className='flex flex-col w-full gap-2' style={{ width: width || '100%', ...style }}>
+        <div style={{ width: width || '100%', ...style }}>
             {OutSideLabel && <OutSideLabel />}
             <FormControl sx={{ width: '100%' }}>
                 <StyledInsideLabel shrink={false} id='multiple-checkbox-label'>

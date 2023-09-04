@@ -3,11 +3,13 @@
 import { Stack, Divider } from '@mui/material';
 
 import { UsStates } from '@/lib/constants';
+import { useUpdateEmployee } from '@/hooks/admin-employee';
 
 import { SwxTypography } from '../common/components';
 import { SelectField, Form, InputField, DatePickerField, PhoneNumberField } from '../common/form-components';
 
 function EditEmployeeStep1({ employeeData, footer }) {
+    const { mutate: updateEmployee } = useUpdateEmployee();
     const firstNameProps = {
         label: (
             <SwxTypography color='swxSlightlyBlack' size='semiMedium' weight='thin'>
@@ -127,7 +129,9 @@ function EditEmployeeStep1({ employeeData, footer }) {
 
     return (
         <>
-            <Form onSubmit={data => console.log('su', data)} defaultValues={employeeData}>
+            <Form
+                onSubmit={updatedData => updateEmployee({ id: employeeData.id, employeeData: updatedData })}
+                defaultValues={employeeData}>
                 <Stack direction='column' spacing={4}>
                     <SwxTypography color='swxBlack' size='semiLarge' weight='bold'>
                         General Information

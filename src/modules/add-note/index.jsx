@@ -5,7 +5,7 @@ import { Stack } from '@mui/material';
 
 import { openModal, closeModal } from '@/lib/store/slices/modal-slice';
 import { restrictEmptyArray } from '@/lib/validators';
-import { useFileUpload } from '@/hooks';
+import { useFileUpload } from '@/hooks/common';
 
 import { ModalContainer, HeaderContainer } from './add-note.styles';
 
