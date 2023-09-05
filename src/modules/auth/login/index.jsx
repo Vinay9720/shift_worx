@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Image from 'next/image';
 import styled from 'styled-components';
+import { Stack } from '@mui/material';
 
 import { Icon } from '@/modules/common/icons';
 import { Form, FormSubmitButton, InputField } from '@/modules/common/form-components';
@@ -24,14 +25,22 @@ export default function LoginForm() {
     };
 
     const emailProps = {
-        label: 'Email',
+        label: (
+            <SwxTypography color='white' size='semiMedium' weight='thin'>
+                Email
+            </SwxTypography>
+        ),
         placeholder: 'Email',
         required: 'Enter email address',
         validate: validateEmail,
     };
 
     const passwordProps = {
-        label: 'Password',
+        label: (
+            <SwxTypography color='white' size='semiMedium' weight='thin'>
+                Password
+            </SwxTypography>
+        ),
         type: isPasswordVisible ? 'text' : 'password',
         placeholder: 'Password',
         required: 'Enter password',
@@ -69,14 +78,16 @@ export default function LoginForm() {
                         Members Login
                     </SwxTypography>
                 </HeadingContainer>
-                <Form onSubmit={onSubmit} styles='flex flex-col gap-y-5'>
-                    <InputField name='email' SWXInputProps={emailProps} />
-                    <InputField name='password' SWXInputProps={passwordProps} />
-                    <FormSubmitButton
-                        styles={{ marginTop: '0.5rem', width: '100%' }}
-                        buttonName='Log In'
-                        disabled={false}
-                    />
+                <Form onSubmit={onSubmit}>
+                    <Stack direction='column' spacing={1.5}>
+                        <InputField name='email' SWXInputProps={emailProps} />
+                        <InputField name='password' SWXInputProps={passwordProps} />
+                        <FormSubmitButton
+                            styles={{ marginTop: '1rem', width: '100%' }}
+                            buttonName='Log In'
+                            disabled={false}
+                        />
+                    </Stack>
                 </Form>
             </StyledLoginContainer>
         </Container>

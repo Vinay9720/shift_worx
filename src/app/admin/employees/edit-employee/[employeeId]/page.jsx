@@ -2,7 +2,6 @@
 
 import { useSearchParams } from 'next/navigation';
 import { useCallback } from 'react';
-import { useSelector } from 'react-redux';
 import { Stack } from '@mui/material';
 
 import { FormSubmitButton } from '@/modules/common/form-components';
@@ -22,8 +21,6 @@ const stepsMap = {
 export default function Page({ params }) {
     const searchParams = useSearchParams();
     const { data: employeeData, isLoading: isEmployeeLoading } = useEmployee(params.employeeId);
-    const { currentStep } = useSelector(state => state.editEmployeeModule);
-    console.log('currentStep', currentStep);
     const navigateTo = useEditEmployeeNavigation();
     const currentStepName = searchParams.get('step');
 

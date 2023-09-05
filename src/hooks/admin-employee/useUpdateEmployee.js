@@ -4,8 +4,11 @@ import { useSelector } from 'react-redux';
 
 import AdminEmployeeService from '@/services/admin-employee';
 
+import { useToast } from '../common';
+
 export const useUpdateEmployee = () => {
     const { currentStepName, currentStep } = useSelector(state => state.editEmployeeModule);
+    const showToast = useToast();
     const queryClient = useQueryClient();
 
     const isCertificationStep = currentStep === 3;
@@ -36,9 +39,10 @@ export const useUpdateEmployee = () => {
     return useMutation(updateEmployee, {
         onSuccess: async () => {
             queryClient.invalidateQueries('admin-employee');
+            showToast('Saved successfully', 'success');
         },
         onError: error => {
-            console.log('error', error.response.data.errors[0]);
+            showToast(error.response.data.errors[0], 'error');
         },
     });
 };

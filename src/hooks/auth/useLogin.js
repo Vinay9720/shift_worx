@@ -4,6 +4,8 @@ import { getSession, signIn } from 'next-auth/react';
 
 import { redirectUser } from '@/lib/util';
 
+import { useToast } from '../common';
+
 const userSignIn = credentials => {
     return signIn('credentials', {
         email: credentials.email,
@@ -13,6 +15,7 @@ const userSignIn = credentials => {
 };
 
 export const useLogin = () => {
+    const showToast = useToast();
     const router = useRouter();
     return useMutation(userSignIn, {
         onSuccess: async response => {
@@ -20,7 +23,7 @@ export const useLogin = () => {
             if (response.status === 200 && session) {
                 redirectUser(session, router);
             } else if (response.status === 401) {
-                console.log('error', 'Invalid credentials');
+                showToast('Invalid credentials', 'error');
             }
         },
     });

@@ -90,17 +90,13 @@ function AddCerfification({ defaultValues }) {
         }
     };
 
-    const onFormStateChange = values => {
-        console.log(values);
-    };
-
     if (isCertificateOptionsLoading || isFacilityOptionsLoading) {
         return <p>Loading...</p>;
     }
 
     return (
         <Stack direction='column' spacing={3} style={{ padding: '52px 140px 13px 160px' }}>
-            <Form onSubmit={addEmployee} defaultValues={defaultValues} onFormStateChange={onFormStateChange}>
+            <Form onSubmit={addEmployee} defaultValues={defaultValues}>
                 <Stack direction='column' spacing={3} style={{ width: '100%' }}>
                     <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2} sx={{ padding: '0px 24px' }}>
                         <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', width: '100%' }}>

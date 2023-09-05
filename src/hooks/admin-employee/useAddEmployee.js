@@ -10,9 +10,12 @@ import {
     setCertificates,
 } from '@/lib/store/slices/add-employee-module';
 
+import { useToast } from '../common';
+
 export const useAddEmployee = () => {
     const { currentStepName, currentStep, facilityUserId } = useSelector(state => state.addEmployeeModule);
     const dispatch = useDispatch();
+    const showToast = useToast();
     const isCertificationStep = currentStep === 3;
 
     const addEmployee = employeeData => {
@@ -48,7 +51,7 @@ export const useAddEmployee = () => {
             dispatch(setCertificates(response.data.certificates));
         },
         onError: error => {
-            console.log('error', error.response.data.errors[0]);
+            showToast(error.response.data.errors[0], 'error');
         },
     });
 };

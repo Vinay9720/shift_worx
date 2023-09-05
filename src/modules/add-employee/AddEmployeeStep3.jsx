@@ -7,6 +7,7 @@ import { useQueryClient } from 'react-query';
 
 import { closeModal } from '@/lib/store/slices/modal-slice';
 import { openAddCertificateForm } from '@/lib/store/slices/add-employee-module';
+import { useToast } from '@/hooks/common';
 
 import { FooterContainer, CertificationsWrapper, CertificationsContainer } from './add-employee.styles';
 
@@ -17,12 +18,14 @@ import { CertificationCard } from '../common/layout';
 
 function AddEmployeeStep3() {
     const dispatch = useDispatch();
+    const showToast = useToast();
     const queryClient = useQueryClient();
     const { addingCertificate, certificates } = useSelector(state => state.addEmployeeModule);
 
     const onSubmit = () => {
         queryClient.invalidateQueries('admin-employees');
         dispatch(closeModal({ modalName: 'addEmployeeModal' }));
+        showToast('Employees added successfully', 'success');
     };
     return (
         <>

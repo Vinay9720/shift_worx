@@ -8,9 +8,6 @@ export const useEmployee = employeeId => {
             const employeeData = data.data;
             return employeeData;
         },
-        onSuccess: data => {
-            console.log('employeeData', data);
-        },
         refetchOnWindowFocus: false,
     });
 };

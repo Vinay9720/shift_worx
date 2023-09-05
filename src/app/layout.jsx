@@ -7,6 +7,7 @@ import {
     StyledThemeProvider,
     QueryProvider,
     StoreProvider,
+    ToastProvider,
 } from '@/lib/providers';
 
 const appFont = Manrope({ subsets: ['latin'] });
@@ -25,13 +26,15 @@ export default function RootLayout({ children }) {
             </head>
             <body className={appFont.className} suppressHydrationWarning>
                 <SessionProvider>
-                    <StoreProvider>
-                        <QueryProvider>
-                            <StyledComponentsRegistry>
-                                <StyledThemeProvider>{children}</StyledThemeProvider>
-                            </StyledComponentsRegistry>
-                        </QueryProvider>
-                    </StoreProvider>
+                    <ToastProvider>
+                        <StoreProvider>
+                            <QueryProvider>
+                                <StyledComponentsRegistry>
+                                    <StyledThemeProvider>{children}</StyledThemeProvider>
+                                </StyledComponentsRegistry>
+                            </QueryProvider>
+                        </StoreProvider>
+                    </ToastProvider>
                 </SessionProvider>
             </body>
         </html>

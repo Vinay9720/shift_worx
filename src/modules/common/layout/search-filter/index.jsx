@@ -25,7 +25,7 @@ function SearchFilter({ actionButton: ActionButton, style }) {
                         <Icon styles={{ fill: '#838A91' }} name='search' aria-hidden='true' height={24} width={24} />
                     }
                 />
-                <SwxSelect style={{ width: '10rem' }} />
+                <SwxSelect placeholder='Status' style={{ width: '10rem' }} />
                 <SwxMultiSelect
                     insideLabel='Role(s)'
                     multiple
@@ -43,7 +43,7 @@ function SearchFilter({ actionButton: ActionButton, style }) {
                     Clear all
                 </SwxButton>
             </Stack>
-            <ActionButton />
+            {ActionButton && <ActionButton />}
         </Stack>
     );
 }
