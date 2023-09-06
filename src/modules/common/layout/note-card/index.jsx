@@ -2,6 +2,8 @@
 
 import { Divider } from '@mui/material';
 
+import { formatDate } from '@/lib/util';
+
 import { NoteWrapper, NoteLeftContainer, NoteContainer } from './note-card.styles';
 
 import { SwxTypography, SwxChip } from '../../components';
@@ -9,12 +11,12 @@ import { Icon } from '../../icons';
 
 export default function NoteCard({ note }) {
     return (
-        <NoteWrapper>
+        <NoteWrapper isRead={false}>
             <NoteContainer>
                 <NoteLeftContainer>
                     <div style={{ display: 'flex', gap: '4px', alignItems: 'center' }}>
                         <SwxTypography color='swxBlack' size='semiLarge' weight='bold'>
-                            {note.title}
+                            {note.note_type}
                         </SwxTypography>
                         <span>
                             <SwxChip label='Contractor' color='darkBlue' background='ligherBlue' size='semiMedium' />
@@ -22,9 +24,9 @@ export default function NoteCard({ note }) {
                     </div>
                     <div style={{ display: 'flex' }}>
                         <SwxTypography color='swxBlack' size='small' weight='thin' style={{ marginRight: '10px' }}>
-                            {note.role}
+                            {note.role || 'Admin'}
                         </SwxTypography>
-                        <div style={{ display: 'flex ', alignItems: 'center' }}>
+                        <div style={{ display: 'flex ', alignItems: 'center', marginRight: '4px' }}>
                             <Icon
                                 styles={{ fill: '#E6E8E9' }}
                                 name='activity-status'
@@ -37,7 +39,7 @@ export default function NoteCard({ note }) {
                             </SwxTypography>
                         </div>
                         <SwxTypography style={{ marginLeft: '3px' }} color='swxBlack' size='small' weight='thin'>
-                            {note.sentAt}
+                            {formatDate(note.created_at)}
                         </SwxTypography>
                     </div>
                 </NoteLeftContainer>

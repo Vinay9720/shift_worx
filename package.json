@@ -16,6 +16,7 @@
         "@mui/material": "^5.14.5",
         "@mui/x-data-grid": "^6.11.2",
         "@reduxjs/toolkit": "^1.9.5",
+        "aws-sdk": "^2.1450.0",
         "axios": "^1.4.0",
         "eslint-config-next": "13.4.19",
         "lodash": "^4.17.21",

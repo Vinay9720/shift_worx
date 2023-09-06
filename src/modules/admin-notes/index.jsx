@@ -3,28 +3,35 @@
 import { useMemo } from 'react';
 import { Stack } from '@mui/material';
 
+import { useNotes } from '@/hooks/admin-note';
+
 import { WidgetCardsContainer } from './admin-notes.styles';
 
 import { SearchFilter, WidgetCard, NoteCard } from '../common/layout';
 import SwxPagination from '../common/layout/pagination';
 
 export default function Page() {
-    const notes = [
-        {
-            title: 'Corinne M',
-            sentAt: 'March 01, 2023',
-            role: 'Admin',
-            description:
-                'Welcome to nurseo! We are sp glad you have joined us. Your direct point of contact during your onboarding process is admin user 1234 admin@mail.com. Please do not call the mail number  with question, your onboarding specialist is equipped to answer question you might have!',
-        },
-        {
-            title: 'Corinne M',
-            sentAt: 'March 01, 2023',
-            role: 'Admin',
-            description:
-                'Welcome to nurseo! We are sp glad you have joined us. Your direct point of contact during your onboarding process is admin user 1234 admin@mail.com. Please do not call the mail number  with question, your onboarding specialist is equipped to answer question you might have!',
-        },
-    ];
+    const {
+        data: notesData,
+        isLoading,
+    } = useNotes();
+    // console.log('notes======>', data);
+    // const notes = [
+    //     {
+    //         title: 'Corinne M',
+    //         sentAt: 'March 01, 2023',
+    //         role: 'Admin',
+    //         description:
+    //             'Welcome to nurseo! We are sp glad you have joined us. Your direct point of contact during your onboarding process is admin user 1234 admin@mail.com. Please do not call the mail number  with question, your onboarding specialist is equipped to answer question you might have!',
+    //     },
+    //     {
+    //         title: 'Corinne M',
+    //         sentAt: 'March 01, 2023',
+    //         role: 'Admin',
+    //         description:
+    //             'Welcome to nurseo! We are sp glad you have joined us. Your direct point of contact during your onboarding process is admin user 1234 admin@mail.com. Please do not call the mail number  with question, your onboarding specialist is equipped to answer question you might have!',
+    //     },
+    // ];
     const cardsData = useMemo(
         () => [
             {
@@ -52,6 +59,10 @@ export default function Page() {
         []
     );
 
+    if (isLoading) {
+        return <div>Loading...</div>;
+    }
+
     return (
         <>
             <WidgetCardsContainer style={{ marginTop: '1rem' }}>
@@ -70,8 +81,8 @@ export default function Page() {
             </WidgetCardsContainer>
             <SearchFilter searchPlaceholder='Search name, email, phone...' style={{ marginTop: '3.5rem' }} />
             <div style={{ display: 'flex', flex: 1, marginTop: '1.5rem' }}>
-                <Stack direction='column' spacing={3}>
-                    {notes.map((note, index) => {
+                <Stack direction='column' spacing={3} style={{ width: '100%' }}>
+                    {notesData.notes.map((note, index) => {
                         return <NoteCard key={index} note={note} />;
                     })}
                 </Stack>

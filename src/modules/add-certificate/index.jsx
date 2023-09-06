@@ -2,22 +2,31 @@
 
 'use client';
 
+import { useState } from 'react';
 import { Stack } from '@mui/material';
 import { useDispatch } from 'react-redux';
 
 import { statesWithkeys } from '@/lib/constants';
 import { restrictEmptyArray } from '@/lib/validators';
 import { useAddEmployee } from '@/hooks/admin-employee';
-import { useFileUpload } from '@/hooks/common';
+// import { useFileUpload } from '@/hooks/common';
+import { uploadFileToS3 } from '@/hooks/common/useFileUpload';
 import { useCertificateOptions } from '@/hooks/certificate';
 import { useFacilityOptions } from '@/hooks/facility';
 import { closeAddCertificateForm } from '@/lib/store/slices/add-employee-module';
+import { useToast } from '@/hooks/common';
+
+import { StyledBorderContainer } from './add-certificate.styles';
 
 import { Form, InputField, DatePickerField, ListBoxField, FormSubmitButton } from '../common/form-components';
 import { SwxTypography, SwxButton } from '../common/components';
 
 function AddCerfification({ defaultValues }) {
-    const { mutate: upload, isImageLoading } = useFileUpload();
+    // const { mutate: upload, isImageLoading } = useFileUpload();
+    const [file, setFile] = useState(null);
+    const [fileKey, setFileKey] = useState(null);
+    const [isImageUploading, setIsImageUploading] = useState(null);
+    const showToast = useToast();
     const dispatch = useDispatch();
 
     const { mutate: addEmployee } = useAddEmployee();
@@ -40,6 +49,7 @@ function AddCerfification({ defaultValues }) {
         multiple: false,
         range: false,
         required: true,
+        width: '100%',
         padding: '10px 12px',
     };
 
@@ -52,6 +62,7 @@ function AddCerfification({ defaultValues }) {
         multiple: false,
         range: false,
         required: true,
+        width: '100%',
         padding: '10px 12px',
     };
 
@@ -83,10 +94,16 @@ function AddCerfification({ defaultValues }) {
         type: 'number',
     };
 
-    const uploadFile = async e => {
-        const file = e.target.files?.[0];
-        if (file) {
-            upload(file);
+    const uploadFile = async event => {
+        setFile(event.target.files[0]);
+        setIsImageUploading(true);
+        try {
+            const S3Data = await uploadFileToS3(event);
+            setFileKey(S3Data.key);
+        } catch (error) {
+            showToast('Please try again', 'error');
+        } finally {
+            setIsImageUploading(false);
         }
     };
 
@@ -136,7 +153,7 @@ function AddCerfification({ defaultValues }) {
                             Upload File
                         </SwxTypography>
                         <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2} sx={{ padding: '0px 24px' }}>
-                            {isImageLoading ? (
+                            {isImageUploading ? (
                                 <p>Loading...</p>
                             ) : (
                                 <>
@@ -150,7 +167,7 @@ function AddCerfification({ defaultValues }) {
                                         Choose File
                                         <input type='file' onChange={uploadFile} hidden />
                                     </SwxButton>
-                                    {/* <StyledBorderContainer>{file ? file.name : 'No File Chosen'}</StyledBorderContainer> */}
+                                    <StyledBorderContainer>{file ? file.name : 'No File Chosen'}</StyledBorderContainer>
                                 </>
                             )}
                         </Stack>

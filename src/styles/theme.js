@@ -17,6 +17,7 @@ export const white = {
         blue: '#1F6FA9',
         lightBlue: '#DCEEFF',
         ligherBlue: '#EAF3FA',
+        lightestBlue: '#F6FAFD',
         swxBlue: '#027EF4',
         white: '#FFFFFF',
         lightGray: '#E6E8E9',
