@@ -32,3 +32,10 @@ export const HeaderContainer = styled.div`
         border-bottom: 1px solid ${theme.borderColor.lightGray};
     `}
 `;
+
+export const StyledBorderContainer = styled.div`
+    ${({ theme }) => `
+        border: 1px solid ${theme.borderColor.lightGray};
+        border-radius: ${theme.borderRadius.small};
+    `}
+`;

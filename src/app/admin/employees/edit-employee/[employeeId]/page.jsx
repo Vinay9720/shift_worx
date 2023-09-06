@@ -82,7 +82,7 @@ export default function Page({ params }) {
                             {currentStepName === 'certificates' && (
                                 <EditEmployeeStep3 employeeData={employeeData} footer={renderFooterSection()} />
                             )}
-                            {currentStepName === 'notes' && <EditEmployeeStep4 />}
+                            {currentStepName === 'notes' && <EditEmployeeStep4 employeeData={employeeData} />}
                         </>
                     )}
                 </div>
