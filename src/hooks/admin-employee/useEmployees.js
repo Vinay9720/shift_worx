@@ -1,12 +1,11 @@
 import { useQuery } from 'react-query';
-import { useDispatch, useSelector } from 'react-redux';
 
 import AdminEmployeeService from '@/services/admin-employee';
-import { setPagination } from '@/lib/store/slices/paginationSlice';
+
+import { usePagination } from '../common';
 
 export const useEmployees = () => {
-    const { itemsPerPage, currentPage } = useSelector(state => state.pagination);
-    const dispatch = useDispatch();
+    const { itemsPerPage, currentPage, setPagination } = usePagination('adminEmployeesPagination');
     return useQuery(
         ['admin-employees', itemsPerPage, currentPage],
         () => AdminEmployeeService.fetchEmployees(itemsPerPage, currentPage, ''),
@@ -26,13 +25,11 @@ export const useEmployees = () => {
             },
             onSuccess: data => {
                 const pagination = data.paginationData;
-                dispatch(
-                    setPagination({
-                        currentPage: pagination.current_page,
-                        itemsPerPage: pagination.per_page,
-                        totalItems: pagination.total_count,
-                    })
-                );
+                setPagination({
+                    currentPage: pagination.current_page,
+                    itemsPerPage: pagination.per_page,
+                    totalItems: pagination.total_count,
+                });
             },
             refetchOnWindowFocus: false,
         }
