@@ -211,7 +211,11 @@ export default function AdminOverview() {
                 style={{ marginTop: '3.5rem' }}
             />
             <SwxDataGrid rows={employees} columns={columns} isLoading={isLoading} />
-            <SwxPagination itemsPerPageOptions={['5', '10', '15']} style={{ marginBottom: '20px' }} />
+            <SwxPagination
+                itemsPerPageOptions={['5', '10', '15']}
+                paginationName='adminEmployeesPagination'
+                style={{ marginBottom: '20px' }}
+            />
         </>
     );
 }

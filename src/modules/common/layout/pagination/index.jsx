@@ -1,43 +1,25 @@
 'use client';
 
-import { useEffect } from 'react';
 import { Stack } from '@mui/material';
-import { useDispatch, useSelector } from 'react-redux';
 
-import {
-    setItemsPerPage,
-    clearPagination,
-    handlePrevious,
-    handleNext,
-    setCurrentPage,
-} from '@/lib/store/slices/paginationSlice';
+import { usePagination } from '@/hooks/common';
 import { createNumberArray } from '@/lib/util';
 
 import { SwxSelect, SwxButton, SwxTypography } from '../../components';
 
-export default function SwxPagination({ itemsPerPageOptions, ...rest }) {
-    const dispatch = useDispatch();
-    const { currentPage, totalPages } = useSelector(state => state.pagination);
-
-    useEffect(() => {
-        return () => dispatch(clearPagination());
-    }, []);
+export default function SwxPagination({ itemsPerPageOptions, paginationName, ...rest }) {
+    const { currentPage, totalPages, setItemsPerPage, previousPage, nextPage, goToPage } =
+        usePagination(paginationName);
 
     return (
         <Stack direction='row' justifyContent='space-between' {...rest}>
             <Stack direction='row' spacing={2}>
-                <SwxSelect
-                    disableClearable
-                    options={itemsPerPageOptions}
-                    onChange={value => dispatch(setItemsPerPage(value))}
-                />
+                <SwxSelect disableClearable options={itemsPerPageOptions} onChange={value => setItemsPerPage(value)} />
             </Stack>
             <Stack direction='row' spacing={2} alignItems='center'>
                 <SwxButton
                     size='small'
-                    onClick={() => {
-                        dispatch(handlePrevious());
-                    }}
+                    onClick={previousPage}
                     padding='16px 10px'
                     variant='outlined'
                     themecolor='lightGray'
@@ -47,9 +29,7 @@ export default function SwxPagination({ itemsPerPageOptions, ...rest }) {
                 <SwxTypography>{currentPage}</SwxTypography>
                 <SwxButton
                     size='small'
-                    onClick={() => {
-                        dispatch(handleNext());
-                    }}
+                    onClick={nextPage}
                     padding='16px 10px'
                     themecolor='lightGray'
                     variant='outlined'
@@ -61,7 +41,7 @@ export default function SwxPagination({ itemsPerPageOptions, ...rest }) {
                 <SwxSelect
                     disableClearable
                     options={createNumberArray(totalPages)}
-                    onChange={value => dispatch(setCurrentPage(value))}
+                    onChange={value => goToPage(value)}
                 />
             </Stack>
         </Stack>
