@@ -6,8 +6,9 @@ import { Stack } from '@mui/material';
 import { openModal, closeModal } from '@/lib/store/slices/modal-slice';
 import { restrictEmptyArray } from '@/lib/validators';
 import { useFileUpload } from '@/hooks/common';
+import { useAddNote } from '@/hooks/admin-note';
 
-import { ModalContainer, HeaderContainer } from './add-note.styles';
+import { ModalContainer, HeaderContainer, StyledBorderContainer } from './add-note.styles';
 
 import { Icon } from '../common/icons';
 import { SwxButton, SwxTypography } from '../common/components';
@@ -15,15 +16,16 @@ import { SwxModal } from '../common/layout';
 import { ListBoxField, InputField, Form, FormSubmitButton } from '../common/form-components';
 
 const noteTypeOptions = [
-    { label: 'Commendation', value: 'Commendation' },
-    { label: 'Disciplinary', value: 'Disciplinary' },
-    { label: 'Human Resources', value: 'Human Resources' },
-    { label: 'Message Sent', value: 'Message Sent' },
-    { label: 'Tardiness', value: 'Tardiness' },
+    { label: 'Commendation', value: '1' },
+    { label: 'Disciplinary', value: '2' },
+    { label: 'Human Resources', value: '3' },
+    { label: 'Message Sent', value: '4' },
+    { label: 'Tardiness', value: '5' },
 ];
 
-export default function AddNote() {
-    const { mutate: upload, isImageLoading } = useFileUpload();
+export default function AddNote({ employeeId }) {
+    const { mutate: upload } = useFileUpload();
+    const { mutate: addNote } = useAddNote();
     const dispatch = useDispatch();
 
     const noteTypeProps = {
@@ -67,7 +69,7 @@ export default function AddNote() {
                             Add Note
                         </SwxTypography>
                     </HeaderContainer>
-                    <Form>
+                    <Form onSubmit={noteData => addNote({ noteData, employeeId })}>
                         <Stack direction='column' spacing={2} sx={{ padding: '0px 24px', mt: 1 }}>
                             <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', width: '100%' }}>
                                 <SwxTypography color='swxSlightlyBlack' size='smallOdd' weight='thin'>
@@ -76,31 +78,47 @@ export default function AddNote() {
                                 <ListBoxField name='note_type' SWXInputProps={noteTypeProps} />
                             </div>
                             <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2}>
-                                <InputField name='first_name' SWXInputProps={noteDescriptionProps} />
+                                <InputField name='description' SWXInputProps={noteDescriptionProps} />
                             </Stack>
                             <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', width: '100%' }}>
                                 <SwxTypography color='swxSlightlyBlack' size='smallOdd' weight='thin'>
                                     Upload File
                                 </SwxTypography>
-                                <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2}>
-                                    {isImageLoading ? (
-                                        <p>Loading...</p>
-                                    ) : (
-                                        <>
-                                            {/* <StyledBorderContainer>{file ? file.name : 'No File Chosen'}</StyledBorderContainer> */}
-                                            <SwxButton
-                                                size='small'
-                                                padding='6px 24px'
-                                                component='label'
-                                                radius='large'
-                                                variant='contained'
-                                                weight='bold'>
-                                                Choose File
-                                                <input type='file' onChange={upload} hidden />
-                                            </SwxButton>
-                                        </>
-                                    )}
-                                </Stack>
+                                <StyledBorderContainer>
+                                    <Stack
+                                        sx={{
+                                            justifyContent: 'space-between',
+                                            width: '100%',
+                                            padding: '12px 16px',
+                                        }}
+                                        direction='row'>
+                                        <Stack direction='column'>
+                                            <SwxTypography color='lightGray' size='semiMedium' weight='thin'>
+                                                No file choosen
+                                            </SwxTypography>
+                                            <SwxTypography color='lightGray' size='smallest' weight='semiBold'>
+                                                JPG, PNG mas 10MB
+                                            </SwxTypography>
+                                        </Stack>
+                                        <SwxButton
+                                            size='small'
+                                            padding='6px 24px'
+                                            component='label'
+                                            startIcon={
+                                                <Icon
+                                                    width={17}
+                                                    height={12}
+                                                    name='addition'
+                                                    styles={{ fill: '#1F6FA9' }}
+                                                />
+                                            }
+                                            variant='outlined'
+                                            weight='bold'>
+                                            Choose File
+                                            <input type='file' onChange={upload} hidden />
+                                        </SwxButton>
+                                    </Stack>
+                                </StyledBorderContainer>
                             </div>
                             <Stack
                                 spacing={3}

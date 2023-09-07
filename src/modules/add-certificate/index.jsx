@@ -9,12 +9,11 @@ import { useDispatch } from 'react-redux';
 import { statesWithkeys } from '@/lib/constants';
 import { restrictEmptyArray } from '@/lib/validators';
 import { useAddEmployee } from '@/hooks/admin-employee';
-// import { useFileUpload } from '@/hooks/common';
-import { uploadFileToS3 } from '@/hooks/common/useFileUpload';
+// import { uploadFileToS3 } from '@/hooks/common/useFileUpload';
 import { useCertificateOptions } from '@/hooks/certificate';
 import { useFacilityOptions } from '@/hooks/facility';
 import { closeAddCertificateForm } from '@/lib/store/slices/add-employee-module';
-import { useToast } from '@/hooks/common';
+import { useFileUpload } from '@/hooks/common';
 
 import { StyledBorderContainer } from './add-certificate.styles';
 
@@ -22,11 +21,9 @@ import { Form, InputField, DatePickerField, ListBoxField, FormSubmitButton } fro
 import { SwxTypography, SwxButton } from '../common/components';
 
 function AddCerfification({ defaultValues }) {
-    // const { mutate: upload, isImageLoading } = useFileUpload();
+    const { mutate: upload } = useFileUpload();
     const [file, setFile] = useState(null);
-    const [fileKey, setFileKey] = useState(null);
     const [isImageUploading, setIsImageUploading] = useState(null);
-    const showToast = useToast();
     const dispatch = useDispatch();
 
     const { mutate: addEmployee } = useAddEmployee();
@@ -95,16 +92,10 @@ function AddCerfification({ defaultValues }) {
     };
 
     const uploadFile = async event => {
-        setFile(event.target.files[0]);
+        const fileToBeUploaded = event.target.files[0];
+        setFile(fileToBeUploaded);
         setIsImageUploading(true);
-        try {
-            const S3Data = await uploadFileToS3(event);
-            setFileKey(S3Data.key);
-        } catch (error) {
-            showToast('Please try again', 'error');
-        } finally {
-            setIsImageUploading(false);
-        }
+        upload(fileToBeUploaded);
     };
 
     if (isCertificateOptionsLoading || isFacilityOptionsLoading) {

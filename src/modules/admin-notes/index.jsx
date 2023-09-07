@@ -11,27 +11,7 @@ import { SearchFilter, WidgetCard, NoteCard } from '../common/layout';
 import SwxPagination from '../common/layout/pagination';
 
 export default function Page() {
-    const {
-        data: notesData,
-        isLoading,
-    } = useNotes();
-    // console.log('notes======>', data);
-    // const notes = [
-    //     {
-    //         title: 'Corinne M',
-    //         sentAt: 'March 01, 2023',
-    //         role: 'Admin',
-    //         description:
-    //             'Welcome to nurseo! We are sp glad you have joined us. Your direct point of contact during your onboarding process is admin user 1234 admin@mail.com. Please do not call the mail number  with question, your onboarding specialist is equipped to answer question you might have!',
-    //     },
-    //     {
-    //         title: 'Corinne M',
-    //         sentAt: 'March 01, 2023',
-    //         role: 'Admin',
-    //         description:
-    //             'Welcome to nurseo! We are sp glad you have joined us. Your direct point of contact during your onboarding process is admin user 1234 admin@mail.com. Please do not call the mail number  with question, your onboarding specialist is equipped to answer question you might have!',
-    //     },
-    // ];
+    const { data: notesData, isLoading } = useNotes();
     const cardsData = useMemo(
         () => [
             {
