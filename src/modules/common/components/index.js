@@ -1,5 +1,5 @@
 import SwxInput from './input';
-import SwxButton from './button/Button';
+import SwxButton from './button';
 import SwxTypography from './typography';
 import SwxPopupMenu from './popup-menu';
 import SwxTabs from './tabs';
