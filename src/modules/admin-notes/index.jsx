@@ -67,7 +67,11 @@ export default function Page() {
                     })}
                 </Stack>
             </div>
-            <SwxPagination itemsPerPageOptions={['5', '10', '15']} style={{ marginBottom: '20px' }} />
+            <SwxPagination
+                paginationName='adminNotesPagination'
+                itemsPerPageOptions={['5', '10', '15']}
+                style={{ marginBottom: '20px' }}
+            />
         </>
     );
 }
