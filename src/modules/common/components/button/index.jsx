@@ -1,6 +1,6 @@
 'use client';
 
-import { StyledButton } from './button.styles';
+import { StyledButton } from './Button.styles';
 
 function SwxButton({ startIcon, size, padding, radius, variant, endIcon, children, themecolor, styles, ...rest }) {
     return (
