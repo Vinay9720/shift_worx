@@ -17,6 +17,7 @@ const initialState = {
     currentStepName: 'profile_information',
     employee: {},
     addingCertificate: false,
+    editingCertificate: false,
 };
 
 const editEmployeeModule = createSlice({
@@ -43,9 +44,21 @@ const editEmployeeModule = createSlice({
         closeAddCertificateForm: state => {
             state.addingCertificate = false;
         },
+        openEditCertificateForm: state => {
+            state.editingCertificate = true;
+        },
+        closeEditCertificateForm: state => {
+            state.editingCertificate = false;
+        },
     },
 });
 
-export const { setCurrentStep, openAddCertificateForm, closeAddCertificateForm, setEmployee } =
-    editEmployeeModule.actions;
+export const {
+    setCurrentStep,
+    openAddCertificateForm,
+    closeAddCertificateForm,
+    setEmployee,
+    openEditCertificateForm,
+    closeEditCertificateForm,
+} = editEmployeeModule.actions;
 export default editEmployeeModule.reducer;

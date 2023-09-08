@@ -70,7 +70,7 @@ export default function Page() {
             <SwxPagination
                 paginationName='adminNotesPagination'
                 itemsPerPageOptions={['5', '10', '15']}
-                style={{ marginBottom: '20px' }}
+                style={{ margin: '20px 0px' }}
             />
         </>
     );
