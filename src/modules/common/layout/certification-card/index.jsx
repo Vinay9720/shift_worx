@@ -34,20 +34,13 @@ export default function CertificationCard({ certification }) {
                             View Document
                         </SwxButton>
                     </a>
-                    {/* <SwxButton
-                        startIcon={
-                            <Icon
-                                width={15}
-                                height={16}
-                                name='edit'
-                                className='fill-newBrand'
-                            />
-                        }
+                    <SwxButton
+                        startIcon={<Icon width={15} height={16} name='edit' styles={{ fill: '#1F6FA9' }} />}
                         variant='text'
                         size='small'
                         weight='bold'>
                         Edit
-                    </SwxButton> */}
+                    </SwxButton>
                 </CertificationUpperRightSection>
             </CertificationUpperSection>
             <CertificationLowerSection>

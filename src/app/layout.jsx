@@ -26,15 +26,15 @@ export default function RootLayout({ children }) {
             </head>
             <body className={appFont.className} suppressHydrationWarning>
                 <SessionProvider>
-                    <ToastProvider>
-                        <StoreProvider>
-                            <QueryProvider>
-                                <StyledComponentsRegistry>
-                                    <StyledThemeProvider>{children}</StyledThemeProvider>
-                                </StyledComponentsRegistry>
-                            </QueryProvider>
-                        </StoreProvider>
-                    </ToastProvider>
+                    <StyledComponentsRegistry>
+                        <StyledThemeProvider>
+                            <ToastProvider>
+                                <StoreProvider>
+                                    <QueryProvider>{children}</QueryProvider>
+                                </StoreProvider>
+                            </ToastProvider>
+                        </StyledThemeProvider>
+                    </StyledComponentsRegistry>
                 </SessionProvider>
             </body>
         </html>
