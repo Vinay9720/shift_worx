@@ -14,11 +14,6 @@ import {
 
 const appFont = Manrope({ subsets: ['latin'] });
 
-export const metadata = {
-    title: 'Shiftworx',
-    description: '',
-};
-
 export default function RootLayout({ children }) {
     return (
         <html lang='en'>
