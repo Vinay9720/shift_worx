@@ -20,7 +20,7 @@ import { StyledBorderContainer } from './add-certificate.styles';
 import { Form, InputField, DatePickerField, ListBoxField, FormSubmitButton } from '../common/form-components';
 import { SwxTypography, SwxButton } from '../common/components';
 
-function AddCerfification({ defaultValues }) {
+function AddCerfification({ defaultValues, employeeId }) {
     const { mutate: upload } = useFileUpload();
     const [file, setFile] = useState(null);
     const [isImageUploading, setIsImageUploading] = useState(null);
@@ -104,7 +104,7 @@ function AddCerfification({ defaultValues }) {
 
     return (
         <Stack direction='column' spacing={3} style={{ padding: '52px 140px 13px 160px' }}>
-            <Form onSubmit={addEmployee} defaultValues={defaultValues}>
+            <Form onSubmit={formValues => addEmployee(formValues, employeeId)} defaultValues={defaultValues}>
                 <Stack direction='column' spacing={3} style={{ width: '100%' }}>
                     <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2} sx={{ padding: '0px 24px' }}>
                         <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', width: '100%' }}>

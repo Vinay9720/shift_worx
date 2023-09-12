@@ -16,7 +16,7 @@ import {
 import { SwxTypography, SwxButton } from '../../components';
 import { Icon } from '../../icons';
 
-export default function CertificationCard({ certification }) {
+export default function CertificationCard({ certification, onEdit }) {
     return (
         <CertificationContainer>
             <CertificationUpperSection>
@@ -38,6 +38,7 @@ export default function CertificationCard({ certification }) {
                         startIcon={<Icon width={15} height={16} name='edit' styles={{ fill: '#1F6FA9' }} />}
                         variant='text'
                         size='small'
+                        onClick={onEdit}
                         weight='bold'>
                         Edit
                     </SwxButton>

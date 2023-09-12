@@ -1,22 +1,22 @@
 'use client';
 
-import { Divider } from '@mui/material';
+import { Divider, IconButton } from '@mui/material';
 
 import { formatDate } from '@/lib/util';
 
-import { NoteWrapper, NoteLeftContainer, NoteContainer } from './note-card.styles';
+import { NoteWrapper, NoteLeftContainer, NoteContainer, DescriptionContainer } from './note-card.styles';
 
-import { SwxTypography, SwxChip } from '../../components';
+import { SwxTypography, SwxChip, SwxPopupMenu } from '../../components';
 import { Icon } from '../../icons';
 
-export default function NoteCard({ note }) {
+export default function NoteCard({ note, actions }) {
     return (
         <NoteWrapper isRead={false}>
             <NoteContainer>
                 <NoteLeftContainer>
                     <div style={{ display: 'flex', gap: '4px', alignItems: 'center' }}>
                         <SwxTypography color='swxBlack' size='semiLarge' weight='bold'>
-                            {note.note_type}
+                            {note.note_type.title}
                         </SwxTypography>
                         <span>
                             <SwxChip label='Contractor' color='darkBlue' background='ligherBlue' size='semiMedium' />
@@ -24,7 +24,7 @@ export default function NoteCard({ note }) {
                     </div>
                     <div style={{ display: 'flex' }}>
                         <SwxTypography color='swxBlack' size='small' weight='thin' style={{ marginRight: '10px' }}>
-                            {note.role || 'Admin'}
+                            {note.entity_type || 'Admin'}
                         </SwxTypography>
                         <div style={{ display: 'flex ', alignItems: 'center', marginRight: '4px' }}>
                             <Icon
@@ -44,9 +44,27 @@ export default function NoteCard({ note }) {
                     </div>
                 </NoteLeftContainer>
                 <Divider orientation='vertical' flexItem />
-                <SwxTypography color='swxBlack' size='semiMedium' weight='thin'>
-                    {note.description}
-                </SwxTypography>
+                <DescriptionContainer>
+                    <SwxTypography color='swxBlack' size='semiMedium' weight='thin'>
+                        {note.description}
+                    </SwxTypography>
+                    {actions && (
+                        <SwxPopupMenu
+                            buttonElement={
+                                <IconButton>
+                                    <Icon
+                                        styles={{ fill: '#838A91' }}
+                                        name='vertical-menu'
+                                        aria-hidden='true'
+                                        height={15}
+                                        width={10}
+                                    />
+                                </IconButton>
+                            }
+                            options={actions}
+                        />
+                    )}
+                </DescriptionContainer>
             </NoteContainer>
         </NoteWrapper>
     );

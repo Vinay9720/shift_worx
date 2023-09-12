@@ -9,6 +9,7 @@ import { NoteCard } from '../common/layout';
 import AddNote from '../add-note';
 
 function EditEmployeeStep4({ employeeData }) {
+    console.log('employeeData', employeeData);
     return (
         <>
             <Stack direction='row' justifyContent='space-between'>
