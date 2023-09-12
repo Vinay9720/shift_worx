@@ -22,17 +22,17 @@ export default function RootLayout({ children }) {
                 <link rel='shortcut icon' href='/favicon.ico' />
             </head>
             <body className={appFont.className} suppressHydrationWarning>
-                <SessionProvider>
+                <StyledThemeProvider>
                     <StyledComponentsRegistry>
-                        <StyledThemeProvider>
+                        <SessionProvider>
                             <ToastProvider>
                                 <StoreProvider>
                                     <QueryProvider>{children}</QueryProvider>
                                 </StoreProvider>
                             </ToastProvider>
-                        </StyledThemeProvider>
+                        </SessionProvider>
                     </StyledComponentsRegistry>
-                </SessionProvider>
+                </StyledThemeProvider>
             </body>
         </html>
     );
