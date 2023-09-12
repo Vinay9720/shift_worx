@@ -28,3 +28,9 @@ export const NoteLeftContainer = styled.div`
     gap: 12px;
     width: 40%;
 `;
+
+export const DescriptionContainer = styled.div`
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+`;

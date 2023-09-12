@@ -3,7 +3,7 @@ export default function Edit({ width, height, fill, styles, ...rest }) {
         <svg
             width={width}
             height={height}
-            className={styles}
+            style={{ ...styles }}
             viewBox='0 0 15 16'
             fill='none'
             {...rest}

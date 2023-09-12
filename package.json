@@ -32,6 +32,9 @@
         "redux-thunk": "^2.4.2",
         "styled-components": "^5.3.11"
     },
+    "alias": {
+        "@mui/styled-engine": "@mui/styled-engine-sc"
+    },
     "devDependencies": {
         "@types/node": "20.5.2",
         "eslint": "^8.47.0",
