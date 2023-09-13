@@ -2,27 +2,36 @@
 
 import { useMemo } from 'react';
 import { Stack } from '@mui/material';
+import { useDispatch } from 'react-redux';
 
-import { useNotes } from '@/hooks/admin-note';
+import { useDeleteNote, useNotes, useUpdateNote } from '@/hooks/admin-note';
+import { openEditNoteForm, setnoteToBeUpdated } from '@/lib/store/slices/admin-notes-module';
+import { openModal } from '@/lib/store/slices/modal-slice';
 
 import { WidgetCardsContainer } from './admin-notes.styles';
 
-import { SearchFilter, WidgetCard, NoteCard, SwxPagination } from '../common/layout';
+import { SearchFilter, WidgetCard, NoteCard, SwxPagination, SwxModal } from '../common/layout';
+import NoteForm from '../add-note/noteForm';
 
 export default function Page() {
     const { data: notesData, isLoading } = useNotes();
-    const menuOptions = () => {
+    const dispatch = useDispatch();
+    const { mutate: updateNote } = useUpdateNote();
+    const { mutate: deleteNote } = useDeleteNote();
+    const menuOptions = ({ note }) => {
         return [
             {
                 label: 'Edit',
                 action: () => {
-                    console.log('edit note');
+                    dispatch(openEditNoteForm());
+                    dispatch(openModal({ modalName: 'editNoteModal' }));
+                    dispatch(setnoteToBeUpdated(note));
                 },
             },
             {
                 label: 'Delete',
                 action: () => {
-                    console.log('send message clicked');
+                    deleteNote(note.id);
                 },
             },
         ];
@@ -77,17 +86,17 @@ export default function Page() {
             <SearchFilter searchPlaceholder='Search name, email, phone...' style={{ marginTop: '3.5rem' }} />
             <div style={{ display: 'flex', flex: 1, marginTop: '1.5rem' }}>
                 <Stack direction='column' spacing={3} style={{ width: '100%' }}>
+                    <SwxModal modalName='editNoteModal'>
+                        <NoteForm modalName='editNoteModal' action={updateNote} />
+                    </SwxModal>
                     {notesData.notes.map((note, index) => {
                         return (
                             <>
-                                {/* <SwxModal modalName='editNoteModal'>
-                                    <NoteForm modalName='editNoteModal' action={addNote} employeeId={note.id} />
-                                </SwxModal> */}
                                 <NoteCard
                                     key={index}
                                     note={note}
                                     actions={menuOptions({
-                                        id: '2',
+                                        note,
                                     })}
                                 />
                             </>
