@@ -3,11 +3,14 @@
 import { Stack } from '@mui/material';
 import { useState } from 'react';
 
+import { useReadNotes } from '@/hooks/admin-note/useReadNotes';
+
 import { Icon } from '../common/icons';
 import { SwxDatePicker, SwxInput, SwxSelect, SwxButton } from '../common/components';
 
-function SearchFilter({ actionButton: ActionButton, style }) {
+function SearchFilter({ style }) {
     const [value, setValue] = useState('1');
+    const { mutate: readNotes } = useReadNotes();
     return (
         <Stack direction='row' justifyContent='space-between' style={{ ...style, marginTop: '3.5rem' }}>
             <Stack direction='row' spacing={2} style={{ width: '80%' }}>
@@ -51,7 +54,14 @@ function SearchFilter({ actionButton: ActionButton, style }) {
                     Clear all
                 </SwxButton>
             </Stack>
-            {ActionButton && <ActionButton />}
+            <SwxButton
+                onClick={readNotes}
+                startIcon={<Icon width={24} height={24} name='check' styles={{ fill: '#1F6FA9' }} />}
+                size='medium'
+                variant='text'
+                weight='semiBold'>
+                Mark All as Read
+            </SwxButton>
         </Stack>
     );
 }
