@@ -7,11 +7,26 @@ import { useNotes } from '@/hooks/admin-note';
 
 import { WidgetCardsContainer } from './admin-notes.styles';
 
-import { SearchFilter, WidgetCard, NoteCard } from '../common/layout';
-import SwxPagination from '../common/layout/pagination';
+import { SearchFilter, WidgetCard, NoteCard, SwxPagination } from '../common/layout';
 
 export default function Page() {
     const { data: notesData, isLoading } = useNotes();
+    const menuOptions = () => {
+        return [
+            {
+                label: 'Edit',
+                action: () => {
+                    console.log('edit note');
+                },
+            },
+            {
+                label: 'Delete',
+                action: () => {
+                    console.log('send message clicked');
+                },
+            },
+        ];
+    };
     const cardsData = useMemo(
         () => [
             {
@@ -63,14 +78,27 @@ export default function Page() {
             <div style={{ display: 'flex', flex: 1, marginTop: '1.5rem' }}>
                 <Stack direction='column' spacing={3} style={{ width: '100%' }}>
                     {notesData.notes.map((note, index) => {
-                        return <NoteCard key={index} note={note} />;
+                        return (
+                            <>
+                                {/* <SwxModal modalName='editNoteModal'>
+                                    <NoteForm modalName='editNoteModal' action={addNote} employeeId={note.id} />
+                                </SwxModal> */}
+                                <NoteCard
+                                    key={index}
+                                    note={note}
+                                    actions={menuOptions({
+                                        id: '2',
+                                    })}
+                                />
+                            </>
+                        );
                     })}
                 </Stack>
             </div>
             <SwxPagination
                 paginationName='adminNotesPagination'
                 itemsPerPageOptions={['5', '10', '15']}
-                style={{ marginBottom: '20px' }}
+                style={{ margin: '20px 0px' }}
             />
         </>
     );

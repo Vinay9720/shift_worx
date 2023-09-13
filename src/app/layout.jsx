@@ -1,3 +1,5 @@
+'use client';
+
 import './globals.css';
 import { Manrope } from 'next/font/google';
 
@@ -8,14 +10,10 @@ import {
     QueryProvider,
     StoreProvider,
     ToastProvider,
+    ClientComponentProvider,
 } from '@/lib/providers';
 
 const appFont = Manrope({ subsets: ['latin'] });
-
-export const metadata = {
-    title: 'Shiftworx',
-    description: '',
-};
 
 export default function RootLayout({ children }) {
     return (
@@ -25,17 +23,19 @@ export default function RootLayout({ children }) {
                 <link rel='shortcut icon' href='/favicon.ico' />
             </head>
             <body className={appFont.className} suppressHydrationWarning>
-                <SessionProvider>
-                    <ToastProvider>
-                        <StoreProvider>
-                            <QueryProvider>
-                                <StyledComponentsRegistry>
-                                    <StyledThemeProvider>{children}</StyledThemeProvider>
-                                </StyledComponentsRegistry>
-                            </QueryProvider>
-                        </StoreProvider>
-                    </ToastProvider>
-                </SessionProvider>
+                <StyledThemeProvider>
+                    <StyledComponentsRegistry>
+                        <SessionProvider>
+                            <ToastProvider>
+                                <StoreProvider>
+                                    <ClientComponentProvider>
+                                        <QueryProvider>{children}</QueryProvider>
+                                    </ClientComponentProvider>
+                                </StoreProvider>
+                            </ToastProvider>
+                        </SessionProvider>
+                    </StyledComponentsRegistry>
+                </StyledThemeProvider>
             </body>
         </html>
     );

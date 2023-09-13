@@ -7,6 +7,7 @@ import AdminMainLayout from './admin-main-layout';
 import EditEmployeeLayout from './edit-employee-layout';
 import CertificationCard from './certification-card';
 import NoteCard from './note-card';
+import SwxPagination from './pagination';
 
 export {
     NavBar,
@@ -18,4 +19,5 @@ export {
     AdminMainLayout,
     CertificationCard,
     NoteCard,
+    SwxPagination,
 };
