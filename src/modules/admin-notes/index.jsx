@@ -4,7 +4,7 @@ import { useMemo } from 'react';
 import { Stack } from '@mui/material';
 import { useDispatch } from 'react-redux';
 
-import { useDeleteNote, useNotes, useUpdateNote } from '@/hooks/admin-note';
+import { useDeleteNote, useNotes, useReadNote, useUpdateNote } from '@/hooks/admin-note';
 import { openEditNoteForm, setnoteToBeUpdated } from '@/lib/store/slices/admin-notes-module';
 import { openModal } from '@/lib/store/slices/modal-slice';
 
@@ -18,6 +18,7 @@ export default function Page() {
     const dispatch = useDispatch();
     const { mutate: updateNote } = useUpdateNote();
     const { mutate: deleteNote } = useDeleteNote();
+    const { mutate: readNote } = useReadNote();
     const menuOptions = ({ note }) => {
         return [
             {
@@ -32,6 +33,12 @@ export default function Page() {
                 label: 'Delete',
                 action: () => {
                     deleteNote(note.id);
+                },
+            },
+            {
+                label: 'Mark as read',
+                action: () => {
+                    readNote(note.id);
                 },
             },
         ];
