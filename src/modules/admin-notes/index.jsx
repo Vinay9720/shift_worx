@@ -9,8 +9,9 @@ import { openEditNoteForm, setnoteToBeUpdated } from '@/lib/store/slices/admin-n
 import { openModal } from '@/lib/store/slices/modal-slice';
 
 import { WidgetCardsContainer } from './admin-notes.styles';
+import SearchFilter from './SearchFilter';
 
-import { SearchFilter, WidgetCard, NoteCard, SwxPagination, SwxModal } from '../common/layout';
+import { WidgetCard, NoteCard, SwxPagination, SwxModal } from '../common/layout';
 import NoteForm from '../add-note/noteForm';
 
 export default function Page() {
@@ -90,7 +91,7 @@ export default function Page() {
                     );
                 })}
             </WidgetCardsContainer>
-            <SearchFilter searchPlaceholder='Search name, email, phone...' style={{ marginTop: '3.5rem' }} />
+            <SearchFilter />
             <div style={{ display: 'flex', flex: 1, marginTop: '1.5rem' }}>
                 <Stack direction='column' spacing={3} style={{ width: '100%' }}>
                     <SwxModal modalName='editNoteModal'>

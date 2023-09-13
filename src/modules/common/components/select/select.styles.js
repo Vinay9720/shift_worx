@@ -2,10 +2,15 @@ import styled from 'styled-components';
 import { Autocomplete } from '@mui/material';
 
 export const StyledAutoCompleteSelect = styled(Autocomplete)`
+    input {
+        ${({ padding }) => `
+            padding: ${padding || '17px 16px'} !important;
+        `}
+    }
     & .MuiOutlinedInput-input {
-        padding: 17px 16px;
-        ${({ theme }) => `
+        ${({ theme, padding }) => `
             color: ${theme.fontColor.swxSlightlyBlack};
+            padding: ${padding || '17px 16px'};
         `}
     }
     & .MuiOutlinedInput-notchedOutline {

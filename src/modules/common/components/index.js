@@ -9,6 +9,7 @@ import SwxDataGrid from './datagrid';
 import SwxChip from './chip';
 import SwxLinearProgress from './linear-progress';
 import SwxPhoneNumberInput from './phone-number';
+import SwxDatePicker from './date-picker';
 
 export {
     SwxInput,
@@ -22,4 +23,5 @@ export {
     SwxChip,
     SwxLinearProgress,
     SwxPhoneNumberInput,
+    SwxDatePicker,
 };
