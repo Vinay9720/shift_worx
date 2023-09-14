@@ -1,5 +1,6 @@
 import http from '../../httpCommon';
 
+// &note_type_id=${null}&start_date=${null}&end_date=${null}
 const fetchnotes = (itemsPerPage, page, searchParams) => {
     return http.get(`/notes?per_page=${itemsPerPage}&page=${page}&search=${searchParams}`);
 };

@@ -29,6 +29,7 @@ export default function SwxMultiSelect({
     multiple,
     style,
     width,
+    padding,
     errorText,
 }) {
     return (
@@ -44,6 +45,7 @@ export default function SwxMultiSelect({
                     //     return <Icon styles='fill-lightGray mr-2' name='select-down-arrow' height={7} width={12} />;
                     // }}
                     multiple={multiple}
+                    padding={padding}
                     value={value}
                     onChange={onChange}
                     renderValue={selected => {

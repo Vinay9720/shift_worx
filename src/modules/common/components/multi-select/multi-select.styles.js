@@ -3,8 +3,8 @@ import { Select, InputLabel } from '@mui/material';
 
 export const StyledSelect = styled(Select)`
     & .MuiOutlinedInput-input {
-        padding: 17px 16px;
-        ${({ theme }) => `
+        ${({ theme, padding }) => `
+            padding: ${padding || '17px 16px'};
             color: ${theme.fontColor.swxSlightlyBlack};
         `}
     }

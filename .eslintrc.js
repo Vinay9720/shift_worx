@@ -49,7 +49,7 @@ module.exports = {
         'no-restricted-syntax': 'off',
         'no-underscore-dangle': 'off',
         'no-nested-ternary': 'off',
-        'max-params': ['error', { max: 5 }],
+        'max-params': ['error', { max: 6 }],
         'no-multiple-empty-lines': 'error',
         complexity: ['error', 35],
         quotes: [

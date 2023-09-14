@@ -71,10 +71,6 @@ export default function Page() {
         []
     );
 
-    if (isLoading) {
-        return <div>Loading...</div>;
-    }
-
     return (
         <>
             <WidgetCardsContainer style={{ marginTop: '1rem' }}>
@@ -93,24 +89,28 @@ export default function Page() {
             </WidgetCardsContainer>
             <SearchFilter />
             <div style={{ display: 'flex', flex: 1, marginTop: '1.5rem' }}>
-                <Stack direction='column' spacing={3} style={{ width: '100%' }}>
-                    <SwxModal modalName='editNoteModal'>
-                        <NoteForm modalName='editNoteModal' action={updateNote} />
-                    </SwxModal>
-                    {notesData.notes.map((note, index) => {
-                        return (
-                            <>
-                                <NoteCard
-                                    key={index}
-                                    note={note}
-                                    actions={menuOptions({
-                                        note,
-                                    })}
-                                />
-                            </>
-                        );
-                    })}
-                </Stack>
+                {!isLoading ? (
+                    <Stack direction='column' spacing={3} style={{ width: '100%' }}>
+                        <SwxModal modalName='editNoteModal'>
+                            <NoteForm modalName='editNoteModal' action={updateNote} />
+                        </SwxModal>
+                        {notesData.notes.map((note, index) => {
+                            return (
+                                <>
+                                    <NoteCard
+                                        key={index}
+                                        note={note}
+                                        actions={menuOptions({
+                                            note,
+                                        })}
+                                    />
+                                </>
+                            );
+                        })}
+                    </Stack>
+                ) : (
+                    <div style={{ display: 'flex', flex: 1, height: '500px' }}>Loading...</div>
+                )}
             </div>
             <SwxPagination
                 paginationName='adminNotesPagination'

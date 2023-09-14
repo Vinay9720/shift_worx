@@ -1,4 +1,5 @@
 import { useQuery } from 'react-query';
+import { useSelector } from 'react-redux';
 
 import AdminNoteService from '@/services/admin-note';
 
@@ -6,9 +7,10 @@ import { usePagination } from '../common';
 
 export const useNotes = () => {
     const { itemsPerPage, currentPage, setPagination } = usePagination('adminNotesPagination');
+    const { search } = useSelector(state => state.noterFilter);
     return useQuery(
-        ['admin-notes', itemsPerPage, currentPage],
-        () => AdminNoteService.fetchnotes(itemsPerPage, currentPage, ''),
+        ['admin-notes', itemsPerPage, currentPage, search],
+        () => AdminNoteService.fetchnotes(itemsPerPage, currentPage, search),
         {
             select: data => {
                 const res = data.data;
