@@ -6,6 +6,7 @@ import addEmployeeModuleReducer from './slices/add-employee-module';
 import paginationSlice from './slices/paginationSlice';
 import editEmployeeModuleReducer from './slices/edit-employee-module';
 import adminNotesModuleReducer from './slices/admin-notes-module';
+import { notesFilterReducer } from './slices/filter';
 
 const rootReducer = combineReducers({
     modals: ModalReducer,
@@ -13,6 +14,7 @@ const rootReducer = combineReducers({
     pagination: paginationSlice,
     editEmployeeModule: editEmployeeModuleReducer,
     adminNotesModule: adminNotesModuleReducer,
+    noterFilter: notesFilterReducer,
 });
 
 export const store = configureStore({

@@ -3,13 +3,13 @@ export default function Check({ width, height, fill, styles, ...rest }) {
         <svg
             width={width}
             height={height}
-            className={styles}
-            viewBox='0 0 16 16'
+            style={{ ...styles }}
+            viewBox='0 0 24 24'
             fill='none'
             {...rest}
             xmlns='http://www.w3.org/2000/svg'>
             <path
-                d='M6.6668 10.1134L12.7955 3.98608L13.7381 4.92875L6.66747 11.9994L2.4248 7.75675L3.36747 6.81408L6.66747 10.1141L6.6668 10.1134Z'
+                d='M9.99972 15.17L19.1927 5.979L20.6067 7.393L10.0007 17.999L3.63672 11.635L5.05072 10.221L10.0007 15.171L9.99972 15.17Z'
                 fill={fill}
             />
         </svg>

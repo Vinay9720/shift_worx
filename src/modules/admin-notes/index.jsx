@@ -4,13 +4,14 @@ import { useMemo } from 'react';
 import { Stack } from '@mui/material';
 import { useDispatch } from 'react-redux';
 
-import { useDeleteNote, useNotes, useUpdateNote } from '@/hooks/admin-note';
+import { useDeleteNote, useNotes, useReadNote, useUpdateNote } from '@/hooks/admin-note';
 import { openEditNoteForm, setnoteToBeUpdated } from '@/lib/store/slices/admin-notes-module';
 import { openModal } from '@/lib/store/slices/modal-slice';
 
 import { WidgetCardsContainer } from './admin-notes.styles';
+import SearchFilter from './SearchFilter';
 
-import { SearchFilter, WidgetCard, NoteCard, SwxPagination, SwxModal } from '../common/layout';
+import { WidgetCard, NoteCard, SwxPagination, SwxModal } from '../common/layout';
 import NoteForm from '../add-note/noteForm';
 
 export default function Page() {
@@ -18,6 +19,7 @@ export default function Page() {
     const dispatch = useDispatch();
     const { mutate: updateNote } = useUpdateNote();
     const { mutate: deleteNote } = useDeleteNote();
+    const { mutate: readNote } = useReadNote();
     const menuOptions = ({ note }) => {
         return [
             {
@@ -32,6 +34,12 @@ export default function Page() {
                 label: 'Delete',
                 action: () => {
                     deleteNote(note.id);
+                },
+            },
+            {
+                label: 'Mark as read',
+                action: () => {
+                    readNote(note.id);
                 },
             },
         ];
@@ -63,10 +71,6 @@ export default function Page() {
         []
     );
 
-    if (isLoading) {
-        return <div>Loading...</div>;
-    }
-
     return (
         <>
             <WidgetCardsContainer style={{ marginTop: '1rem' }}>
@@ -83,26 +87,30 @@ export default function Page() {
                     );
                 })}
             </WidgetCardsContainer>
-            <SearchFilter searchPlaceholder='Search name, email, phone...' style={{ marginTop: '3.5rem' }} />
+            <SearchFilter />
             <div style={{ display: 'flex', flex: 1, marginTop: '1.5rem' }}>
-                <Stack direction='column' spacing={3} style={{ width: '100%' }}>
-                    <SwxModal modalName='editNoteModal'>
-                        <NoteForm modalName='editNoteModal' action={updateNote} />
-                    </SwxModal>
-                    {notesData.notes.map((note, index) => {
-                        return (
-                            <>
-                                <NoteCard
-                                    key={index}
-                                    note={note}
-                                    actions={menuOptions({
-                                        note,
-                                    })}
-                                />
-                            </>
-                        );
-                    })}
-                </Stack>
+                {!isLoading ? (
+                    <Stack direction='column' spacing={3} style={{ width: '100%' }}>
+                        <SwxModal modalName='editNoteModal'>
+                            <NoteForm modalName='editNoteModal' action={updateNote} />
+                        </SwxModal>
+                        {notesData.notes.map((note, index) => {
+                            return (
+                                <>
+                                    <NoteCard
+                                        key={index}
+                                        note={note}
+                                        actions={menuOptions({
+                                            note,
+                                        })}
+                                    />
+                                </>
+                            );
+                        })}
+                    </Stack>
+                ) : (
+                    <div style={{ display: 'flex', flex: 1, height: '500px' }}>Loading...</div>
+                )}
             </div>
             <SwxPagination
                 paginationName='adminNotesPagination'
