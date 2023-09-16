@@ -1,7 +1,8 @@
 import { useMutation, useQueryClient } from 'react-query';
 import { useDispatch } from 'react-redux';
 
-import AdminEmployeeService from '@/services/admin-employee';
+// import AdminEmployeeService from '@/services/admin-employee';
+import AdminNoteService from '@/services/admin-note';
 import { closeModal } from '@/lib/store/slices/modal-slice';
 
 import { useToast } from '../common';
@@ -11,16 +12,19 @@ export const useAddNote = () => {
     const dispatch = useDispatch();
     const showToast = useToast();
 
-    const addEmployee = ({ noteData, employeeId: facilityUserId }) => {
+    const addNote = ({ noteData, employee }) => {
         const payload = {
             step: 'notes',
-            note: { ...noteData, entity_id: '98', entity_type: 'Nurse', note_type_id: '12' },
-            ...(facilityUserId ? { facility_user_id: facilityUserId } : {}),
+            note: { ...noteData, entity_id: employee.profileable_id, entity_type: 'Nurse' },
+            // entitty Id will be profileable id
+            facility_user_id: employee.id,
         };
-        return AdminEmployeeService.addEmployee(payload);
+        // eslint-disable-next-line prefer-destructuring
+        payload.note.note_type_id = noteData.note_type_id[0];
+        return AdminNoteService.addNote(payload);
     };
 
-    return useMutation(addEmployee, {
+    return useMutation(addNote, {
         onSuccess: async () => {
             queryClient.invalidateQueries('admin-employee');
             dispatch(closeModal({ modalName: 'addNoteModal' }));

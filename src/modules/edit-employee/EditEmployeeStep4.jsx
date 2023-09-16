@@ -9,7 +9,6 @@ import { NoteCard } from '../common/layout';
 import AddNote from '../add-note';
 
 function EditEmployeeStep4({ employeeData }) {
-    console.log('employeeData', employeeData);
     return (
         <>
             <Stack direction='row' justifyContent='space-between'>
@@ -39,7 +38,7 @@ function EditEmployeeStep4({ employeeData }) {
                         Clear all
                     </SwxButton>
                 </Stack>
-                <AddNote employeeId={employeeData.id} />
+                <AddNote employee={employeeData} />
             </Stack>
             <Stack direction='column' spacing={5} sx={{ mt: 7.5 }}>
                 <SwxTypography color='swxBlack' size='semiLarge' weight='bold'>

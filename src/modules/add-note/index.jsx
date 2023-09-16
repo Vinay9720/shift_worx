@@ -11,7 +11,7 @@ import { Icon } from '../common/icons';
 import { SwxButton } from '../common/components';
 import { SwxModal } from '../common/layout';
 
-export default function AddNote({ employeeId }) {
+export default function AddNote({ employee }) {
     const { mutate: addNote } = useAddNote();
     const dispatch = useDispatch();
 
@@ -30,7 +30,7 @@ export default function AddNote({ employeeId }) {
                 Add New
             </SwxButton>
             <SwxModal modalName='addNoteModal'>
-                <NoteForm modalName='addNoteModal' action={addNote} employeeId={employeeId} />
+                <NoteForm modalName='addNoteModal' action={addNote} employee={employee} />
             </SwxModal>
         </div>
     );
