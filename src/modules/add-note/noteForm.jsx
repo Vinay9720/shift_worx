@@ -14,14 +14,14 @@ import { SwxButton, SwxTypography } from '../common/components';
 import { ListBoxField, InputField, Form, FormSubmitButton } from '../common/form-components';
 
 const noteTypeOptions = [
-    { label: 'Commendation', value: '1' },
-    { label: 'Disciplinary', value: '2' },
-    { label: 'Human Resources', value: '3' },
-    { label: 'Message Sent', value: '4' },
-    { label: 'Tardiness', value: '5' },
+    { label: 'Commendation', value: '7' },
+    { label: 'Disciplinary', value: '8' },
+    { label: 'Human Resources', value: '9' },
+    { label: 'Message Sent', value: '11' },
+    { label: 'Tardiness', value: '12' },
 ];
 
-export default function NoteForm({ employeeId, modalName, action: addNote }) {
+export default function NoteForm({ employee, modalName, action: addNote }) {
     const { mutate: upload } = useFileUpload();
     const { noteToBeUpdated } = useSelector(state => state.adminNotesModule);
     console.log('note to be updated', noteToBeUpdated);
@@ -54,13 +54,13 @@ export default function NoteForm({ employeeId, modalName, action: addNote }) {
                     Add Note
                 </SwxTypography>
             </HeaderContainer>
-            <Form onSubmit={noteData => addNote({ noteData, employeeId })}>
+            <Form onSubmit={noteData => addNote({ noteData, employee })}>
                 <Stack direction='column' spacing={2} sx={{ padding: '0px 24px', mt: 1 }}>
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', width: '100%' }}>
                         <SwxTypography color='swxSlightlyBlack' size='smallOdd' weight='thin'>
                             Note Type
                         </SwxTypography>
-                        <ListBoxField name='note_type' SWXInputProps={noteTypeProps} />
+                        <ListBoxField name='note_type_id' SWXInputProps={noteTypeProps} />
                     </div>
                     <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2}>
                         <InputField name='description' SWXInputProps={noteDescriptionProps} />

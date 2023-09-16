@@ -14,7 +14,7 @@ const rootReducer = combineReducers({
     pagination: paginationSlice,
     editEmployeeModule: editEmployeeModuleReducer,
     adminNotesModule: adminNotesModuleReducer,
-    noterFilter: notesFilterReducer,
+    notersFilter: notesFilterReducer,
 });
 
 export const store = configureStore({

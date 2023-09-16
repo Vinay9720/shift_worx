@@ -6,10 +6,18 @@ import { useDispatch } from 'react-redux';
 import { debounce } from 'lodash';
 
 import { useReadNotes } from '@/hooks/admin-note/useReadNotes';
-import { setSearch } from '@/lib/store/slices/filter/notesFilterSlice';
+import { setSearch, setType } from '@/lib/store/slices/filter/notesFilterSlice';
 
 import { Icon } from '../common/icons';
 import { SwxDatePicker, SwxInput, SwxSelect, SwxButton } from '../common/components';
+
+const noteTypeOptions = [
+    { label: 'Commendation', value: '7' },
+    { label: 'Disciplinary', value: '8' },
+    { label: 'Human Resources', value: '9' },
+    { label: 'Message Sent', value: '11' },
+    { label: 'Tardiness', value: '12' },
+];
 
 function SearchFilter({ style }) {
     const [value, setValue] = useState('1');
@@ -21,6 +29,10 @@ function SearchFilter({ style }) {
             dispatch(setSearch(e.target.value));
         };
         debounce(setParams, 1000)();
+    };
+
+    const onTypeChange = type => {
+        dispatch(setType(type.value));
     };
 
     return (
@@ -36,7 +48,13 @@ function SearchFilter({ style }) {
                         <Icon styles={{ fill: '#838A91' }} name='search' aria-hidden='true' height={24} width={24} />
                     }
                 />
-                <SwxSelect placeholder='Type' style={{ width: '6rem' }} padding='3px 6px' />
+                <SwxSelect
+                    onChange={onTypeChange}
+                    options={noteTypeOptions}
+                    placeholder='Type'
+                    style={{ width: '7rem' }}
+                    padding='3px 6px'
+                />
                 <SwxSelect placeholder='Status' style={{ width: '7rem' }} padding='3px 6px' />
                 <SwxDatePicker
                     value={value}
