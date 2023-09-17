@@ -3,10 +3,10 @@ import Image from 'next/image';
 import styled from 'styled-components';
 import { Stack } from '@mui/material';
 
-import { Icon } from '@/modules/common/icons';
-import { Form, FormSubmitButton, InputField } from '@/modules/common/form-components';
+import { Icon } from '@/lib/common/icons';
+import { Form, FormSubmitButton, InputField } from '@/lib/common/form-components';
 import { validateEmail } from '@/lib/validators/emailValidator';
-import { SwxTypography } from '@/modules/common/components';
+import { SwxTypography } from '@/lib/common/components';
 import { useLogin } from '@/hooks/auth/useLogin';
 
 import { Container, StyledLoginContainer, HeadingContainer } from './login.styles';

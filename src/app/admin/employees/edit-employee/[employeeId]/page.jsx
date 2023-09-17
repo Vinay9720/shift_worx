@@ -4,11 +4,16 @@ import { useSearchParams } from 'next/navigation';
 import { useCallback } from 'react';
 import { Stack } from '@mui/material';
 
-import { FormSubmitButton } from '@/modules/common/form-components';
-import { SwxButton } from '@/modules/common/components';
+import { FormSubmitButton } from '@/lib/common/form-components';
+import { SwxButton } from '@/lib/common/components';
 import { useEditEmployeeNavigation } from '@/hooks/common';
-import { EditEmployeeLayout } from '@/modules/common/layout';
-import { EditEmployeeStep1, EditEmployeeStep2, EditEmployeeStep3, EditEmployeeStep4 } from '@/modules/edit-employee';
+import { EditEmployeeLayout } from '@/lib/common/layout';
+import {
+    EditEmployeeStep1,
+    EditEmployeeStep2,
+    EditEmployeeStep3,
+    EditEmployeeStep4,
+} from '@/modules/admin-employee/edit-employee';
 import { useEmployee } from '@/hooks/admin-employee';
 
 const stepsMap = {
