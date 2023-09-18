@@ -1,7 +1,7 @@
 'use client';
 
 import { ADMIN_NAV_LINKS } from '@/lib/constants';
-import { NavBar } from '@/modules/common/layout';
+import { NavBar } from '@/lib/common/layout';
 
 export default function Layout({ children }) {
     return (

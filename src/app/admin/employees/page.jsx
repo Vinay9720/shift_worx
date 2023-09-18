@@ -2,17 +2,17 @@
 
 import { useSearchParams } from 'next/navigation';
 
-import { AdminMainLayout } from '@/modules/common/layout';
-import AdminOverview from '@/modules/admin-overview';
-import AdminNotes from '@/modules/admin-notes';
+import { AdminEmployeeLayout } from '@/lib/common/layout/admin-layouts';
+import AdminOverview from '@/modules/admin-employee/admin-overview';
+import AdminNotes from '@/modules/admin-employee/admin-notes';
 
 export default function Page() {
     const searchParams = useSearchParams();
     const currentStepName = searchParams.get('step');
     return (
-        <AdminMainLayout>
+        <AdminEmployeeLayout>
             {currentStepName === 'overview' && <AdminOverview />}
             {currentStepName === 'notes' && <AdminNotes />}
-        </AdminMainLayout>
+        </AdminEmployeeLayout>
     );
 }
