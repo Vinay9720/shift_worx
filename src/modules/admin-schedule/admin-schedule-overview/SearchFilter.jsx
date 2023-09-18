@@ -27,7 +27,10 @@ function SearchFilter({ style }) {
     };
 
     return (
-        <Stack direction='row' justifyContent='space-between' style={{ ...style, marginTop: '3.5rem' }}>
+        <Stack
+            direction='row'
+            justifyContent='space-between'
+            style={{ ...style, marginTop: '3.5rem', marginBottom: '1.5rem' }}>
             <Stack direction='row' spacing={2} style={{ width: '80%' }}>
                 <SwxInput
                     type='text'

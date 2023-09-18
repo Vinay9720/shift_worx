@@ -1,11 +1,18 @@
 import { useMemo } from 'react';
+import { useSelector } from 'react-redux';
 
 import { WidgetCard } from '@/lib/common/layout';
 import { WidgetCardsContainer } from '@/modules/admin-employee/admin-notes/admin-notes.styles';
+import { useSchedule } from '@/hooks/admin-schedule';
 
 import SearchFilter from './SearchFilter';
+import DayWiseSchedule from './day-wise-schedule';
+import WeekWiseSchedule from './week-wise-schedule';
+import MonthWiseSchedule from './month-wise-schedule';
 
 export default function AdminScheduleOverView() {
+    const { scheduleType } = useSelector(state => state.adminScheduleModule);
+    const { data: scheduleData, isLoading: scheduleLoading } = useSchedule();
     const cardsData = useMemo(
         () => [
             {
@@ -50,6 +57,19 @@ export default function AdminScheduleOverView() {
                 })}
             </WidgetCardsContainer>
             <SearchFilter />
+            <div style={{ marginBottom: '2rem' }}>
+                {!scheduleLoading ? (
+                    scheduleType === 'daily' ? (
+                        <DayWiseSchedule scheduleData={scheduleData} />
+                    ) : scheduleType === 'weekly' ? (
+                        <WeekWiseSchedule scheduleData={scheduleData} />
+                    ) : scheduleType === 'monthly' ? (
+                        <MonthWiseSchedule scheduleData={scheduleData} />
+                    ) : null
+                ) : (
+                    <p>Loading...</p>
+                )}
+            </div>
         </>
     );
 }

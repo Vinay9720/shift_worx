@@ -2,7 +2,7 @@
 
 import { useSearchParams } from 'next/navigation';
 
-import { AdminEmployeeLayout } from '@/lib/common/layout';
+import { AdminEmployeeLayout } from '@/lib/common/layout/admin-layouts';
 import AdminOverview from '@/modules/admin-employee/admin-overview';
 import AdminNotes from '@/modules/admin-employee/admin-notes';
 
