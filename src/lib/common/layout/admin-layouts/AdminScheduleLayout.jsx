@@ -85,7 +85,7 @@ export default function AdminScheduleLayout({ children }) {
                         </IconButton>
                     </Stack>
                 )}
-                <StyledCurrentTime>{currentTimeValue}</StyledCurrentTime>
+                {scheduleType !== 'list' && <StyledCurrentTime>{currentTimeValue}</StyledCurrentTime>}
             </StyledDateContainer>
         );
     };

@@ -62,6 +62,7 @@ export const StyledDateContainer = styled.div`
     display: flex;
     flex-direction: row;
     ${({ isList }) => `
-        position: ${isList && 'absolute'};
+        // position: ${isList && 'absolute'};
+        margin-left: ${isList && '8px'};
     `}
 `;

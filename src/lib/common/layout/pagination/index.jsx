@@ -13,8 +13,9 @@ export default function SwxPagination({ itemsPerPageOptions, paginationName, ...
 
     return (
         <Stack direction='row' justifyContent='space-between' {...rest}>
-            <Stack direction='row' spacing={2}>
+            <Stack direction='row' spacing={2} alignItems='center'>
                 <SwxSelect disableClearable options={itemsPerPageOptions} onChange={value => setItemsPerPage(value)} />
+                <SwxTypography>Entries per page</SwxTypography>
             </Stack>
             <Stack direction='row' spacing={2} alignItems='center'>
                 <SwxButton
@@ -37,7 +38,8 @@ export default function SwxPagination({ itemsPerPageOptions, paginationName, ...
                     {'>'}
                 </SwxButton>
             </Stack>
-            <Stack direction='row' spacing={2}>
+            <Stack direction='row' spacing={2} alignItems='center'>
+                <SwxTypography>Page</SwxTypography>
                 <SwxSelect
                     disableClearable
                     options={createNumberArray(totalPages)}
