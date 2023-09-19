@@ -208,7 +208,7 @@ export default function AdminOverview() {
             <SearchFilter
                 searchPlaceholder='Search name, email, phone...'
                 actionButton={AddEmployee}
-                style={{ marginTop: '3.5rem' }}
+                style={{ marginTop: '3.5rem', marginBottom: '1rem' }}
             />
             <SwxDataGrid rows={employees} columns={columns} isLoading={isLoading} />
             <SwxPagination

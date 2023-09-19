@@ -14,7 +14,8 @@ export const useSchedule = () => {
             return moment(currentTimeValue, 'MMM YYYY').format('MM-DD-YYYY');
         }
         if (scheduleType === 'list') {
-            return moment(currentTimeValue.split('-')[0].replace(/\s/g, ''), 'M/D').format('MM-DD-YYYY');
+            // return moment(currentTimeValue.split('-')[0].replace(/\s/g, ''), 'ddd, MMM DD').format('MM-DD-YYYY');
+            return '06-01-2023';
         }
     };
     return useQuery(
@@ -23,11 +24,7 @@ export const useSchedule = () => {
         {
             select: data => {
                 const res = data.data;
-                console.log('res', res);
                 return res;
-            },
-            onSuccess: data => {
-                console.log('data', data);
             },
             refetchOnWindowFocus: false,
         }

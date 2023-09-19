@@ -135,6 +135,7 @@ function AddEmployeeStep1() {
         placeholder: 'state',
         width: '100%',
         multiple: false,
+        padding: '8px 4px',
     };
 
     return (

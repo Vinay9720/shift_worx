@@ -11,7 +11,6 @@ const instance = axios.create({
 });
 
 instance.interceptors.request.use(async config => {
-    console.log('baseURl', process.env.NEXT_PUBLIC_BASE_URL);
     const session = await getSession();
     const token = session?.user.token;
     const email = session?.user.email;

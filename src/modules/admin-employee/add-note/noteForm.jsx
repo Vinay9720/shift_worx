@@ -1,6 +1,6 @@
 'use client';
 
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { Stack } from '@mui/material';
 
 import { closeModal } from '@/lib/store/slices/modal-slice';
@@ -22,8 +22,6 @@ const noteTypeOptions = [
 
 export default function NoteForm({ employee, modalName, action: addNote }) {
     const { mutate: upload } = useFileUpload();
-    const { noteToBeUpdated } = useSelector(state => state.adminNotesModule);
-    console.log('note to be updated', noteToBeUpdated);
     const dispatch = useDispatch();
 
     const noteTypeProps = {

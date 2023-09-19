@@ -9,6 +9,7 @@ import SearchFilter from './SearchFilter';
 import DayWiseSchedule from './day-wise-schedule';
 import WeekWiseSchedule from './week-wise-schedule';
 import MonthWiseSchedule from './month-wise-schedule';
+import ScheduleList from './schedule-list';
 
 export default function AdminScheduleOverView() {
     const { scheduleType } = useSelector(state => state.adminScheduleModule);
@@ -65,6 +66,8 @@ export default function AdminScheduleOverView() {
                         <WeekWiseSchedule scheduleData={scheduleData} />
                     ) : scheduleType === 'monthly' ? (
                         <MonthWiseSchedule scheduleData={scheduleData} />
+                    ) : scheduleType === 'list' ? (
+                        <ScheduleList scheduleData={scheduleData} />
                     ) : null
                 ) : (
                     <p>Loading...</p>

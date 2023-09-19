@@ -6,7 +6,7 @@ import { Stack } from '@mui/material';
 
 import { StyledAutoCompleteSelect } from './select.styles';
 
-export default function SwxSelect({ width, style, label, options, padding, value, onChange, placeholder, ...rest }) {
+export default function SwxSelect({ width, style, label, padding, options, value, onChange, placeholder, ...rest }) {
     const [inputValue, setInputValue] = useState('');
 
     return (

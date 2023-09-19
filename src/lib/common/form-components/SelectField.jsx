@@ -18,6 +18,7 @@ const SelectField = props => {
                 return (
                     <SwxSelect
                         width={SWXInputProps.width}
+                        padding={SWXInputProps.padding}
                         placeholder={SWXInputProps.placeholder}
                         options={SWXInputProps.options || []}
                         errorText={error?.message}
