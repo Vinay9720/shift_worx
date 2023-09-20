@@ -19,7 +19,7 @@ export const useSchedule = () => {
         }
     };
     return useQuery(
-        ['admin-notes', scheduleType, currentTimeValue],
+        ['admin-schedule', scheduleType, currentTimeValue],
         () => AdminScheduleService.fetchSchedule(scheduleType, getDateForSchedule()),
         {
             select: data => {
