@@ -40,6 +40,7 @@ import HomeSmile from './HomeSmile';
 import Addition from './Addition';
 import Edit from './Edit';
 import Check from './check';
+import DropdownArrow from './DropdownArrow';
 
 export const Icon = ({ name, width, height, fill, styles, ...rest }) => {
     switch (name) {
@@ -125,6 +126,8 @@ export const Icon = ({ name, width, height, fill, styles, ...rest }) => {
             return <Edit width={width} height={height} fill={fill} styles={styles} {...rest} />;
         case 'check':
             return <Check width={width} height={height} fill={fill} styles={styles} {...rest} />;
+        case 'dropdown-arrow':
+            return <DropdownArrow width={width} height={height} fill={fill} styles={styles} {...rest} />;
         default:
             return <div>Icon</div>;
     }
