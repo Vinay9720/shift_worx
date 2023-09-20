@@ -6,6 +6,8 @@ import { debounce } from 'lodash';
 import { Icon } from '@/lib/common/icons';
 import { SwxInput, SwxSelect, SwxButton } from '@/lib/common/components';
 
+import AddShift from './add-shift';
+
 const noteTypeOptions = [
     { label: 'Commendation', value: '7' },
     { label: 'Disciplinary', value: '8' },
@@ -59,7 +61,7 @@ function SearchFilter({ style }) {
                     Clear all
                 </SwxButton>
             </Stack>
-            <SwxButton
+            {/* <SwxButton
                 startIcon={<Icon width={17} height={12} name='addition' styles={{ fill: '#FFFFFF' }} />}
                 size='small'
                 onClick={e => {
@@ -70,7 +72,8 @@ function SearchFilter({ style }) {
                 variant='contained'
                 weight='semiBold'>
                 Add Shift
-            </SwxButton>
+            </SwxButton> */}
+            <AddShift />
         </Stack>
     );
 }
