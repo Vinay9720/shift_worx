@@ -20,7 +20,7 @@ export const ADMIN_NAV_LINKS = [
     },
     {
         label: 'Schedule',
-        destination: '/admin/schedule',
+        destination: '/admin/schedule/?step=overview',
     },
     {
         label: 'Employees',
