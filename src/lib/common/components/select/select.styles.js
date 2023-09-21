@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { Autocomplete } from '@mui/material';
-import { Icon } from '@/modules/common/icons';
+import { Icon } from '../../icons';
 
 export const StyledAutoCompleteSelect = styled(Autocomplete)`
     input {

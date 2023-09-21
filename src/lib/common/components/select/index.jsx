@@ -4,7 +4,7 @@ import { useState } from 'react';
 import TextField from '@mui/material/TextField';
 import { Box, InputAdornment, Stack } from '@mui/material';
 import { StyledAutoCompleteSelect, DropdownIcon } from './select.styles';
-import { Icon } from '@/modules/common/icons';
+import { Icon } from '../../icons';
 
 export default function SwxSelect({ width, style, label, padding, options, value, onChange, placeholder, ...rest }) {
     const [inputValue, setInputValue] = useState('');
