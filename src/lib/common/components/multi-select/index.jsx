@@ -5,7 +5,7 @@ import FormControl from '@mui/material/FormControl';
 import ListItemText from '@mui/material/ListItemText';
 import Checkbox from '@mui/material/Checkbox';
 
-import { StyledSelect, StyledInsideLabel } from './multi-select.styles';
+import { StyledSelect, StyledInsideLabel, ValueContainer } from './multi-select.styles';
 
 import SwxTypography from '../typography';
 
@@ -50,9 +50,7 @@ export default function SwxMultiSelect({
                     onChange={onChange}
                     renderValue={selected => {
                         return (
-                            <span style={{ marginLeft: `${multiple && '4rem'}` }}>
-                                {multiple ? selected.length : selected}
-                            </span>
+                            <ValueContainer multiple={multiple}>{multiple ? selected.length : selected}</ValueContainer>
                         );
                     }}
                     MenuProps={MenuProps}>

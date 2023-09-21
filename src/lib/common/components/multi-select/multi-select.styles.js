@@ -32,3 +32,18 @@ export const StyledInsideLabel = styled(InputLabel)`
         color: ${({ theme }) => theme.fontColor.lightGray};
     }
 `;
+
+export const ValueContainer = styled.span`
+    ${({ theme, multiple }) =>
+        multiple
+            ? `
+            margin-left: 58px;
+            border-radius: 100px;
+            padding: 0px 4px;
+            background: ${theme.backgroundColor.swxBlue};
+            font-size: ${theme.fontSize.small};
+            color: ${theme.fontColor.white};
+            margin-top: 2px;
+    `
+            : ''}
+`;

@@ -1,3 +1,4 @@
 import notesFilterReducer from './notesFilterSlice';
+import employeesFilterReducer from './employeesFilterSlice';
 
-export { notesFilterReducer };
+export { notesFilterReducer, employeesFilterReducer };

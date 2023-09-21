@@ -7,6 +7,7 @@ import EditEmployeeLayout from './edit-employee-layout';
 import CertificationCard from './certification-card';
 import NoteCard from './note-card';
 import SwxPagination from './pagination';
+import DeleteModal from './delete-modal';
 
 export {
     NavBar,
@@ -18,4 +19,5 @@ export {
     CertificationCard,
     NoteCard,
     SwxPagination,
+    DeleteModal,
 };

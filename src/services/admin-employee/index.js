@@ -1,7 +1,16 @@
 import http from '../../httpCommon';
 
-const fetchEmployees = (itemsPerPage, page, searchParams) => {
-    return http.get(`/users?per_page=${itemsPerPage}&page=${page}&search=${searchParams}`);
+const fetchEmployees = (itemsPerPage, page, searchParams, roles, status) => {
+    const queryParams = [];
+
+    if (itemsPerPage) queryParams.push(`per_page=${itemsPerPage}`);
+    if (page) queryParams.push(`page=${page}`);
+    if (searchParams) queryParams.push(`search=${searchParams}`);
+    if (roles) queryParams.push(`roles=${roles}`);
+    if (status) queryParams.push(`status=${status}`);
+
+    const queryString = queryParams.join('&');
+    return http.get(`/users?${queryString}`);
 };
 
 const addEmployee = employeeData => {

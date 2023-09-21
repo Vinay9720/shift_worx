@@ -14,7 +14,7 @@ export const useAddShift = () => {
     const addShift = ({ shiftData }) => {
         const payload = {
             shift: {
-                facility_id: '1',
+                facility_id: '1', // current user's
                 instructions: '',
                 positions: [
                     {
