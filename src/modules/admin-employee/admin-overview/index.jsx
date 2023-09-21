@@ -1,20 +1,26 @@
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
 import { Stack, Avatar, IconButton } from '@mui/material';
 import { capitalize } from 'lodash';
 import { useRouter } from 'next/navigation';
+import { useDispatch } from 'react-redux';
 
-import { useEmployees } from '@/hooks/admin-employee';
-import { SearchFilter, WidgetCard } from '@/lib/common/layout';
+import { openModal } from '@/lib/store/slices/modal-slice';
+import { useEmployees, useDelelteEmployee } from '@/hooks/admin-employee';
+import { WidgetCard, DeleteModal } from '@/lib/common/layout';
 import { SwxDataGrid, SwxChip, SwxTypography, SwxLinearProgress, SwxPopupMenu } from '@/lib/common/components';
 import { Icon } from '@/lib/common/icons';
 import SwxPagination from '@/lib/common/layout/pagination';
 
+import SearchFilter from './SearchFilter';
 import { WidgetCardsContainer } from './admin-overview.styles';
 
 import AddEmployee from '../add-employee';
 
 export default function AdminOverview() {
     const { data: overviewData, isSuccess, isLoading } = useEmployees();
+    const { mutate: deleteEmployee } = useDelelteEmployee();
+    const [employeeIdToBeDeleted, setEmployeeIdToBeDeleted] = useState(null);
+    const dispatch = useDispatch();
     const router = useRouter();
 
     const employees = useMemo(() => {
@@ -46,8 +52,10 @@ export default function AdminOverview() {
             },
             {
                 label: 'Delete Employee',
-                action: () => {
-                    console.log('send message clicked');
+                action: e => {
+                    e.preventDefault();
+                    setEmployeeIdToBeDeleted(id);
+                    dispatch(openModal({ modalName: 'deleteEmployeeModal' }));
                 },
             },
         ];
@@ -205,11 +213,12 @@ export default function AdminOverview() {
                     );
                 })}
             </WidgetCardsContainer>
-            <SearchFilter
-                searchPlaceholder='Search name, email, phone...'
-                actionButton={AddEmployee}
-                style={{ marginTop: '3.5rem', marginBottom: '1rem' }}
+            <DeleteModal
+                modalName='deleteEmployeeModal'
+                entityName='Employee'
+                onConfirm={() => deleteEmployee(employeeIdToBeDeleted)}
             />
+            <SearchFilter actionButton={AddEmployee} style={{ marginTop: '3.5rem', marginBottom: '1rem' }} />
             <SwxDataGrid rows={employees} columns={columns} isLoading={isLoading} />
             <SwxPagination
                 itemsPerPageOptions={['5', '10', '15']}

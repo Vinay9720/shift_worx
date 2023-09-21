@@ -1,7 +1,6 @@
 'use client';
 
 import { Divider, IconButton } from '@mui/material';
-import { isEmpty } from 'lodash';
 
 import { formatDate } from '@/lib/util';
 
@@ -12,8 +11,8 @@ import { Icon } from '../../icons';
 
 export default function NoteCard({ note, actions }) {
     return (
-        <NoteWrapper isRead={!isEmpty(note.read_by)}>
-            <NoteContainer>
+        <NoteWrapper isRead={note.read}>
+            <NoteContainer isRead={note.read}>
                 <NoteLeftContainer>
                     <div style={{ display: 'flex', gap: '4px', alignItems: 'center' }}>
                         <SwxTypography color='swxBlack' size='semiLarge' weight='bold'>
