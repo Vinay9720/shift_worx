@@ -64,3 +64,10 @@ export const StyledContainerwrapper = styled.div`
     border-radius: ${({ theme }) => theme.borderRadius.small};
     border: 1px solid ${({ theme }) => theme.borderColor.lightGray};
 `;
+export const styles = {
+    iconStyles: {
+        marginRight: '18',
+        marginLeft: '8',
+        cursor: 'pointer',
+    },
+};

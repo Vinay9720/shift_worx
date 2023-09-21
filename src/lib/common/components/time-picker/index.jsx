@@ -3,7 +3,7 @@ import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { MenuItem, Stack } from '@mui/material';
-import { StyledAMPMSelect, StyledContainerwrapper, StyledTimeField, StyledWrapper } from './time-picker.styles';
+import { StyledAMPMSelect, StyledContainerwrapper, StyledTimeField, StyledWrapper, styles } from './time-picker.styles';
 import { Icon } from '@/lib/common/icons';
 
 export default function SwxTimeComponent({ onChange, value, format, label, width }) {
@@ -40,7 +40,7 @@ export default function SwxTimeComponent({ onChange, value, format, label, width
                                 name='dropdown-arrow'
                                 height={14}
                                 width={14}
-                                styles={{ marginRight: '18', marginLeft: '8', cursor: 'pointer' }}
+                                styles={styles.iconStyles}
                             />
                         )}>
                         <MenuItem value='AM'>AM</MenuItem>
