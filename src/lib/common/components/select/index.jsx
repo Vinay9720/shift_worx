@@ -2,9 +2,9 @@
 
 import { useState } from 'react';
 import TextField from '@mui/material/TextField';
-import { Stack } from '@mui/material';
-
-import { StyledAutoCompleteSelect } from './select.styles';
+import { Box, InputAdornment, Stack } from '@mui/material';
+import { StyledAutoCompleteSelect, DropdownIcon } from './select.styles';
+import { Icon } from '../../icons';
 
 export default function SwxSelect({ width, style, label, padding, options, value, onChange, placeholder, ...rest }) {
     const [inputValue, setInputValue] = useState('');
@@ -13,6 +13,7 @@ export default function SwxSelect({ width, style, label, padding, options, value
         <Stack direction='column' spacing={1} style={{ width }}>
             {label && label}
             <StyledAutoCompleteSelect
+                popupIcon={DropdownIcon}
                 value={value}
                 onChange={(event, newValue) => {
                     onChange(newValue);
@@ -30,6 +31,23 @@ export default function SwxSelect({ width, style, label, padding, options, value
                 id={`single-select-${label}`}
                 options={options || []}
                 {...rest}
+                renderOption={(props, option) => {
+                    return (
+                        <Box component='li' sx={{ '& > img': { mr: 2, flexShrink: 0 } }} {...props}>
+                            {option.icon ? (
+                                <Icon
+                                    name={option.icon}
+                                    // styles={{ fill: option.fill }}
+                                    fill={option.fill}
+                                    styles={{ marginRight: '12px' }}
+                                    height={10}
+                                    width={10}
+                                />
+                            ) : null}
+                            {option.label || option || ''}
+                        </Box>
+                    );
+                }}
                 renderInput={params => (
                     <TextField
                         {...params}
@@ -37,6 +55,23 @@ export default function SwxSelect({ width, style, label, padding, options, value
                             shrink: false,
                         }}
                         placeholder={placeholder}
+                        InputProps={{
+                            ...params.InputProps,
+                            startAdornment:
+                                value && value.icon ? (
+                                    <>
+                                        <InputAdornment position='start'>
+                                            <Icon
+                                                name={value.icon}
+                                                styles={{ fill: value.fill, marginLeft: '8px' }}
+                                                height={10}
+                                                width={10}
+                                            />
+                                        </InputAdornment>
+                                        {params.InputProps.startAdornment}
+                                    </>
+                                ) : null,
+                        }}
                     />
                 )}
             />
