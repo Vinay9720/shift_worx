@@ -41,6 +41,9 @@ import Addition from './Addition';
 import Edit from './Edit';
 import Check from './check';
 import DropdownArrow from './DropdownArrow';
+import Twitter from './Twitter';
+import LinkedIn from './LinkedIn';
+import Instagram from './Instagram';
 
 export const Icon = ({ name, width, height, fill, styles, ...rest }) => {
     switch (name) {
@@ -128,6 +131,12 @@ export const Icon = ({ name, width, height, fill, styles, ...rest }) => {
             return <Check width={width} height={height} fill={fill} styles={styles} {...rest} />;
         case 'dropdown-arrow':
             return <DropdownArrow width={width} height={height} fill={fill} styles={styles} {...rest} />;
+        case 'twitter':
+            return <Twitter width={width} height={height} fill={fill} styles={styles} {...rest} />;
+        case 'instagram':
+            return <Instagram width={width} height={height} fill={fill} styles={styles} {...rest} />;
+        case 'linked-in':
+            return <LinkedIn width={width} height={height} fill={fill} styles={styles} {...rest} />;
         default:
             return <div>Icon</div>;
     }

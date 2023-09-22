@@ -26,3 +26,30 @@ export const HeadingContainer = styled.div`
     justify-content: center;
     flex-direction: column;
 `;
+
+export const FooterContainer = styled.div`
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    justify-content: center;
+    word-wrap: break-word;
+    font-size: 16px;
+    color: #ffffff;
+    cursor: pointer;
+`;
+
+export const IconContainer = styled.div`
+    display: flex;
+    gap: 24px;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+`;
+
+export const CopyrightContainer = styled.div`
+    word-wrap: break-word;
+    font-size: 16px;
+    color: #ffffff;
+    cursor: pointer;
+    text-align: center;
+`;

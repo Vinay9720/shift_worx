@@ -9,7 +9,14 @@ import { validateEmail } from '@/lib/validators/emailValidator';
 import { SwxTypography } from '@/lib/common/components';
 import { useLogin } from '@/hooks/auth/useLogin';
 
-import { Container, StyledLoginContainer, HeadingContainer } from './login.styles';
+import {
+    Container,
+    StyledLoginContainer,
+    HeadingContainer,
+    FooterContainer,
+    IconContainer,
+    CopyrightContainer,
+} from './login.styles';
 
 const PasswordIcon = styled(Icon)`
     fill: ${({ isPasswordFocused }) => (isPasswordFocused ? 'brand' : 'inherit')};
@@ -69,6 +76,19 @@ export default function LoginForm() {
         onBlur: () => !isPasswordVisible && setIsPasswordFocused(false),
     };
 
+    const buttonProps = {
+        styles: {
+            background: '#0080F6',
+            marginTop: '2rem',
+            width: '100%',
+            color: 'white',
+            fontWeight: '700',
+            fontSize: '24px',
+            padding: '6px 24px',
+            borderRadius: '5px',
+        },
+    };
+
     return (
         <Container>
             <StyledLoginContainer>
@@ -82,13 +102,25 @@ export default function LoginForm() {
                     <Stack direction='column' spacing={1.5}>
                         <InputField name='email' SWXInputProps={emailProps} />
                         <InputField name='password' SWXInputProps={passwordProps} />
-                        <FormSubmitButton
-                            styles={{ marginTop: '1rem', width: '100%' }}
-                            buttonName='Log In'
-                            disabled={false}
-                        />
+                        <FormSubmitButton styles={buttonProps.styles} buttonName='Log In' disabled={false} />
                     </Stack>
                 </Form>
+                <FooterContainer>
+                    <SwxTypography weight='extraThin'>Don’t have an account?</SwxTypography>
+                    <SwxTypography weight='bold'>Create an Account</SwxTypography>
+                </FooterContainer>
+                <FooterContainer>
+                    <SwxTypography weight='bold'>Forgot Password?</SwxTypography>
+                </FooterContainer>
+                <IconContainer>
+                    <Icon name='facebook' width={20} height={34} fill={'white'} />
+                    <Icon name='twitter' width={45} height={36} fill={'white'} />
+                    <Icon name='linked-in' width={33} height={31} fill={'white'} />
+                    <Icon name='instagram' width={37} height={35} fill={'white'} />
+                </IconContainer>
+                <CopyrightContainer>
+                    <SwxTypography weight='extraThin'>2022 ShiftWorx.io. All Rights Reserved.</SwxTypography>
+                </CopyrightContainer>
             </StyledLoginContainer>
         </Container>
     );
