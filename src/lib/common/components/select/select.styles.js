@@ -9,8 +9,8 @@ export const StyledAutoCompleteSelect = styled(Autocomplete)`
         `}
     }
     & .MuiOutlinedInput-input {
-        ${({ theme, padding }) => `
-            color: ${theme.fontColor.swxSlightlyBlack};
+        ${({ theme, padding, placeholderColor }) => `
+            color: ${placeholderColor || theme.fontColor.swxSlightlyBlack};
             padding: ${padding || '17px 16px'};
         `}
     }

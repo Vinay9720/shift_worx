@@ -46,18 +46,18 @@ export const StyledH1 = styled.h1`
 `;
 
 export const StyledTitle = styled.p`
-    ${({ theme }) => `
+    ${({ theme, size }) => `
     color: ${theme.fontColor.lightGray};
-    font-size: ${theme.fontSize.medium};
+    font-size: ${size || theme.fontSize.medium};
     font-weight: ${theme.fontWeight.thin};
   `}
 `;
 
 export const StyledText = styled.p`
-    ${({ theme, color }) => `
+    ${({ theme, color, weight }) => `
     color: ${theme.fontColor[color || 'lightGray']};
     font-size: ${theme.fontSize.small};
-    font-weight: ${theme.fontWeight.thin};
+    font-weight: ${weight || theme.fontWeight.thin};
   `}
 `;
 

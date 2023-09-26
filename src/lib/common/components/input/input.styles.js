@@ -10,9 +10,9 @@ export const InputContainer = styled.div`
 
 export const StyledOutlinedInput = styled(OutlinedInput)`
     & .MuiOutlinedInput-input {
-        ${({ theme, padding }) => `
+        ${({ theme, padding, placeholderColor }) => `
             padding: ${padding || '17px 16px'};
-            color: ${theme.fontColor.swxSlightlyBlack};
+            color: ${placeholderColor || theme.fontColor.swxSlightlyBlack};
         `}
     }
     & .MuiOutlinedInput-notchedOutline {

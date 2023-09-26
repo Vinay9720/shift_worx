@@ -12,7 +12,7 @@ export const StyledTab = styled.a`
     margin-right: 1.5rem;
     font-size: 14px;
     font-weight: 600;
-    color: #999999;
+    color: #838a91;
     cursor: pointer;
 
     ${({ active }) =>

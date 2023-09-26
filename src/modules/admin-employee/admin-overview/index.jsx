@@ -71,7 +71,9 @@ export default function AdminOverview() {
                     <Avatar sx={{ width: 32, height: 32 }}>{`${params.row.first_name.split('')[0] || ''}${
                         params.row.last_name.split('')[0] || ''
                     }`}</Avatar>
-                    <SwxTypography>{`${params.row.first_name || ''} ${params.row.last_name || ''}`}</SwxTypography>
+                    <SwxTypography color='swxBlack' size='semiMedium' weight='semiBold'>{`${
+                        params.row.first_name || ''
+                    } ${params.row.last_name || ''}`}</SwxTypography>
                 </Stack>
             ),
             align: 'left',
@@ -88,7 +90,7 @@ export default function AdminOverview() {
             sortable: false,
             filterable: false,
             renderCell: params => (
-                <SwxChip label={params.value || 'RN'} color='white' background='swxBlue' size='semiMedium' />
+                <SwxChip label={params.value || 'RN'} color='white' background='pink' size='semiMedium' />
             ),
         },
         {

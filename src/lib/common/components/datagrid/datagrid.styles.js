@@ -22,4 +22,18 @@ export const DataGridStyles = {
         maxHeight: '80px !important',
         alignItems: 'center',
     },
+    '& .MuiCheckbox-root svg': {
+        height: '24px',
+        width: '24px',
+        border: '1px solid #E6E8E9',
+        borderRadius: '4px',
+        backgroundColor: '#FFFFFF',
+    },
+    '& .MuiCheckbox-root svg path': {
+        display: 'none',
+    },
+    '& .MuiCheckbox-root.Mui-checked:not(.MuiCheckbox-indeterminate) svg': {
+        backgroundColor: '#E65889',
+        borderColor: '#E65889',
+    },
 };
