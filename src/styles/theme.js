@@ -26,6 +26,7 @@ export const white = {
         lightGreen: '#D8FED2',
         lightRed: '#FFE0D7',
         lightPink: '#FAE0E9',
+        pink: '#E65889',
     },
     borderColor: {
         blue: '#027EF4',
@@ -36,6 +37,7 @@ export const white = {
         large: '100px',
         verySmall: '5px',
         small: '8px',
+        medium: '6px',
     },
     fontSize: {
         smallest: '0.75rem', // 12px

@@ -29,6 +29,7 @@ function SearchFilter({ actionButton: ActionButton, style }) {
         <Stack direction='row' justifyContent='space-between' style={{ ...style }}>
             <Stack direction='row' spacing={2}>
                 <SwxInput
+                    placeholderColor='#838A91'
                     type='text'
                     style={{ width: '20rem' }}
                     onChange={onSearch}
@@ -42,6 +43,7 @@ function SearchFilter({ actionButton: ActionButton, style }) {
                     onChange={value => dispatch(setStatus(value))}
                     options={statusOptions}
                     placeholder='Status'
+                    placeholderColor='#838A91'
                     style={{ width: '10rem' }}
                     padding='3px 6px'
                 />
