@@ -55,6 +55,7 @@ export const white = {
         thin: '500',
         semiBold: '600',
         bold: '700',
+        bolder: '800',
     },
     boxShadow: {
         whiteShadow: '0px 2px 9px rgba(3, 3, 3, 0.16)',
