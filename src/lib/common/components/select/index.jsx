@@ -3,7 +3,9 @@
 import { useState } from 'react';
 import TextField from '@mui/material/TextField';
 import { Box, InputAdornment, Stack } from '@mui/material';
-import { StyledAutoCompleteSelect, DropdownIcon } from './select.styles';
+
+import { StyledAutoCompleteSelect } from './select.styles';
+
 import { Icon } from '../../icons';
 
 export default function SwxSelect({ width, style, label, padding, options, value, onChange, placeholder, ...rest }) {
@@ -13,7 +15,7 @@ export default function SwxSelect({ width, style, label, padding, options, value
         <Stack direction='column' spacing={1} style={{ width }}>
             {label && label}
             <StyledAutoCompleteSelect
-                popupIcon={DropdownIcon}
+                popupIcon={<Icon name='dropdown-arrow' width='14' styles={{ margin: '4px 8px 4px 8px' }} />}
                 value={value}
                 onChange={(event, newValue) => {
                     onChange(newValue);
