@@ -29,7 +29,7 @@ function SearchFilter({ actionButton: ActionButton, style }) {
         <Stack direction='row' justifyContent='space-between' style={{ ...style }}>
             <Stack direction='row' spacing={2}>
                 <SwxInput
-                    placeholderColor='#838A91'
+                    placeholderColor='lightGray'
                     type='text'
                     style={{ width: '20rem' }}
                     onChange={onSearch}
@@ -48,7 +48,7 @@ function SearchFilter({ actionButton: ActionButton, style }) {
                     padding='3px 6px'
                 />
                 <SwxMultiSelect
-                    insideLabel='Role(s)'
+                    insideLabel='Roles'
                     multiple
                     style={{ width: '8rem' }}
                     options={['RN', 'LPN', 'CNA']}

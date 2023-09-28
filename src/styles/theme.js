@@ -23,6 +23,7 @@ export const white = {
         lightGray: '#E6E8E9',
         lighterGray: '#F1F1F1',
         lightestGray: '#F7F7F8',
+        dullGray: '#F2F4F4',
         lightGreen: '#D8FED2',
         lightRed: '#FFE0D7',
         lightPink: '#FAE0E9',

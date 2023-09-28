@@ -101,11 +101,13 @@ export default function AdminOverview() {
             // flex: 1,
             renderCell: params => (
                 <SwxChip
+                    icon={<Icon name='circle' fill='#838A91' height={8} width={8} cx='4' cy='4' r='3.5' />}
                     label={capitalize(params.value)}
                     kind='rounded'
                     color='swxBlack'
-                    background='lightPink'
+                    background='dullGray'
                     size='semiMedium'
+                    leftPadding='4px'
                 />
             ),
             minWidth: 120,

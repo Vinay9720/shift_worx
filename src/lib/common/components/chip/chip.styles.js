@@ -2,7 +2,8 @@ import styled from 'styled-components';
 import { Chip } from '@mui/material';
 
 export const StyledChip = styled(Chip)`
-    ${({ theme, kind, swxcolor, background, size }) => `
+    ${({ theme, kind, swxcolor, background, size, leftPadding }) => `
+        padding-left:${leftPadding || null};
         border-radius: ${kind === 'rounded' ? theme.borderRadius.large : '0.375rem'} !important;
         background: ${theme.backgroundColor[background]} !important;
         color: ${theme.fontColor[swxcolor]} !important;

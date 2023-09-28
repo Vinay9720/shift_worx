@@ -47,7 +47,7 @@ function SearchFilter({ style }) {
                 <SwxSelect
                     onChange={onTypeChange}
                     options={noteTypeOptions}
-                    placeholder='Type'
+                    placeholder='Role'
                     style={{ width: '7rem' }}
                     padding='3px 6px'
                 />

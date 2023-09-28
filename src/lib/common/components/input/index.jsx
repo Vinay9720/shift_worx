@@ -14,6 +14,7 @@ const SwxInput = ({
     type,
     style,
     placeholder,
+    placeholderColor,
     errorText,
     ...restProps
 }) => {
@@ -24,6 +25,7 @@ const SwxInput = ({
                 // id='outlined-adornment-password'
                 type={type}
                 placeholder={placeholder}
+                placeholderColor={placeholderColor}
                 {...restProps}
                 startAdornment={StartIcon && <InputAdornment position='start'>{StartIcon}</InputAdornment>}
                 endAdornment={EndIcon && <InputAdornment position='start'>{EndIcon}</InputAdornment>}

@@ -19,7 +19,7 @@ export const StyledButton = styled(Button)`
           font-size: ${theme.fontSize[size || 'medium']} !important;
           font-weight: ${theme.fontWeight.semiBold} !important;
           border-radius: ${theme.borderRadius[radius || 'small']} !important;
-          box-shadow: ${theme.boxShadow.darkBlueShadow} !important;
+        //   box-shadow: ${theme.boxShadow.darkBlueShadow} !important;
           font-style: normal;
       `
             : variant === 'text'

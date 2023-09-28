@@ -36,7 +36,10 @@ export default function SwxMultiSelect({
         <div style={{ width: width || '100%', ...style }}>
             {OutSideLabel && <OutSideLabel />}
             <FormControl sx={{ width: '100%' }}>
-                <StyledInsideLabel shrink={false} id='multiple-checkbox-label'>
+                <StyledInsideLabel
+                    shrink={false}
+                    id='multiple-checkbox-label'
+                    sx={{ color: '#838A91', marginTop: '-3px' }}>
                     {insideLabel}
                 </StyledInsideLabel>
                 <StyledSelect

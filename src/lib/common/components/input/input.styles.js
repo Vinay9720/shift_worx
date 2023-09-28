@@ -18,7 +18,7 @@ export const StyledOutlinedInput = styled(OutlinedInput)`
         `};
     }
     & .MuiOutlinedInput-notchedOutline {
-        border-radius: ${({ radius }) => (radius ? radius : '8px')};
+        border-radius: ${({ radius }) => radius || '8px'};
         ${({ theme }) => `
             border: 1px solid ${theme.borderColor.lightGray};
         `}

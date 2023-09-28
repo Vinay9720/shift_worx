@@ -11,6 +11,9 @@ export const DataGridStyles = {
         color: '#838A91',
         justifyContent: 'flex-start',
     },
+    '& .MuiDataGrid-columnHeaderTitleContainer': {
+        justifyContent: 'flex-start',
+    },
     '.MuiDataGrid-cell': {
         border: 'none',
     },

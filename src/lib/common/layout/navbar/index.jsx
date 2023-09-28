@@ -6,7 +6,7 @@ import { signOut, useSession } from 'next-auth/react';
 import Image from 'next/image';
 import { Stack } from '@mui/material';
 
-import { HeaderContainer, HeaderWrapper, StyledLink, StyledLinkContainer } from './header.styles';
+import { HeaderContainer, HeaderWrapper, StyledLink, StyledLinkContainer, styles } from './header.styles';
 
 import { SwxPopupMenu } from '../../components';
 import { Icon } from '../../icons';
@@ -74,10 +74,35 @@ const NavBar = ({ navLinks }) => {
                         {renderLinks()}
                     </Stack>
                 </Stack>
-                <Stack spacing={3} direction='row'>
-                    <Link href='/'>
-                        <Icon styles={{ fill: '#ffffff' }} name='bell' aria-hidden='true' height={20} width={20} />
-                    </Link>
+                <Stack spacing={3} direction='row' sx={styles.stackOne}>
+                    <Stack sx={styles.stackTwo}>
+                        <Icon name='ellipse' width={36} height={36} fill='#1B6397' />
+                        <Stack sx={styles.stackThree}>
+                            <Stack sx={styles.stackFour}>
+                                <Link href='/'>
+                                    <Icon
+                                        styles={{ fill: '#ffffff' }}
+                                        name='bell'
+                                        aria-hidden='true'
+                                        height={18}
+                                        width={18}
+                                    />
+                                </Link>
+                                <Stack sx={styles.stackFive}>
+                                    <Icon
+                                        name='circle'
+                                        width={8}
+                                        height={8}
+                                        fill='#FE6782'
+                                        cx='4'
+                                        cy='4'
+                                        r='3.5'
+                                        stroke='#1B6397'
+                                    />
+                                </Stack>
+                            </Stack>
+                        </Stack>
+                    </Stack>
                     <div>
                         <SwxPopupMenu
                             buttonElement={

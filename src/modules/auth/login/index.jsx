@@ -120,10 +120,10 @@ export default function LoginForm() {
                     <SwxTypography weight='bold'>Forgot Password?</SwxTypography>
                 </FooterContainer>
                 <IconContainer>
-                    <Icon name='facebook' width={20} height={35} fill={'white'} />
-                    <Icon name='twitter' width={42} height={33} fill={'white'} />
-                    <Icon name='linked-in' width={38} height={35} fill={'white'} />
-                    <Icon name='instagram' width={38} height={35} fill={'white'} />
+                    <Icon name='facebook' width={20} height={35} fill='white' />
+                    <Icon name='twitter' width={42} height={33} fill='white' />
+                    <Icon name='linked-in' width={38} height={35} fill='white' />
+                    <Icon name='instagram' width={38} height={35} fill='white' />
                 </IconContainer>
                 <CopyrightContainer>
                     <SwxTypography weight='extraThin'>2022 ShiftWorx.io. All Rights Reserved.</SwxTypography>

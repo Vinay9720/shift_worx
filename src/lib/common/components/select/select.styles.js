@@ -1,11 +1,11 @@
 import styled from 'styled-components';
 import { Autocomplete } from '@mui/material';
-import { Icon } from '../../icons';
 
 export const StyledAutoCompleteSelect = styled(Autocomplete)`
     input {
-        ${({ padding }) => `
+        ${({ theme, padding, borderRight }) => `
             padding: ${padding || '17px 16px'} !important;
+            border-right:1px solid ${theme.borderColor[borderRight] || null} !important;
         `}
     }
     & .MuiOutlinedInput-input {
@@ -32,5 +32,3 @@ export const StyledAutoCompleteSelect = styled(Autocomplete)`
         `}
     }
 `;
-
-export const DropdownIcon = <Icon name='dropdown-arrow' width='14' styles={{ margin: '4px 8px 4px 8px' }} />;
