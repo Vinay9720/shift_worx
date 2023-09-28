@@ -3,7 +3,9 @@ import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { MenuItem, Stack } from '@mui/material';
-import { StyledAMPMSelect, StyledTimeField } from './time-picker.styles';
+
+import { StyledAMPMSelect, StyledTimeField, TimePickerContainer } from './time-picker.styles';
+
 import { Icon } from '../../icons';
 
 export default function SwxTimeComponent({ onChange, value, format, label, width }) {
@@ -21,7 +23,7 @@ export default function SwxTimeComponent({ onChange, value, format, label, width
     return (
         <Stack direction='column' spacing={1} style={{ width }}>
             {label && label}
-            <div style={containerDiv}>
+            <TimePickerContainer>
                 <LocalizationProvider dateAdapter={AdapterDayjs}>
                     <DemoContainer components={['TimeField']} sx={{ flexGrow: 1, overflow: 'hidden' }}>
                         <StyledTimeField format={format} onChange={onChange} value={value} />
@@ -47,15 +49,7 @@ export default function SwxTimeComponent({ onChange, value, format, label, width
                         <MenuItem value='PM'>PM</MenuItem>
                     </StyledAMPMSelect>
                 </div>
-            </div>
+            </TimePickerContainer>
         </Stack>
     );
 }
-
-const containerDiv = {
-    display: 'flex',
-    alignItems: 'end',
-    border: '1px solid #E6E8E9',
-    borderRadius: '8px',
-    height: '57px',
-};
