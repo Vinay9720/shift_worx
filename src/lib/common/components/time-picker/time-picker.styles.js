@@ -1,6 +1,5 @@
 import { TimeField } from '@mui/x-date-pickers';
 import { Select } from '@mui/material';
-
 import styled from 'styled-components';
 
 export const StyledTimeField = styled(TimeField)`
@@ -12,14 +11,10 @@ export const StyledTimeField = styled(TimeField)`
     }
     & .MuiOutlinedInput-notchedOutline {
         border-radius: 8px;
-        ${({ theme }) => `
         border: none;
-    `}
     }
     &:hover .MuiOutlinedInput-notchedOutline {
-        ${({ theme }) => `
         border: none;
-    `}
     }
     &.Mui-focused .MuiOutlinedInput-notchedOutline {
         ${({ theme }) => `
