@@ -27,7 +27,7 @@ export default function SwxSelect({
         <Stack direction='column' spacing={1} style={{ width }}>
             {label && label}
             <StyledAutoCompleteSelect
-                popupIcon={DropdownIcon}
+                popupIcon={<Icon name='dropdown-arrow' width='14' styles={{ margin: '4px 8px 4px 8px' }} />}
                 value={value}
                 onChange={(event, newValue) => {
                     onChange(newValue);

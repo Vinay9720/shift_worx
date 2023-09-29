@@ -33,6 +33,7 @@ module.exports = {
             { endOfLine: "auto" }
         ],
         'no-undef': 'error',
+        'no-use-before-define': 'off',
         'arrow-body-style': 'off',
         'arrow-parens': 'off',
         'class-methods-use-this': 'off',
