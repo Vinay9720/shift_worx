@@ -41,3 +41,22 @@ export const StyledLink = styled(Link)`
         text-decoration: none;
     `}
 `;
+export const styles = {
+    stackOne: {
+        display: 'flex',
+        alignItems: 'center',
+    },
+    stackTwo: {
+        position: 'relative',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    stackThree: {
+        position: 'absolute',
+    },
+    stackFour: {
+        position: 'relative',
+    },
+    stackFive: { position: 'absolute', left: '10px' },
+};

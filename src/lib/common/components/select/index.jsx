@@ -8,8 +8,20 @@ import { StyledAutoCompleteSelect } from './select.styles';
 
 import { Icon } from '../../icons';
 
-export default function SwxSelect({ width, style, label, padding, options, value, onChange, placeholder, ...rest }) {
+export default function SwxSelect({
+    width,
+    style,
+    label,
+    padding,
+    options,
+    value,
+    onChange,
+    placeholder,
+    borderRight,
+    ...rest
+}) {
     const [inputValue, setInputValue] = useState('');
+    const DropdownIcon = <Icon name='dropdown-arrow' width='14' styles={{ margin: '4px 8px 4px 8px' }} />;
 
     return (
         <Stack direction='column' spacing={1} style={{ width }}>
@@ -23,6 +35,8 @@ export default function SwxSelect({ width, style, label, padding, options, value
                 style={{ width, ...style }}
                 inputValue={inputValue}
                 padding={padding}
+                // borderRight is temporaryly appended for demo (29/9/2023)
+                borderRight={borderRight}
                 onInputChange={(event, newInputValue) => {
                     setInputValue(newInputValue);
                 }}

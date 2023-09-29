@@ -30,8 +30,8 @@ export default function AddEmployee() {
     return (
         <div className='flex items-center mt-0'>
             <SwxButton
-                startIcon={<Icon width={17} height={12} name='addition' styles={{ fill: '#FFFFFF' }} />}
-                size='small'
+                startIcon={<Icon width={14} height={14} name='addition' styles={{ fill: '#FFFFFF' }} />}
+                size='medium'
                 onClick={e => {
                     e.preventDefault();
                     dispatch(openModal({ modalName: 'addEmployeeModal' }));

@@ -35,7 +35,7 @@ export default function ShiftForm({ modalName, action: addShift }) {
             </SwxTypography>
         ),
         options: roleOptions,
-        placeholder: 'role',
+        placeholder: 'Role',
         width: '100%',
         required: true,
         padding: '8px 8px',
@@ -48,7 +48,7 @@ export default function ShiftForm({ modalName, action: addShift }) {
             </SwxTypography>
         ),
         options: specialityOptions,
-        placeholder: 'speciality',
+        placeholder: 'Speciality',
         width: '100%',
         required: true,
         padding: '8px 8px',
@@ -61,7 +61,7 @@ export default function ShiftForm({ modalName, action: addShift }) {
             </SwxTypography>
         ),
         options: employeeOptions,
-        placeholder: 'state',
+        placeholder: 'State',
         width: '100%',
         required: true,
         padding: '8px 8px',
@@ -74,7 +74,7 @@ export default function ShiftForm({ modalName, action: addShift }) {
             </SwxTypography>
         ),
         options: employeeOptions,
-        placeholder: 'state',
+        placeholder: 'State',
         width: '100%',
         required: true,
         padding: '8px 8px',

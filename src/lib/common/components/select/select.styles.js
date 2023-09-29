@@ -3,13 +3,14 @@ import { Autocomplete } from '@mui/material';
 
 export const StyledAutoCompleteSelect = styled(Autocomplete)`
     input {
-        ${({ padding }) => `
+        ${({ theme, padding, borderRight }) => `
             padding: ${padding || '17px 16px'} !important;
+            border-right:1px solid ${theme.borderColor[borderRight] || null} !important;
         `}
     }
     & .MuiOutlinedInput-input {
-        ${({ theme, padding }) => `
-            color: ${theme.fontColor.swxSlightlyBlack};
+        ${({ theme, padding, placeholderColor }) => `
+            color: ${placeholderColor || theme.fontColor.swxSlightlyBlack};
             padding: ${padding || '17px 16px'};
         `}
     }

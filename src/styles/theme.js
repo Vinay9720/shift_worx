@@ -23,9 +23,11 @@ export const white = {
         lightGray: '#E6E8E9',
         lighterGray: '#F1F1F1',
         lightestGray: '#F7F7F8',
+        dullGray: '#F2F4F4',
         lightGreen: '#D8FED2',
         lightRed: '#FFE0D7',
         lightPink: '#FAE0E9',
+        pink: '#E65889',
     },
     borderColor: {
         blue: '#027EF4',
@@ -36,6 +38,7 @@ export const white = {
         large: '100px',
         verySmall: '5px',
         small: '8px',
+        medium: '6px',
     },
     fontSize: {
         smallest: '0.75rem', // 12px
@@ -53,6 +56,7 @@ export const white = {
         thin: '500',
         semiBold: '600',
         bold: '700',
+        bolder: '800',
     },
     boxShadow: {
         whiteShadow: '0px 2px 9px rgba(3, 3, 3, 0.16)',
