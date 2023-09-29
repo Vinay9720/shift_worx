@@ -21,7 +21,6 @@ export default function SwxSelect({
     ...rest
 }) {
     const [inputValue, setInputValue] = useState('');
-    const DropdownIcon = <Icon name='dropdown-arrow' width='14' styles={{ margin: '4px 8px 4px 8px' }} />;
 
     return (
         <Stack direction='column' spacing={1} style={{ width }}>
