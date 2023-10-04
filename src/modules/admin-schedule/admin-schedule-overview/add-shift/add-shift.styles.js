@@ -27,8 +27,20 @@ export const ModalContainer = styled.div`
 
 export const HeaderContainer = styled.div`
     display: flex;
+    justify-content: space-between;
     padding: 24px;
     ${({ theme }) => `
         border-bottom: 1px solid ${theme.borderColor.lightGray};
     `}
+`;
+
+export const CloseContainer = styled.div`
+    height: 30px;
+    width: 30px;
+`;
+export const EllipseContainer = styled.div`
+    display: flex;
+    align-items: center;
+    position: relative;
+    justify-content: center;
 `;
