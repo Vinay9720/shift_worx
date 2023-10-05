@@ -5,7 +5,7 @@ import { Stack } from '@mui/material';
 
 import { closeModal } from '@/lib/store/slices/modal-slice';
 import { SwxButton, SwxTypography } from '@/lib/common/components';
-import { DatePickerField, SelectField, Form, FormSubmitButton } from '@/lib/common/form-components';
+import { DatePickerField, SelectField, Form, FormSubmitButton, TimePickerField } from '@/lib/common/form-components';
 
 import { ModalContainer, HeaderContainer } from './add-shift.styles';
 
@@ -80,6 +80,18 @@ export default function ShiftForm({ modalName, action: addShift }) {
         padding: '8px 8px',
     };
 
+    const timeProps = {
+        label: (
+            <SwxTypography color='swxSlightlyBlack' size='semiMedium' weight='thin'>
+                Time
+            </SwxTypography>
+        ),
+        placeholder: 'time',
+        width: '100%',
+        required: true,
+        padding: '8px 8px',
+    };
+
     return (
         <ModalContainer>
             <HeaderContainer>
@@ -103,6 +115,9 @@ export default function ShiftForm({ modalName, action: addShift }) {
                     </Stack>
                     <Stack direction='row' spacing={2}>
                         <SelectField name='employee_2' SWXInputProps={employee2Props} />
+                    </Stack>
+                    <Stack direction='row' spacing={2}>
+                        <TimePickerField name='time' SWXInputProps={timeProps} />
                     </Stack>
                     <Stack spacing={3} justifyContent='flex-end' direction='row' style={{ marginBottom: '24px' }}>
                         <SwxButton onClick={() => dispatch(closeModal({ modalName }))} variant='text'>

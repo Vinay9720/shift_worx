@@ -11,6 +11,7 @@ import SwxLinearProgress from './linear-progress';
 import SwxPhoneNumberInput from './phone-number';
 import SwxDatePicker from './date-picker';
 import SwxButtonGroup from './button-group';
+import SwxTimeComponent from './time-picker';
 
 export {
     SwxInput,
@@ -26,4 +27,5 @@ export {
     SwxPhoneNumberInput,
     SwxDatePicker,
     SwxButtonGroup,
+    SwxTimeComponent,
 };
