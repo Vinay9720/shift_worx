@@ -71,7 +71,9 @@ export default function AdminOverview() {
                     <Avatar sx={{ width: 32, height: 32 }}>{`${params.row.first_name.split('')[0] || ''}${
                         params.row.last_name.split('')[0] || ''
                     }`}</Avatar>
-                    <SwxTypography>{`${params.row.first_name || ''} ${params.row.last_name || ''}`}</SwxTypography>
+                    <SwxTypography color='swxBlack' size='semiMedium' weight='semiBold'>{`${
+                        params.row.first_name || ''
+                    } ${params.row.last_name || ''}`}</SwxTypography>
                 </Stack>
             ),
             align: 'left',
@@ -88,7 +90,7 @@ export default function AdminOverview() {
             sortable: false,
             filterable: false,
             renderCell: params => (
-                <SwxChip label={params.value || 'RN'} color='white' background='swxBlue' size='semiMedium' />
+                <SwxChip label={params.value || 'RN'} color='white' background='pink' size='semiMedium' />
             ),
         },
         {
@@ -99,11 +101,13 @@ export default function AdminOverview() {
             // flex: 1,
             renderCell: params => (
                 <SwxChip
+                    icon={<Icon name='circle' fill='#838A91' height={8} width={8} cx='4' cy='4' r='3.5' />}
                     label={capitalize(params.value)}
                     kind='rounded'
                     color='swxBlack'
-                    background='lightPink'
+                    background='dullGray'
                     size='semiMedium'
+                    leftPadding='4px'
                 />
             ),
             minWidth: 120,

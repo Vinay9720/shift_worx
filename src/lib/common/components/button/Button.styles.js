@@ -14,12 +14,12 @@ export const StyledButton = styled(Button)`
         variant === 'contained'
             ? `
           padding: ${padding || '15px 50px'} !important;
-          background: ${theme.backgroundColor.darkBlue} !important;
+          background: ${theme.backgroundColor.blue} !important;
           color: ${theme.fontColor.white} !important;
           font-size: ${theme.fontSize[size || 'medium']} !important;
           font-weight: ${theme.fontWeight.semiBold} !important;
           border-radius: ${theme.borderRadius[radius || 'small']} !important;
-          box-shadow: ${theme.backgroundColor.darkBlueShadow} !important;
+        //   box-shadow: ${theme.boxShadow.darkBlueShadow} !important;
           font-style: normal;
       `
             : variant === 'text'

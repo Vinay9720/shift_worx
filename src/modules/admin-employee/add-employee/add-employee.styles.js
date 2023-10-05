@@ -21,7 +21,7 @@ export const ModalContainer = styled.div`
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 600px;
+    width: 784px;
     max-height: 600px;
     overflow-y: auto;
     box-shadow: 24;
@@ -43,7 +43,7 @@ export const ModalContainer = styled.div`
 
 export const StyledTitle = styled.h1`
     ${({ theme }) => `
-        color: ${theme.fontColor.swxBlack};
+        color: ${theme.fontColor.swxSlightlyBlack};
         font-size: ${theme.fontSize.large};
         font-weight: ${theme.fontWeight.bold};
         font-style: normal;
@@ -121,4 +121,24 @@ export const StyledBorderContainer = styled.div`
         border: 1px solid ${theme.borderColor.lightGray};
         border-radius: ${theme.borderRadius.verySmall} !important;
     `}
+`;
+export const SpanContainer = styled.div`
+    display: flex;
+    gap: 8px;
+`;
+export const TitleContainer = styled.div`
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+`;
+export const CloseContainer = styled.div`
+    height: 30px;
+    width: 30px;
+`;
+export const EllipseContainer = styled.div`
+    display: flex;
+    align-items: center;
+    position: relative;
+    justify-content: center;
+    margin-right: 16px;
 `;

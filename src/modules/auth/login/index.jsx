@@ -9,7 +9,14 @@ import { validateEmail } from '@/lib/validators/emailValidator';
 import { SwxTypography } from '@/lib/common/components';
 import { useLogin } from '@/hooks/auth/useLogin';
 
-import { Container, StyledLoginContainer, HeadingContainer } from './login.styles';
+import {
+    Container,
+    StyledLoginContainer,
+    HeadingContainer,
+    FooterContainer,
+    IconContainer,
+    CopyrightContainer,
+} from './login.styles';
 
 const PasswordIcon = styled(Icon)`
     fill: ${({ isPasswordFocused }) => (isPasswordFocused ? 'brand' : 'inherit')};
@@ -33,6 +40,9 @@ export default function LoginForm() {
         placeholder: 'Email',
         required: 'Enter email address',
         validate: validateEmail,
+        radius: '4px',
+        background: 'white',
+        placeholderColor: 'darkestGray',
     };
 
     const passwordProps = {
@@ -44,6 +54,9 @@ export default function LoginForm() {
         type: isPasswordVisible ? 'text' : 'password',
         placeholder: 'Password',
         required: 'Enter password',
+        radius: '4px',
+        background: 'white',
+        placeholderColor: 'darkestGray',
         minLength: {
             value: 6,
             message: 'Password must be at least 6 characters long',
@@ -69,26 +82,52 @@ export default function LoginForm() {
         onBlur: () => !isPasswordVisible && setIsPasswordFocused(false),
     };
 
+    const buttonProps = {
+        styles: {
+            height: '60px',
+            background: '#0080F6',
+            marginTop: '32px',
+            width: '100%',
+            color: 'white',
+            fontWeight: '700',
+            fontSize: '24px',
+            padding: '6px 24px',
+            borderRadius: '5px',
+        },
+    };
+
     return (
         <Container>
             <StyledLoginContainer>
                 <HeadingContainer>
-                    <Image src='/images/swx-white-logo.png' alt='logo' width={250} height={30} priority />
-                    <SwxTypography color='white' size='medium' weight='bold'>
+                    <Image src='/images/Swx-login.png' alt='logo' width={215} height={57} priority />
+                    <SwxTypography color='white' size='large' weight='bolder'>
                         Members Login
                     </SwxTypography>
                 </HeadingContainer>
                 <Form onSubmit={onSubmit}>
-                    <Stack direction='column' spacing={1.5}>
+                    <Stack direction='column' spacing={3}>
                         <InputField name='email' SWXInputProps={emailProps} />
                         <InputField name='password' SWXInputProps={passwordProps} />
-                        <FormSubmitButton
-                            styles={{ marginTop: '1rem', width: '100%' }}
-                            buttonName='Log In'
-                            disabled={false}
-                        />
+                        <FormSubmitButton styles={buttonProps.styles} buttonName='Log In' disabled={false} />
                     </Stack>
                 </Form>
+                <FooterContainer>
+                    <Stack direction='row' spacing={1}>
+                        <SwxTypography weight='extraThin'>Don’t have an account?</SwxTypography>
+                        <SwxTypography weight='bold'>Create an Account</SwxTypography>
+                    </Stack>
+                    <SwxTypography weight='bold'>Forgot Password?</SwxTypography>
+                </FooterContainer>
+                <IconContainer>
+                    <Icon name='facebook' width={20} height={35} fill='white' />
+                    <Icon name='twitter' width={42} height={33} fill='white' />
+                    <Icon name='linked-in' width={38} height={35} fill='white' />
+                    <Icon name='instagram' width={38} height={35} fill='white' />
+                </IconContainer>
+                <CopyrightContainer>
+                    <SwxTypography weight='extraThin'>2022 ShiftWorx.io. All Rights Reserved.</SwxTypography>
+                </CopyrightContainer>
             </StyledLoginContainer>
         </Container>
     );

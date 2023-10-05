@@ -20,6 +20,7 @@ const SelectField = props => {
                         width={SWXInputProps.width}
                         padding={SWXInputProps.padding}
                         placeholder={SWXInputProps.placeholder}
+                        placeholderColor={SWXInputProps.placeholderColor}
                         options={SWXInputProps.options || []}
                         errorText={error?.message}
                         label={SWXInputProps.label}

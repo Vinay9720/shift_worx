@@ -10,13 +10,15 @@ export const InputContainer = styled.div`
 
 export const StyledOutlinedInput = styled(OutlinedInput)`
     & .MuiOutlinedInput-input {
-        ${({ theme, padding }) => `
+        ${({ theme, padding, background, radius, placeholderColor }) => `
             padding: ${padding || '17px 16px'};
-            color: ${theme.fontColor.swxSlightlyBlack};
-        `}
+            color: ${theme.fontColor[placeholderColor] || theme.fontColor.swxSlightlyBlack};
+            border-radius: ${radius || '8px'};
+            background-color:${background || 'transparent'}
+        `};
     }
     & .MuiOutlinedInput-notchedOutline {
-        border-radius: 8px;
+        border-radius: ${({ radius }) => radius || '8px'};
         ${({ theme }) => `
             border: 1px solid ${theme.borderColor.lightGray};
         `}

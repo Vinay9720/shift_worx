@@ -30,7 +30,7 @@ function WidgetCard({ iconName, badgeArrow, percentage, totalCount, title }) {
                                 width={20}
                             />
                         </PillContainer>
-                        <StyledText style={{ marginLeft: '10px' }} color='mediumGreen'>
+                        <StyledText style={{ marginLeft: '10px' }} color='mediumGreen' weight='600'>
                             {percentage}
                         </StyledText>
                         <StyledText style={{ marginLeft: '4px' }}>vs last 30 days</StyledText>
@@ -38,7 +38,7 @@ function WidgetCard({ iconName, badgeArrow, percentage, totalCount, title }) {
                 </UpperContainer>
                 <LowerContainer>
                     <StyledH1>{totalCount}</StyledH1>
-                    <StyledTitle>{title}</StyledTitle>
+                    <StyledTitle size='1rem'>{title}</StyledTitle>
                 </LowerContainer>
             </CardContainer>
         </CardWrapper>

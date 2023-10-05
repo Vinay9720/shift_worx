@@ -8,7 +8,18 @@ import { StyledAutoCompleteSelect } from './select.styles';
 
 import { Icon } from '../../icons';
 
-export default function SwxSelect({ width, style, label, padding, options, value, onChange, placeholder, ...rest }) {
+export default function SwxSelect({
+    width,
+    style,
+    label,
+    padding,
+    options,
+    value,
+    onChange,
+    placeholder,
+    borderRight,
+    ...rest
+}) {
     const [inputValue, setInputValue] = useState('');
 
     return (
@@ -23,6 +34,8 @@ export default function SwxSelect({ width, style, label, padding, options, value
                 style={{ width, ...style }}
                 inputValue={inputValue}
                 padding={padding}
+                // borderRight is temporaryly appended for demo (29/9/2023)
+                borderRight={borderRight}
                 onInputChange={(event, newInputValue) => {
                     setInputValue(newInputValue);
                 }}
