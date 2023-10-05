@@ -4,10 +4,11 @@ import { useDispatch } from 'react-redux';
 import { Stack } from '@mui/material';
 
 import { closeModal } from '@/lib/store/slices/modal-slice';
+import { Icon } from '@/lib/common/icons';
 import { SwxButton, SwxTypography } from '@/lib/common/components';
 import { DatePickerField, SelectField, Form, FormSubmitButton } from '@/lib/common/form-components';
 
-import { ModalContainer, HeaderContainer } from './add-shift.styles';
+import { ModalContainer, HeaderContainer, EllipseContainer, CloseContainer } from './add-shift.styles';
 
 const roleOptions = ['RN', 'LPN', 'CNA'];
 const specialityOptions = ['speciality1', 'speciality2', 'speciality3'];
@@ -86,6 +87,14 @@ export default function ShiftForm({ modalName, action: addShift }) {
                 <SwxTypography color='swxBlack' size='large' weight='bold'>
                     Add Shift
                 </SwxTypography>
+                <EllipseContainer>
+                    <CloseContainer>
+                        <Icon name='ellipse' fill='#F7F8F8' height={30} width={30} />
+                    </CloseContainer>
+                    <Stack sx={{ position: 'absolute' }}>
+                        <Icon name='close' fill='#838A91' height={10.6} width={10.6} />
+                    </Stack>
+                </EllipseContainer>
             </HeaderContainer>
             <Form onSubmit={shfitData => addShift({ shfitData })}>
                 <Stack direction='column' spacing={2} sx={{ padding: '0px 24px', mt: 1 }}>
@@ -105,7 +114,7 @@ export default function ShiftForm({ modalName, action: addShift }) {
                         <SelectField name='employee_2' SWXInputProps={employee2Props} />
                     </Stack>
                     <Stack spacing={3} justifyContent='flex-end' direction='row' style={{ marginBottom: '24px' }}>
-                        <SwxButton onClick={() => dispatch(closeModal({ modalName }))} variant='text'>
+                        <SwxButton onClick={() => dispatch(closeModal({ modalName }))} variant='text' size='medium'>
                             Cancel
                         </SwxButton>
                         <FormSubmitButton variant='contained' buttonName='Submit' />

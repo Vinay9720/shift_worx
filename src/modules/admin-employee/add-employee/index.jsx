@@ -1,6 +1,7 @@
 'use client';
 
 import { useSelector, useDispatch } from 'react-redux';
+import { Stack } from '@mui/material';
 
 import { openModal } from '@/lib/store/slices/modal-slice';
 import { setCurrentStep } from '@/lib/store/slices/add-employee-module';
@@ -17,6 +18,9 @@ import {
     StyledTitle,
     StepsContainer,
     StyledStep,
+    TitleContainer,
+    CloseContainer,
+    EllipseContainer,
 } from './add-employee.styles';
 import AddEmployeeStep1 from './AddEmployeeStep1';
 import AddEmployeeStep2 from './AddEmployeeStep2';
@@ -44,7 +48,17 @@ export default function AddEmployee() {
             <SwxModal modalName='addEmployeeModal'>
                 <ModalContainer>
                     <HeaderContainer>
-                        <StyledTitle>Add Employee</StyledTitle>
+                        <TitleContainer>
+                            <StyledTitle>Add Employee</StyledTitle>
+                            <EllipseContainer>
+                                <CloseContainer>
+                                    <Icon name='ellipse' fill='#F7F8F8' height={30} width={30} />
+                                </CloseContainer>
+                                <Stack sx={{ position: 'absolute' }}>
+                                    <Icon name='close' fill='#838A91' height={10.6} width={10.6} />
+                                </Stack>
+                            </EllipseContainer>
+                        </TitleContainer>
                         <StepsContainer>
                             <StyledStep onClick={() => dispatch(setCurrentStep(1))}>
                                 <StyledNumber active={currentStep === 1 && true}>1</StyledNumber>
