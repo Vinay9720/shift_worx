@@ -42,5 +42,6 @@ export const EllipseContainer = styled.div`
     display: flex;
     align-items: center;
     position: relative;
+    cursor: pointer;
     justify-content: center;
 `;

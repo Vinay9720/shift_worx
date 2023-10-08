@@ -6,7 +6,14 @@ import { Stack } from '@mui/material';
 import { closeModal } from '@/lib/store/slices/modal-slice';
 import { Icon } from '@/lib/common/icons';
 import { SwxButton, SwxTypography } from '@/lib/common/components';
-import { DatePickerField, SelectField, Form, FormSubmitButton } from '@/lib/common/form-components';
+import {
+    DatePickerField,
+    SelectField,
+    Form,
+    FormSubmitButton,
+    TimePickerField,
+    InputField,
+} from '@/lib/common/form-components';
 
 import { ModalContainer, HeaderContainer, EllipseContainer, CloseContainer } from './add-shift.styles';
 
@@ -19,7 +26,7 @@ export default function ShiftForm({ modalName, action: addShift }) {
 
     const dateProps = {
         label: (
-            <SwxTypography color='swxSlightlyBlack' size='semiMedium' weight='thin'>
+            <SwxTypography color='swxSlightlyBlack' size='semiMedium' weight='semiBold'>
                 Date
             </SwxTypography>
         ),
@@ -31,7 +38,7 @@ export default function ShiftForm({ modalName, action: addShift }) {
 
     const roleProps = {
         label: (
-            <SwxTypography color='swxSlightlyBlack' size='semiMedium' weight='thin'>
+            <SwxTypography color='swxSlightlyBlack' size='semiMedium' weight='semiBold'>
                 Role
             </SwxTypography>
         ),
@@ -44,7 +51,7 @@ export default function ShiftForm({ modalName, action: addShift }) {
 
     const specialityProps = {
         label: (
-            <SwxTypography color='swxSlightlyBlack' size='semiMedium' weight='thin'>
+            <SwxTypography color='swxSlightlyBlack' size='semiMedium' weight='semiBold'>
                 Speciality
             </SwxTypography>
         ),
@@ -57,7 +64,7 @@ export default function ShiftForm({ modalName, action: addShift }) {
 
     const employeeProps = {
         label: (
-            <SwxTypography color='swxSlightlyBlack' size='semiMedium' weight='thin'>
+            <SwxTypography color='swxSlightlyBlack' size='semiMedium' weight='semiBold'>
                 Employee
             </SwxTypography>
         ),
@@ -70,7 +77,7 @@ export default function ShiftForm({ modalName, action: addShift }) {
 
     const employee2Props = {
         label: (
-            <SwxTypography color='swxSlightlyBlack' size='semiMedium' weight='thin'>
+            <SwxTypography color='swxSlightlyBlack' size='semiMedium' weight='semiBold'>
                 Employee 2
             </SwxTypography>
         ),
@@ -81,13 +88,48 @@ export default function ShiftForm({ modalName, action: addShift }) {
         padding: '8px 8px',
     };
 
+    const startTimeProps = {
+        label: (
+            <SwxTypography color='swxSlightlyBlack' size='semiMedium' weight='semiBold'>
+                Time Start
+            </SwxTypography>
+        ),
+        placeholder: 'time',
+        width: '100%',
+        required: true,
+        padding: '8px 8px',
+    };
+
+    const endTimeProps = {
+        label: (
+            <SwxTypography color='swxSlightlyBlack' size='semiMedium' weight='semiBold'>
+                Time End
+            </SwxTypography>
+        ),
+        placeholder: 'time',
+        width: '100%',
+        required: true,
+        padding: '8px 8px',
+    };
+
+    const stationProps = {
+        label: (
+            <SwxTypography color='swxSlightlyBlack' size='semiMedium' weight='semiBold'>
+                Location/Station
+            </SwxTypography>
+        ),
+        placeholder: 'Station',
+        placeholderColor: 'lightGray',
+        required: 'Enter station',
+    };
+
     return (
         <ModalContainer>
             <HeaderContainer>
                 <SwxTypography color='swxBlack' size='large' weight='bold'>
                     Add Shift
                 </SwxTypography>
-                <EllipseContainer>
+                <EllipseContainer onClick={() => dispatch(closeModal({ modalName }))}>
                     <CloseContainer>
                         <Icon name='ellipse' fill='#F7F8F8' height={30} width={30} />
                     </CloseContainer>
@@ -100,6 +142,15 @@ export default function ShiftForm({ modalName, action: addShift }) {
                 <Stack direction='column' spacing={2} sx={{ padding: '0px 24px', mt: 1 }}>
                     <Stack direction='row' spacing={2}>
                         <DatePickerField name='date' SWXInputProps={dateProps} />
+                    </Stack>
+                    <Stack direction='row' spacing={2}>
+                        <TimePickerField name='time' SWXInputProps={startTimeProps} />
+                    </Stack>
+                    <Stack direction='row' spacing={2}>
+                        <TimePickerField name='time' SWXInputProps={endTimeProps} />
+                    </Stack>
+                    <Stack direction='row' spacing={2}>
+                        <InputField name='station' SWXInputProps={stationProps} />
                     </Stack>
                     <Stack direction='row' spacing={2}>
                         <SelectField name='role' SWXInputProps={roleProps} />

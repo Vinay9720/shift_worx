@@ -19,20 +19,13 @@ export default function SwxDatePicker({ width, label, multiple, padding, range, 
                 multiple={multiple}
                 render={(dateValue, openCalendar) => {
                     return (
-                        <StyledDateContainer padding={padding}>
+                        <StyledDateContainer padding={padding} onClick={openCalendar}>
                             {dateValue ? (
                                 <SwxTypography color='swxSlightlyBlack'>{dateValue}</SwxTypography>
                             ) : (
                                 <SwxTypography color='lightGray'>{placeholder || 'Select Date'}</SwxTypography>
                             )}
-                            <Icon
-                                styles='fill-brand'
-                                name='eye'
-                                onClick={openCalendar}
-                                aria-hidden='true'
-                                height={20}
-                                width={20}
-                            />
+                            <Icon styles='fill-brand' name='eye' aria-hidden='true' height={20} width={20} />
                         </StyledDateContainer>
                     );
                 }}

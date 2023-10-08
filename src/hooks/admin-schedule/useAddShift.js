@@ -1,5 +1,6 @@
 import { useMutation, useQueryClient } from 'react-query';
 import { useDispatch } from 'react-redux';
+import { useSession } from 'next-auth/react';
 
 import AdminScheduleService from '@/services/admin-schedule';
 import { closeModal } from '@/lib/store/slices/modal-slice';
@@ -9,6 +10,8 @@ import { useToast } from '../common';
 export const useAddShift = () => {
     const queryClient = useQueryClient();
     const dispatch = useDispatch();
+    const { data } = useSession();
+    console.log('data', data);
     const showToast = useToast();
 
     const addShift = ({ shiftData }) => {
