@@ -141,4 +141,5 @@ export const EllipseContainer = styled.div`
     position: relative;
     justify-content: center;
     margin-right: 16px;
+    cursor: pointer;
 `;

@@ -8,6 +8,7 @@ import { useDeleteNote, useNotes, useReadNote, useUpdateNote } from '@/hooks/adm
 import { openEditNoteForm, setnoteToBeUpdated } from '@/lib/store/slices/admin-notes-module';
 import { openModal } from '@/lib/store/slices/modal-slice';
 import { WidgetCard, NoteCard, SwxPagination, SwxModal } from '@/lib/common/layout';
+import { SwxLoader } from '@/lib/common/components';
 
 import { WidgetCardsContainer } from './admin-notes.styles';
 import SearchFilter from './SearchFilter';
@@ -109,7 +110,9 @@ export default function AdminNotes() {
                         })}
                     </Stack>
                 ) : (
-                    <div style={{ display: 'flex', flex: 1, height: '500px' }}>Loading...</div>
+                    <div style={{ display: 'flex', flex: 1, height: '500px' }}>
+                        <SwxLoader loading={isLoading} />
+                    </div>
                 )}
             </div>
             <SwxPagination

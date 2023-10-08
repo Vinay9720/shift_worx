@@ -6,8 +6,8 @@ export const StyledTimeField = styled(TimeField)`
     & .MuiOutlinedInput-input {
         padding: 17px 14px;
         ${({ theme }) => `
-        color: ${theme.fontColor.swxSlightlyBlack};
-    `}
+            color: ${theme.fontColor.swxSlightlyBlack};
+        `}
     }
     & .MuiOutlinedInput-notchedOutline {
         border-radius: 8px;

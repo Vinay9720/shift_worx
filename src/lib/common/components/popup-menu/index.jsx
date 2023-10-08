@@ -1,9 +1,15 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
+
+'use client';
+
 import { useState } from 'react';
 import Box from '@mui/material/Box';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import Tooltip from '@mui/material/Tooltip';
+import { ListItemIcon } from '@mui/material';
+
+import SwxTypography from '../typography';
 
 export default function SwxPopupMenu({ buttonElement, options }) {
     const [anchorEl, setAnchorEl] = useState(null);
@@ -62,7 +68,10 @@ export default function SwxPopupMenu({ buttonElement, options }) {
                 {options.map((item, index) => {
                     return (
                         <MenuItem key={index} onClick={item.action}>
-                            {item.label}
+                            {item.icon && <ListItemIcon>{item.icon}</ListItemIcon>}
+                            <SwxTypography color={item.color ? item.color : 'swxBlack'} size='semiMedium' weight='thin'>
+                                {item.label}
+                            </SwxTypography>
                         </MenuItem>
                     );
                 })}

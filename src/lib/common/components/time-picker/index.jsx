@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useState } from 'react';
 import moment from 'moment';
 import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
@@ -18,24 +20,13 @@ export default function SwxTimeComponent({ onChange, time, format, label, width 
         setOpen(!open);
     };
 
-    // const handleAmPmChange = event => {
-    //     setAmPm(event.target.value);
-    // };
-
-    // const handleTimeChange = timeValue => {
-    //     const formattedValue = timeValue.format('hh:mm');
-    //     console.log('timeValuessssss=>', formattedValue);
-    // };
-
     const handleInputChange = event => {
         if (event.target) {
             const { value } = event.target;
             setAmPm(value);
-            // Call the parent component's onChange with the updated value
             onChange(`${prevTime}${value}`);
         } else {
             const formattedValue = event.format('hh:mm');
-            debugger
             onChange(`${formattedValue}${amOrPm}`);
         }
     };

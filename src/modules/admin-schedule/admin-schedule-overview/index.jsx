@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 import { WidgetCard } from '@/lib/common/layout';
 import { WidgetCardsContainer } from '@/modules/admin-employee/admin-notes/admin-notes.styles';
 import { useSchedule } from '@/hooks/admin-schedule';
+import { SwxLoader } from '@/lib/common/components';
 
 import SearchFilter from './SearchFilter';
 import DayWiseSchedule from './day-wise-schedule';
@@ -70,7 +71,7 @@ export default function AdminScheduleOverView() {
                         <ScheduleList scheduleData={scheduleData} />
                     ) : null
                 ) : (
-                    <p>Loading...</p>
+                    <SwxLoader loading={scheduleLoading} />
                 )}
             </div>
         </>
