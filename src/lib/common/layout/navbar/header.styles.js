@@ -11,6 +11,9 @@ export const HeaderContainer = styled.div`
     height: 4.6rem;
     max-width: 1280px;
     margin: 0 auto;
+    @media (max-width: 660px) {
+        padding: 24px;
+    }
 `;
 
 export const HeaderWrapper = styled.div`
@@ -59,4 +62,20 @@ export const styles = {
         position: 'relative',
     },
     stackFive: { position: 'absolute', left: '10px' },
+    headerPopupMenu: {
+        '@media (max-width:900px)': {
+            display: 'none',
+        },
+    },
+    mainNavLinks: {
+        '@media (max-width:860px)': {
+            display: 'none',
+        },
+    },
+    hamburger: {
+        display: 'none',
+        '@media (max-width:860px)': {
+            display: 'block',
+        },
+    },
 };

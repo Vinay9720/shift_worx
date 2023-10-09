@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import Input from 'react-phone-number-input/input';
 
 export const StyledPhone = styled(Input)`
-    padding: 18px 16px;
+    padding: 17px 16px;
     &:focus-visible {
         outline: none;
     }

@@ -11,15 +11,26 @@ import { StyledDateContainer } from './date-picker.styles';
 
 import SwxTypography from '../typography';
 
-export default function SwxDatePicker({ width, label, multiple, padding, range, error, value, onChange, placeholder }) {
+export default function SwxDatePicker({
+    width,
+    label,
+    multiple,
+    padding,
+    range,
+    error,
+    value,
+    onChange,
+    placeholder,
+    styles,
+}) {
     return (
-        <Stack direction='column' spacing={1} style={{ width }}>
+        <Stack direction='column' spacing={0.5} style={{ width }}>
             {label && label}
             <DatePicker
                 multiple={multiple}
                 render={(dateValue, openCalendar) => {
                     return (
-                        <StyledDateContainer padding={padding}>
+                        <StyledDateContainer padding={padding} style={styles}>
                             {dateValue ? (
                                 <SwxTypography color='swxSlightlyBlack'>{dateValue}</SwxTypography>
                             ) : (

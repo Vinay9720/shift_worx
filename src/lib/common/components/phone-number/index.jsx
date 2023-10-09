@@ -11,7 +11,7 @@ import './customStyles.css'; // Import the custom styles
 
 export default function SwxPhoneNumberInput({ label, width, errorText, phoneValue, onPhoneNumberChange }) {
     return (
-        <Stack direction='column' spacing={1} style={{ width: `${width || '100%'}` }}>
+        <Stack direction='column' spacing={0.5} style={{ width: `${width || '100%'}` }}>
             {label && label}
             <StyledPhone
                 country='US'

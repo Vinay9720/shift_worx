@@ -68,8 +68,8 @@ export default function AdminOverview() {
             width: 300,
             renderCell: params => (
                 <Stack direction='row' spacing={1} alignItems='center'>
-                    <Avatar sx={{ width: 32, height: 32 }}>{`${params.row.first_name.split('')[0] || ''}${
-                        params.row.last_name.split('')[0] || ''
+                    <Avatar sx={{ width: 32, height: 32, bgcolor: '#1F6FA9' }}>{`${
+                        params.row.first_name.split('')[0].toUpperCase() || ''
                     }`}</Avatar>
                     <SwxTypography color='swxBlack' size='semiMedium' weight='semiBold'>{`${
                         params.row.first_name || ''

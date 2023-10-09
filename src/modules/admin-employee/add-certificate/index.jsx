@@ -87,6 +87,7 @@ function AddCerfification({ defaultValues, employeeId }) {
         padding: '12px 12px',
         placeholder: 'XXXXX',
         required: true,
+        style: { gap: '3px' },
         type: 'number',
     };
 
@@ -102,11 +103,11 @@ function AddCerfification({ defaultValues, employeeId }) {
     }
 
     return (
-        <Stack direction='column' spacing={3} style={{ padding: '52px 140px 13px 160px' }}>
+        <Stack direction='column' spacing={3} style={{ padding: '82px 117px 6px 117px' }}>
             <Form onSubmit={formValues => addEmployee(formValues, employeeId)} defaultValues={defaultValues}>
                 <Stack direction='column' spacing={3} style={{ width: '100%' }}>
                     <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2} sx={{ padding: '0px 24px' }}>
-                        <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', width: '100%' }}>
+                        <div style={{ display: 'flex', flexDirection: 'column', width: '100%' }}>
                             <SwxTypography color='swxSlightlyBlack' size='smallOdd' weight='semiBold'>
                                 Certificate/License Type
                             </SwxTypography>
@@ -114,7 +115,7 @@ function AddCerfification({ defaultValues, employeeId }) {
                         </div>
                     </Stack>
                     <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2} sx={{ padding: '0px 24px' }}>
-                        <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', width: '100%' }}>
+                        <div style={{ display: 'flex', flexDirection: 'column', width: '100%' }}>
                             <SwxTypography color='swxSlightlyBlack' size='smallOdd' weight='semiBold'>
                                 Specialties
                             </SwxTypography>
@@ -122,7 +123,7 @@ function AddCerfification({ defaultValues, employeeId }) {
                         </div>
                     </Stack>
                     <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2} sx={{ padding: '0px 24px' }}>
-                        <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', width: '100%' }}>
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: '4px', width: '100%' }}>
                             <SwxTypography color='swxSlightlyBlack' size='smallOdd' weight='semiBold'>
                                 Jurisdiction
                             </SwxTypography>
@@ -134,7 +135,7 @@ function AddCerfification({ defaultValues, employeeId }) {
                         <DatePickerField name='effective_date' SWXInputProps={effectiveDateProps} />
                         <DatePickerField name='expiration_date' SWXInputProps={expirationDateProps} />
                     </Stack>
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', width: '100%' }}>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', width: '100%' }}>
                         <SwxTypography
                             style={{ paddingLeft: '24px' }}
                             color='swxSlightlyBlack'

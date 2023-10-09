@@ -33,7 +33,7 @@ export default function LoginForm() {
 
     const emailProps = {
         label: (
-            <SwxTypography color='white' size='semiMedium' weight='thin'>
+            <SwxTypography color='white' size='semiMedium' weight='thin' className='nunito'>
                 Email
             </SwxTypography>
         ),
@@ -43,11 +43,12 @@ export default function LoginForm() {
         radius: '4px',
         background: 'white',
         placeholderColor: 'darkestGray',
+        fontFamily: '__Nunito_3dc409',
     };
 
     const passwordProps = {
         label: (
-            <SwxTypography color='white' size='semiMedium' weight='thin'>
+            <SwxTypography color='white' size='semiMedium' weight='thin' className='nunito'>
                 Password
             </SwxTypography>
         ),
@@ -57,6 +58,7 @@ export default function LoginForm() {
         radius: '4px',
         background: 'white',
         placeholderColor: 'darkestGray',
+        fontFamily: '__Nunito_3dc409',
         minLength: {
             value: 6,
             message: 'Password must be at least 6 characters long',
@@ -93,6 +95,7 @@ export default function LoginForm() {
             fontSize: '24px',
             padding: '6px 24px',
             borderRadius: '5px',
+            fontFamily: '__Nunito_3dc409',
         },
     };
 
@@ -101,7 +104,7 @@ export default function LoginForm() {
             <StyledLoginContainer>
                 <HeadingContainer>
                     <Image src='/images/Swx-login.png' alt='logo' width={215} height={57} priority />
-                    <SwxTypography color='white' size='large' weight='bolder'>
+                    <SwxTypography color='white' size='large' weight='bolder' className='nunito'>
                         Members Login
                     </SwxTypography>
                 </HeadingContainer>
@@ -114,10 +117,16 @@ export default function LoginForm() {
                 </Form>
                 <FooterContainer>
                     <Stack direction='row' spacing={1}>
-                        <SwxTypography weight='extraThin'>Don’t have an account?</SwxTypography>
-                        <SwxTypography weight='bold'>Create an Account</SwxTypography>
+                        <SwxTypography weight='extraThin' className='nunito'>
+                            Don’t have an account?
+                        </SwxTypography>
+                        <SwxTypography weight='bold' className='nunito'>
+                            Create an Account
+                        </SwxTypography>
                     </Stack>
-                    <SwxTypography weight='bold'>Forgot Password?</SwxTypography>
+                    <SwxTypography weight='bold' className='nunito'>
+                        Forgot Password?
+                    </SwxTypography>
                 </FooterContainer>
                 <IconContainer>
                     <Icon name='facebook' width={20} height={35} fill='white' />
@@ -126,7 +135,9 @@ export default function LoginForm() {
                     <Icon name='instagram' width={38} height={35} fill='white' />
                 </IconContainer>
                 <CopyrightContainer>
-                    <SwxTypography weight='extraThin'>2022 ShiftWorx.io. All Rights Reserved.</SwxTypography>
+                    <SwxTypography weight='extraThin' className='nunito'>
+                        2022 ShiftWorx.io. All Rights Reserved.
+                    </SwxTypography>
                 </CopyrightContainer>
             </StyledLoginContainer>
         </Container>

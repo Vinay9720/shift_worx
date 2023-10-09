@@ -1,7 +1,7 @@
 'use client';
 
 import './globals.css';
-import { Manrope } from 'next/font/google';
+import { Manrope, Nunito } from 'next/font/google';
 
 import {
     SessionProvider,
@@ -13,11 +13,15 @@ import {
     ClientComponentProvider,
 } from '@/lib/providers';
 
-const appFont = Manrope({ subsets: ['latin'] });
+const appFont = Manrope({ subsets: ['latin'], variable: '--font-Manrope' });
+const NunitoFont = Nunito({
+    subsets: ['latin'],
+    variable: '--font-Nunito',
+});
 
 export default function RootLayout({ children }) {
     return (
-        <html lang='en'>
+        <html lang='en' className={`${appFont.variable} ${NunitoFont.variable}`}>
             <head>
                 <title>Shiftworx</title>
                 <link rel='shortcut icon' href='/favicon.ico' />

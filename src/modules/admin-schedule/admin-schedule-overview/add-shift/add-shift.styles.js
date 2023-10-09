@@ -5,9 +5,9 @@ export const ModalContainer = styled.div`
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    max-height: 600px;
+    max-height: 1024px;
     overflow-y: auto;
-    width: 450px;
+    width: 548px;
     box-shadow: 24;
     ${({ theme }) => `
         border-radius: ${theme.borderRadius.small};

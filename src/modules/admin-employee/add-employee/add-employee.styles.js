@@ -22,7 +22,7 @@ export const ModalContainer = styled.div`
     left: 50%;
     transform: translate(-50%, -50%);
     width: 784px;
-    max-height: 600px;
+    max-height: 957px;
     overflow-y: auto;
     box-shadow: 24;
     ${({ theme }) => `
@@ -92,7 +92,6 @@ export const HeaderContainer = styled.div`
 export const BodyContainer = styled.div`
     display: flex;
     flex-direction: column;
-    gap: 24px;
     margin-top: 40px;
 `;
 
@@ -100,7 +99,7 @@ export const FooterContainer = styled.div`
     display: flex;
     gap: 24px;
     padding: 0px 24px 24px 24px;
-    margin-top: 32px;
+    margin-top: 62px;
     justify-content: end;
 `;
 
