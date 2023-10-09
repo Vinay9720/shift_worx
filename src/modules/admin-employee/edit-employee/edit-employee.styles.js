@@ -33,3 +33,29 @@ export const CertificationLowerSection = styled.div`
         gap: 12px;
     }
 `;
+export const styles = {
+    notesSearchField: {
+        padding: '0px 80px 0px 80px',
+        display: 'flex',
+        gap: '16px',
+        '@media(max-width:900px)': {
+            flexDirection: 'column',
+            padding: '0px 8px',
+        },
+    },
+    addButton: {
+        '@media(max-width:600px)': {
+            width: '100%',
+        },
+    },
+    clearAllButton: {
+        display: 'flex',
+        gap: '8px',
+        marginLeft: 'none',
+        '@media(max-width:600px)': {
+            span: {
+                display: 'none',
+            },
+        },
+    },
+};

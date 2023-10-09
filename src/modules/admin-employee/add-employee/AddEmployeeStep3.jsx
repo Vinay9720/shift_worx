@@ -66,7 +66,7 @@ function AddEmployeeStep3() {
             ) : (
                 <AddCerfification />
             )}
-            <Divider orientation='vertical' flexItem />
+            <Divider orientation='vertical' flexItem sx={{ borderBottom: '1px solid #E6E8E9' }} />
             <FooterContainer>
                 <SwxButton onClick={() => dispatch(closeModal({ modalName: 'addEmployeeModal' }))} variant='text'>
                     Cancel

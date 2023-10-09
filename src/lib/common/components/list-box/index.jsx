@@ -60,7 +60,7 @@ const ListBox = ({ label, options, setSelectedOptions, selectedOptions, maxHeigh
                         return (
                             <FormControlLabel
                                 key={index}
-                                sx={{ color: '#030303' }}
+                                sx={{ color: '#030303', height: '25px' }}
                                 control={
                                     <Checkbox
                                         checked={(selectedOptions || []).includes(

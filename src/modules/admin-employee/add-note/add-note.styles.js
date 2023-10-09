@@ -5,9 +5,9 @@ export const ModalContainer = styled.div`
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    max-height: 600px;
+    max-height: 696px;
     overflow-y: auto;
-    width: 600px;
+    width: 648px;
     box-shadow: 24;
     ${({ theme }) => `
         border-radius: ${theme.borderRadius.small};
@@ -26,7 +26,9 @@ export const ModalContainer = styled.div`
 `;
 
 export const HeaderContainer = styled.div`
+    height: 76px;
     display: flex;
+    justify-content: space-between;
     padding: 24px;
     ${({ theme }) => `
         border-bottom: 1px solid ${theme.borderColor.lightGray};
@@ -38,4 +40,14 @@ export const StyledBorderContainer = styled.div`
         border: 1px solid ${theme.borderColor.lightGray};
         border-radius: ${theme.borderRadius.small};
     `}
+`;
+export const CloseContainer = styled.div`
+    height: 30px;
+    width: 30px;
+`;
+export const EllipseContainer = styled.div`
+    display: flex;
+    align-items: center;
+    position: relative;
+    justify-content: center;
 `;

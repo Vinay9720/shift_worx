@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { signOut, useSession } from 'next-auth/react';
 import Image from 'next/image';
-import { Stack } from '@mui/material';
+import { Avatar, Stack } from '@mui/material';
 
 import { HeaderContainer, HeaderWrapper, StyledLink, StyledLinkContainer, styles } from './header.styles';
 
@@ -70,24 +70,24 @@ const NavBar = ({ navLinks }) => {
                     <Stack direction='row' alignItems='center'>
                         <Image src='/images/swx-logo.png' alt='logo' width={137} height={25} />
                     </Stack>
-                    <Stack direction='row' alignItems='center'>
+                    <Stack direction='row' alignItems='center' sx={styles.mainNavLinks}>
                         {renderLinks()}
                     </Stack>
                 </Stack>
-                <Stack spacing={3} direction='row' sx={styles.stackOne}>
+                <Stack spacing={2} direction='row' sx={styles.stackOne}>
                     <Stack sx={styles.stackTwo}>
                         <Icon name='ellipse' width={36} height={36} fill='#1B6397' />
                         <Stack sx={styles.stackThree}>
                             <Stack sx={styles.stackFour}>
-                                <Link href='/'>
-                                    <Icon
-                                        styles={{ fill: '#ffffff' }}
-                                        name='bell'
-                                        aria-hidden='true'
-                                        height={18}
-                                        width={18}
-                                    />
-                                </Link>
+                                {/* <Link href='/'> */}
+                                <Icon
+                                    styles={{ fill: '#ffffff' }}
+                                    name='bell'
+                                    aria-hidden='true'
+                                    height={18}
+                                    width={18}
+                                />
+                                {/* </Link> */}
                                 <Stack sx={styles.stackFive}>
                                     <Icon
                                         name='circle'
@@ -103,16 +103,14 @@ const NavBar = ({ navLinks }) => {
                             </Stack>
                         </Stack>
                     </Stack>
-                    <div>
+                    <Stack sx={styles.headerPopupMenu}>
                         <SwxPopupMenu
                             buttonElement={
                                 <Stack direction='row' spacing={1.5} alignItems='center'>
-                                    <Icon
-                                        styles={{ fill: '#ffffff' }}
-                                        name='user'
-                                        aria-hidden='true'
-                                        height={20}
-                                        width={20}
+                                    <Avatar
+                                        alt='Jack Sparrow'
+                                        sx={{ width: 36, height: 36, bgcolor: '#1B6397' }}
+                                        src='/static/images/avatar/5.jpg'
                                     />
                                     <StyledLink href='/'>
                                         {data ? (data.user ? data.user.name : 'User') : ''}
@@ -121,7 +119,17 @@ const NavBar = ({ navLinks }) => {
                             }
                             options={menuOptions}
                         />
-                    </div>
+                    </Stack>
+                    <Stack sx={styles.hamburger}>
+                        <Stack sx={styles.stackTwo}>
+                            <Icon name='ellipse' width={36} height={36} fill='#1B6397' />
+                            <Stack sx={styles.stackThree}>
+                                <Stack sx={styles.stackFour}>
+                                    <Icon fill='#ffffff' name='hamburger' aria-hidden='true' height={18} width={18} />
+                                </Stack>
+                            </Stack>
+                        </Stack>
+                    </Stack>
                 </Stack>
             </HeaderContainer>
         </HeaderWrapper>

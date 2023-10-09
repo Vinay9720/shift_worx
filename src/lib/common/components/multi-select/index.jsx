@@ -1,5 +1,6 @@
 'use client';
 
+// import { useState } from 'react';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import ListItemText from '@mui/material/ListItemText';
@@ -8,6 +9,7 @@ import Checkbox from '@mui/material/Checkbox';
 import { StyledSelect, StyledInsideLabel, ValueContainer } from './multi-select.styles';
 
 import SwxTypography from '../typography';
+import { Icon } from '../../icons';
 
 const ITEM_HEIGHT = 40;
 const ITEM_PADDING_TOP = 8;
@@ -32,6 +34,11 @@ export default function SwxMultiSelect({
     padding,
     errorText,
 }) {
+    // const [open, setOpen] = useState(false);
+
+    // const handleCustomIconClick = () => {
+    //     setOpen(!open);
+    // };
     return (
         <div style={{ width: width || '100%', ...style }}>
             {OutSideLabel && <OutSideLabel />}
@@ -44,9 +51,17 @@ export default function SwxMultiSelect({
                 </StyledInsideLabel>
                 <StyledSelect
                     // Icon needs to be updated
-                    // IconComponent={() => {
-                    //     return <Icon styles='fill-lightGray mr-2' name='select-down-arrow' height={7} width={12} />;
-                    // }}
+                    IconComponent={() => {
+                        return (
+                            <Icon
+                                name='dropdown-arrow'
+                                width='14'
+                                styles={{ margin: '2px 12px 4px 12px', cursor: 'pointer' }}
+                                // open={open}
+                                // onClick={handleCustomIconClick}
+                            />
+                        );
+                    }}
                     multiple={multiple}
                     padding={padding}
                     value={value}

@@ -8,6 +8,8 @@ import { SwxButton, SwxTypography, SwxSelect, SwxInput, SwxDatePicker } from '@/
 import { Icon } from '@/lib/common/icons';
 import { NoteCard } from '@/lib/common/layout';
 
+import { styles } from './edit-employee.styles';
+
 import AddNote from '../add-note';
 
 function EditEmployeeStep4({ employeeData }) {
@@ -24,11 +26,11 @@ function EditEmployeeStep4({ employeeData }) {
     };
     return (
         <>
-            <Stack direction='row' justifyContent='space-between'>
-                <Stack direction='row' spacing={2} style={{ width: '80%' }}>
+            <Stack direction='row' sx={styles.notesSearchField}>
+                <Stack direction='row' spacing={2}>
                     <SwxInput
                         type='text'
-                        style={{ width: '17rem' }}
+                        style={{ width: '280px', height: '46px' }}
                         padding='0.75rem 0.85rem'
                         onChange={onSearch}
                         placeholder='Search note'
@@ -46,13 +48,16 @@ function EditEmployeeStep4({ employeeData }) {
                         onChange={onTypeChange}
                         options={[1, 2, 3, 4]}
                         placeholder='Type'
-                        style={{ width: '7rem' }}
+                        style={{ width: '100px' }}
                         padding='3px 6px'
                     />
-                    <SwxSelect placeholder='Status' style={{ width: '7rem' }} padding='3px 6px' />
+                    {/* <SwxSelect placeholder='Status' style={{ width: '7rem' }} padding='3px 6px' /> */}
+                </Stack>
+                <Stack direction='row' spacing={2}>
                     <SwxDatePicker
                         value={value}
-                        width='15%'
+                        width='165px'
+                        styles={{ height: '46px' }}
                         padding='0.75rem 0.85rem'
                         placeholder='From'
                         onChange={e => {
@@ -62,7 +67,8 @@ function EditEmployeeStep4({ employeeData }) {
                     />
                     <SwxDatePicker
                         value={value}
-                        width='15%'
+                        width='165px'
+                        styles={{ height: '46px' }}
                         padding='0.75rem 0.85rem'
                         placeholder='To'
                         onChange={e => {
@@ -71,15 +77,17 @@ function EditEmployeeStep4({ employeeData }) {
                         }}
                     />
                     <SwxButton
-                        endIcon={<Icon width={17} height={12} name='close' styles={{ fill: '#030303' }} />}
+                        // endIcon={<Icon width={17} height={12} name='close' styles={{ fill: '#030303' }} />}
                         size='semiMedium'
+                        sx={styles.clearAllButton}
                         weight='thin'
                         themecolor='swxBlack'
                         variant='text'>
-                        Clear all
+                        <span>Clear all</span>
+                        <Icon width={17} height={12} name='close' styles={{ fill: '#030303' }} />
                     </SwxButton>
                 </Stack>
-                <AddNote employee={employeeData} />
+                <AddNote employee={employeeData} sx={styles.addButton} />
             </Stack>
             <Stack direction='column' spacing={5} sx={{ mt: 7.5 }}>
                 <SwxTypography color='swxBlack' size='semiLarge' weight='bold'>

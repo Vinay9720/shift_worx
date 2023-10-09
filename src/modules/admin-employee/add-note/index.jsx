@@ -10,13 +10,14 @@ import { SwxModal } from '@/lib/common/layout';
 
 import NoteForm from './noteForm';
 
-export default function AddNote({ employee }) {
+export default function AddNote({ employee, sx }) {
     const { mutate: addNote } = useAddNote();
     const dispatch = useDispatch();
 
     return (
         <div className='flex items-center mt-0'>
             <SwxButton
+                sx={sx}
                 startIcon={<Icon width={17} height={12} name='addition' styles={{ fill: '#FFFFFF' }} />}
                 size='small'
                 onClick={e => {
