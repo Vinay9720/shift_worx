@@ -15,7 +15,7 @@ import { useFacilityOptions } from '@/hooks/facility';
 import { closeAddCertificateForm } from '@/lib/store/slices/add-employee-module';
 import { useFileUpload } from '@/hooks/common';
 import { Form, InputField, DatePickerField, ListBoxField, FormSubmitButton } from '@/lib/common/form-components';
-import { SwxTypography, SwxButton } from '@/lib/common/components';
+import { SwxTypography, SwxButton, SwxLoader } from '@/lib/common/components';
 
 import { StyledBorderContainer } from './add-certificate.styles';
 
@@ -99,7 +99,7 @@ function AddCerfification({ defaultValues, employeeId }) {
     };
 
     if (isCertificateOptionsLoading || isFacilityOptionsLoading) {
-        return <p>Loading...</p>;
+        return <SwxLoader loading={isCertificateOptionsLoading || isFacilityOptionsLoading} />;
     }
 
     return (

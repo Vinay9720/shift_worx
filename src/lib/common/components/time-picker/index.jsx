@@ -1,38 +1,55 @@
+'use client';
+
 import React, { useState } from 'react';
+import moment from 'moment';
 import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
 import { MenuItem, Stack } from '@mui/material';
 
 import { Icon } from '@/lib/common/icons';
 
 import { StyledAMPMSelect, StyledContainerwrapper, StyledTimeField, StyledWrapper, styles } from './time-picker.styles';
 
-export default function SwxTimeComponent({ onChange, value, format, label, width }) {
-    const [ampm, setAmPm] = useState('AM');
+export default function SwxTimeComponent({ onChange, time, format, label, width }) {
+    const [ampm, setAmPm] = useState('am');
+    const [prevTime, amOrPm] = time.split(/(?<=[0-9])(?=[apm]+)/i);
     const [open, setOpen] = useState(false);
 
     const handleCustomIconClick = () => {
         setOpen(!open);
     };
 
-    const handleAmPmChange = event => {
-        setAmPm(event.target.value);
+    const handleInputChange = event => {
+        if (event.target) {
+            const { value } = event.target;
+            setAmPm(value);
+            onChange(`${prevTime}${value}`);
+        } else {
+            const formattedValue = event.format('hh:mm');
+            onChange(`${formattedValue}${amOrPm}`);
+        }
     };
 
     return (
         <Stack direction='column' spacing={1} style={{ width }}>
             {label && label}
             <StyledContainerwrapper>
-                <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <LocalizationProvider dateAdapter={AdapterMoment}>
                     <DemoContainer components={['TimeField']} sx={{ flexGrow: 1, overflow: 'hidden' }}>
-                        <StyledTimeField format={format} onChange={onChange} value={value} />
+                        <StyledTimeField
+                            format={format}
+                            name='time'
+                            onChange={handleInputChange}
+                            value={moment(time, 'hh:mma')}
+                        />
                     </DemoContainer>
                 </LocalizationProvider>
                 <StyledWrapper>
                     <StyledAMPMSelect
                         value={ampm}
-                        onChange={handleAmPmChange}
+                        name='ampm'
+                        onChange={handleInputChange}
                         open={open}
                         onClose={() => setOpen(false)}
                         IconComponent={() => (
@@ -45,8 +62,8 @@ export default function SwxTimeComponent({ onChange, value, format, label, width
                                 styles={styles.iconStyles}
                             />
                         )}>
-                        <MenuItem value='AM'>AM</MenuItem>
-                        <MenuItem value='PM'>PM</MenuItem>
+                        <MenuItem value='am'>AM</MenuItem>
+                        <MenuItem value='pm'>PM</MenuItem>
                     </StyledAMPMSelect>
                 </StyledWrapper>
             </StyledContainerwrapper>

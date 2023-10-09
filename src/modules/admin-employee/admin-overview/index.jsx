@@ -32,31 +32,34 @@ export default function AdminOverview() {
 
     const menuOptions = ({ id }) => {
         return [
+            // {
+            //     label: 'Send Message',
+            //     action: () => {
+            //         console.log('send message clicked');
+            //     },
+            // },
             {
-                label: 'Send Message',
-                action: () => {
-                    console.log('send message clicked');
-                },
-            },
-            {
-                label: 'Edit Employee',
+                label: 'Edit',
                 action: () => {
                     router.push(`/admin/employees/edit-employee/${id}?step=profile_information`);
                 },
+                icon: <Icon styles={{ fill: '#838A91' }} name='pencil' height={14} width={14} />,
             },
+            // {
+            //     label: 'Note',
+            //     action: () => {
+            //         console.log('send message clicked');
+            //     },
+            // },
             {
-                label: 'Note',
-                action: () => {
-                    console.log('send message clicked');
-                },
-            },
-            {
-                label: 'Delete Employee',
+                label: 'Delete',
                 action: e => {
                     e.preventDefault();
                     setEmployeeIdToBeDeleted(id);
                     dispatch(openModal({ modalName: 'deleteEmployeeModal' }));
                 },
+                color: 'red',
+                icon: <Icon styles={{ fill: '#F43C02' }} name='trash' height={14} width={14} />,
             },
         ];
     };
@@ -67,7 +70,14 @@ export default function AdminOverview() {
             headerName: 'Employee',
             width: 300,
             renderCell: params => (
-                <Stack direction='row' spacing={1} alignItems='center'>
+                <Stack
+                    direction='row'
+                    spacing={1}
+                    alignItems='center'
+                    style={{ cursor: 'pointer' }}
+                    onClick={() =>
+                        router.push(`/admin/employees/edit-employee/${params.row.id}?step=profile_information`)
+                    }>
                     <Avatar sx={{ width: 32, height: 32, bgcolor: '#1F6FA9' }}>{`${
                         params.row.first_name.split('')[0].toUpperCase() || ''
                     }`}</Avatar>

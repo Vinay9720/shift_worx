@@ -2,7 +2,7 @@ export const redirectUser = (session, router) => {
     const { role } = session.user;
     switch (role) {
         case 'admin':
-            router.push('/admin/home');
+            router.push('/admin/schedule?step=overview');
             break;
         case 'Nurse':
             router.push('/admin/home');

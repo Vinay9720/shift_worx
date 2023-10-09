@@ -5,7 +5,7 @@ import { useCallback } from 'react';
 import { Stack } from '@mui/material';
 
 import { FormSubmitButton } from '@/lib/common/form-components';
-import { SwxButton } from '@/lib/common/components';
+import { SwxButton, SwxLoader } from '@/lib/common/components';
 import { useEditEmployeeNavigation } from '@/hooks/common';
 import { EditEmployeeLayout } from '@/lib/common/layout';
 import {
@@ -75,7 +75,7 @@ export default function Page({ params }) {
                 }}>
                 <div style={{ flex: '1' }}>
                     {isEmployeeLoading ? (
-                        <div>Loading...</div>
+                        <SwxLoader loading={isEmployeeLoading} />
                     ) : (
                         <>
                             {currentStepName === 'profile_information' && (

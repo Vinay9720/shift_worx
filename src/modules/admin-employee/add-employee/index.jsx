@@ -3,7 +3,7 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { Stack } from '@mui/material';
 
-import { openModal } from '@/lib/store/slices/modal-slice';
+import { closeModal, openModal } from '@/lib/store/slices/modal-slice';
 import { setCurrentStep } from '@/lib/store/slices/add-employee-module';
 import { Icon } from '@/lib/common/icons';
 import { SwxButton, SwxTypography } from '@/lib/common/components';
@@ -50,7 +50,7 @@ export default function AddEmployee() {
                     <HeaderContainer>
                         <TitleContainer>
                             <StyledTitle>Add Employee</StyledTitle>
-                            <EllipseContainer>
+                            <EllipseContainer onClick={() => dispatch(closeModal({ modalName: 'addEmployeeModal' }))}>
                                 <CloseContainer>
                                     <Icon name='ellipse' fill='#F7F8F8' height={30} width={30} />
                                 </CloseContainer>

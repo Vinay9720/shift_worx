@@ -1,3 +1,7 @@
+'use client';
+
+import { SwxLoader } from '@/lib/common/components';
+
 export default function Loading() {
-    return <div>...Loading</div>;
+    return <SwxLoader loading />;
 }

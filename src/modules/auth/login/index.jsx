@@ -6,7 +6,7 @@ import { Stack } from '@mui/material';
 import { Icon } from '@/lib/common/icons';
 import { Form, FormSubmitButton, InputField } from '@/lib/common/form-components';
 import { validateEmail } from '@/lib/validators/emailValidator';
-import { SwxTypography } from '@/lib/common/components';
+import { SwxTypography, SwxLoader } from '@/lib/common/components';
 import { useLogin } from '@/hooks/auth/useLogin';
 
 import {
@@ -26,7 +26,7 @@ export default function LoginForm() {
     const [isPasswordVisible, setIsPasswordVisible] = useState(false);
     const [isPasswordFocused, setIsPasswordFocused] = useState(false);
 
-    const { mutate: login } = useLogin();
+    const { mutate: login, isLoading } = useLogin();
     const onSubmit = async credentials => {
         login(credentials);
     };
@@ -101,45 +101,49 @@ export default function LoginForm() {
 
     return (
         <Container>
-            <StyledLoginContainer>
-                <HeadingContainer>
-                    <Image src='/images/Swx-login.png' alt='logo' width={215} height={57} priority />
-                    <SwxTypography color='white' size='large' weight='bolder' className='nunito'>
-                        Members Login
-                    </SwxTypography>
-                </HeadingContainer>
-                <Form onSubmit={onSubmit}>
-                    <Stack direction='column' spacing={3}>
-                        <InputField name='email' SWXInputProps={emailProps} />
-                        <InputField name='password' SWXInputProps={passwordProps} />
-                        <FormSubmitButton styles={buttonProps.styles} buttonName='Log In' disabled={false} />
-                    </Stack>
-                </Form>
-                <FooterContainer>
-                    <Stack direction='row' spacing={1}>
-                        <SwxTypography weight='extraThin' className='nunito'>
-                            Don’t have an account?
+            {!isLoading ? (
+                <StyledLoginContainer>
+                    <HeadingContainer>
+                        <Image src='/images/Swx-login.png' alt='logo' width={215} height={57} priority />
+                        <SwxTypography color='white' size='large' weight='bolder' className='nunito'>
+                            Members Login
                         </SwxTypography>
+                    </HeadingContainer>
+                    <Form onSubmit={onSubmit}>
+                        <Stack direction='column' spacing={3}>
+                            <InputField name='email' SWXInputProps={emailProps} />
+                            <InputField name='password' SWXInputProps={passwordProps} />
+                            <FormSubmitButton styles={buttonProps.styles} buttonName='Log In' disabled={false} />
+                        </Stack>
+                    </Form>
+                    <FooterContainer>
+                        <Stack direction='row' spacing={1}>
+                            <SwxTypography weight='extraThin' className='nunito'>
+                                Don’t have an account?
+                            </SwxTypography>
+                            <SwxTypography weight='bold' className='nunito'>
+                                Create an Account
+                            </SwxTypography>
+                        </Stack>
                         <SwxTypography weight='bold' className='nunito'>
-                            Create an Account
+                            Forgot Password?
                         </SwxTypography>
-                    </Stack>
-                    <SwxTypography weight='bold' className='nunito'>
-                        Forgot Password?
-                    </SwxTypography>
-                </FooterContainer>
-                <IconContainer>
-                    <Icon name='facebook' width={20} height={35} fill='white' />
-                    <Icon name='twitter' width={42} height={33} fill='white' />
-                    <Icon name='linked-in' width={38} height={35} fill='white' />
-                    <Icon name='instagram' width={38} height={35} fill='white' />
-                </IconContainer>
-                <CopyrightContainer>
-                    <SwxTypography weight='extraThin' className='nunito'>
-                        2022 ShiftWorx.io. All Rights Reserved.
-                    </SwxTypography>
-                </CopyrightContainer>
-            </StyledLoginContainer>
+                    </FooterContainer>
+                    <IconContainer>
+                        <Icon name='facebook' width={20} height={35} fill='white' />
+                        <Icon name='twitter' width={42} height={33} fill='white' />
+                        <Icon name='linked-in' width={38} height={35} fill='white' />
+                        <Icon name='instagram' width={38} height={35} fill='white' />
+                    </IconContainer>
+                    <CopyrightContainer>
+                        <SwxTypography weight='extraThin' className='nunito'>
+                            2022 ShiftWorx.io. All Rights Reserved.
+                        </SwxTypography>
+                    </CopyrightContainer>
+                </StyledLoginContainer>
+            ) : (
+                <SwxLoader loading={isLoading} />
+            )}
         </Container>
     );
 }
