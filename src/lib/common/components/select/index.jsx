@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import TextField from '@mui/material/TextField';
-import { Box, InputAdornment, Stack } from '@mui/material';
+import { Box, InputAdornment, Stack, Avatar } from '@mui/material';
 
 import { StyledAutoCompleteSelect } from './select.styles';
 
@@ -34,15 +34,12 @@ export default function SwxSelect({
                 style={{ width, ...style }}
                 inputValue={inputValue}
                 padding={padding}
+                groupBy={option => option.groupBy}
                 // borderRight is temporaryly appended for demo (29/9/2023)
                 borderRight={borderRight}
                 onInputChange={(event, newInputValue) => {
                     setInputValue(newInputValue);
                 }}
-                // Icon needs to be changed
-                // popupIcon={
-                //     <Icon styles={{ fill: '#838A91' }} name='select-down-arrow' aria-hidden='true' height={18} width={16} />
-                // }
                 id={`single-select-${label}`}
                 options={options || []}
                 {...rest}
@@ -58,6 +55,11 @@ export default function SwxSelect({
                                     height={10}
                                     width={10}
                                 />
+                            ) : null}
+                            {option.avatar ? (
+                                <Avatar sx={{ width: 32, height: 32, bgcolor: '#1F6FA9', mr: '8px' }}>{`${
+                                    option.label.split('')[0].toUpperCase() || ''
+                                }`}</Avatar>
                             ) : null}
                             {option.label || option || ''}
                         </Box>

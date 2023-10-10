@@ -13,7 +13,13 @@ export const authOptions = {
             async authorize(credentials) {
                 try {
                     const { data } = await axios.post(`${process.env.BASE_URL}/api/v1/users/sign_in`, credentials);
-                    return { email: data.email, name: data.name, token: data.authentication_token, role: data.role };
+                    return {
+                        email: data.email,
+                        name: data.name,
+                        token: data.authentication_token,
+                        role: data.role,
+                        id: data.id,
+                    };
                 } catch ({ response }) {
                     if (response.status === 401) throw new Error('unauthorized');
                 }

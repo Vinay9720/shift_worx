@@ -1,5 +1,6 @@
 'use client';
 
+import { useMemo } from 'react';
 import { useDispatch } from 'react-redux';
 import { Stack } from '@mui/material';
 
@@ -14,15 +15,33 @@ import {
     TimePickerField,
     InputField,
 } from '@/lib/common/form-components';
+import { useEmployees } from '@/hooks/admin-employee';
 
 import { ModalContainer, HeaderContainer, EllipseContainer, CloseContainer } from './add-shift.styles';
 
 const roleOptions = ['RN', 'LPN', 'CNA'];
 const specialityOptions = ['speciality1', 'speciality2', 'speciality3'];
-const employeeOptions = ['option1', 'options2', 'option3'];
 
 export default function ShiftForm({ modalName, action: addShift }) {
+    const { data: employeesData, isSuccess } = useEmployees();
     const dispatch = useDispatch();
+
+    const employees = useMemo(() => {
+        if (isSuccess) {
+            return (employeesData.employees || []).map(employee => {
+                return { name: employee.user.first_name, id: employee.user.id };
+            });
+        }
+        return [];
+    }, [employeesData]);
+
+    const employeeOptions = [
+        'Leave Open',
+        'None',
+        ...employees.map(employee => {
+            return { label: employee.name, value: employee.id, avatar: true, groupBy: 'Select Employee' };
+        }),
+    ];
 
     const dateProps = {
         label: (
@@ -69,7 +88,7 @@ export default function ShiftForm({ modalName, action: addShift }) {
             </SwxTypography>
         ),
         options: employeeOptions,
-        placeholder: 'State',
+        placeholder: 'Select employee',
         width: '100%',
         required: true,
         padding: '8px 8px',
@@ -82,7 +101,7 @@ export default function ShiftForm({ modalName, action: addShift }) {
             </SwxTypography>
         ),
         options: employeeOptions,
-        placeholder: 'State',
+        placeholder: 'Select employee',
         width: '100%',
         required: true,
         padding: '8px 8px',
@@ -96,7 +115,7 @@ export default function ShiftForm({ modalName, action: addShift }) {
         ),
         placeholder: 'time',
         width: '100%',
-        required: true,
+        // required: true,
         padding: '8px 8px',
     };
 
@@ -108,7 +127,7 @@ export default function ShiftForm({ modalName, action: addShift }) {
         ),
         placeholder: 'time',
         width: '100%',
-        required: true,
+        // required: true,
         padding: '8px 8px',
     };
 
@@ -138,19 +157,19 @@ export default function ShiftForm({ modalName, action: addShift }) {
                     </Stack>
                 </EllipseContainer>
             </HeaderContainer>
-            <Form onSubmit={shfitData => addShift({ shfitData })}>
+            <Form onSubmit={shiftData => addShift({ shiftData })}>
                 <Stack direction='column' spacing={2} sx={{ padding: '0px 24px', mt: 1 }}>
                     <Stack direction='row' spacing={2}>
                         <DatePickerField name='date' SWXInputProps={dateProps} />
                     </Stack>
                     <Stack direction='row' spacing={2}>
-                        <TimePickerField name='time' SWXInputProps={startTimeProps} />
+                        <TimePickerField name='start_time' SWXInputProps={startTimeProps} />
                     </Stack>
                     <Stack direction='row' spacing={2}>
-                        <TimePickerField name='time' SWXInputProps={endTimeProps} />
+                        <TimePickerField name='end_time' SWXInputProps={endTimeProps} />
                     </Stack>
                     <Stack direction='row' spacing={2}>
-                        <InputField name='station' SWXInputProps={stationProps} />
+                        <InputField name='facility_name' SWXInputProps={stationProps} />
                     </Stack>
                     <Stack direction='row' spacing={2}>
                         <SelectField name='role' SWXInputProps={roleProps} />

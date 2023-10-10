@@ -11,13 +11,13 @@ export const useAddShift = () => {
     const queryClient = useQueryClient();
     const dispatch = useDispatch();
     const { data } = useSession();
-    console.log('data', data);
     const showToast = useToast();
 
     const addShift = ({ shiftData }) => {
+        console.log('shiftData', shiftData);
         const payload = {
             shift: {
-                facility_id: '1', // current user's
+                facility_id: data.user.id, // current user's
                 instructions: '',
                 positions: [
                     {
@@ -37,6 +37,7 @@ export const useAddShift = () => {
                 uuids: ['e21996b1-f7fa-42ee-a470-622ec648bd20'],
             },
         };
+        console.log('payload', payload);
         return AdminScheduleService.addShift(payload);
     };
 
