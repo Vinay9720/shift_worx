@@ -8,6 +8,7 @@ export const ModalContainer = styled.div`
     max-height: 1024px;
     overflow-y: auto;
     width: 548px;
+    height: 80vh;
     box-shadow: 24;
     ${({ theme }) => `
         border-radius: ${theme.borderRadius.small};
