@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import styled from 'styled-components';
 import { Stack } from '@mui/material';
 
@@ -122,7 +123,7 @@ export default function LoginForm() {
                                 Don’t have an account?
                             </SwxTypography>
                             <SwxTypography weight='bold' className='nunito'>
-                                Create an Account
+                                <Link href='/register'>Create an Account</Link>
                             </SwxTypography>
                         </Stack>
                         <SwxTypography weight='bold' className='nunito'>

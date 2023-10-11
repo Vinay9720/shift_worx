@@ -11,7 +11,7 @@ import { restrictEmptyArray } from '@/lib/validators';
 import { useAddEmployee } from '@/hooks/admin-employee';
 // import { uploadFileToS3 } from '@/hooks/common/useFileUpload';
 import { useCertificateOptions } from '@/hooks/certificate';
-import { useFacilityOptions } from '@/hooks/facility';
+import { useSpecialityOptions } from '@/hooks/facility';
 import { closeAddCertificateForm } from '@/lib/store/slices/add-employee-module';
 import { useFileUpload } from '@/hooks/common';
 import { Form, InputField, DatePickerField, ListBoxField, FormSubmitButton } from '@/lib/common/form-components';
@@ -27,7 +27,7 @@ function AddCerfification({ defaultValues, employeeId }) {
 
     const { mutate: addEmployee } = useAddEmployee();
     const { data: certificationOptions, isLoading: isCertificateOptionsLoading } = useCertificateOptions();
-    const { data: facilityOptions, isLoading: isFacilityOptionsLoading } = useFacilityOptions();
+    const { data: specialityOptions, isLoading: isSpecialityOptionsLoading } = useSpecialityOptions();
 
     const certificationProps = {
         label: 'Select type',
@@ -66,7 +66,7 @@ function AddCerfification({ defaultValues, employeeId }) {
         label: 'speciality',
         validate: value => restrictEmptyArray(value, 'field can not be empty'),
         required: true,
-        options: facilityOptions,
+        options: specialityOptions,
         multiple: true,
     };
 
@@ -98,8 +98,8 @@ function AddCerfification({ defaultValues, employeeId }) {
         upload(fileToBeUploaded);
     };
 
-    if (isCertificateOptionsLoading || isFacilityOptionsLoading) {
-        return <SwxLoader loading={isCertificateOptionsLoading || isFacilityOptionsLoading} />;
+    if (isCertificateOptionsLoading || isSpecialityOptionsLoading) {
+        return <SwxLoader loading={isCertificateOptionsLoading || isSpecialityOptionsLoading} />;
     }
 
     return (
