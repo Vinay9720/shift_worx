@@ -11,7 +11,10 @@ import { Icon } from '@/lib/common/icons';
 
 import { StyledAMPMSelect, StyledContainerwrapper, StyledTimeField, StyledWrapper, styles } from './time-picker.styles';
 
-export default function SwxTimeComponent({ onChange, time, format, label, width }) {
+import SwxTypography from '../typography';
+import { SpanContainer } from '../common.styles';
+
+export default function SwxTimeComponent({ onChange, time, format, label, width, required }) {
     const [ampm, setAmPm] = useState('am');
     const [prevTime, amOrPm] = time.split(/(?<=[0-9])(?=[apm]+)/i);
     const [open, setOpen] = useState(false);
@@ -33,7 +36,16 @@ export default function SwxTimeComponent({ onChange, time, format, label, width 
 
     return (
         <Stack direction='column' spacing={1} style={{ width }}>
-            {label && label}
+            {label && (
+                <SpanContainer>
+                    <label>{label}</label>
+                    {!required && (
+                        <SwxTypography size='semiMedium' color='lightGray' weight='thin'>
+                            Optional
+                        </SwxTypography>
+                    )}
+                </SpanContainer>
+            )}
             <StyledContainerwrapper>
                 <LocalizationProvider dateAdapter={AdapterMoment}>
                     <DemoContainer components={['TimeField']} sx={{ flexGrow: 1, overflow: 'hidden' }}>

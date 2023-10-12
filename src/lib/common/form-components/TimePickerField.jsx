@@ -17,6 +17,7 @@ const TimePickerField = props => {
             render={({ field, fieldState: { error } }) => {
                 return (
                     <SwxTimeComponent
+                        required={required}
                         time={field.value || '12:00am'}
                         label={label}
                         width={width}

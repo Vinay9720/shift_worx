@@ -121,10 +121,6 @@ export const StyledBorderContainer = styled.div`
         border-radius: ${theme.borderRadius.verySmall} !important;
     `}
 `;
-export const SpanContainer = styled.div`
-    display: flex;
-    gap: 8px;
-`;
 export const TitleContainer = styled.div`
     display: flex;
     justify-content: space-between;
