@@ -1,3 +1,3 @@
-import { useSpecialityOptions } from './useFactilityOptions';
+import { useFacilityOptions } from './useFacilityOptions';
 
-export { useSpecialityOptions };
+export { useFacilityOptions };
