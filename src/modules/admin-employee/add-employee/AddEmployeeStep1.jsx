@@ -197,7 +197,7 @@ function AddEmployeeStep1() {
                         spacing={2}
                         sx={{ padding: '0px 24px', height: '86px', marginTop: '22px' }}>
                         <InputField name='address1' SWXInputProps={addressLine1Props} />
-                        <InputField name='address2' SWXInputProps={addressLine2Props} />
+                        <InputField name='address2' SWXInputProps={addressLine2Props} disableValidation />
                     </Stack>
                     <Stack
                         direction={{ xs: 'column', sm: 'row' }}
