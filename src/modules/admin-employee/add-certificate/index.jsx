@@ -11,7 +11,7 @@ import { restrictEmptyArray } from '@/lib/validators';
 import { useAddEmployee } from '@/hooks/admin-employee';
 // import { uploadFileToS3 } from '@/hooks/common/useFileUpload';
 import { useCertificateOptions } from '@/hooks/certificate';
-import { useSpecialityOptions } from '@/hooks/facility';
+import { useSpecialityOptions } from '@/hooks/speciality';
 import { closeAddCertificateForm } from '@/lib/store/slices/add-employee-module';
 import { useFileUpload } from '@/hooks/common';
 import { Form, InputField, DatePickerField, ListBoxField, FormSubmitButton } from '@/lib/common/form-components';
