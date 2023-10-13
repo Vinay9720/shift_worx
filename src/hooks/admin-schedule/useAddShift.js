@@ -14,15 +14,15 @@ export const useAddShift = () => {
     const addShift = ({ shiftData }) => {
         const payload = {
             shift: {
-                facility_id: '1', // current user's
+                facility_id: shiftData.facility.value, // current user's
                 instructions: '',
                 positions: [
                     {
                         quantity: 1,
-                        certificate_ids: ['1'],
-                        speciality_ids: ['2'],
-                        nurse_id: '2',
-                        additional_nurse_id: '',
+                        certificate_ids: [shiftData.role.value],
+                        speciality_ids: [shiftData.speciality.value],
+                        nurse_id: shiftData.employee.value,
+                        additional_nurse_id: shiftData.employee_2 ? shiftData.employee_2.value : '',
                         mandatory_lunch: true,
                     },
                 ],

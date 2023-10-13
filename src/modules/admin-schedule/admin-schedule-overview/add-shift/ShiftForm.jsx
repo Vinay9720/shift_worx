@@ -16,14 +16,18 @@ import {
     InputField,
 } from '@/lib/common/form-components';
 import { useEmployees } from '@/hooks/admin-employee';
+import { useCertificateOptions } from '@/hooks/certificate';
+import { useSpecialityOptions } from '@/hooks/speciality';
+import { useFacilityOptions } from '@/hooks/facility';
 
 import { ModalContainer, HeaderContainer, EllipseContainer, CloseContainer } from './add-shift.styles';
 
-const roleOptions = ['RN', 'LPN', 'CNA'];
-const specialityOptions = ['speciality1', 'speciality2', 'speciality3'];
-
 export default function ShiftForm({ modalName, action: addShift }) {
     const { data: employeesData, isSuccess } = useEmployees();
+    const { data: certificationOptions } = useCertificateOptions();
+    const { data: specialityOptions } = useSpecialityOptions();
+    const { data: facilityOptions } = useFacilityOptions();
+
     const dispatch = useDispatch();
 
     const employees = useMemo(() => {
@@ -61,7 +65,7 @@ export default function ShiftForm({ modalName, action: addShift }) {
                 Role
             </SwxTypography>
         ),
-        options: roleOptions,
+        options: certificationOptions,
         placeholder: 'Role',
         width: '100%',
         required: true,
@@ -76,6 +80,19 @@ export default function ShiftForm({ modalName, action: addShift }) {
         ),
         options: specialityOptions,
         placeholder: 'Speciality',
+        width: '100%',
+        required: true,
+        padding: '8px 8px',
+    };
+
+    const facilityProps = {
+        label: (
+            <SwxTypography color='swxSlightlyBlack' size='semiMedium' weight='semiBold'>
+                Facility
+            </SwxTypography>
+        ),
+        options: facilityOptions,
+        placeholder: 'Facility',
         width: '100%',
         required: true,
         padding: '8px 8px',
@@ -178,6 +195,9 @@ export default function ShiftForm({ modalName, action: addShift }) {
                         <SelectField name='speciality' SWXInputProps={specialityProps} />
                     </Stack>
                     <Stack direction='row' spacing={2}>
+                        <SelectField name='facility' SWXInputProps={facilityProps} />
+                    </Stack>
+                    <Stack direction='row' spacing={2}>
                         <SelectField name='employee' SWXInputProps={employeeProps} />
                     </Stack>
                     <Stack direction='row' spacing={2}>
@@ -187,7 +207,7 @@ export default function ShiftForm({ modalName, action: addShift }) {
                         spacing={3}
                         justifyContent='flex-end'
                         direction='row'
-                        style={{ marginBottom: '24px', marginTop: '114px' }}>
+                        style={{ marginBottom: '24px', marginTop: '30px' }}>
                         <SwxButton onClick={() => dispatch(closeModal({ modalName }))} variant='text' size='medium'>
                             Cancel
                         </SwxButton>

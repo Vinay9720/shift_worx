@@ -1,6 +1,7 @@
 'use client';
 
 import { useMemo } from 'react';
+import { useRouter } from 'next/navigation';
 import { Avatar, Stack, IconButton } from '@mui/material';
 
 import { WidgetCard, SwxPagination } from '@/lib/common/layout';
@@ -12,7 +13,9 @@ import AddRequest from './PtoForm';
 import SearchFilter from './SearchFilter';
 
 export default function AdminPto() {
-    const menuOptions = () => {
+    const router = useRouter();
+    const isLoading = false;
+    const menuOptions = ({ id }) => {
         return [
             {
                 label: 'Send Message',
@@ -23,9 +26,9 @@ export default function AdminPto() {
             },
             {
                 label: 'Edit',
-                // action: () => {
-                //     router.push(`/admin/employees/edit-employee/${id}?step=profile_information`);
-                // },
+                action: () => {
+                    router.push(`/admin/employees/edit-employee/${id}?step=profile_information`);
+                },
                 icon: <Icon styles={{ fill: '#838A91' }} name='pencil' height={20} width={20} />,
             },
             {
@@ -254,7 +257,7 @@ export default function AdminPto() {
                 })}
             </WidgetCardsContainer>
             <SearchFilter actionButton={AddRequest} style={{ marginTop: '3.5rem', marginBottom: '1rem' }} />
-            <SwxDataGrid columns={columns} rows={rows} />
+            <SwxDataGrid columns={columns} rows={rows} isLoading={isLoading} />
             <SwxPagination
                 paginationName='adminPtoPagination'
                 itemsPerPageOptions={['5', '10', '15']}

@@ -6,12 +6,12 @@ import { debounce } from 'lodash';
 
 import { SwxInput, SwxSelect, SwxMultiSelect, SwxButton } from '@/lib/common/components';
 import { Icon } from '@/lib/common/icons';
-import { setSearch, setStatus, setRoles, clearFilters } from '@/lib/store/slices/filter/ptoFilterSlice';
+import { setSearch, setStatus, setRoles, clearFilters } from '@/lib/store/slices/filter/employeesFilterSlice';
 
 const statusOptions = ['Active', 'Inactive'];
 
 function SearchFilter({ actionButton: ActionButton, style }) {
-    const { roles } = useSelector(state => state.ptoFilter);
+    const { roles } = useSelector(state => state.employeesFilter);
     const dispatch = useDispatch();
 
     const onRoleChange = event => {

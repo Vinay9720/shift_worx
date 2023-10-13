@@ -51,6 +51,7 @@ import Message from './Message';
 import RestartLine from './RestartLine';
 import FileClose from './FileClose';
 import FilledCheck from './FilledCheck';
+import Paper from './Paper';
 
 export const Icon = ({ name, width, height, fill, styles, ...rest }) => {
     switch (name) {
@@ -158,6 +159,8 @@ export const Icon = ({ name, width, height, fill, styles, ...rest }) => {
             return <FileClose width={width} height={height} fill={fill} styles={styles} {...rest} />;
         case 'filled-check':
             return <FilledCheck width={width} height={height} fill={fill} styles={styles} {...rest} />;
+        case 'paper':
+            return <Paper width={width} height={height} fill={fill} styles={styles} {...rest} />;
         default:
             return <div>Icon</div>;
     }

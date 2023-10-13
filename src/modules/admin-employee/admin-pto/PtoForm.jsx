@@ -35,9 +35,6 @@ export default function AddRequest() {
     const { mutate: upload } = useFileUpload();
     const dispatch = useDispatch();
     // const { isOpen } = useSelector(state => state.modal);
-    // const { currentStep } = useSelector(state => state.addEmployeeModule);
-
-    // const { data: employeesData, isSuccess } = useEmployees();
 
     // const employees = useMemo(() => {
     //     if (isSuccess) {
@@ -49,8 +46,10 @@ export default function AddRequest() {
     // }, [employeesData]);
 
     const employeeOptions = [
-        'Leave Open',
-        'None',
+        'Jack Sparrow',
+        'John Wick',
+        'Jason Statham',
+        'John Momoa',
         'Tyler',
         // ...employees.map(employee => {
         //     return { label: employee.name, value: employee.id, avatar: true, groupBy: 'Select Employee' };
