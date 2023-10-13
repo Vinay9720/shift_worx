@@ -1,11 +1,11 @@
 import http from '../../httpCommon';
 
-const fetchSpecialityOptions = () => {
-    return http.get(`/specialities`);
+const fetchFacilityOptions = () => {
+    return http.get(`/facilities`);
 };
 
-const SpecialityService = {
-    fetchSpecialityOptions,
+const FacilityService = {
+    fetchFacilityOptions,
 };
 
-export default SpecialityService;
+export default FacilityService;

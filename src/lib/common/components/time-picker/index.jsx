@@ -16,7 +16,15 @@ import { SpanContainer } from '../common.styles';
 
 export default function SwxTimeComponent({ onChange, time, format, label, width, required }) {
     const [ampm, setAmPm] = useState('am');
-    const [prevTime, amOrPm] = time.split(/(?<=[0-9])(?=[apm]+)/i);
+    // const [prevTime, amOrPm = 'am'] = time && time.split(/(?<=[0-9])(?=[apm]+)/i);
+    let prevTime;
+    let amOrPm;
+    if (time) {
+        [prevTime, amOrPm = 'am'] = time.split(/(?<=[0-9])(?=[apm]+)/i);
+    } else {
+        prevTime = undefined; // or set a default value if needed
+        amOrPm = 'am'; // or set a different default value if needed
+    }
     const [open, setOpen] = useState(false);
 
     const handleCustomIconClick = () => {

@@ -76,7 +76,11 @@ export default function SwxDatePicker({
                 range={range || false}
                 plugins={multiple ? [<DatePanel position='left' key='plugin-1' removeButton={false} />] : []}
             />
-            {error && <p>{error}</p>}
+            {error && (
+                <SwxTypography color='red' size='smallest' weight='thin'>
+                    Date is required
+                </SwxTypography>
+            )}
         </Stack>
     );
 }

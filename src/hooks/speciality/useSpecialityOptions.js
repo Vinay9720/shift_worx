@@ -1,6 +1,6 @@
 import { useQuery } from 'react-query';
 
-import SpecialityService from '@/services/facility';
+import SpecialityService from '@/services/speciality';
 
 export const useSpecialityOptions = () => {
     return useQuery(['speciality-options'], () => SpecialityService.fetchSpecialityOptions(), {
