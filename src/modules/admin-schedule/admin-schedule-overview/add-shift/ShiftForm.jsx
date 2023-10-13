@@ -207,7 +207,7 @@ export default function ShiftForm({ modalName, action: addShift }) {
                         spacing={3}
                         justifyContent='flex-end'
                         direction='row'
-                        style={{ marginBottom: '24px', marginTop: '114px' }}>
+                        style={{ marginBottom: '24px', marginTop: '30px' }}>
                         <SwxButton onClick={() => dispatch(closeModal({ modalName }))} variant='text' size='medium'>
                             Cancel
                         </SwxButton>

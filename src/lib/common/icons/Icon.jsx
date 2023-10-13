@@ -46,6 +46,7 @@ import Instagram from './Instagram';
 import Ellipse from './Ellipse';
 import DropdownArrow from './DropdownArrow';
 import Pencil from './Pencil';
+import Paper from './Paper';
 
 export const Icon = ({ name, width, height, fill, styles, ...rest }) => {
     switch (name) {
@@ -143,6 +144,8 @@ export const Icon = ({ name, width, height, fill, styles, ...rest }) => {
             return <Ellipse width={width} height={height} fill={fill} styles={styles} {...rest} />;
         case 'pencil':
             return <Pencil width={width} height={height} fill={fill} styles={styles} {...rest} />;
+        case 'paper':
+            return <Paper width={width} height={height} fill={fill} styles={styles} {...rest} />;
         default:
             return <div>Icon</div>;
     }

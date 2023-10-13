@@ -1,4 +1,5 @@
 import { useMemo } from 'react';
+import { useDispatch } from 'react-redux';
 import { Stack, Avatar, IconButton } from '@mui/material';
 import { capitalize } from 'lodash';
 import { useRouter } from 'next/navigation';
@@ -7,13 +8,17 @@ import { useRouter } from 'next/navigation';
 import { WidgetCard, DeleteModal } from '@/lib/common/layout';
 import { SwxDataGrid, SwxChip, SwxTypography, SwxPopupMenu } from '@/lib/common/components';
 import { Icon } from '@/lib/common/icons';
+import { openModal } from '@/lib/store/slices/modal-slice';
 import SwxPagination from '@/lib/common/layout/pagination';
 
 import SearchFilter from './SearchFilter';
 import { WidgetCardsContainer } from './admin-expirations.styles';
 
+import AddNote from '../add-note';
+
 export default function AdminExpirations() {
     const router = useRouter();
+    const dispatch = useDispatch();
     const isLoading = false;
 
     const expirations = [
@@ -114,12 +119,14 @@ export default function AdminExpirations() {
                 },
                 icon: <Icon styles={{ fill: '#838A91' }} name='pencil' height={14} width={14} />,
             },
-            // {
-            //     label: 'Note',
-            //     action: () => {
-            //         console.log('send message clicked');
-            //     },
-            // },
+            {
+                label: 'Note',
+                action: e => {
+                    e.preventDefault();
+                    dispatch(openModal({ modalName: 'addNoteModal' }));
+                },
+                icon: <Icon styles={{ fill: '#838A91' }} name='paper' height={14} width={14} />,
+            },
             {
                 label: 'Delete',
                 action: () => {
@@ -269,6 +276,7 @@ export default function AdminExpirations() {
 
     return (
         <>
+            <AddNote hideButton />
             <WidgetCardsContainer style={{ marginTop: '1rem' }}>
                 {cardsData.map((card, index) => {
                     return (
