@@ -21,6 +21,7 @@ export const white = {
         swxBlue: '#027EF4',
         white: '#FFFFFF',
         lightGray: '#E6E8E9',
+        paleGray: '#838A91',
         lighterGray: '#F1F1F1',
         lightestGray: '#F7F7F8',
         dullGray: '#F2F4F4',
@@ -28,6 +29,9 @@ export const white = {
         lightRed: '#FFE0D7',
         lightPink: '#FAE0E9',
         pink: '#E65889',
+        lighterGreen: '#02B692',
+        paleGreen: '#E6FFFA',
+        lightOrange: '#F47602',
     },
     borderColor: {
         blue: '#027EF4',

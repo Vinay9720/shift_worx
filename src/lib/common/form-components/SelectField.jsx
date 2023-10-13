@@ -18,6 +18,7 @@ const SelectField = props => {
                 return (
                     <SwxSelect
                         width={SWXInputProps.width}
+                        radius={SWXInputProps.radius}
                         padding={SWXInputProps.padding}
                         placeholder={SWXInputProps.placeholder}
                         placeholderColor={SWXInputProps.placeholderColor}

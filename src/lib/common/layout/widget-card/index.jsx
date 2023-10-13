@@ -14,12 +14,12 @@ import {
 
 import { Icon } from '../../icons';
 
-function WidgetCard({ iconName, badgeArrow, percentage, totalCount, title }) {
+function WidgetCard({ iconName, badgeArrow, percentage, totalCount, title, fill }) {
     return (
         <CardWrapper>
             <CardContainer>
                 <UpperContainer>
-                    <Icon name={iconName} width={24} height={24} fill='white' />
+                    <Icon name={iconName} width={24} height={24} fill={fill || 'white'} />
                     <StyledTopRightSlot>
                         <PillContainer color={`${badgeArrow === 'down-arrow' ? 'lightRed' : 'lightGreen'}`}>
                             <Icon

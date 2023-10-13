@@ -1,4 +1,5 @@
 import notesFilterReducer from './notesFilterSlice';
 import employeesFilterReducer from './employeesFilterSlice';
+import ptoFilterSlice from './ptoFilterSlice';
 
-export { notesFilterReducer, employeesFilterReducer };
+export { notesFilterReducer, employeesFilterReducer, ptoFilterSlice };

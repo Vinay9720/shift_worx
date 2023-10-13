@@ -46,6 +46,11 @@ import Instagram from './Instagram';
 import Ellipse from './Ellipse';
 import DropdownArrow from './DropdownArrow';
 import Pencil from './Pencil';
+import StickyNote from './StickyNote';
+import Message from './Message';
+import RestartLine from './RestartLine';
+import FileClose from './FileClose';
+import FilledCheck from './FilledCheck';
 
 export const Icon = ({ name, width, height, fill, styles, ...rest }) => {
     switch (name) {
@@ -143,6 +148,16 @@ export const Icon = ({ name, width, height, fill, styles, ...rest }) => {
             return <Ellipse width={width} height={height} fill={fill} styles={styles} {...rest} />;
         case 'pencil':
             return <Pencil width={width} height={height} fill={fill} styles={styles} {...rest} />;
+        case 'notes':
+            return <StickyNote width={width} height={height} fill={fill} styles={styles} {...rest} />;
+        case 'message':
+            return <Message width={width} height={height} fill={fill} styles={styles} {...rest} />;
+        case 'restart-line':
+            return <RestartLine width={width} height={height} fill={fill} styles={styles} {...rest} />;
+        case 'file-close':
+            return <FileClose width={width} height={height} fill={fill} styles={styles} {...rest} />;
+        case 'filled-check':
+            return <FilledCheck width={width} height={height} fill={fill} styles={styles} {...rest} />;
         default:
             return <div>Icon</div>;
     }
