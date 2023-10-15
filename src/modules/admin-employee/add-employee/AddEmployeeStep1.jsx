@@ -16,7 +16,7 @@ import { UsStates } from '@/lib/constants';
 import { useAddEmployee } from '@/hooks/admin-employee';
 import { closeModal } from '@/lib/store/slices/modal-slice';
 
-import { FooterContainer, SpanContainer } from './add-employee.styles';
+import { FooterContainer } from './add-employee.styles';
 
 function AddEmployeeStep1() {
     const { mutate: addEmployee } = useAddEmployee();
@@ -68,20 +68,13 @@ function AddEmployeeStep1() {
 
     const addressLine2Props = {
         label: (
-            <SpanContainer>
-                <SwxTypography color='swxSlightlyBlack' size='semiMedium' weight='semiBold'>
-                    Address line 2
-                </SwxTypography>
-                <span>
-                    <SwxTypography size='semiMedium' color='lightGray' weight='thin'>
-                        Optional
-                    </SwxTypography>
-                </span>
-            </SpanContainer>
+            <SwxTypography color='swxSlightlyBlack' size='semiMedium' weight='semiBold'>
+                Address line 2
+            </SwxTypography>
         ),
         placeholder: 'Employee address',
         placeholderColor: 'lightGray',
-        required: 'Enter address',
+        required: false,
     };
 
     const lastNameProps = {

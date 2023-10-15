@@ -17,6 +17,7 @@ const DatePickerField = props => {
             render={({ field, fieldState: { error } }) => {
                 return (
                     <SwxDatePicker
+                        required={required}
                         value={field.value}
                         width={width}
                         range={range}
