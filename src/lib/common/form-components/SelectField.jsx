@@ -17,6 +17,7 @@ const SelectField = props => {
             render={({ field, fieldState: { error } }) => {
                 return (
                     <SwxSelect
+                        required={required}
                         width={SWXInputProps.width}
                         radius={SWXInputProps.radius}
                         padding={SWXInputProps.padding}

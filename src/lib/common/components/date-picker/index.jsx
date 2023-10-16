@@ -10,6 +10,7 @@ import { isArray } from 'lodash';
 import { StyledDateContainer } from './date-picker.styles';
 
 import SwxTypography from '../typography';
+import { SpanContainer } from '../common.styles';
 
 export default function SwxDatePicker({
     width,
@@ -22,10 +23,20 @@ export default function SwxDatePicker({
     onChange,
     placeholder,
     styles,
+    required,
 }) {
     return (
         <Stack direction='column' spacing={0.5} style={{ width }}>
-            {label && label}
+            {label && (
+                <SpanContainer>
+                    <label>{label}</label>
+                    {!required && (
+                        <SwxTypography size='semiMedium' color='lightGray' weight='thin'>
+                            Optional
+                        </SwxTypography>
+                    )}
+                </SpanContainer>
+            )}
             <DatePicker
                 multiple={multiple}
                 render={(dateValue, openCalendar) => {

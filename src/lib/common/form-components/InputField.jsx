@@ -18,6 +18,7 @@ const InputField = props => {
             render={({ field, fieldState: { error } }) => {
                 return (
                     <SwxInput
+                        required={required}
                         {...rest}
                         placeholderColor={placeholderColor}
                         errorText={error?.message}
