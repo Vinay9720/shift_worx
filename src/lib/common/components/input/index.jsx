@@ -4,6 +4,7 @@ import { InputAdornment } from '@mui/material';
 import { StyledOutlinedInput, InputContainer } from './input.styles';
 
 import SwxTypography from '../typography';
+import { SpanContainer } from '../common.styles';
 
 const SwxInput = forwardRef(
     (
@@ -17,17 +18,28 @@ const SwxInput = forwardRef(
             placeholder,
             placeholderColor,
             errorText,
+            required,
             ...restProps
         },
         ref
     ) => {
         return (
             <InputContainer style={{ width, ...style }}>
-                {label && <label>{label}</label>}
+                {label && (
+                    <SpanContainer>
+                        <label>{label}</label>
+                        {!required && (
+                            <SwxTypography size='semiMedium' color='lightGray' weight='thin'>
+                                Optional
+                            </SwxTypography>
+                        )}
+                    </SpanContainer>
+                )}
                 <StyledOutlinedInput
+                    // id='outlined-adornment-password'
                     type={type}
-                    inputRef={ref} // Forward the ref to the input element
                     placeholder={placeholder}
+                    inputRef={ref}
                     placeholderColor={placeholderColor}
                     {...restProps}
                     startAdornment={StartIcon && <InputAdornment position='start'>{StartIcon}</InputAdornment>}

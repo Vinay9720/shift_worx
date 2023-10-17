@@ -7,6 +7,8 @@ import { Box, InputAdornment, Stack, Avatar } from '@mui/material';
 import { StyledAutoCompleteSelect } from './select.styles';
 
 import { Icon } from '../../icons';
+import SwxTypography from '../typography';
+import { SpanContainer } from '../common.styles';
 
 export default function SwxSelect({
     width,
@@ -18,13 +20,23 @@ export default function SwxSelect({
     onChange,
     placeholder,
     borderRight,
+    required,
     ...rest
 }) {
     const [inputValue, setInputValue] = useState('');
 
     return (
         <Stack direction='column' spacing={1} style={{ width }}>
-            {label && label}
+            {label && (
+                <SpanContainer>
+                    <label>{label}</label>
+                    {!required && (
+                        <SwxTypography size='semiMedium' color='lightGray' weight='thin'>
+                            Optional
+                        </SwxTypography>
+                    )}
+                </SpanContainer>
+            )}
             <StyledAutoCompleteSelect
                 popupIcon={<Icon name='dropdown-arrow' width='14' styles={{ margin: '4px 8px 4px 8px' }} />}
                 value={value}
