@@ -18,7 +18,7 @@ import {
     StyledTodayButton,
 } from './admin-layout.styles';
 
-import { SwxTypography, SwxTabs, SwxButtonGroup } from '../../components';
+import { SwxTypography, SwxTabs, SwxButtonGroup, SwxCalenderInput } from '../../components';
 import { Icon } from '../../icons';
 
 const adminScheduleTabs = [
@@ -72,6 +72,19 @@ export default function AdminScheduleLayout({ children }) {
         }
     };
 
+    const handleDateCalenderChange = dateObject => {
+        const { year, month, day } = dateObject;
+        const formattedDate = moment(`${month}-${day}-${year}`, 'MM-DD-YYYY');
+        if (scheduleType === 'daily' || scheduleType === 'weekly' || scheduleType === 'list') {
+            dispatch(setCurrentTimeValue(formattedDate.format('ddd, MMM D, YYYY')));
+            return null;
+        }
+
+        if (scheduleType === 'monthly') {
+            dispatch(setCurrentTimeValue(formattedDate.format('MMM YYYY')));
+        }
+    };
+
     const getDateDetails = () => {
         return (
             <StyledDateContainer isList={scheduleType === 'list'}>
@@ -85,7 +98,7 @@ export default function AdminScheduleLayout({ children }) {
                         </IconButton>
                     </Stack>
                 )}
-                {scheduleType !== 'list' && <StyledCurrentTime>{currentTimeValue}</StyledCurrentTime>}
+                <StyledCurrentTime>{currentTimeValue}</StyledCurrentTime>
             </StyledDateContainer>
         );
     };
@@ -153,6 +166,7 @@ export default function AdminScheduleLayout({ children }) {
                         <StyledDateWrapper>
                             <span>{getDateDetails()}</span>
                         </StyledDateWrapper>
+                        <SwxCalenderInput onChange={handleDateCalenderChange} />
                     </StyledDateDetailsContainer>
                 </Stack>
                 <SwxTabs tabs={adminScheduleTabs} currentStep={currentStep} />

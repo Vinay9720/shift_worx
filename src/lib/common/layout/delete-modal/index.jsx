@@ -32,7 +32,7 @@ export default function DeleteModal({ modalName, entityName, onConfirm }) {
                 </Stack>
                 <Divider flexItem />
                 <Stack spacing={3} justifyContent='flex-end' direction='row' style={{ margin: '14px 24px' }}>
-                    <SwxButton onClick={() => dispatch(closeModal({ modalName }))} variant='text'>
+                    <SwxButton onClick={() => dispatch(closeModal({ modalName }))} variant='text' size='medium'>
                         Cancel
                     </SwxButton>
                     <SwxButton onClick={onConfirm} variant='contained' buttonName='Submit'>

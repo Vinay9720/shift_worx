@@ -17,7 +17,7 @@ const AdminScheduleModule = createSlice({
         setScheduleType: (state, action) => {
             const type = action.payload;
             state.scheduleType = type;
-            if (type === 'daily' || type === 'weekly') {
+            if (type === 'daily' || type === 'weekly' || type === 'list') {
                 state.currentTimeValue = time;
             }
 
@@ -26,9 +26,9 @@ const AdminScheduleModule = createSlice({
                 state.currentTimeValue = formattedDate;
             }
 
-            if (type === 'list') {
-                state.currentTimeValue = `${date1} - ${date2}`;
-            }
+            // if (type === 'list') {
+            //     state.currentTimeValue = `${date1} - ${date2}`;
+            // }
         },
         setCurrentTimeValue: (state, action) => {
             state.currentTimeValue = action.payload;

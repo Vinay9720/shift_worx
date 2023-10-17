@@ -3,24 +3,35 @@
 import { useMemo } from 'react';
 import { useRouter } from 'next/navigation';
 import { Avatar, Stack, IconButton } from '@mui/material';
+import { useDispatch } from 'react-redux';
 
-import { WidgetCard, SwxPagination } from '@/lib/common/layout';
+import { WidgetCard, SwxPagination, SwxModal, DeleteModal } from '@/lib/common/layout';
 import { Icon } from '@/lib/common/icons';
 import { SwxDataGrid, SwxTypography, SwxChip, SwxPopupMenu } from '@/lib/common/components';
+import { openModal } from '@/lib/store/slices/modal-slice';
+import { useAddNote } from '@/hooks/admin-note';
 
 import { WidgetCardsContainer } from './admin-pto.styles';
 import AddRequest from './PtoForm';
 import SearchFilter from './SearchFilter';
 
+import NoteForm from '../add-note/noteForm';
+import PtoMessageForm from '../adminPtoMessage/ptoMessageForm';
+
 export default function AdminPto() {
+    // const [employeeIdToBeDeleted, setEmployeeIdToBeDeleted] = useState(null);
     const router = useRouter();
+    const dispatch = useDispatch();
+    const { mutate: addNote } = useAddNote();
     const isLoading = false;
     const menuOptions = ({ id }) => {
         return [
             {
                 label: 'Send Message',
-                action: () => {
+                action: e => {
+                    e.preventDefault();
                     console.log('send message clicked');
+                    dispatch(openModal({ modalName: 'messageModal' }));
                 },
                 icon: <Icon styles={{ fill: '#838A91' }} name='message' height={20} width={20} />,
             },
@@ -33,18 +44,21 @@ export default function AdminPto() {
             },
             {
                 label: 'Note',
-                action: () => {
-                    console.log('send message clicked');
+                action: e => {
+                    e.preventDefault();
+                    console.log('Add note clicked');
+                    dispatch(openModal({ modalName: 'addNoteModal' }));
                 },
                 icon: <Icon styles={{ fill: '#838A91' }} name='notes' height={20} width={20} />,
             },
             {
                 label: 'Delete Employee',
-                // action: e => {
-                //     e.preventDefault();
-                //     setEmployeeIdToBeDeleted(id);
-                //     dispatch(openModal({ modalName: 'deleteEmployeeModal' }));
-                // },
+                action: e => {
+                    e.preventDefault();
+                    // setEmployeeIdToBeDeleted(id);
+                    dispatch(openModal({ modalName: 'deleteEmployeeModal' }));
+                    console.log('delete employee clicked');
+                },
                 color: 'red',
                 icon: <Icon styles={{ fill: '#F43C02' }} name='trash' height={20} width={20} />,
             },
@@ -257,6 +271,20 @@ export default function AdminPto() {
                 })}
             </WidgetCardsContainer>
             <SearchFilter actionButton={AddRequest} style={{ marginTop: '3.5rem', marginBottom: '1rem' }} />
+            <SwxModal modalName='addNoteModal'>
+                <NoteForm
+                    modalName='addNoteModal'
+                    action={addNote} // employee={employee}
+                />
+            </SwxModal>
+            <SwxModal modalName='messageModal'>
+                <PtoMessageForm modalName='messageModal' />
+            </SwxModal>
+            <DeleteModal
+                modalName='deleteEmployeeModal'
+                entityName='Employee'
+                // onConfirm={() => deleteEmployee(employeeIdToBeDeleted)}
+            />
             <SwxDataGrid columns={columns} rows={rows} isLoading={isLoading} />
             <SwxPagination
                 paginationName='adminPtoPagination'

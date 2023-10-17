@@ -33,7 +33,6 @@ export const StyledDateWrapper = styled.div`
     justify-content: flex-start;
     font-weight: bold;
     color: white;
-    flex-basis: 50%;
 `;
 
 export const StyledCurrentTime = styled.p`

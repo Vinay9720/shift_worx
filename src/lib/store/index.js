@@ -6,7 +6,7 @@ import addEmployeeModuleReducer from './slices/add-employee-module';
 import paginationSlice from './slices/paginationSlice';
 import editEmployeeModuleReducer from './slices/edit-employee-module';
 import adminNotesModuleReducer from './slices/admin-notes-module';
-import { notesFilterReducer, employeesFilterReducer, ptoFilterSlice } from './slices/filter';
+import { notesFilterReducer, employeesFilterReducer, ptoFilterSlice, scheduleFilterReducer } from './slices/filter';
 import adminScheduleReducer from './slices/admin-schedule-module';
 
 const rootReducer = combineReducers({
@@ -18,6 +18,7 @@ const rootReducer = combineReducers({
     notersFilter: notesFilterReducer,
     employeesFilter: employeesFilterReducer,
     ptoFilter: ptoFilterSlice,
+    scheduleFilter: scheduleFilterReducer,
     adminScheduleModule: adminScheduleReducer,
 });
 
