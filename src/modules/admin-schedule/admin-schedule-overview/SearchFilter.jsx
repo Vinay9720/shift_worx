@@ -1,78 +1,88 @@
 'use client';
 
 import { Stack } from '@mui/material';
+import { useRef } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { debounce } from 'lodash';
 
+import { SwxInput, SwxSelect, SwxMultiSelect, SwxButton } from '@/lib/common/components';
 import { Icon } from '@/lib/common/icons';
-import { SwxInput, SwxSelect, SwxButton } from '@/lib/common/components';
+import { setSearch, setStatus, setRoles, clearFilters } from '@/lib/store/slices/filter/scheduleFilterSlice';
 
 import AddShift from './add-shift';
 
-const noteTypeOptions = [
-    { label: 'Commendation', value: '7' },
-    { label: 'Disciplinary', value: '8' },
-    { label: 'Human Resources', value: '9' },
-    { label: 'Message Sent', value: '11' },
-    { label: 'Tardiness', value: '12' },
-];
+const statusOptions = ['Active', 'Inactive'];
 
-function SearchFilter({ style }) {
+function SearchFilter() {
+    const { roles, filterApplied, status } = useSelector(state => state.scheduleFilter);
+    const searchInputRef = useRef(null);
+    const dispatch = useDispatch();
+
+    const onRoleChange = event => {
+        dispatch(setRoles(event.target.value));
+    };
+
+    const clearSearch = () => {
+        if (searchInputRef.current) {
+            searchInputRef.current.value = '';
+        }
+    };
+
     const onSearch = e => {
         const setParams = () => {
-            console.log(e.target.value);
+            dispatch(setSearch(e.target.value));
         };
         debounce(setParams, 1000)();
     };
 
-    const onTypeChange = type => {
-        console.log(type);
-    };
-
     return (
-        <Stack
-            direction='row'
-            justifyContent='space-between'
-            style={{ ...style, marginTop: '3.5rem', marginBottom: '1.5rem' }}>
-            <Stack direction='row' spacing={2} style={{ width: '80%' }}>
+        <Stack direction='row' justifyContent='space-between' style={{ marginTop: '56px', marginBottom: '24px' }}>
+            <Stack direction='row' spacing={2}>
                 <SwxInput
+                    placeholderColor='lightGray'
                     type='text'
                     style={{ width: '20rem' }}
-                    padding='0.75rem 0.85rem'
+                    ref={searchInputRef}
                     onChange={onSearch}
+                    padding='0.75rem 0.85rem'
                     placeholder='Search name, email, phone...'
                     startIcon={
                         <Icon styles={{ fill: '#838A91' }} name='search' aria-hidden='true' height={24} width={24} />
                     }
                 />
                 <SwxSelect
-                    onChange={onTypeChange}
-                    options={noteTypeOptions}
-                    placeholder='Role'
-                    style={{ width: '7rem' }}
+                    onChange={value => dispatch(setStatus(value))}
+                    options={statusOptions}
+                    placeholder='Status'
+                    placeholderColor='#838A91'
+                    value={status}
+                    style={{ width: '10rem' }}
                     padding='3px 6px'
                 />
-                <SwxSelect placeholder='Status' style={{ width: '7rem' }} padding='3px 6px' />
-                <SwxButton
-                    endIcon={<Icon width={17} height={12} name='close' styles={{ fill: '#030303' }} />}
-                    size='semiMedium'
-                    weight='thin'
-                    themecolor='swxBlack'
-                    variant='text'>
-                    Clear all
-                </SwxButton>
+                <SwxMultiSelect
+                    insideLabel='Roles'
+                    multiple
+                    style={{ width: '8rem' }}
+                    options={['RN', 'LPN', 'CNA']}
+                    value={roles}
+                    padding='12px 16px'
+                    onChange={onRoleChange}
+                />
+                {filterApplied && (
+                    <SwxButton
+                        endIcon={<Icon width={17} height={12} name='close' styles={{ fill: '#030303' }} />}
+                        size='semiMedium'
+                        weight='thin'
+                        onClick={() => {
+                            dispatch(clearFilters());
+                            clearSearch();
+                        }}
+                        themecolor='swxBlack'
+                        variant='text'>
+                        Clear all
+                    </SwxButton>
+                )}
             </Stack>
-            {/* <SwxButton
-                startIcon={<Icon width={17} height={12} name='addition' styles={{ fill: '#FFFFFF' }} />}
-                size='small'
-                onClick={e => {
-                    e.preventDefault();
-                    console.log(e.target.value);
-                }}
-                padding='10px 16px'
-                variant='contained'
-                weight='semiBold'>
-                Add Shift
-            </SwxButton> */}
             <AddShift />
         </Stack>
     );

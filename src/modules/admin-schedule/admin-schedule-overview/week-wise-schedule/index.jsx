@@ -95,7 +95,7 @@ export default function WeekWiseSchedule({ scheduleData }) {
                                 <div className='flex flex-row mt-2'>
                                     <div className='flex items-center justify-center mr-1'>
                                         <Icon
-                                            styles='fill-newLightGray'
+                                            styles={{ fill: '#838A91' }}
                                             name='clock'
                                             aria-hidden='true'
                                             height={16}
@@ -155,7 +155,7 @@ export default function WeekWiseSchedule({ scheduleData }) {
                                         <div className='flex flex-row -mt-4'>
                                             <div className='flex items-center justify-center mr-2'>
                                                 <Icon
-                                                    styles='fill-newLightGray'
+                                                    styles={{ fill: '#838A91' }}
                                                     name='clock'
                                                     aria-hidden='true'
                                                     height={16}
@@ -168,7 +168,7 @@ export default function WeekWiseSchedule({ scheduleData }) {
                                             <div className='flex items-center justify-center mt-2 mr-2 gray_dot' />
                                             <div className='flex items-center justify-center mr-2'>
                                                 <Icon
-                                                    styles='fill-newLightGray'
+                                                    styles={{ fill: '#838A91' }}
                                                     name='calender'
                                                     aria-hidden='true'
                                                     height={16}

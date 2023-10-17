@@ -3,11 +3,11 @@ import { createSlice } from '@reduxjs/toolkit';
 const initialFilterState = {
     search: '',
     status: '',
-    filterApplied: false,
     roles: [],
+    filterApplied: false,
 };
 
-const employeesFilterSlice = createSlice({
+const scheduleFilterSlice = createSlice({
     name: 'filter',
     initialState: initialFilterState,
     reducers: {
@@ -29,5 +29,5 @@ const employeesFilterSlice = createSlice({
     },
 });
 
-export const { setSearch, setRoles, setStatus, clearFilters } = employeesFilterSlice.actions;
-export default employeesFilterSlice.reducer;
+export const { setSearch, setRoles, setStatus, clearFilters } = scheduleFilterSlice.actions;
+export default scheduleFilterSlice.reducer;
