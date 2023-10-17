@@ -5,6 +5,7 @@ const initialFilterState = {
     type: '',
     status: '',
     startDate: null,
+    filterApplied: false,
     endDate: null,
 };
 
@@ -14,21 +15,26 @@ const notesFilterSlice = createSlice({
     reducers: {
         setSearch: (state, action) => {
             state.search = action.payload;
+            state.filterApplied = true;
         },
         setType: (state, action) => {
             state.type = action.payload;
+            state.filterApplied = true;
         },
         setStatus: (state, action) => {
             state.status = action.payload;
+            state.filterApplied = true;
         },
         setStartDate: (state, action) => {
             state.startDate = action.payload;
+            state.filterApplied = true;
         },
         setEndDate: (state, action) => {
             state.endDate = action.payload;
+            state.filterApplied = true;
         },
         clearFilters: state => {
-            Object.assign(state, initialFilterState);
+            Object.assign(state, initialFilterState, { filtersApplied: false });
         },
     },
 });

@@ -13,6 +13,7 @@ import SwxDatePicker from './date-picker';
 import SwxButtonGroup from './button-group';
 import SwxTimeComponent from './time-picker';
 import SwxLoader from './loader';
+import SwxCalenderInput from './calender-input';
 
 export {
     SwxInput,
@@ -30,4 +31,5 @@ export {
     SwxButtonGroup,
     SwxTimeComponent,
     SwxLoader,
+    SwxCalenderInput,
 };
