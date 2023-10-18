@@ -3,11 +3,12 @@
 import moment from 'moment';
 import { isEmpty } from 'lodash';
 import { useSelector } from 'react-redux';
-import { Avatar } from '@mui/material';
+import { Avatar, IconButton } from '@mui/material';
 
 import Badge from '@/lib/common/layout/daily-schedule-banner';
 import { Icon } from '@/lib/common/icons';
 import { timeSlots } from '@/lib/constants';
+import { SwxPopupMenu } from '@/lib/common/components';
 
 const twidth = '1920';
 
@@ -19,6 +20,23 @@ export default function DayWiseSchedule({ scheduleData }) {
     const currentTimePosition = `${currentHour * 80 + currentMinutes * 1.33}px`;
     const rightBgColr = `${(twidth - currentTimePosition.split('px', 1)).toFixed(2)}px`;
     const leftBgColr = `${currentTimePosition.split('px', 1)[0]}px`;
+
+    const menuOptions = () => {
+        return [
+            {
+                label: 'Edit',
+                action: () => null,
+                icon: <Icon styles={{ fill: '#838A91' }} name='pencil' height={14} width={14} />,
+            },
+            {
+                label: 'Delete',
+                action: () => null,
+                color: 'red',
+                icon: <Icon styles={{ fill: '#F43C02' }} name='trash' height={14} width={14} />,
+            },
+        ];
+    };
+
     const getShiftsByDate = (data, date) => {
         const shifts = [];
         const formattedDate = moment(date, 'ddd, MMM D').format('MM-DD-YY');
@@ -63,31 +81,49 @@ export default function DayWiseSchedule({ scheduleData }) {
     const getScheduleBanner = (start, end, floor, session, cert) => {
         return (
             <div className='columns'>
-                <div className='flex gap-4'>
-                    <Badge
-                        kind={cert === 'LPN' ? 'certLPN' : cert === 'CNA' ? 'certCNA' : 'certPink'}
-                        styles='px-[2px] h-fit text-white'
-                        text={cert || 'LPN'}
-                    />
-                    <div className='text-sm font-bold text-black'>
-                        <div className='flex flex-row'>
-                            <div className='text-sm font-semibold'>
-                                {start} {`>`} {end}{' '}
+                <div className='flex justify-between'>
+                    <div className='flex gap-4'>
+                        <Badge
+                            kind={cert === 'LPN' ? 'certLPN' : cert === 'CNA' ? 'certCNA' : 'certPink'}
+                            styles='px-[2px] h-fit text-white'
+                            text={cert || 'LPN'}
+                        />
+                        <div className='text-sm font-bold text-black'>
+                            <div className='flex flex-row'>
+                                <div className='text-sm font-semibold'>
+                                    {start} {`>`} {end}{' '}
+                                </div>
+                                <div className='py-[2px] px-2 ml-2 flex text-sm font-semibold bg-white rounded'>
+                                    <div className='flex self-center mr-1'>
+                                        <Icon
+                                            styles={{ fill: '#1DB304' }}
+                                            name='activity-status'
+                                            aria-hidden='true'
+                                            height={10}
+                                            width={10}
+                                        />
+                                    </div>
+                                    <div>{session}</div>
+                                </div>
                             </div>
-                            <div className='py-[2px] px-2 ml-2 flex text-sm font-semibold bg-white rounded'>
-                                <div className='flex self-center mr-1'>
+                            <div className='text-sm font-semibold text-newLightGray'>{floor}</div>
+                        </div>
+                    </div>
+                    <div>
+                        <SwxPopupMenu
+                            buttonElement={
+                                <IconButton>
                                     <Icon
-                                        styles={{ fill: '#1DB304' }}
-                                        name='activity-status'
+                                        styles={{ fill: '#838A91' }}
+                                        name='vertical-menu'
                                         aria-hidden='true'
-                                        height={10}
+                                        height={15}
                                         width={10}
                                     />
-                                </div>
-                                <div>{session}</div>
-                            </div>
-                        </div>
-                        <div className='text-sm font-semibold text-newLightGray'>{floor}</div>
+                                </IconButton>
+                            }
+                            options={menuOptions()}
+                        />
                     </div>
                 </div>
             </div>

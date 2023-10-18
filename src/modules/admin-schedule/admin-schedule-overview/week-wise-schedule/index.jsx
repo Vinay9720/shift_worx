@@ -5,11 +5,13 @@
 'use client';
 
 import moment from 'moment';
+import { IconButton } from '@mui/material';
 import { useSelector } from 'react-redux';
 import { isEmpty } from 'lodash';
 
 import Badge from '@/lib/common/layout/daily-schedule-banner';
 import { Icon } from '@/lib/common/icons';
+import { SwxPopupMenu } from '@/lib/common/components';
 
 export default function WeekWiseSchedule({ scheduleData }) {
     const { currentTimeValue } = useSelector(state => state.adminScheduleModule);
@@ -25,6 +27,22 @@ export default function WeekWiseSchedule({ scheduleData }) {
         }
 
         return weekdaysWithDates;
+    };
+
+    const menuOptions = () => {
+        return [
+            {
+                label: 'Edit',
+                action: () => null,
+                icon: <Icon styles={{ fill: '#838A91' }} name='pencil' height={14} width={14} />,
+            },
+            {
+                label: 'Delete',
+                action: () => null,
+                color: 'red',
+                icon: <Icon styles={{ fill: '#F43C02' }} name='trash' height={14} width={14} />,
+            },
+        ];
     };
 
     const weekdays = getCurrentWeekdays();
@@ -43,17 +61,33 @@ export default function WeekWiseSchedule({ scheduleData }) {
                         <div className='text-sm font-semibold text-newLightGray'>{floor}</div>
                     </div>
                 </div>
-                <div className='py-[2px] px-2 w-fit mt-4 flex text-sm font-semibold bg-white rounded'>
-                    <div className='flex self-center mr-1'>
-                        <Icon
-                            styles={{ fill: '#1DB304' }}
-                            name='activity-status'
-                            aria-hidden='true'
-                            height={10}
-                            width={10}
-                        />
+                <div className='flex justify-between mt-4'>
+                    <div className='py-[4px] px-2 w-fit flex text-sm font-semibold bg-white rounded'>
+                        <div className='flex self-center mr-1'>
+                            <Icon
+                                styles={{ fill: '#1DB304' }}
+                                name='activity-status'
+                                aria-hidden='true'
+                                height={15}
+                                width={12}
+                            />
+                        </div>
+                        <div className='text-newBlackColor text-[12px]'>{session}</div>
                     </div>
-                    <div className='text-newBlackColor text-[12px]'>{session}</div>
+                    <SwxPopupMenu
+                        buttonElement={
+                            <IconButton>
+                                <Icon
+                                    styles={{ fill: '#838A91' }}
+                                    name='vertical-menu'
+                                    aria-hidden='true'
+                                    height={10}
+                                    width={4}
+                                />
+                            </IconButton>
+                        }
+                        options={menuOptions()}
+                    />
                 </div>
             </div>
         );
