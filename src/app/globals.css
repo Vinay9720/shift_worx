@@ -20,3 +20,22 @@ body {
 .Manrope {
     font-family: var(--font-Manrope);
 }
+
+*::-webkit-scrollbar {
+    width: 0.3vw;
+    height: 0.3vw;
+}
+
+*::-webkit-scrollbar-track {
+    background: #F1F3F3;
+    border-radius: 300px;
+}
+
+*::-webkit-scrollbar-thumb {
+    background-color: #838A91;
+    border-radius: 300px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background-color: #878787;
+}

@@ -2,15 +2,14 @@
 
 import moment from 'moment';
 import { useSelector } from 'react-redux';
+import { IconButton } from '@mui/material';
 
 import Badge from '@/lib/common/layout/daily-schedule-banner';
-// import { SwxModal } from '@/lib/common/layout';
-// import { SwxTypography } from '@/lib/common/components';
+import { SwxPopupMenu } from '@/lib/common/components';
+import { Icon } from '@/lib/common/icons';
 
 export default function MonthWiseSchedule({ scheduleData }) {
-    // const [isModalOpen, setIsmodalOpen] = useState(false);
     const { currentTimeValue } = useSelector(state => state.adminScheduleModule);
-    // const [moreShifts, setMoreShifts] = useState([]);
 
     const fixedWeekDays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
     const getCurrentMonthDays = () => {
@@ -68,6 +67,22 @@ export default function MonthWiseSchedule({ scheduleData }) {
         return monthDays;
     };
 
+    const menuOptions = () => {
+        return [
+            {
+                label: 'Edit',
+                action: () => null,
+                icon: <Icon styles={{ fill: '#838A91' }} name='pencil' height={14} width={14} />,
+            },
+            {
+                label: 'Delete',
+                action: () => null,
+                color: 'red',
+                icon: <Icon styles={{ fill: '#F43C02' }} name='trash' height={14} width={14} />,
+            },
+        ];
+    };
+
     const monthDays = getCurrentMonthDays();
 
     const getScheduleBanner = (empName, cert, start, end) => {
@@ -77,85 +92,31 @@ export default function MonthWiseSchedule({ scheduleData }) {
                     {start} {`>`} {end}
                 </div>
                 <div className='text-[12px] font-semibold text-newLightGray'>{empName.substring(0, 6)}</div>
-                <Badge kind='certPink' styles='rounded px-[2px] text-white h-fit' text={cert || 'RN'} />
+                <div className='mt-[27px]'>
+                    <Badge kind='certPink' styles='rounded px-[2px] text-white h-fit' text={cert || 'RN'} />
+                    <div>
+                        <SwxPopupMenu
+                            buttonElement={
+                                <IconButton>
+                                    <Icon
+                                        styles={{ fill: '#838A91', transform: 'rotate(90deg)' }}
+                                        name='vertical-menu'
+                                        aria-hidden='true'
+                                        height={10}
+                                        width={4}
+                                    />
+                                </IconButton>
+                            }
+                            options={menuOptions()}
+                        />
+                    </div>
+                </div>
             </div>
         );
     };
 
-    // const getModalScheduleBanner = (empName, cert, start, end, floor) => {
-    //     return (
-    //         <div className='flex flex-row'>
-    //             <div className='text-sm font-semibold text-newBlackColor basis-1/2'>
-    //                 {start} {`>`} {end}
-    //             </div>
-    //             <div className='text-sm font-bold text-newLightGray basis-1/4'> {empName}</div>
-    //             <div className='text-sm font-extrabold text-newBlackColor basis-1/4'> {cert}</div>
-    //             <div className='text-sm font-bold text-newBlackColor basis-1/4'> {floor}</div>
-    //         </div>
-    //     );
-    // };
-
-    // const getMoreShifts = date => {
-    //     const shifts = [];
-    //     const formattedDate = moment(date, 'DD-MM-YYYY').format('MM-DD-YY');
-    //     for (let i = 0; i < scheduleData.records.length; i++) {
-    //         const obj = scheduleData.records[i];
-    //         if (formattedDate in obj.shifts) {
-    //             const personShifts = obj.shifts[formattedDate].map(shift => {
-    //                 return { ...shift, name: obj.name };
-    //             });
-    //             shifts.push(...personShifts);
-    //         }
-    //     }
-    //     return shifts;
-    // };
-
-    // const showShiftsPopup = date => {
-    //     setIsmodalOpen(true);
-    //     const shifts = getMoreShifts(date);
-    //     setMoreShifts(shifts);
-    // };
-
-    // const closeModal = () => {
-    //     setIsmodalOpen(false);
-    // };
-
     return (
         <>
-            {/* <SwxModal isOpen={isModalOpen} closeModal={closeModal}>
-                <div className='modal_header'>
-                    <SwxTypography color='swxBlack' size='large' weight='bold'>
-                        Shifts
-                    </SwxTypography>
-                </div>
-                <div className='modal_body'>
-                    {moreShifts.map((shift, index) => {
-                        return (
-                            <div key={index} className='mb-2 flex justify-center m-[2px]'>
-                                <Badge
-                                    text={getModalScheduleBanner(
-                                        shift.name,
-                                        shift.cert || 'RN',
-                                        shift.start_time,
-                                        shift.end_time,
-                                        shift.station || 'First Floor'
-                                    )}
-                                    kind={
-                                        shift.title === 'RN'
-                                            ? 'scheduleOrange'
-                                            : shift.title === 'LPN'
-                                            ? 'scheduleCyan'
-                                            : shift.title === 'CNA'
-                                            ? 'scheduleMistyRose'
-                                            : 'scheduleOrange'
-                                    }
-                                    styles='p-[5px] w-full'
-                                />
-                            </div>
-                        );
-                    })}
-                </div>
-            </SwxModal> */}
             <div className='grid grid-cols-7 bg-white'>
                 {fixedWeekDays.map((weekDay, index) => (
                     <div
