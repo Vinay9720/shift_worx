@@ -18,7 +18,6 @@ import {
     TimePickerField,
 } from '@/lib/common/form-components';
 import { useFileUpload } from '@/hooks/common';
-// import { useEmployees } from '@/hooks/admin-employee';
 
 import {
     ModalContainer,
@@ -29,32 +28,14 @@ import {
     CloseContainer,
     EllipseContainer,
     StyledBorderContainer,
+    StyledWrapperContainer,
 } from './admin-pto.styles';
 
 export default function AddRequest() {
     const { mutate: upload } = useFileUpload();
     const dispatch = useDispatch();
-    // const { isOpen } = useSelector(state => state.modal);
 
-    // const employees = useMemo(() => {
-    //     if (isSuccess) {
-    //         return (employeesData.employees || []).map(employee => {
-    //             return { name: employee.user.first_name, id: employee.user.id };
-    //         });
-    //     }
-    //     return [];
-    // }, [employeesData]);
-
-    const employeeOptions = [
-        'Jack Sparrow',
-        'John Wick',
-        'Jason Statham',
-        'John Momoa',
-        'Tyler',
-        // ...employees.map(employee => {
-        //     return { label: employee.name, value: employee.id, avatar: true, groupBy: 'Select Employee' };
-        // }),
-    ];
+    const employeeOptions = ['Jack Sparrow', 'John Wick', 'Jason Statham', 'John Momoa', 'Tyler'];
     const noteTypeOptions = [
         { label: 'Sick Leave', value: '1' },
         { label: 'Vacation', value: '2' },
@@ -72,6 +53,7 @@ export default function AddRequest() {
                 Employee
             </SwxTypography>
         ),
+        spacing: 0.1,
         options: employeeOptions,
         placeholder: 'Employee Name',
         width: '100%',
@@ -97,6 +79,7 @@ export default function AddRequest() {
         required: true,
         range: false,
         padding: '14.5px 16px',
+        spacing: 0.1,
     };
     const startTimeProps = {
         label: (
@@ -108,6 +91,7 @@ export default function AddRequest() {
         width: '100%',
         required: true,
         padding: '8px 8px',
+        spacing: 0.1,
     };
 
     const endTimeProps = {
@@ -120,6 +104,7 @@ export default function AddRequest() {
         width: '100%',
         required: true,
         padding: '8px 8px',
+        spacing: 0.1,
     };
     const noteDescriptionProps = {
         label: (
@@ -132,6 +117,7 @@ export default function AddRequest() {
         multiline: true,
         padding: '0px',
         rows: 4,
+        style: { gap: '1px' },
     };
     return (
         <div className='flex items-center mt-0'>
@@ -164,16 +150,15 @@ export default function AddRequest() {
                     </HeaderContainer>
                     <BodyContainer>
                         <Form onSubmit={data => console.log(data)}>
-                            <Stack padding='31px 151px 30px 32px' sx={{ borderBottom: '2px solid #E6E8E9' }}>
-                                <Stack paddingRight='96px'>
-                                    <Stack direction='row' spacing={2}>
+                            <StyledWrapperContainer>
+                                <Stack paddingRight='96px' spacing={3}>
+                                    <Stack direction='row'>
                                         <SelectField name='employee' SWXInputProps={employeeProps} />
                                     </Stack>
                                     <div
                                         style={{
                                             display: 'flex',
                                             flexDirection: 'column',
-                                            gap: '4px',
                                             width: '100%',
                                         }}>
                                         <SwxTypography color='swxSlightlyBlack' size='semiMedium' weight='semiBold'>
@@ -185,14 +170,14 @@ export default function AddRequest() {
                                             maxHeight='188px'
                                         />
                                     </div>
-                                    <Stack direction='row' spacing={2}>
+                                    <Stack direction='row'>
                                         <DatePickerField name='date' SWXInputProps={dateProps} />
                                     </Stack>
                                     <Stack direction='row' spacing={3}>
-                                        <Stack direction='row' spacing={2} sx={{ width: '238px' }}>
+                                        <Stack direction='row' sx={{ width: '226px' }}>
                                             <TimePickerField name='start_time' SWXInputProps={startTimeProps} />
                                         </Stack>
-                                        <Stack direction='row' spacing={2} sx={{ width: '238px' }}>
+                                        <Stack direction='row' sx={{ width: '226px' }}>
                                             <TimePickerField name='end_time' SWXInputProps={endTimeProps} />
                                         </Stack>
                                     </Stack>
@@ -200,7 +185,13 @@ export default function AddRequest() {
                                         <InputField name='description' SWXInputProps={noteDescriptionProps} />
                                     </Stack>
                                 </Stack>
-                                <div style={{ display: 'flex', flexDirection: 'column', gap: '4px', width: '100%' }}>
+                                <div
+                                    style={{
+                                        display: 'flex',
+                                        flexDirection: 'column',
+                                        width: '100%',
+                                        marginTop: '24px',
+                                    }}>
                                     <SwxTypography color='swxSlightlyBlack' size='semiMedium' weight='semiBold'>
                                         Upload File
                                     </SwxTypography>
@@ -240,7 +231,7 @@ export default function AddRequest() {
                                         </Stack>
                                     </StyledBorderContainer>
                                 </div>
-                            </Stack>
+                            </StyledWrapperContainer>
                             <Stack
                                 spacing={3}
                                 justifyContent='flex-end'

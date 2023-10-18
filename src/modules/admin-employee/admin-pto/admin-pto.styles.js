@@ -105,3 +105,7 @@ export const EllipseContainer = styled.div`
     cursor: pointer;
     margin-top: -15px;
 `;
+export const StyledWrapperContainer = styled.div`
+    padding: 31px 151px 30px 32px;
+    border-bottom: 2px solid #e6e8e9;
+`;

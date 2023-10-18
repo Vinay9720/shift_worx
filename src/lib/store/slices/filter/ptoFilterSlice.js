@@ -21,9 +21,6 @@ const ptoFilterSlice = createSlice({
         },
         clearFilters: state => {
             Object.assign(state, initialFilterState);
-            // state.status = null;
-            // state.search = null;
-            // state.roles = [];
         },
     },
 });

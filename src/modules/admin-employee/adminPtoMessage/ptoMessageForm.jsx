@@ -1,6 +1,5 @@
 'use client';
 
-// import { useMemo } from 'react';
 import { useDispatch } from 'react-redux';
 import { Stack } from '@mui/material';
 
@@ -30,7 +29,6 @@ export default function PtoMessageForm({ modalName }) {
     const noteTypeProps = {
         label: 'Message Type',
         placeholder: 'Message Type',
-        // validate: value => restrictEmptyArray(value, 'field can not be empty'),
         options: noteTypeOptions,
         required: true,
     };

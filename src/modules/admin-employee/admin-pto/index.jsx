@@ -10,6 +10,7 @@ import { Icon } from '@/lib/common/icons';
 import { SwxDataGrid, SwxTypography, SwxChip, SwxPopupMenu } from '@/lib/common/components';
 import { openModal } from '@/lib/store/slices/modal-slice';
 import { useAddNote } from '@/hooks/admin-note';
+import { backgroundColor } from '@/lib/util/dynamicChipColor';
 
 import { WidgetCardsContainer } from './admin-pto.styles';
 import AddRequest from './PtoForm';
@@ -97,19 +98,13 @@ export default function AdminPto() {
             sortable: false,
             filterable: false,
             renderCell: params => {
-                const backgroundColor = status => {
-                    switch (status) {
-                        case 'RN':
-                            return 'pink';
-                        case 'LPN':
-                            return 'swxBlue';
-                        case 'CNA':
-                            return 'lightOrange';
-                        default:
-                            return 'pink';
-                    }
+                const backgroundColorMap = {
+                    RN: 'pink',
+                    LPN: 'swxBlue',
+                    CNA: 'lightOrange',
                 };
-                const background = backgroundColor(params.value);
+                const backgroundDefaultValue = 'pink';
+                const background = backgroundColor(params.value, backgroundColorMap, backgroundDefaultValue);
                 return <SwxChip label={params.value} color='white' background={background} size='semiMedium' />;
             },
         },
@@ -123,32 +118,20 @@ export default function AdminPto() {
             filterable: false,
             // flex: 1,
             renderCell: params => {
-                const getFillColor = status => {
-                    switch (status) {
-                        case 'Approved':
-                            return '#02B692';
-                        case 'Declined':
-                            return '#E65889';
-                        case 'Pending':
-                            return '#838A91';
-                        default:
-                            return '#838A91';
-                    }
+                const backgroundColorMap = {
+                    Approved: 'paleGreen',
+                    Declined: 'lightPink',
+                    Pending: 'dullGray',
                 };
-                const backgroundColor = status => {
-                    switch (status) {
-                        case 'Approved':
-                            return 'paleGreen';
-                        case 'Declined':
-                            return 'lightPink';
-                        case 'Pending':
-                            return 'dullGray';
-                        default:
-                            return 'dullGray';
-                    }
+                const fillColorMap = {
+                    Approved: '#02B692',
+                    Declined: '#E65889',
+                    Pending: '#838A91',
                 };
-                const fillColor = getFillColor(params.value);
-                const background = backgroundColor(params.value);
+                const fillDefaultValue = '#838A91';
+                const backgroundDefaultValue = 'dullGray';
+                const fillColor = backgroundColor(params.value, fillColorMap, fillDefaultValue);
+                const background = backgroundColor(params.value, backgroundColorMap, backgroundDefaultValue);
 
                 return (
                     <SwxChip
@@ -231,7 +214,6 @@ export default function AdminPto() {
                 totalCount: 3,
                 percentage: '15%',
                 badgeArrow: 'up-arrow',
-                fill: '#1F6FA9',
             },
             {
                 title: 'Approved Time Off Request',
@@ -239,7 +221,6 @@ export default function AdminPto() {
                 totalCount: 12,
                 percentage: '9%',
                 badgeArrow: 'up-arrow',
-                fill: '#1F6FA9',
             },
             {
                 title: 'Declined Time Off Request',
@@ -247,7 +228,6 @@ export default function AdminPto() {
                 totalCount: 2,
                 percentage: '29%',
                 badgeArrow: 'down-arrow',
-                fill: '#1F6FA9',
             },
         ],
         []
