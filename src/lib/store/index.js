@@ -8,8 +8,10 @@ import editEmployeeModuleReducer from './slices/edit-employee-module';
 import adminNotesModuleReducer from './slices/admin-notes-module';
 import { notesFilterReducer, employeesFilterReducer, scheduleFilterReducer } from './slices/filter';
 import adminScheduleReducer from './slices/admin-schedule-module';
+import applicationReducer from './slices/application';
 
 const rootReducer = combineReducers({
+    application: applicationReducer,
     modals: ModalReducer,
     addEmployeeModule: addEmployeeModuleReducer,
     pagination: paginationSlice,

@@ -47,6 +47,7 @@ import Ellipse from './Ellipse';
 import DropdownArrow from './DropdownArrow';
 import Pencil from './Pencil';
 import Paper from './Paper';
+import Alert from './Alert';
 
 export const Icon = ({ name, width, height, fill, styles, ...rest }) => {
     switch (name) {
@@ -146,6 +147,8 @@ export const Icon = ({ name, width, height, fill, styles, ...rest }) => {
             return <Pencil width={width} height={height} fill={fill} styles={styles} {...rest} />;
         case 'paper':
             return <Paper width={width} height={height} fill={fill} styles={styles} {...rest} />;
+        case 'alert':
+            return <Alert width={width} height={height} fill={fill} styles={styles} {...rest} />;
         default:
             return <div>Icon</div>;
     }
