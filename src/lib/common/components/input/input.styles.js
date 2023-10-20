@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { OutlinedInput } from '@mui/material';
 
 export const InputContainer = styled.div`
-    gap: ${({ gap }) => gap || '0.5rem'};
+    gap: ${({ gap }) => gap || '4px'};
     display: flex;
     flex-direction: column;
     width: 100%;

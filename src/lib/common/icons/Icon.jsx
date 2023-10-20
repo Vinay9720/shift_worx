@@ -52,6 +52,10 @@ import RestartLine from './RestartLine';
 import FileClose from './FileClose';
 import FilledCheck from './FilledCheck';
 import Paper from './Paper';
+import DenyRequest from './DenyRequest';
+import ApproveRequest from './ApproveRequest';
+import BigApproveRequest from './BigApproveRequest';
+import BigDenyRequest from './BigDenyRequest';
 
 export const Icon = ({ name, width, height, fill, styles, ...rest }) => {
     switch (name) {
@@ -161,6 +165,14 @@ export const Icon = ({ name, width, height, fill, styles, ...rest }) => {
             return <FilledCheck width={width} height={height} fill={fill} styles={styles} {...rest} />;
         case 'paper':
             return <Paper width={width} height={height} fill={fill} styles={styles} {...rest} />;
+        case 'deny-request':
+            return <DenyRequest width={width} height={height} fill={fill} styles={styles} {...rest} />;
+        case 'approve-request':
+            return <ApproveRequest width={width} height={height} fill={fill} styles={styles} {...rest} />;
+        case 'big-approve-request':
+            return <BigApproveRequest width={width} height={height} fill={fill} styles={styles} {...rest} />;
+        case 'big-deny-request':
+            return <BigDenyRequest width={width} height={height} fill={fill} styles={styles} {...rest} />;
         default:
             return <div>Icon</div>;
     }

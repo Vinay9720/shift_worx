@@ -14,7 +14,7 @@ import { StyledAMPMSelect, StyledContainerwrapper, StyledTimeField, StyledWrappe
 import SwxTypography from '../typography';
 import { SpanContainer } from '../common.styles';
 
-export default function SwxTimeComponent({ onChange, time, format, label, width, required, spacing }) {
+export default function SwxTimeComponent({ onChange, time, format, label, width, required }) {
     const [ampm, setAmPm] = useState('am');
     // const [prevTime, amOrPm = 'am'] = time && time.split(/(?<=[0-9])(?=[apm]+)/i);
     let prevTime;
@@ -42,7 +42,7 @@ export default function SwxTimeComponent({ onChange, time, format, label, width,
         }
     };
     return (
-        <Stack direction='column' spacing={spacing || 1} style={{ width }}>
+        <Stack direction='column' spacing={0.5} style={{ width }}>
             {label && (
                 <SpanContainer>
                     <label>{label}</label>

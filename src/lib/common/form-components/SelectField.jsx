@@ -21,7 +21,6 @@ const SelectField = props => {
                         width={SWXInputProps.width}
                         radius={SWXInputProps.radius}
                         padding={SWXInputProps.padding}
-                        spacing={SWXInputProps.spacing}
                         placeholder={SWXInputProps.placeholder}
                         placeholderColor={SWXInputProps.placeholderColor}
                         options={SWXInputProps.options || []}

@@ -17,8 +17,8 @@ export const ModalContainer = styled.div`
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 784px;
-    max-height: 916px;
+    max-width: 684px;
+    max-height: 80vh;
     overflow-y: auto;
     box-shadow: 24;
     ${({ theme }) => `
@@ -108,4 +108,39 @@ export const EllipseContainer = styled.div`
 export const StyledWrapperContainer = styled.div`
     padding: 31px 151px 30px 32px;
     border-bottom: 2px solid #e6e8e9;
+    @media (max-width: 800px) {
+        padding: 32px;
+    }
 `;
+export const styles = {
+    stack1: {
+        paddingRight: '96px',
+        '@media (max-width: 800px)': {
+            paddingRight: '0px',
+        },
+    },
+    timePicker: {
+        width: '188px',
+        '@media (max-width: 800px)': {
+            width: '100%',
+        },
+    },
+    timePickerStackStyles: {
+        display: 'flex',
+        flexDirection: 'row',
+        gap: '25px',
+        '@media (max-width: 800px)': {
+            display: 'flex',
+            flexDirection: 'column',
+        },
+    },
+    datePickerStackStyles: {
+        display: 'flex',
+        flexDirection: 'row',
+        gap: '25px',
+        '@media (max-width: 800px)': {
+            display: 'flex',
+            flexDirection: 'column',
+        },
+    },
+};

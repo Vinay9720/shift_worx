@@ -21,13 +21,12 @@ export default function SwxSelect({
     placeholder,
     borderRight,
     required,
-    spacing,
     ...rest
 }) {
     const [inputValue, setInputValue] = useState('');
 
     return (
-        <Stack direction='column' spacing={spacing || 1} style={{ width }}>
+        <Stack direction='column' spacing={0.5} style={{ width }}>
             {label && (
                 <SpanContainer>
                     <label>{label}</label>

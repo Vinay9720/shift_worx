@@ -1,48 +1,31 @@
 'use client';
 
 import { useMemo } from 'react';
-import { useRouter } from 'next/navigation';
 import { Avatar, Stack, IconButton } from '@mui/material';
 import { useDispatch } from 'react-redux';
 
-import { WidgetCard, SwxPagination, SwxModal, DeleteModal } from '@/lib/common/layout';
+import { WidgetCard, SwxPagination, SwxModal } from '@/lib/common/layout';
 import { Icon } from '@/lib/common/icons';
 import { SwxDataGrid, SwxTypography, SwxChip, SwxPopupMenu } from '@/lib/common/components';
 import { openModal } from '@/lib/store/slices/modal-slice';
 import { useAddNote } from '@/hooks/admin-note';
-import { backgroundColor } from '@/lib/util/dynamicChipColor';
+import { roleBackground, statusChipBackground, statusCircleBackground } from '@/lib/util/dynamicChipColor';
+import ApproveRequestModal from '@/lib/common/layout/approve-request-modal';
+import DenyRequestModal from '@/lib/common/layout/deny-request-modal';
 
 import { WidgetCardsContainer } from './admin-pto.styles';
 import AddRequest from './PtoForm';
 import SearchFilter from './SearchFilter';
 
 import NoteForm from '../add-note/noteForm';
-import PtoMessageForm from '../adminPtoMessage/ptoMessageForm';
+import EditPtoForm from '../edit-pto/editPtoForm';
 
 export default function AdminPto() {
-    // const [employeeIdToBeDeleted, setEmployeeIdToBeDeleted] = useState(null);
-    const router = useRouter();
     const dispatch = useDispatch();
     const { mutate: addNote } = useAddNote();
     const isLoading = false;
-    const menuOptions = ({ id }) => {
+    const menuOptions = () => {
         return [
-            {
-                label: 'Send Message',
-                action: e => {
-                    e.preventDefault();
-                    console.log('send message clicked');
-                    dispatch(openModal({ modalName: 'messageModal' }));
-                },
-                icon: <Icon styles={{ fill: '#838A91' }} name='message' height={20} width={20} />,
-            },
-            {
-                label: 'Edit',
-                action: () => {
-                    router.push(`/admin/employees/edit-employee/${id}?step=profile_information`);
-                },
-                icon: <Icon styles={{ fill: '#838A91' }} name='pencil' height={20} width={20} />,
-            },
             {
                 label: 'Note',
                 action: e => {
@@ -53,15 +36,32 @@ export default function AdminPto() {
                 icon: <Icon styles={{ fill: '#838A91' }} name='notes' height={20} width={20} />,
             },
             {
-                label: 'Delete Employee',
+                label: 'Edit',
                 action: e => {
                     e.preventDefault();
-                    // setEmployeeIdToBeDeleted(id);
-                    dispatch(openModal({ modalName: 'deleteEmployeeModal' }));
-                    console.log('delete employee clicked');
+                    console.log('Edit note clicked');
+                    dispatch(openModal({ modalName: 'editPtoModal' }));
+                },
+                icon: <Icon styles={{ fill: '#838A91' }} name='pencil' height={20} width={20} />,
+            },
+            {
+                label: 'Approve Request',
+                action: e => {
+                    e.preventDefault();
+                    console.log('Approve Request clicked');
+                    dispatch(openModal({ modalName: 'approveRequestModal' }));
+                },
+                icon: <Icon name='approve-request' height={26} width={22} />,
+            },
+            {
+                label: 'Deny Request',
+                action: e => {
+                    e.preventDefault();
+                    dispatch(openModal({ modalName: 'denyRequestModal' }));
+                    console.log('Deny Request clicked');
                 },
                 color: 'red',
-                icon: <Icon styles={{ fill: '#F43C02' }} name='trash' height={20} width={20} />,
+                icon: <Icon name='deny-request' height={26} width={26} />,
             },
         ];
     };
@@ -98,13 +98,7 @@ export default function AdminPto() {
             sortable: false,
             filterable: false,
             renderCell: params => {
-                const backgroundColorMap = {
-                    RN: 'pink',
-                    LPN: 'swxBlue',
-                    CNA: 'lightOrange',
-                };
-                const backgroundDefaultValue = 'pink';
-                const background = backgroundColor(params.value, backgroundColorMap, backgroundDefaultValue);
+                const background = roleBackground(params.value);
                 return <SwxChip label={params.value} color='white' background={background} size='semiMedium' />;
             },
         },
@@ -118,28 +112,15 @@ export default function AdminPto() {
             filterable: false,
             // flex: 1,
             renderCell: params => {
-                const backgroundColorMap = {
-                    Approved: 'paleGreen',
-                    Declined: 'lightPink',
-                    Pending: 'dullGray',
-                };
-                const fillColorMap = {
-                    Approved: '#02B692',
-                    Declined: '#E65889',
-                    Pending: '#838A91',
-                };
-                const fillDefaultValue = '#838A91';
-                const backgroundDefaultValue = 'dullGray';
-                const fillColor = backgroundColor(params.value, fillColorMap, fillDefaultValue);
-                const background = backgroundColor(params.value, backgroundColorMap, backgroundDefaultValue);
-
+                const circleBackground = statusCircleBackground(params.value);
+                const chipBackground = statusChipBackground(params.value);
                 return (
                     <SwxChip
-                        icon={<Icon name='circle' fill={fillColor} height={8} width={8} cx='4' cy='4' r='3.5' />}
+                        icon={<Icon name='circle' fill={circleBackground} height={8} width={8} cx='4' cy='4' r='3.5' />}
                         label={params.value}
                         kind='rounded'
                         color='swxBlack'
-                        background={background}
+                        background={chipBackground}
                         size='semiMedium'
                         leftPadding='4px'
                     />
@@ -158,8 +139,8 @@ export default function AdminPto() {
             minWidth: 120,
         },
         {
-            field: 'note',
-            headerName: 'Note',
+            field: 'description',
+            headerName: 'Description',
             width: 336,
             align: 'left',
             flex: 1,
@@ -195,16 +176,23 @@ export default function AdminPto() {
         },
     ];
     const rows = [
-        { id: 1, employee: 'Katie L', role: 'RN', status: 'Pending', timeOffRequested: '', note: '' },
-        { id: 2, employee: 'Henry Ford', role: 'LPN', status: 'Declined', timeOffRequested: '', note: '' },
-        { id: 3, employee: 'Katie L', role: 'CNA', status: 'Pending', timeOffRequested: '', note: '' },
-        { id: 4, employee: 'Andrew Lincon', role: 'LPN', status: 'Approved', timeOffRequested: '', note: '' },
-        { id: 5, employee: 'Dangel Washington', role: 'RN', status: 'Pending', timeOffRequested: '', note: '' },
-        { id: 6, employee: 'Katie L', role: 'RN', status: 'Approved', timeOffRequested: '', note: '' },
-        { id: 7, employee: 'John Hancock', role: 'CNA', status: 'Pending', timeOffRequested: '', note: '' },
-        { id: 8, employee: 'Katie L', role: 'RN', status: 'Declined', timeOffRequested: '', note: '' },
-        { id: 9, employee: 'Rick Grimes', role: 'RN', status: 'Pending', timeOffRequested: '', note: '' },
-        { id: 10, employee: 'Katie L', role: 'CNA', status: 'Pending', timeOffRequested: '', note: 'Testing the Note' },
+        { id: 1, employee: 'Katie L', role: 'RN', status: 'Approved', timeOffRequested: '', Description: '' },
+        { id: 2, employee: 'Henry Ford', role: 'LPN', status: 'Declined', timeOffRequested: '', Description: '' },
+        { id: 3, employee: 'Katie L', role: 'CNA', status: 'Pending', timeOffRequested: '', Description: '' },
+        { id: 4, employee: 'Andrew Lincon', role: 'LPN', status: 'Approved', timeOffRequested: '', Description: '' },
+        { id: 5, employee: 'Dangel Washington', role: 'RN', status: 'Pending', timeOffRequested: '', Description: '' },
+        { id: 6, employee: 'Katie L', role: 'RN', status: 'Approved', timeOffRequested: '', Description: '' },
+        { id: 7, employee: 'John Hancock', role: 'CNA', status: 'Pending', timeOffRequested: '', Description: '' },
+        { id: 8, employee: 'Katie L', role: 'RN', status: 'Declined', timeOffRequested: '', Description: '' },
+        { id: 9, employee: 'Rick Grimes', role: 'RN', status: 'Pending', timeOffRequested: '', Description: '' },
+        {
+            id: 10,
+            employee: 'Katie L',
+            role: 'CNA',
+            status: 'Pending',
+            timeOffRequested: '',
+            Description: 'Testing the Note',
+        },
     ];
     const cardsData = useMemo(
         () => [
@@ -257,13 +245,18 @@ export default function AdminPto() {
                     action={addNote} // employee={employee}
                 />
             </SwxModal>
-            <SwxModal modalName='messageModal'>
-                <PtoMessageForm modalName='messageModal' />
+            <SwxModal modalName='editPtoModal'>
+                <EditPtoForm modalName='editPtoModal' />
             </SwxModal>
-            <DeleteModal
-                modalName='deleteEmployeeModal'
-                entityName='Employee'
-                // onConfirm={() => deleteEmployee(employeeIdToBeDeleted)}
+            <ApproveRequestModal
+                modalName='approveRequestModal'
+                entityName='request'
+                // onConfirm={() => useDelelteEmployee(employeeIdToBeDeleted)}
+            />
+            <DenyRequestModal
+                modalName='denyRequestModal'
+                entityName='request'
+                // onConfirm={() => useDelelteEmployee(employeeIdToBeDeleted)}
             />
             <SwxDataGrid columns={columns} rows={rows} isLoading={isLoading} />
             <SwxPagination

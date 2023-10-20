@@ -29,6 +29,7 @@ import {
     EllipseContainer,
     StyledBorderContainer,
     StyledWrapperContainer,
+    styles,
 } from './admin-pto.styles';
 
 export default function AddRequest() {
@@ -53,7 +54,6 @@ export default function AddRequest() {
                 Employee
             </SwxTypography>
         ),
-        spacing: 0.1,
         options: employeeOptions,
         placeholder: 'Employee Name',
         width: '100%',
@@ -68,10 +68,10 @@ export default function AddRequest() {
         options: noteTypeOptions,
         required: true,
     };
-    const dateProps = {
+    const startDateProps = {
         label: (
             <SwxTypography color='swxSlightlyBlack' size='semiMedium' weight='semiBold'>
-                Date(s)
+                Start Date
             </SwxTypography>
         ),
         // multiple: true,
@@ -79,7 +79,18 @@ export default function AddRequest() {
         required: true,
         range: false,
         padding: '14.5px 16px',
-        spacing: 0.1,
+    };
+    const endDateProps = {
+        label: (
+            <SwxTypography color='swxSlightlyBlack' size='semiMedium' weight='semiBold'>
+                End Date
+            </SwxTypography>
+        ),
+        // multiple: true,
+        width: '100%',
+        required: true,
+        range: false,
+        padding: '14.5px 16px',
     };
     const startTimeProps = {
         label: (
@@ -91,7 +102,6 @@ export default function AddRequest() {
         width: '100%',
         required: true,
         padding: '8px 8px',
-        spacing: 0.1,
     };
 
     const endTimeProps = {
@@ -104,7 +114,6 @@ export default function AddRequest() {
         width: '100%',
         required: true,
         padding: '8px 8px',
-        spacing: 0.1,
     };
     const noteDescriptionProps = {
         label: (
@@ -151,7 +160,7 @@ export default function AddRequest() {
                     <BodyContainer>
                         <Form onSubmit={data => console.log(data)}>
                             <StyledWrapperContainer>
-                                <Stack paddingRight='96px' spacing={3}>
+                                <Stack spacing={3} sx={styles.stack1}>
                                     <Stack direction='row'>
                                         <SelectField name='employee' SWXInputProps={employeeProps} />
                                     </Stack>
@@ -170,14 +179,15 @@ export default function AddRequest() {
                                             maxHeight='188px'
                                         />
                                     </div>
-                                    <Stack direction='row'>
-                                        <DatePickerField name='date' SWXInputProps={dateProps} />
+                                    <Stack sx={styles.datePickerStackStyles}>
+                                        <DatePickerField name='start_date' SWXInputProps={startDateProps} />
+                                        <DatePickerField name='end_date' SWXInputProps={endDateProps} />
                                     </Stack>
-                                    <Stack direction='row' spacing={3}>
-                                        <Stack direction='row' sx={{ width: '226px' }}>
+                                    <Stack sx={styles.timePickerStackStyles}>
+                                        <Stack sx={styles.timePicker}>
                                             <TimePickerField name='start_time' SWXInputProps={startTimeProps} />
                                         </Stack>
-                                        <Stack direction='row' sx={{ width: '226px' }}>
+                                        <Stack sx={styles.timePicker}>
                                             <TimePickerField name='end_time' SWXInputProps={endTimeProps} />
                                         </Stack>
                                     </Stack>
