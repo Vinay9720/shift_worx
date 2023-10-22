@@ -16,7 +16,7 @@ import { UsStates } from '@/lib/constants';
 import { useAddEmployee } from '@/hooks/admin-employee';
 import { closeModal } from '@/lib/store/slices/modal-slice';
 
-import { FooterContainer } from './add-employee.styles';
+import { FooterContainer, styles } from './add-employee.styles';
 
 function AddEmployeeStep1() {
     const { mutate: addEmployee } = useAddEmployee();
@@ -149,7 +149,7 @@ function AddEmployeeStep1() {
 
     return (
         <>
-            <Stack direction='column' spacing={1} sx={{ padding: '0px 24px 24px 24px' }}>
+            <Stack direction='column' spacing={1} sx={styles.headerStyles}>
                 <SwxTypography color='swxBlack' size='semiLarge' weight='bold'>
                     Profile Information
                 </SwxTypography>
@@ -159,43 +159,24 @@ function AddEmployeeStep1() {
             </Stack>
             <Form onSubmit={addEmployee}>
                 <Stack direction='column'>
-                    <Stack
-                        direction={{ xs: 'column', sm: 'row' }}
-                        spacing={2}
-                        sx={{ padding: '0px 24px', height: '86px' }}>
+                    <Stack sx={styles.namePropStyles} direction='row'>
                         <InputField name='first_name' SWXInputProps={firstNameProps} />
                         <InputField name='last_name' SWXInputProps={lastNameProps} />
                     </Stack>
-                    <Stack
-                        direction={{ xs: 'column', sm: 'row' }}
-                        spacing={2}
-                        sx={{ padding: '0px 24px', height: '86px', marginTop: '24px' }}>
+                    <Stack direction='row' sx={styles.dateTimePropStyles}>
                         <DatePickerField name='date_of_birth' SWXInputProps={dateProps} />
                         <PhoneNumberField name='phone_number' SWXInputProps={phoneNumberProps} />
                     </Stack>
-                    <Stack
-                        direction={{ xs: 'column', sm: 'row' }}
-                        spacing={2}
-                        sx={{ padding: '0px 24px', height: '86px', marginTop: '10px' }}>
+                    <Stack direction='row' sx={styles.emailPasswordPropStyles}>
                         <InputField name='email' SWXInputProps={emailProps} />
                         <InputField name='password' SWXInputProps={passwordProps} />
                     </Stack>
-                    <Divider
-                        orientation='vertical'
-                        flexItem
-                        sx={{ borderBottom: '1px solid #E6E8E9', marginTop: '23px' }}
-                    />
-                    <Stack
-                        direction={{ xs: 'column', sm: 'row' }}
-                        spacing={2}
-                        sx={{ padding: '0px 24px', height: '86px', marginTop: '22px' }}>
+                    <Divider orientation='vertical' flexItem sx={styles.dividerStyles} />
+                    <Stack direction='row' sx={styles.addressLinePropStyles}>
                         <InputField name='address1' SWXInputProps={addressLine1Props} />
                         <InputField name='address2' SWXInputProps={addressLine2Props} />
                     </Stack>
-                    <Stack
-                        direction={{ xs: 'column', sm: 'row' }}
-                        spacing={2}
-                        sx={{ padding: '0px 24px', height: '86px', marginTop: '27px' }}>
+                    <Stack direction='row' sx={styles.cityStatePropStyles}>
                         <InputField name='city' SWXInputProps={cityProps} />
                         <Stack direction='row' spacing={2} style={{ width: '100%' }}>
                             <SelectField name='State' SWXInputProps={stateProps} />

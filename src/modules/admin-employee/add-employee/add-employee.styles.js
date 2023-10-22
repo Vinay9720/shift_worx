@@ -22,7 +22,7 @@ export const ModalContainer = styled.div`
     left: 50%;
     transform: translate(-50%, -50%);
     width: 784px;
-    max-height: 957px;
+    max-height: 80vh;
     overflow-y: auto;
     box-shadow: 24;
     ${({ theme }) => `
@@ -37,7 +37,8 @@ export const ModalContainer = styled.div`
         width: 90%;
         padding: 20px;
         box-sizing: border-box;
-        max-height: 80vh;
+        max-height: auto;
+        overflow-y: auto;
     }
 `;
 
@@ -53,6 +54,13 @@ export const StyledTitle = styled.h1`
 export const StepsContainer = styled.div`
     display: flex;
     gap: 20px;
+    @media (max-width: 450px) {
+        flex-direction: column;
+        justify-content: center;
+        align-items: start;
+        align-content: center;
+        margin-top: 16px;
+    }
 `;
 
 export const StyledStep = styled.div`
@@ -138,3 +146,82 @@ export const EllipseContainer = styled.div`
     margin-right: 16px;
     cursor: pointer;
 `;
+export const styles = {
+    headerStyles: {
+        padding: '0px 24px 24px 24px',
+        '@media (max-width: 600px)': {
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+        },
+    },
+    namePropStyles: {
+        display: 'flex',
+        gap: '24px',
+        padding: '0px 24px',
+        height: '86px',
+        '@media (max-width: 600px)': {
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            height: 'auto',
+        },
+    },
+    dateTimePropStyles: {
+        display: 'flex',
+        gap: '24px',
+        padding: '0px 24px',
+        height: '86px',
+        marginTop: '24px',
+        '@media (max-width: 600px)': {
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            height: 'auto',
+            // marginTop: '0px',
+        },
+    },
+    emailPasswordPropStyles: {
+        display: 'flex',
+        gap: '24px',
+        padding: '0px 24px',
+        height: '86px',
+        marginTop: '10px',
+        '@media (max-width: 600px)': {
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            height: 'auto',
+        },
+    },
+    dividerStyles: {
+        borderBottom: '1px solid #E6E8E9',
+        marginTop: '23px',
+    },
+    addressLinePropStyles: {
+        display: 'flex',
+        gap: '24px',
+        padding: '0px 24px',
+        height: '86px',
+        marginTop: '22px',
+        '@media (max-width: 600px)': {
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            height: 'auto',
+        },
+    },
+    cityStatePropStyles: {
+        display: 'flex',
+        gap: '24px',
+        padding: '0px 24px',
+        height: '86px',
+        marginTop: '27px',
+        '@media (max-width: 600px)': {
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            height: 'auto',
+        },
+    },
+};

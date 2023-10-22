@@ -1,4 +1,4 @@
-export default function BigApproveRequest({ width, height, fill, styles, ...rest }) {
+export default function ApproveCheck({ width, height, fill, styles, ...rest }) {
     return (
         <svg
             width={width}

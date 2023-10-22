@@ -1,4 +1,4 @@
-export default function BigDenyRequest({ width, height, fill, styles, ...rest }) {
+export default function CircleCloseDelete({ width, height, fill, styles, ...rest }) {
     return (
         <svg
             width={width}

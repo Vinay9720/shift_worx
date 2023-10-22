@@ -4,21 +4,19 @@ import { useMemo } from 'react';
 import { Avatar, Stack, IconButton } from '@mui/material';
 import { useDispatch } from 'react-redux';
 
-import { WidgetCard, SwxPagination, SwxModal } from '@/lib/common/layout';
+import { WidgetCard, SwxPagination, SwxModal, DynamicPromptModal } from '@/lib/common/layout';
 import { Icon } from '@/lib/common/icons';
 import { SwxDataGrid, SwxTypography, SwxChip, SwxPopupMenu } from '@/lib/common/components';
 import { openModal } from '@/lib/store/slices/modal-slice';
 import { useAddNote } from '@/hooks/admin-note';
 import { roleBackground, statusChipBackground, statusCircleBackground } from '@/lib/util/dynamicChipColor';
-import ApproveRequestModal from '@/lib/common/layout/approve-request-modal';
-import DenyRequestModal from '@/lib/common/layout/deny-request-modal';
 
 import { WidgetCardsContainer } from './admin-pto.styles';
-import AddRequest from './PtoForm';
 import SearchFilter from './SearchFilter';
 
 import NoteForm from '../add-note/noteForm';
-import EditPtoForm from '../edit-pto/editPtoForm';
+import PtoForm from '../add-pto/PtoForm';
+import AddRequest from '../add-pto';
 
 export default function AdminPto() {
     const dispatch = useDispatch();
@@ -246,16 +244,20 @@ export default function AdminPto() {
                 />
             </SwxModal>
             <SwxModal modalName='editPtoModal'>
-                <EditPtoForm modalName='editPtoModal' />
+                <PtoForm modalName='editPtoModal' />
             </SwxModal>
-            <ApproveRequestModal
+            <DynamicPromptModal
                 modalName='approveRequestModal'
                 entityName='request'
+                iconName='approve-check'
+                actionName='Approve'
                 // onConfirm={() => useDelelteEmployee(employeeIdToBeDeleted)}
             />
-            <DenyRequestModal
+            <DynamicPromptModal
                 modalName='denyRequestModal'
                 entityName='request'
+                iconName='circle-close-delete'
+                actionName='Deny'
                 // onConfirm={() => useDelelteEmployee(employeeIdToBeDeleted)}
             />
             <SwxDataGrid columns={columns} rows={rows} isLoading={isLoading} />

@@ -55,6 +55,14 @@ const fetchPto = (itemsPerPage, page, searchParams, roles, status) => {
     return http.get(`/pto?${queryString}`);
 };
 
+const addPto = employeeData => {
+    return http.post(`/ptos`, employeeData);
+};
+
+const updatePto = (id, employeeData) => {
+    return http.patch(`/ptos/${id}`, employeeData);
+};
+
 const AdminEmployeeService = {
     fetchEmployees,
     fetchEmployee,
@@ -63,6 +71,8 @@ const AdminEmployeeService = {
     deleteEmployee,
     fetchExpirations,
     fetchPto,
+    addPto,
+    updatePto,
 };
 
 export default AdminEmployeeService;

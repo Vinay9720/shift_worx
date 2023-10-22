@@ -29,22 +29,22 @@ import {
     StyledBorderContainer,
     StyledWrapperContainer,
     styles,
-} from './editPtoForm.styles';
+} from './add-pto.styles';
 
-export default function EditPtoForm({ modalName }) {
+export default function PtoForm({ modalName, requestType }) {
     const { mutate: upload } = useFileUpload();
     const dispatch = useDispatch();
 
     const employeeOptions = ['Jack Sparrow', 'John Wick', 'Jason Statham', 'John Momoa', 'Tyler'];
-    const noteTypeOptions = [
-        { label: 'Sick Leave', value: '1' },
-        { label: 'Vacation', value: '2' },
-        { label: 'Jury Duty', value: '3' },
-        { label: 'Parental Leave', value: '4' },
-        { label: 'Bereavement Leave', value: '5' },
-        { label: 'Holiday', value: '6' },
-        { label: 'Other', value: '7' },
-        { label: 'Personal', value: '8' },
+    const requestTypeOptions = [
+        { label: 'Sick Leave', value: 'Sick Leave' },
+        { label: 'Vacation', value: 'Vacation' },
+        { label: 'Jury Duty', value: 'Jury Duty' },
+        { label: 'Parental Leave', value: 'Parental Leave' },
+        { label: 'Bereavement Leave', value: 'Bereavement Leave' },
+        { label: 'Holiday', value: 'Holiday' },
+        { label: 'Other', value: 'Other' },
+        { label: 'Personal', value: 'Personal' },
     ];
 
     const employeeProps = {
@@ -61,11 +61,11 @@ export default function EditPtoForm({ modalName }) {
         padding: '0px',
         radius: '5px',
     };
-    const noteTypeProps = {
+    const requestTypeProps = {
         label: 'Request Type',
         placeholder: 'Request Type',
         // validate: value => restrictEmptyArray(value, 'field can not be empty'),
-        options: noteTypeOptions,
+        options: requestTypeOptions,
         required: true,
     };
     const startDateProps = {
@@ -132,7 +132,7 @@ export default function EditPtoForm({ modalName }) {
         <ModalContainer>
             <HeaderContainer>
                 <TitleContainer>
-                    <StyledTitle>Edit PTO Request</StyledTitle>
+                    <StyledTitle>{requestType || 'Edit'} PTO Request</StyledTitle>
                 </TitleContainer>
                 <EllipseContainer onClick={() => dispatch(closeModal({ modalName }))}>
                     <CloseContainer>
@@ -159,7 +159,7 @@ export default function EditPtoForm({ modalName }) {
                                 <SwxTypography color='swxSlightlyBlack' size='semiMedium' weight='semiBold'>
                                     Request Type
                                 </SwxTypography>
-                                <ListBoxField name='note_type_id' SWXInputProps={noteTypeProps} maxHeight='188px' />
+                                <ListBoxField name='request_type' SWXInputProps={requestTypeProps} maxHeight='188px' />
                             </div>
                             <Stack sx={styles.datePickerStackStyles}>
                                 <DatePickerField name='start_date' SWXInputProps={startDateProps} />
@@ -224,10 +224,7 @@ export default function EditPtoForm({ modalName }) {
                         justifyContent='flex-end'
                         direction='row'
                         style={{ margin: '17px 30px 9px 0px' }}>
-                        <SwxButton
-                            onClick={() => dispatch(closeModal({ modalName: 'addPtoModal' }))}
-                            variant='text'
-                            size='medium'>
+                        <SwxButton onClick={() => dispatch(closeModal({ modalName }))} variant='text' size='medium'>
                             Cancel
                         </SwxButton>
                         <FormSubmitButton variant='contained' buttonName='Submit' />

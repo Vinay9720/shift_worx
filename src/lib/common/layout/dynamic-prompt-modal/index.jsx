@@ -3,13 +3,13 @@ import { useDispatch } from 'react-redux';
 
 import { closeModal } from '@/lib/store/slices/modal-slice';
 
-import { ModalContainer } from './approveRequestModal.styles';
+import { ModalContainer } from './dynamic-prompt-modal.styles';
 
 import { SwxModal } from '..';
 import { Icon } from '../../icons';
 import { SwxTypography, SwxButton } from '../../components';
 
-export default function ApproveRequestModal({ modalName, entityName, onConfirm }) {
+export default function DynamicPromptModal({ modalName, entityName, onConfirm, actionName, iconName }) {
     const dispatch = useDispatch();
     return (
         <SwxModal modalName={modalName}>
@@ -20,13 +20,18 @@ export default function ApproveRequestModal({ modalName, entityName, onConfirm }
                     justifyContent='center'
                     alignItems='center'
                     margin='68px 0px 36px 0px'>
-                    <Icon name='big-approve-request' height={87} width={70} />
+                    <Icon
+                        styles={{ fill: !actionName ? '#F43C02' : null }}
+                        name={iconName || 'trash'}
+                        height={64}
+                        width={64}
+                    />
                     <Stack alignItems='center'>
                         <SwxTypography color='swxBlack' weight='bold' size='semiLarge'>
-                            Approve {entityName}
+                            {actionName || 'Delete'} {entityName}
                         </SwxTypography>
                         <SwxTypography color='lightGray' weight='thin' size='small'>
-                            Are you sure you want to Approve this {entityName} ?
+                            Are you sure you want to {actionName || 'Delete'} this {entityName} ?
                         </SwxTypography>
                     </Stack>
                 </Stack>

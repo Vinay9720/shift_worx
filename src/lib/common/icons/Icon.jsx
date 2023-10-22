@@ -54,8 +54,8 @@ import FilledCheck from './FilledCheck';
 import Paper from './Paper';
 import DenyRequest from './DenyRequest';
 import ApproveRequest from './ApproveRequest';
-import BigApproveRequest from './BigApproveRequest';
-import BigDenyRequest from './BigDenyRequest';
+import ApproveCheck from './ApproveCheck';
+import CircleCloseDelete from './CircleCloseDelete';
 
 export const Icon = ({ name, width, height, fill, styles, ...rest }) => {
     switch (name) {
@@ -169,10 +169,10 @@ export const Icon = ({ name, width, height, fill, styles, ...rest }) => {
             return <DenyRequest width={width} height={height} fill={fill} styles={styles} {...rest} />;
         case 'approve-request':
             return <ApproveRequest width={width} height={height} fill={fill} styles={styles} {...rest} />;
-        case 'big-approve-request':
-            return <BigApproveRequest width={width} height={height} fill={fill} styles={styles} {...rest} />;
-        case 'big-deny-request':
-            return <BigDenyRequest width={width} height={height} fill={fill} styles={styles} {...rest} />;
+        case 'approve-check':
+            return <ApproveCheck width={width} height={height} fill={fill} styles={styles} {...rest} />;
+        case 'circle-close-delete':
+            return <CircleCloseDelete width={width} height={height} fill={fill} styles={styles} {...rest} />;
         default:
             return <div>Icon</div>;
     }
