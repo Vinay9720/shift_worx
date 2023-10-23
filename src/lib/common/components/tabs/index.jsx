@@ -4,6 +4,8 @@ import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 
 import { LinkWrapper, StyledTab } from './tabs.styles';
 
+import { Icon } from '../../icons';
+
 const isActive = (href, pathname) => {
     return pathname === href;
 };
@@ -21,7 +23,12 @@ function SwxTabs({ tabs, currentStep }) {
         <LinkWrapper>
             {tabs.map((tab, i) => (
                 <StyledTab key={i} onClick={() => handleTabClick(tab.step)} active={isActive(tab.step, currentStep)}>
-                    {tab.label}
+                    {tab.icon && (
+                        <span style={{ marginRight: '4px' }}>
+                            <Icon name={tab.icon} height={20} width={20} />
+                        </span>
+                    )}
+                    <span>{tab.label}</span>
                 </StyledTab>
             ))}
         </LinkWrapper>
