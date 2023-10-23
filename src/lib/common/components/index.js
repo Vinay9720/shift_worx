@@ -14,6 +14,7 @@ import SwxButtonGroup from './button-group';
 import SwxTimeComponent from './time-picker';
 import SwxLoader from './loader';
 import SwxCalenderInput from './calender-input';
+import SwxFileUpload from './file-upload';
 
 export {
     SwxInput,
@@ -32,4 +33,5 @@ export {
     SwxTimeComponent,
     SwxLoader,
     SwxCalenderInput,
+    SwxFileUpload,
 };
