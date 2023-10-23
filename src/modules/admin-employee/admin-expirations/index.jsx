@@ -5,7 +5,7 @@ import { capitalize } from 'lodash';
 import { useRouter } from 'next/navigation';
 
 // import { openModal } from '@/lib/store/slices/modal-slice';
-import { WidgetCard, DeleteModal } from '@/lib/common/layout';
+import { WidgetCard, DynamicPromptModal } from '@/lib/common/layout';
 import { SwxDataGrid, SwxChip, SwxTypography, SwxPopupMenu } from '@/lib/common/components';
 import { Icon } from '@/lib/common/icons';
 import { openModal } from '@/lib/store/slices/modal-slice';
@@ -291,7 +291,7 @@ export default function AdminExpirations() {
                     );
                 })}
             </WidgetCardsContainer>
-            <DeleteModal
+            <DynamicPromptModal
                 modalName='deleteExpirationModal'
                 entityName='Expiration'
                 onConfirm={() => console.log('deleted')}

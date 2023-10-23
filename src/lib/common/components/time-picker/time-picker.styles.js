@@ -50,12 +50,13 @@ export const StyledAMPMSelect = styled(Select)`
 `;
 
 export const StyledWrapper = styled.div`
+    height: 55px;
     border-left: 1px solid ${({ theme }) => theme.borderColor.lightGray};
 `;
 export const StyledContainerwrapper = styled.div`
     display: flex;
     align-items: end;
-    height: 58px;
+    height: 56px;
     border-radius: ${({ theme }) => theme.borderRadius.small};
     border: 1px solid ${({ theme }) => theme.borderColor.lightGray};
 `;

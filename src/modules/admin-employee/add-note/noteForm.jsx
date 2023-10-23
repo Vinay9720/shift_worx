@@ -56,7 +56,7 @@ export default function NoteForm({ employee, modalName, action: addNote }) {
                 <SwxTypography color='swxBlack' size='large' weight='bold'>
                     Add Note
                 </SwxTypography>
-                <EllipseContainer>
+                <EllipseContainer onClick={() => dispatch(closeModal({ modalName: 'addNoteModal' }))}>
                     <CloseContainer>
                         <Icon name='ellipse' fill='#F7F8F8' height={30} width={30} />
                     </CloseContainer>

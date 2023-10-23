@@ -5,6 +5,7 @@ import { useSearchParams } from 'next/navigation';
 import { AdminEmployeeLayout } from '@/lib/common/layout/admin-layouts';
 import AdminOverview from '@/modules/admin-employee/admin-overview';
 import AdminNotes from '@/modules/admin-employee/admin-notes';
+import AdminPto from '@/modules/admin-employee/admin-pto';
 import AdminExpirations from '@/modules/admin-employee/admin-expirations';
 
 export default function Page() {
@@ -15,6 +16,7 @@ export default function Page() {
             {currentStepName === 'overview' && <AdminOverview />}
             {currentStepName === 'expirations' && <AdminExpirations />}
             {currentStepName === 'notes' && <AdminNotes />}
+            {currentStepName === 'pto' && <AdminPto />}
         </AdminEmployeeLayout>
     );
 }

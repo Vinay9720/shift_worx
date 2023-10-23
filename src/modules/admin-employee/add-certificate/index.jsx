@@ -17,7 +17,7 @@ import { useFileUpload } from '@/hooks/common';
 import { Form, InputField, DatePickerField, ListBoxField, FormSubmitButton } from '@/lib/common/form-components';
 import { SwxTypography, SwxButton, SwxLoader } from '@/lib/common/components';
 
-import { StyledBorderContainer } from './add-certificate.styles';
+import { StyledBorderContainer, styles } from './add-certificate.styles';
 
 function AddCerfification({ defaultValues, employeeId }) {
     const { mutate: upload } = useFileUpload();
@@ -103,7 +103,7 @@ function AddCerfification({ defaultValues, employeeId }) {
     }
 
     return (
-        <Stack direction='column' spacing={3} style={{ padding: '82px 117px 6px 117px' }}>
+        <Stack direction='column' spacing={3} sx={styles.mainStack}>
             <Form onSubmit={formValues => addEmployee(formValues, employeeId)} defaultValues={defaultValues}>
                 <Stack direction='column' spacing={3} style={{ width: '100%' }}>
                     <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2} sx={{ padding: '0px 24px' }}>

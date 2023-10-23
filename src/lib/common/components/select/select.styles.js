@@ -15,8 +15,8 @@ export const StyledAutoCompleteSelect = styled(Autocomplete)`
         `}
     }
     & .MuiOutlinedInput-notchedOutline {
-        border-radius: 8px;
-        ${({ theme }) => `
+        ${({ theme, radius }) => `
+            border-radius:${radius || '8px'};
             border: 1px solid ${theme.borderColor.lightGray};
         `}
     }
