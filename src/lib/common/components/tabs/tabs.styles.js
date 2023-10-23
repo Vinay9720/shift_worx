@@ -3,12 +3,14 @@
 import styled from 'styled-components';
 
 export const LinkWrapper = styled.div`
-    padding-bottom: 7px;
+    display: flex;
+    // padding-bottom: 7px;
     border-bottom: 1px solid #e6e8e9;
     color: #666666;
 `;
 
-export const StyledTab = styled.a`
+export const StyledTab = styled.button`
+    display: flex;
     margin-right: 1.5rem;
     font-size: 14px;
     font-weight: 600;
