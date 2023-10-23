@@ -205,7 +205,16 @@ export default function AdminExpirations() {
             align: 'left',
             // flex: 1,
             sortable: false,
-            valueGetter: params => params.value || 'Jan 23, 2023',
+            renderCell: params => {
+                return (
+                    <Stack direction='row' spacing={1}>
+                        <Icon name='alert' height={20} width={20} />
+                        <SwxTypography color='swxBlack' size='semiMedium' weight='extraThin'>
+                            {params.value || 'Jan 23, 2023'}
+                        </SwxTypography>
+                    </Stack>
+                );
+            },
             filterable: false,
             minWidth: 120,
         },
@@ -216,7 +225,13 @@ export default function AdminExpirations() {
             align: 'left',
             // flex: 1,
             sortable: false,
-            valueGetter: params => params.value || 'Jan 28, 2023',
+            renderCell: params => {
+                return (
+                    <SwxTypography color='swxBlack' size='semiMedium' weight='extraThin'>
+                        {params.value || 'Jan 28, 2023'}
+                    </SwxTypography>
+                );
+            },
             filterable: false,
             minWidth: 120,
         },

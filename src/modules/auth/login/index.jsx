@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Image from 'next/image';
+import { useSelector } from 'react-redux';
 import Link from 'next/link';
 import styled from 'styled-components';
 import { Stack } from '@mui/material';
@@ -26,6 +27,7 @@ const PasswordIcon = styled(Icon)`
 export default function LoginForm() {
     const [isPasswordVisible, setIsPasswordVisible] = useState(false);
     const [isPasswordFocused, setIsPasswordFocused] = useState(false);
+    const { applicationLoading } = useSelector(state => state.application);
 
     const { mutate: login, isLoading } = useLogin();
     const onSubmit = async credentials => {
@@ -102,7 +104,7 @@ export default function LoginForm() {
 
     return (
         <Container>
-            {!isLoading ? (
+            {!isLoading || !applicationLoading ? (
                 <StyledLoginContainer>
                     <HeadingContainer>
                         <Image src='/images/Swx-login.png' alt='logo' width={215} height={57} priority />

@@ -52,6 +52,7 @@ import RestartLine from './RestartLine';
 import FileClose from './FileClose';
 import FilledCheck from './FilledCheck';
 import Paper from './Paper';
+import Alert from './Alert';
 import DenyRequest from './DenyRequest';
 import ApproveRequest from './ApproveRequest';
 import ApproveCheck from './ApproveCheck';
@@ -165,6 +166,8 @@ export const Icon = ({ name, width, height, fill, styles, ...rest }) => {
             return <FilledCheck width={width} height={height} fill={fill} styles={styles} {...rest} />;
         case 'paper':
             return <Paper width={width} height={height} fill={fill} styles={styles} {...rest} />;
+        case 'alert':
+            return <Alert width={width} height={height} fill={fill} styles={styles} {...rest} />;
         case 'deny-request':
             return <DenyRequest width={width} height={height} fill={fill} styles={styles} {...rest} />;
         case 'approve-request':
