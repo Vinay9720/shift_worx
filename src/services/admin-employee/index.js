@@ -42,6 +42,27 @@ const fetchExpirations = (itemsPerPage, page, searchParams, roles, status) => {
     return http.get(`/expirations?${queryString}`);
 };
 
+const fetchPto = (itemsPerPage, page, searchParams, roles, status) => {
+    const queryParams = [];
+
+    if (itemsPerPage) queryParams.push(`per_page=${itemsPerPage}`);
+    if (page) queryParams.push(`page=${page}`);
+    if (searchParams) queryParams.push(`search=${searchParams}`);
+    if (roles) queryParams.push(`roles=${roles}`);
+    if (status) queryParams.push(`status=${status}`);
+
+    const queryString = queryParams.join('&');
+    return http.get(`/pto?${queryString}`);
+};
+
+const addPto = employeeData => {
+    return http.post(`/ptos`, employeeData);
+};
+
+const updatePto = (id, employeeData) => {
+    return http.patch(`/ptos/${id}`, employeeData);
+};
+
 const AdminEmployeeService = {
     fetchEmployees,
     fetchEmployee,
@@ -49,6 +70,9 @@ const AdminEmployeeService = {
     addEmployee,
     deleteEmployee,
     fetchExpirations,
+    fetchPto,
+    addPto,
+    updatePto,
 };
 
 export default AdminEmployeeService;

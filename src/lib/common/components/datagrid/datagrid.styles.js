@@ -5,6 +5,7 @@ export const DataGridStyles = {
     },
     '&.MuiDataGrid-root': {
         border: 'none',
+        fontFamily: '__Manrope_36d688',
     },
     '.MuiDataGrid-columnHeader': {
         borderBottom: '1px solid #838A91',
@@ -37,6 +38,10 @@ export const DataGridStyles = {
     },
     '& .MuiCheckbox-root.Mui-checked:not(.MuiCheckbox-indeterminate) svg': {
         backgroundColor: '#E65889',
-        borderColor: '#E65889',
+        borderColor: '#FFFFFF',
+        path: {
+            fill: 'white', // Set the fill color to blue
+            display: 'block', // Display the tick icon
+        },
     },
 };

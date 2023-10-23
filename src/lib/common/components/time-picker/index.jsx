@@ -41,9 +41,8 @@ export default function SwxTimeComponent({ onChange, time, format, label, width,
             onChange(`${formattedValue}${amOrPm}`);
         }
     };
-
     return (
-        <Stack direction='column' spacing={1} style={{ width }}>
+        <Stack direction='column' spacing={0.5} style={{ width }}>
             {label && (
                 <SpanContainer>
                     <label>{label}</label>

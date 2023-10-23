@@ -6,7 +6,7 @@ import { useDispatch } from 'react-redux';
 
 import { openModal } from '@/lib/store/slices/modal-slice';
 import { useEmployees, useDelelteEmployee } from '@/hooks/admin-employee';
-import { WidgetCard, DeleteModal } from '@/lib/common/layout';
+import { WidgetCard, DynamicPromptModal } from '@/lib/common/layout';
 import { SwxDataGrid, SwxChip, SwxTypography, SwxLinearProgress, SwxPopupMenu } from '@/lib/common/components';
 import { Icon } from '@/lib/common/icons';
 import SwxPagination from '@/lib/common/layout/pagination';
@@ -227,7 +227,7 @@ export default function AdminOverview() {
                     );
                 })}
             </WidgetCardsContainer>
-            <DeleteModal
+            <DynamicPromptModal
                 modalName='deleteEmployeeModal'
                 entityName='Employee'
                 onConfirm={() => deleteEmployee(employeeIdToBeDeleted)}

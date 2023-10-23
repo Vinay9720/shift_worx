@@ -3,13 +3,13 @@ import { useDispatch } from 'react-redux';
 
 import { closeModal } from '@/lib/store/slices/modal-slice';
 
-import { ModalContainer } from './delete-modal.styles';
+import { ModalContainer } from './dynamic-prompt-modal.styles';
 
 import { SwxModal } from '..';
 import { Icon } from '../../icons';
 import { SwxTypography, SwxButton } from '../../components';
 
-export default function DeleteModal({ modalName, entityName, onConfirm }) {
+export default function DynamicPromptModal({ modalName, entityName, onConfirm, actionName, iconName }) {
     const dispatch = useDispatch();
     return (
         <SwxModal modalName={modalName}>
@@ -20,19 +20,24 @@ export default function DeleteModal({ modalName, entityName, onConfirm }) {
                     justifyContent='center'
                     alignItems='center'
                     margin='68px 0px 36px 0px'>
-                    <Icon styles={{ fill: '#F43C02' }} name='trash' height={64} width={64} />
+                    <Icon
+                        styles={{ fill: !actionName ? '#F43C02' : null }}
+                        name={iconName || 'trash'}
+                        height={64}
+                        width={64}
+                    />
                     <Stack alignItems='center'>
                         <SwxTypography color='swxBlack' weight='bold' size='semiLarge'>
-                            Delete {entityName}
+                            {actionName || 'Delete'} {entityName}
                         </SwxTypography>
                         <SwxTypography color='lightGray' weight='thin' size='small'>
-                            Are you sure you want to delete this {entityName} ?
+                            Are you sure you want to {actionName || 'Delete'} this {entityName} ?
                         </SwxTypography>
                     </Stack>
                 </Stack>
                 <Divider flexItem />
                 <Stack spacing={3} justifyContent='flex-end' direction='row' style={{ margin: '14px 24px' }}>
-                    <SwxButton onClick={() => dispatch(closeModal({ modalName }))} variant='text'>
+                    <SwxButton onClick={() => dispatch(closeModal({ modalName }))} variant='text' size='medium'>
                         Cancel
                     </SwxButton>
                     <SwxButton onClick={onConfirm} variant='contained' buttonName='Submit'>
