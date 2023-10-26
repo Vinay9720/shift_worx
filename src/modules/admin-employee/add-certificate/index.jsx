@@ -2,27 +2,31 @@
 
 'use client';
 
-import { useState } from 'react';
 import { Stack } from '@mui/material';
 import { useDispatch } from 'react-redux';
 
 import { statesWithkeys } from '@/lib/constants';
 import { restrictEmptyArray } from '@/lib/validators';
 import { useAddEmployee } from '@/hooks/admin-employee';
-// import { uploadFileToS3 } from '@/hooks/common/useFileUpload';
 import { useCertificateOptions } from '@/hooks/certificate';
 import { useSpecialityOptions } from '@/hooks/speciality';
 import { closeAddCertificateForm } from '@/lib/store/slices/add-employee-module';
-import { useFileUpload } from '@/hooks/common';
-import { Form, InputField, DatePickerField, ListBoxField, FormSubmitButton } from '@/lib/common/form-components';
+import {
+    Form,
+    InputField,
+    DatePickerField,
+    ListBoxField,
+    FormSubmitButton,
+    FileUploadField,
+} from '@/lib/common/form-components';
 import { SwxTypography, SwxButton, SwxLoader } from '@/lib/common/components';
 
-import { StyledBorderContainer, styles } from './add-certificate.styles';
+import { styles } from './add-certificate.styles';
 
 function AddCerfification({ defaultValues, employeeId }) {
-    const { mutate: upload } = useFileUpload();
-    const [file, setFile] = useState(null);
-    const [isImageUploading, setIsImageUploading] = useState(null);
+    // const { mutate: upload } = useFileUpload();
+    // const [file, setFile] = useState(null);
+    // const [isImageUploading, setIsImageUploading] = useState(null);
     const dispatch = useDispatch();
 
     const { mutate: addEmployee } = useAddEmployee();
@@ -78,6 +82,12 @@ function AddCerfification({ defaultValues, employeeId }) {
         maxHeight: '100px',
     };
 
+    const fileUploadProps = {
+        label: 'File upload',
+        required: true,
+        kind: 'primary',
+    };
+
     const certificateNumberProps = {
         label: (
             <SwxTypography color='swxSlightlyBlack' size='semiMedium' weight='semiBold'>
@@ -89,13 +99,6 @@ function AddCerfification({ defaultValues, employeeId }) {
         required: true,
         style: { gap: '3px' },
         type: 'number',
-    };
-
-    const uploadFile = async event => {
-        const fileToBeUploaded = event.target.files[0];
-        setFile(fileToBeUploaded);
-        setIsImageUploading(true);
-        upload(fileToBeUploaded);
     };
 
     if (isCertificateOptionsLoading || isSpecialityOptionsLoading) {
@@ -136,32 +139,7 @@ function AddCerfification({ defaultValues, employeeId }) {
                         <DatePickerField name='expiration_date' SWXInputProps={expirationDateProps} />
                     </Stack>
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', width: '100%' }}>
-                        <SwxTypography
-                            style={{ paddingLeft: '24px' }}
-                            color='swxSlightlyBlack'
-                            size='smallOdd'
-                            weight='semiBold'>
-                            Upload File
-                        </SwxTypography>
-                        <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2} sx={{ padding: '0px 24px' }}>
-                            {isImageUploading ? (
-                                <p>Loading...</p>
-                            ) : (
-                                <>
-                                    <SwxButton
-                                        size='small'
-                                        padding='6px 24px'
-                                        component='label'
-                                        radius='large'
-                                        variant='contained'
-                                        weight='bold'>
-                                        Choose File
-                                        <input type='file' onChange={uploadFile} hidden />
-                                    </SwxButton>
-                                    <StyledBorderContainer>{file ? file.name : 'No File Chosen'}</StyledBorderContainer>
-                                </>
-                            )}
-                        </Stack>
+                        <FileUploadField name='cert_name' SWXInputProps={fileUploadProps} />
                     </div>
                     <Stack
                         direction={{ xs: 'column', sm: 'row' }}
