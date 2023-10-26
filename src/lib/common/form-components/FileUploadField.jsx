@@ -15,10 +15,10 @@ const FileUploadField = props => {
             name={props.name}
             control={control}
             rules={{ required, validate }}
-            defaultValue={defaultValue || []}
+            defaultValue={defaultValue || ''}
             render={({ field }) => {
                 return (
-                    <SwxFileUpload {...SWXInputProps} field={field} file={field.value} uploadFile={field.onChange} />
+                    <SwxFileUpload {...SWXInputProps} field={field} fileKey={field.value} onChange={field.onChange} />
                 );
             }}
         />

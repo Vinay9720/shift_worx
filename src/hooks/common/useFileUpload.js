@@ -1,73 +1,49 @@
 'use client';
 
-// eslint-disable-next-line import/order
 import { useMutation } from 'react-query';
 
-import { S3Client, PutObjectCommand } from '@aws-sdk/client-s3';
+import { useToast } from './useToast';
 
-const uploadFileToS3 = async file => {
-    const filename = file.name;
-    const bucketName = 'shiftworxdev';
-    const region = 'us-east-1';
+const uploadMedia = file => {
+    return new Promise((resolve, reject) => {
+        fetch(`${process.env.NEXT_PUBLIC_FE_URL}/api/file-upload`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ fileName: file.name, fileType: file.type, fileSize: file.size }),
+        })
+            .then(async res => {
+                if (!res.ok) {
+                    throw new Error(`Failed to upload the file. Status: ${res.status}`);
+                }
 
-    // AWS.config.update({
-    //     accessKeyId: process.env.NEXT_PUBLIC_S3_ACCESS_ID,
-    //     secretAccessKey: process.env.NEXT_PUBLIC_S3_SECRET_KEY,
-    //     region,
-    // });
+                const { putUrl, getUrl, key } = await res.json();
+                const uploadResponse = await fetch(putUrl, {
+                    body: file,
+                    method: 'PUT',
+                    headers: { 'Content-Type': file.type },
+                });
 
-    const s3 = new S3Client({ region });
+                if (!uploadResponse.ok) {
+                    throw new Error(`Failed to upload the file. Status: ${uploadResponse.status}`);
+                }
 
-    const params = {
-        Bucket: bucketName,
-        Key: filename,
-        Body: file,
-        ACL: 'public-read',
-    };
-    const command = new PutObjectCommand(params);
-    await s3.send(command);
-
-    // Build the file location URL
-    const fileLocation = `https://${bucketName}.s3.${region}.amazonaws.com/${filename}`;
-
-    return { location: fileLocation };
+                resolve({ status: true, uploadedUrl: getUrl, key });
+            })
+            .catch(error => {
+                reject(error);
+            });
+    });
 };
 
-// import AWS from 'aws-sdk';
-
-// export const uploadFileToS3 = async e => {
-//     const file = e.target.files?.[0];
-//     const filename = file.name;
-
-//     const bucketName = 'shiftworxdev';
-//     const region = 'us-east-1';
-
-//     AWS.config.update({
-//         accessKeyId: process.env.NEXT_PUBLIC_S3_ACCESS_ID,
-//         secretAccessKey: process.env.NEXT_PUBLIC_S3_SECRET_KEY,
-//         region,
-//     });
-
-//     const s3 = new AWS.S3();
-
-//     const params = {
-//         Bucket: bucketName,
-//         Key: filename,
-//         Body: file,
-//         ACL: 'public-read',
-//     };
-
-//     return new Promise((resolve, reject) => {
-//         s3.upload(params, (err, data) => {
-//             if (err) {
-//                 reject(err);
-//             } else {
-//                 resolve(data);
-//             }
-//         });
-//     });
-// };
-
 export const useFileUpload = () => {
-    return useMutation(uploadFileToS3);
+    const showToast = useToast();
+    return useMutation(uploadMedia, {
+        select: data => {
+            const fileData = data.data;
+            return fileData;
+        },
+        onError: () => {
+            showToast('Something went wrong, please try again', 'error');
+        },
+    });
 };
