@@ -36,7 +36,7 @@ const ListBox = ({ label, options, setSelectedOptions, selectedOptions, maxHeigh
     };
 
     return (
-        <ListBoxWrapper maxHeight={maxHeight} ref={listBoxRef}>
+        <ListBoxWrapper maxHeight={maxHeight} ref={listBoxRef} onClick={() => setIsOpen(true)}>
             {!isOpen ? (
                 <TitleContainer>
                     {!isEmpty(selectedOptions) ? (

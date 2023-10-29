@@ -57,6 +57,9 @@ import DenyRequest from './DenyRequest';
 import ApproveRequest from './ApproveRequest';
 import ApproveCheck from './ApproveCheck';
 import CircleCloseDelete from './CircleCloseDelete';
+import PaperWithCircleBackSlash from './PaperWithCircleBackSlash';
+import CalenderWeek from './CalenderWeek';
+import CalenderMonth from './CalenderMonth';
 
 export const Icon = ({ name, width, height, fill, styles, ...rest }) => {
     switch (name) {
@@ -176,6 +179,12 @@ export const Icon = ({ name, width, height, fill, styles, ...rest }) => {
             return <ApproveCheck width={width} height={height} fill={fill} styles={styles} {...rest} />;
         case 'circle-close-delete':
             return <CircleCloseDelete width={width} height={height} fill={fill} styles={styles} {...rest} />;
+        case 'paper-with-circle-back-slash':
+            return <PaperWithCircleBackSlash width={width} height={height} fill={fill} styles={styles} {...rest} />;
+        case 'calender-week':
+            return <CalenderWeek width={width} height={height} fill={fill} styles={styles} {...rest} />;
+        case 'calender-month':
+            return <CalenderMonth width={width} height={height} fill={fill} styles={styles} {...rest} />;
         default:
             return <div>Icon</div>;
     }

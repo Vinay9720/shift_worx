@@ -1,7 +1,6 @@
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Stack, Avatar, IconButton } from '@mui/material';
-import { capitalize } from 'lodash';
 import { useRouter } from 'next/navigation';
 
 // import { openModal } from '@/lib/store/slices/modal-slice';
@@ -10,6 +9,9 @@ import { SwxDataGrid, SwxChip, SwxTypography, SwxPopupMenu } from '@/lib/common/
 import { Icon } from '@/lib/common/icons';
 import { openModal } from '@/lib/store/slices/modal-slice';
 import SwxPagination from '@/lib/common/layout/pagination';
+import { useExpirations } from '@/hooks/admin-employee';
+import { roleBackground } from '@/lib/util/dynamicChipColor';
+import { userStatusChipBackground, userStatusCircleBackground, formatDate } from '@/lib/util';
 
 import SearchFilter from './SearchFilter';
 import { WidgetCardsContainer } from './admin-expirations.styles';
@@ -17,105 +19,25 @@ import { WidgetCardsContainer } from './admin-expirations.styles';
 import AddNote from '../add-note';
 
 export default function AdminExpirations() {
+    const { data: expirationsData, isLoading, isSuccess } = useExpirations();
+    const [selectedEmployee, setSelectedEmployee] = useState(null);
+    console.log('expirationsData', expirationsData);
     const router = useRouter();
     const dispatch = useDispatch();
-    const isLoading = false;
 
-    const expirations = [
-        {
-            first_name: 'John',
-            id: '1',
-            role: 'LPN',
-            status: 'Active',
-            item_expiring: 'RN License',
-            expiration_date: 'Jan 4, 2023',
-        },
-        {
-            first_name: 'Katie',
-            role: 'LPN',
-            id: '2',
-            status: 'Active',
-            item_expiring: 'RN License',
-            expiration_date: 'Jan 4, 2023',
-        },
-        {
-            id: '3',
-            first_name: 'Eric',
-            role: 'LPN',
-            status: 'Active',
-            item_expiring: 'RN License',
-            expiration_date: 'Jan 4, 2023',
-        },
-        {
-            id: '4',
-            first_name: 'Gene',
-            role: 'LPN',
-            status: 'Active',
-            item_expiring: 'RN License',
-            expiration_date: 'Jan 4, 2023',
-        },
-        {
-            id: '5',
-            first_name: 'Ola',
-            role: 'LPN',
-            status: 'Active',
-            item_expiring: 'RN License',
-            expiration_date: 'Jan 4, 2023',
-        },
-        {
-            id: '6',
-            first_name: 'Ruby',
-            role: 'LPN',
-            status: 'Active',
-            item_expiring: 'RN License',
-            expiration_date: 'Jan 4, 2023',
-        },
-        {
-            id: '6',
-            first_name: 'Otis',
-            role: 'LPN',
-            status: 'Active',
-            item_expiring: 'RN License',
-            expiration_date: 'Jan 4, 2023',
-        },
-        {
-            id: '7',
-            first_name: 'Hrk',
-            role: 'LPN',
-            status: 'Active',
-            item_expiring: 'RN License',
-            expiration_date: 'Jan 4, 2023',
-        },
-        {
-            id: '8',
-            first_name: 'Wick',
-            role: 'LPN',
-            status: 'Active',
-            item_expiring: 'RN License',
-            expiration_date: 'Jan 4, 2023',
-        },
-        {
-            id: '9',
-            first_name: 'Adam',
-            role: 'LPN',
-            status: 'Active',
-            item_expiring: 'RN License',
-            expiration_date: 'Jan 4, 2023',
-        },
-    ];
+    const expirations = useMemo(() => {
+        if (isSuccess) {
+            return expirationsData.expirations;
+        }
+        return [];
+    }, [expirationsData]);
 
     const menuOptions = ({ id }) => {
         return [
-            // {
-            //     label: 'Send Message',
-            //     action: () => {
-            //         console.log('send message clicked');
-            //     },
-            // },
             {
                 label: 'Edit',
                 action: () => {
-                    router.push(`/admin/employees/edit-employee/${id}?step=profile_information`);
+                    router.push(`/admin/employees/edit-employee/${id}?step=certificates`);
                 },
                 icon: <Icon styles={{ fill: '#838A91' }} name='pencil' height={14} width={14} />,
             },
@@ -124,6 +46,7 @@ export default function AdminExpirations() {
                 action: e => {
                     e.preventDefault();
                     dispatch(openModal({ modalName: 'addNoteModal' }));
+                    setSelectedEmployee()
                 },
                 icon: <Icon styles={{ fill: '#838A91' }} name='paper' height={14} width={14} />,
             },
@@ -140,7 +63,7 @@ export default function AdminExpirations() {
 
     const columns = [
         {
-            field: 'fullName',
+            field: 'name',
             headerName: 'Employee',
             width: 330,
             renderCell: params => (
@@ -150,53 +73,58 @@ export default function AdminExpirations() {
                     alignItems='center'
                     style={{ cursor: 'pointer' }}
                     onClick={() =>
-                        router.push(`/admin/employees/edit-employee/${params.row.id}?step=profile_information`)
+                        router.push(`/admin/employees/edit-employee/${params.row.nurse_id}?step=certificates`)
                     }>
                     <Avatar sx={{ width: 32, height: 32, bgcolor: '#1F6FA9' }}>{`${
-                        params.row.first_name.split('')[0].toUpperCase() || ''
+                        params.row.name.split('')[0].toUpperCase() || ''
                     }`}</Avatar>
                     <SwxTypography color='swxBlack' size='semiMedium' weight='semiBold'>{`${
-                        params.row.first_name || ''
-                    } ${params.row.last_name || ''}`}</SwxTypography>
+                        params.row.name || ''
+                    }`}</SwxTypography>
                 </Stack>
             ),
             align: 'left',
             filterable: false,
-            // flex: 1,
+            flex: 1,
             minWidth: 120,
         },
         {
             field: 'role',
             headerName: 'Role',
-            width: 140,
+            width: 160,
             align: 'left',
-            minWidth: 160,
+            minWidth: 120,
             sortable: false,
             filterable: false,
-            renderCell: params => (
-                <SwxChip label={params.value || 'RN'} color='white' background='pink' size='semiMedium' />
-            ),
+            renderCell: params => {
+                const background = roleBackground(params.value);
+                return <SwxChip label={params.value} color='white' background={background} size='semiMedium' />;
+            },
         },
         {
             field: 'status',
             headerName: 'Status',
-            width: 200,
+            width: 120,
             align: 'left',
-            // flex: 1,
-            renderCell: params => (
-                <SwxChip
-                    icon={<Icon name='circle' fill='#838A91' height={8} width={8} cx='4' cy='4' r='3.5' />}
-                    label={capitalize(params.value)}
-                    kind='rounded'
-                    color='swxBlack'
-                    background='dullGray'
-                    size='semiMedium'
-                    leftPadding='4px'
-                />
-            ),
-            minWidth: 120,
+            minWidth: 100,
             sortable: false,
             filterable: false,
+            // flex: 1,
+            renderCell: params => {
+                const circleBackground = userStatusCircleBackground(params.value);
+                const chipBackground = userStatusChipBackground(params.value);
+                return (
+                    <SwxChip
+                        icon={<Icon name='circle' fill={circleBackground} height={8} width={8} cx='4' cy='4' r='3.5' />}
+                        label={params.value || 'Inactive'}
+                        kind='rounded'
+                        color='swxBlack'
+                        background={chipBackground}
+                        size='semiMedium'
+                        leftPadding='4px'
+                    />
+                );
+            },
         },
         {
             field: 'item_expiring',
@@ -210,7 +138,7 @@ export default function AdminExpirations() {
                     <Stack direction='row' spacing={1}>
                         <Icon name='alert' height={20} width={20} />
                         <SwxTypography color='swxBlack' size='semiMedium' weight='extraThin'>
-                            {params.value || 'Jan 23, 2023'}
+                            {params.value}
                         </SwxTypography>
                     </Stack>
                 );
@@ -228,7 +156,7 @@ export default function AdminExpirations() {
             renderCell: params => {
                 return (
                     <SwxTypography color='swxBlack' size='semiMedium' weight='extraThin'>
-                        {params.value || 'Jan 28, 2023'}
+                        {formatDate(params.value, 'MMM D, YYYY') || 'Jan 28, 2023'}
                     </SwxTypography>
                 );
             },
@@ -236,7 +164,7 @@ export default function AdminExpirations() {
             minWidth: 120,
         },
         {
-            field: 'id',
+            field: 'nurse_id',
             headerName: '',
             width: 10,
             sortable: false,
@@ -266,32 +194,31 @@ export default function AdminExpirations() {
         () => [
             {
                 title: 'Expired',
-                iconName: 'people-group',
-                totalCount: 8,
+                iconName: 'paper-with-circle-back-slash',
+                totalCount: expirationsData ? expirationsData.kpiData.expired : '0',
                 percentage: '80%',
                 badgeArrow: 'up-arrow',
             },
             {
                 title: 'Expiring this Week',
-                iconName: 'calender-check',
-                totalCount: 24,
+                iconName: 'calender-week',
+                totalCount: expirationsData ? expirationsData.kpiData.week_expirations : '0',
                 percentage: '40%',
                 badgeArrow: 'up-arrow',
             },
             {
                 title: 'Expiring this Month',
-                iconName: 'calender-todo',
-                totalCount: 45,
+                iconName: 'calender-month',
+                totalCount: expirationsData ? expirationsData.kpiData.month_expirations : '0',
                 percentage: '89%',
                 badgeArrow: 'down-arrow',
             },
         ],
-        []
+        [expirationsData]
     );
 
     return (
         <>
-            <AddNote hideButton />
             <WidgetCardsContainer style={{ marginTop: '1rem' }}>
                 {cardsData.map((card, index) => {
                     return (
@@ -311,11 +238,11 @@ export default function AdminExpirations() {
                 entityName='Expiration'
                 onConfirm={() => console.log('deleted')}
             />
-            <SearchFilter style={{ marginTop: '3.5rem', marginBottom: '1rem' }} />
-            <SwxDataGrid rows={expirations} columns={columns} isLoading={isLoading} />
+            <SearchFilter actionButton={<AddNote hideButton />} style={{ marginTop: '3.5rem', marginBottom: '1rem' }} />
+            <SwxDataGrid rows={expirations} columns={columns} getRowId={row => row.nurse_id} isLoading={isLoading} />
             <SwxPagination
                 itemsPerPageOptions={['5', '10', '15']}
-                paginationName='adminEmployeesPagination'
+                paginationName='adminExpirationsPagination'
                 style={{ marginBottom: '20px' }}
             />
         </>

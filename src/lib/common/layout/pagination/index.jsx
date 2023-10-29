@@ -9,7 +9,7 @@ import { SwxSelect, SwxButton, SwxTypography } from '../../components';
 import { Icon } from '../../icons';
 
 export default function SwxPagination({ itemsPerPageOptions, paginationName, ...rest }) {
-    const { currentPage, totalPages, setItemsPerPage, previousPage, nextPage, goToPage } =
+    const { currentPage, totalPages, itemsPerPage, setItemsPerPage, previousPage, nextPage, goToPage } =
         usePagination(paginationName);
 
     return (
@@ -19,6 +19,7 @@ export default function SwxPagination({ itemsPerPageOptions, paginationName, ...
                     disableClearable
                     options={itemsPerPageOptions}
                     onChange={value => setItemsPerPage(value)}
+                    value={itemsPerPage.toString()}
                     width='79px'
                     padding='0px'
                     borderRight='lightGray'
@@ -54,6 +55,7 @@ export default function SwxPagination({ itemsPerPageOptions, paginationName, ...
                     disableClearable
                     options={createNumberArray(totalPages)}
                     onChange={value => goToPage(value)}
+                    value={currentPage.toString()}
                     width='79px'
                     padding='0px'
                     borderRight='lightGray'

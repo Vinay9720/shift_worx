@@ -3,6 +3,7 @@
 import styled from 'styled-components';
 
 export const ListBoxWrapper = styled.div`
+    cursor: pointer;
     width: 100%;
     ${({ theme, maxHeight }) => `
         border-radius: ${theme.borderRadius.verySmall};
