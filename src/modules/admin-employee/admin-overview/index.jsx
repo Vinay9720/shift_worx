@@ -25,10 +25,14 @@ export default function AdminOverview() {
 
     const employees = useMemo(() => {
         if (isSuccess) {
-            return (overviewData.employees || []).map(employee => employee.user);
+            return (overviewData.employees || []).map(employee => {
+                return { ...employee.user, ...{ expirations: employee.expirations } };
+            });
         }
         return [];
     }, [overviewData]);
+
+    console.log('employees=====>', employees);
 
     const menuOptions = ({ id }) => {
         return [
@@ -68,7 +72,7 @@ export default function AdminOverview() {
         {
             field: 'fullName',
             headerName: 'Employee',
-            width: 300,
+            width: 250,
             renderCell: params => (
                 <Stack
                     direction='row'
@@ -94,9 +98,9 @@ export default function AdminOverview() {
         {
             field: 'role',
             headerName: 'Role',
-            width: 120,
+            width: 80,
             align: 'left',
-            minWidth: 120,
+            minWidth: 50,
             sortable: false,
             filterable: false,
             renderCell: params => (
@@ -127,7 +131,7 @@ export default function AdminOverview() {
         {
             field: 'lastShift',
             headerName: 'Last shift',
-            width: 170,
+            width: 120,
             align: 'left',
             // flex: 1,
             sortable: false,
@@ -138,7 +142,7 @@ export default function AdminOverview() {
         {
             field: 'nextShift',
             headerName: 'Next Shift',
-            width: 170,
+            width: 120,
             align: 'left',
             // flex: 1,
             sortable: false,
@@ -147,9 +151,29 @@ export default function AdminOverview() {
             minWidth: 120,
         },
         {
+            field: 'expirations',
+            headerName: 'Expirations',
+            width: 200,
+            align: 'left',
+            // flex: 1,
+            sortable: false,
+            renderCell: params => {
+                return (
+                    <Stack direction='row' spacing={1}>
+                        {params.value && <Icon name='alert' height={20} width={20} />}
+                        <SwxTypography color='swxBlack' size='semiMedium' weight='extraThin'>
+                            {params.value || '----'}
+                        </SwxTypography>
+                    </Stack>
+                );
+            },
+            filterable: false,
+            minWidth: 120,
+        },
+        {
             field: 'utilization',
             headerName: 'Utilization',
-            width: 330,
+            width: 380,
             align: 'left',
             flex: 1,
             sortable: false,
