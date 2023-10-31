@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react';
 import { Stack, Avatar, IconButton } from '@mui/material';
-import { capitalize } from 'lodash';
+import { capitalize, isEmpty } from 'lodash';
 import { useRouter } from 'next/navigation';
 import { useDispatch } from 'react-redux';
 
@@ -160,9 +160,9 @@ export default function AdminOverview() {
             renderCell: params => {
                 return (
                     <Stack direction='row' spacing={1}>
-                        {params.value && <Icon name='alert' height={20} width={20} />}
+                        {!isEmpty(params.value) && <Icon name='alert' height={20} width={20} />}
                         <SwxTypography color='swxBlack' size='semiMedium' weight='extraThin'>
-                            {params.value || '----'}
+                            {!isEmpty(params.value) ? params.value.join(', ') : '----'}
                         </SwxTypography>
                     </Stack>
                 );
