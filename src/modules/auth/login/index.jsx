@@ -1,15 +1,18 @@
 import React, { useState } from 'react';
 import Image from 'next/image';
-import { useSelector } from 'react-redux';
+import { useRouter } from 'next/navigation';
+// import { useSelector } from 'react-redux';
 import Link from 'next/link';
 import styled from 'styled-components';
 import { Stack } from '@mui/material';
+import { useSession, signIn, getSession } from 'next-auth/react';
 
 import { Icon } from '@/lib/common/icons';
 import { Form, FormSubmitButton, InputField } from '@/lib/common/form-components';
 import { validateEmail } from '@/lib/validators/emailValidator';
 import { SwxTypography, SwxLoader } from '@/lib/common/components';
-import { useLogin } from '@/hooks/auth/useLogin';
+import { redirectUser } from '@/lib/util';
+import { useToast } from '@/hooks/common';
 
 import {
     Container,
@@ -27,12 +30,33 @@ const PasswordIcon = styled(Icon)`
 export default function LoginForm() {
     const [isPasswordVisible, setIsPasswordVisible] = useState(false);
     const [isPasswordFocused, setIsPasswordFocused] = useState(false);
-    const { applicationLoading } = useSelector(state => state.application);
+    const showToast = useToast();
+    const [loading, setLoading] = useState(false);
+    // const { applicationLoading } = useSelector(state => state.application);
 
-    const { mutate: login, isLoading } = useLogin();
+    // const { mutate: login, isLoading } = useLogin();
+    const router = useRouter();
+    const { data: user, status } = useSession();
     const onSubmit = async credentials => {
-        login(credentials);
+        setLoading(true);
+        await signIn('credentials', {
+            email: credentials.email,
+            password: credentials.password,
+            redirect: false,
+        }).then(async response => {
+            const session = await getSession();
+            if (response.status === 200 && session) {
+                redirectUser(session, router);
+            } else if (response.status === 401) {
+                showToast('Invalid credentials', 'error');
+                setLoading(false);
+            }
+        });
     };
+
+    // const onSubmit = async credentials => {
+    //     login(credentials);
+    // };
 
     const emailProps = {
         label: (
@@ -102,9 +126,14 @@ export default function LoginForm() {
         },
     };
 
+    if (user) {
+        redirectUser(user, router);
+        return null;
+    }
+
     return (
         <Container>
-            {!isLoading || !applicationLoading ? (
+            {!(loading || status === 'loading') ? (
                 <StyledLoginContainer>
                     <HeadingContainer>
                         <Image src='/images/Swx-login.png' alt='logo' width={215} height={57} priority />
@@ -145,7 +174,7 @@ export default function LoginForm() {
                     </CopyrightContainer>
                 </StyledLoginContainer>
             ) : (
-                <SwxLoader loading={isLoading} />
+                <SwxLoader loading={loading || status === 'loading'} />
             )}
         </Container>
     );

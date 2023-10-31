@@ -10,13 +10,7 @@ import { Icon } from '@/lib/common/icons';
 import { SwxButton, SwxTypography } from '@/lib/common/components';
 import { ListBoxField, InputField, Form, FormSubmitButton, FileUploadField } from '@/lib/common/form-components';
 
-import {
-    ModalContainer,
-    HeaderContainer,
-    // StyledBorderContainer,
-    EllipseContainer,
-    CloseContainer,
-} from './add-note.styles';
+import { ModalContainer, HeaderContainer, EllipseContainer, CloseContainer } from './add-note.styles';
 
 const noteTypeOptions = [
     { label: 'Commendation', value: '7' },
@@ -27,7 +21,6 @@ const noteTypeOptions = [
 ];
 
 export default function NoteForm({ employee, modalName, action: addNote }) {
-    // const { mutate: upload } = useFileUpload();
     const dispatch = useDispatch();
 
     const noteTypeProps = {
@@ -52,7 +45,6 @@ export default function NoteForm({ employee, modalName, action: addNote }) {
 
     const fileUploadProps = {
         label: 'File Upload',
-        required: true,
         kind: 'secondary',
     };
 
@@ -89,7 +81,7 @@ export default function NoteForm({ employee, modalName, action: addNote }) {
                         <InputField name='description' SWXInputProps={noteDescriptionProps} />
                     </Stack>
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '4px', width: '100%' }}>
-                        <FileUploadField name='cert_name' SWXInputProps={fileUploadProps} />
+                        <FileUploadField name='file_key' SWXInputProps={fileUploadProps} />
                     </div>
                     <Stack
                         spacing={3}

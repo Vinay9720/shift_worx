@@ -24,7 +24,7 @@ export const useAddEmployee = () => {
     const showToast = useToast();
     const isCertificationStep = currentStep === 3;
 
-    const addEmployee = (employeeData, employeeId) => {
+    const addEmployee = ({ employeeData, employeeId }) => {
         const profileableAttributes = {
             profileable_attributes: {
                 facility_id: 1,

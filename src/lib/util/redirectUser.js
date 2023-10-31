@@ -1,8 +1,5 @@
-import { setApplicationLoading } from '../store/slices/application';
-
-export const redirectUser = (session, router, dispatch) => {
+export const redirectUser = (session, router) => {
     const { role } = session.user;
-    dispatch(setApplicationLoading(true));
     switch (role) {
         case 'admin':
             router.push('/admin/schedule?step=overview');

@@ -46,7 +46,7 @@ export default function AdminExpirations() {
                 action: e => {
                     e.preventDefault();
                     dispatch(openModal({ modalName: 'addNoteModal' }));
-                    setSelectedEmployee()
+                    setSelectedEmployee({ employee: { profileable_id: id } });
                 },
                 icon: <Icon styles={{ fill: '#838A91' }} name='paper' height={14} width={14} />,
             },
@@ -238,7 +238,10 @@ export default function AdminExpirations() {
                 entityName='Expiration'
                 onConfirm={() => console.log('deleted')}
             />
-            <SearchFilter actionButton={<AddNote hideButton />} style={{ marginTop: '3.5rem', marginBottom: '1rem' }} />
+            <SearchFilter
+                actionButton={<AddNote hideButton employee={selectedEmployee} />}
+                style={{ marginTop: '3.5rem', marginBottom: '1rem' }}
+            />
             <SwxDataGrid rows={expirations} columns={columns} getRowId={row => row.nurse_id} isLoading={isLoading} />
             <SwxPagination
                 itemsPerPageOptions={['5', '10', '15']}
