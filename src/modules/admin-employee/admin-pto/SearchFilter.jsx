@@ -8,7 +8,7 @@ import { SwxInput, SwxSelect, SwxMultiSelect, SwxButton } from '@/lib/common/com
 import { Icon } from '@/lib/common/icons';
 import { setSearch, setStatus, setRoles, clearFilters } from '@/lib/store/slices/filter/ptoFilterSlice';
 
-const statusOptions = ['Active', 'Inactive'];
+const statusOptions = ['Approved', 'Declined', 'Pending'];
 
 function SearchFilter({ actionButton: ActionButton, style }) {
     const { roles } = useSelector(state => state.ptoFilter);

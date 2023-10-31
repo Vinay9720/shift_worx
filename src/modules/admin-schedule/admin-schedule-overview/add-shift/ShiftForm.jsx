@@ -20,7 +20,7 @@ import { useCertificateOptions } from '@/hooks/certificate';
 import { useSpecialityOptions } from '@/hooks/speciality';
 import { useFacilityOptions } from '@/hooks/facility';
 
-import { ModalContainer, HeaderContainer, EllipseContainer, CloseContainer } from './add-shift.styles';
+import { ModalContainer, HeaderContainer, EllipseContainer, CloseContainer, styles } from './add-shift.styles';
 
 export default function ShiftForm({ modalName, action: addShift }) {
     const { data: employeesData, isSuccess } = useEmployees();
@@ -132,7 +132,7 @@ export default function ShiftForm({ modalName, action: addShift }) {
         ),
         placeholder: 'time',
         width: '100%',
-        // required: true,
+        required: true,
         padding: '8px 8px',
     };
 
@@ -144,7 +144,7 @@ export default function ShiftForm({ modalName, action: addShift }) {
         ),
         placeholder: 'time',
         width: '100%',
-        // required: true,
+        required: true,
         padding: '8px 8px',
     };
 
@@ -179,29 +179,31 @@ export default function ShiftForm({ modalName, action: addShift }) {
                     <Stack direction='row' spacing={2}>
                         <DatePickerField name='date' SWXInputProps={dateProps} />
                     </Stack>
-                    <Stack direction='row' spacing={2}>
-                        <TimePickerField name='start_time' SWXInputProps={startTimeProps} />
-                    </Stack>
-                    <Stack direction='row' spacing={2}>
-                        <TimePickerField name='end_time' SWXInputProps={endTimeProps} />
+                    <Stack sx={styles.timePickerStackStyles}>
+                        <Stack sx={styles.timePicker}>
+                            <TimePickerField name='start_time' SWXInputProps={startTimeProps} />
+                        </Stack>
+                        <Stack sx={styles.timePicker}>
+                            <TimePickerField name='end_time' SWXInputProps={endTimeProps} />
+                        </Stack>
                     </Stack>
                     <Stack direction='row' spacing={2}>
                         <InputField name='facility_name' SWXInputProps={stationProps} />
                     </Stack>
                     <Stack direction='row' spacing={2}>
-                        <SelectField name='role' SWXInputProps={roleProps} />
+                        <SelectField name='role' SWXInputProps={roleProps} required />
                     </Stack>
                     <Stack direction='row' spacing={2}>
-                        <SelectField name='speciality' SWXInputProps={specialityProps} />
+                        <SelectField name='speciality' SWXInputProps={specialityProps} required />
                     </Stack>
                     <Stack direction='row' spacing={2}>
-                        <SelectField name='facility' SWXInputProps={facilityProps} />
+                        <SelectField name='facility' SWXInputProps={facilityProps} required />
                     </Stack>
                     <Stack direction='row' spacing={2}>
-                        <SelectField name='employee' SWXInputProps={employeeProps} />
+                        <SelectField name='employee' SWXInputProps={employeeProps} required />
                     </Stack>
                     <Stack direction='row' spacing={2}>
-                        <SelectField name='employee_2' SWXInputProps={employee2Props} />
+                        <SelectField name='employee_2' SWXInputProps={employee2Props} required />
                     </Stack>
                     <Stack
                         spacing={3}

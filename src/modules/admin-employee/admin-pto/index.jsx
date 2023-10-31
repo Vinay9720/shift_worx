@@ -1,6 +1,6 @@
 'use client';
 
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
 import { Avatar, Stack, IconButton } from '@mui/material';
 import { useDispatch } from 'react-redux';
 
@@ -9,7 +9,9 @@ import { Icon } from '@/lib/common/icons';
 import { SwxDataGrid, SwxTypography, SwxChip, SwxPopupMenu } from '@/lib/common/components';
 import { openModal } from '@/lib/store/slices/modal-slice';
 import { useAddNote } from '@/hooks/admin-note';
-import { roleBackground, statusChipBackground, statusCircleBackground } from '@/lib/util/dynamicChipColor';
+import { usePto } from '@/hooks/admin-employee/usePto';
+import { roleBackground, statusChipBackground, statusCircleBackground } from '@/lib/util';
+import { useApprovePto, useEditPto, useDenyPto } from '@/hooks/admin-employee';
 
 import { WidgetCardsContainer } from './admin-pto.styles';
 import SearchFilter from './SearchFilter';
@@ -19,51 +21,72 @@ import PtoForm from '../add-pto/PtoForm';
 import AddRequest from '../add-pto';
 
 export default function AdminPto() {
+    const [employeeIdToBeApprove, setEmployeeIdToBeApprove] = useState();
+    const [employeeIdToBeDenied, setEmployeeIdToBeDenied] = useState();
+    const [employeeIdToBeEdited, setEmployeeIdToBeEdited] = useState();
     const dispatch = useDispatch();
     const { mutate: addNote } = useAddNote();
-    const isLoading = false;
-    const menuOptions = () => {
+    const { mutate: editPto } = useEditPto(employeeIdToBeEdited);
+    const { mutate: approvePto } = useApprovePto();
+    const { mutate: denyPto } = useDenyPto();
+    const { data: ptoData, isLoading, isSuccess } = usePto();
+
+    const menuOptions = ({ id }) => {
         return [
             {
                 label: 'Note',
                 action: e => {
                     e.preventDefault();
-                    console.log('Add note clicked');
+                    // console.log('Add note clicked');
                     dispatch(openModal({ modalName: 'addNoteModal' }));
                 },
                 icon: <Icon styles={{ fill: '#838A91' }} name='notes' height={20} width={20} />,
             },
             {
                 label: 'Edit',
-                action: e => {
-                    e.preventDefault();
-                    console.log('Edit note clicked');
+                action: async () => {
+                    setEmployeeIdToBeEdited(id);
                     dispatch(openModal({ modalName: 'editPtoModal' }));
                 },
                 icon: <Icon styles={{ fill: '#838A91' }} name='pencil' height={20} width={20} />,
             },
             {
                 label: 'Approve Request',
-                action: e => {
-                    e.preventDefault();
-                    console.log('Approve Request clicked');
+                action: () => {
+                    setEmployeeIdToBeApprove(id);
                     dispatch(openModal({ modalName: 'approveRequestModal' }));
                 },
                 icon: <Icon name='approve-request' height={26} width={22} />,
             },
             {
                 label: 'Deny Request',
-                action: e => {
-                    e.preventDefault();
+                action: () => {
+                    setEmployeeIdToBeDenied(id);
                     dispatch(openModal({ modalName: 'denyRequestModal' }));
-                    console.log('Deny Request clicked');
                 },
                 color: 'red',
                 icon: <Icon name='deny-request' height={26} width={26} />,
             },
         ];
     };
-
+    const employees = useMemo(() => {
+        if (isSuccess) {
+            return (
+                ptoData &&
+                ptoData.map(user => {
+                    return {
+                        id: user.id,
+                        employee: user.name || 'Temporary Employee',
+                        role: user.role || 'RN',
+                        status: user.state,
+                        timeOffRequested: user.start_time,
+                        description: user.description,
+                    };
+                })
+            );
+        }
+        return [];
+    }, [ptoData]);
     const columns = [
         {
             field: 'employee',
@@ -84,7 +107,7 @@ export default function AdminPto() {
             ),
             align: 'left',
             filterable: false,
-            // flex: 1,
+            flex: 1,
             minWidth: 120,
         },
         {
@@ -93,6 +116,7 @@ export default function AdminPto() {
             width: 120,
             align: 'left',
             minWidth: 120,
+            // flex: 1,
             sortable: false,
             filterable: false,
             renderCell: params => {
@@ -130,7 +154,7 @@ export default function AdminPto() {
             headerName: 'Time Off Requested',
             width: 174,
             align: 'left',
-            // flex: 1,
+            flex: 1,
             sortable: false,
             valueGetter: params => params.value || '7/4 - 8:00 AM - 8:00 PM',
             filterable: false,
@@ -173,25 +197,11 @@ export default function AdminPto() {
             ),
         },
     ];
-    const rows = [
-        { id: 1, employee: 'Katie L', role: 'RN', status: 'Approved', timeOffRequested: '', Description: '' },
-        { id: 2, employee: 'Henry Ford', role: 'LPN', status: 'Declined', timeOffRequested: '', Description: '' },
-        { id: 3, employee: 'Katie L', role: 'CNA', status: 'Pending', timeOffRequested: '', Description: '' },
-        { id: 4, employee: 'Andrew Lincon', role: 'LPN', status: 'Approved', timeOffRequested: '', Description: '' },
-        { id: 5, employee: 'Dangel Washington', role: 'RN', status: 'Pending', timeOffRequested: '', Description: '' },
-        { id: 6, employee: 'Katie L', role: 'RN', status: 'Approved', timeOffRequested: '', Description: '' },
-        { id: 7, employee: 'John Hancock', role: 'CNA', status: 'Pending', timeOffRequested: '', Description: '' },
-        { id: 8, employee: 'Katie L', role: 'RN', status: 'Declined', timeOffRequested: '', Description: '' },
-        { id: 9, employee: 'Rick Grimes', role: 'RN', status: 'Pending', timeOffRequested: '', Description: '' },
-        {
-            id: 10,
-            employee: 'Katie L',
-            role: 'CNA',
-            status: 'Pending',
-            timeOffRequested: '',
-            Description: 'Testing the Note',
-        },
-    ];
+    // const rows = [
+    //     { id: 1, employee: 'Katie L', role: 'RN', status: 'Approved', timeOffRequested: '', Description: '' },
+    //     { id: 2, employee: 'Henry Ford', role: 'LPN', status: 'Declined', timeOffRequested: '', Description: '' },
+    //     { id: 3, employee: 'Katie L', role: 'CNA', status: 'Pending', timeOffRequested: '', Description: '' },
+    // ];
     const cardsData = useMemo(
         () => [
             {
@@ -244,23 +254,27 @@ export default function AdminPto() {
                 />
             </SwxModal>
             <SwxModal modalName='editPtoModal'>
-                <PtoForm modalName='editPtoModal' />
+                <PtoForm
+                    modalName='editPtoModal'
+                    action={editPto}
+                    //  employeeData={employeePtoData}
+                />
             </SwxModal>
             <DynamicPromptModal
                 modalName='approveRequestModal'
                 entityName='request'
                 iconName='approve-check'
                 actionName='Approve'
-                // onConfirm={() => useDelelteEmployee(employeeIdToBeDeleted)}
+                onConfirm={() => approvePto(employeeIdToBeApprove)}
             />
             <DynamicPromptModal
                 modalName='denyRequestModal'
                 entityName='request'
                 iconName='circle-close-delete'
                 actionName='Deny'
-                // onConfirm={() => useDelelteEmployee(employeeIdToBeDeleted)}
+                onConfirm={() => denyPto(employeeIdToBeDenied)}
             />
-            <SwxDataGrid columns={columns} rows={rows} isLoading={isLoading} />
+            <SwxDataGrid columns={columns} rows={employees} isLoading={isLoading} />
             <SwxPagination
                 paginationName='adminPtoPagination'
                 itemsPerPageOptions={['5', '10', '15']}

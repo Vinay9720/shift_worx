@@ -52,7 +52,7 @@ const fetchPto = (itemsPerPage, page, searchParams, roles, status) => {
     if (status) queryParams.push(`status=${status}`);
 
     const queryString = queryParams.join('&');
-    return http.get(`/pto?${queryString}`);
+    return http.get(`/ptos?${queryString}`);
 };
 
 const addPto = employeeData => {
@@ -60,9 +60,20 @@ const addPto = employeeData => {
 };
 
 const updatePto = (id, employeeData) => {
-    return http.patch(`/ptos/${id}`, employeeData);
+    return http.put(`/ptos/${id}`, employeeData);
 };
 
+const fetchPtoById = id => {
+    return http.get(`/ptos/${id}/edit`);
+};
+
+const approvePto = id => {
+    return http.post(`/ptos/${id}/approve`);
+};
+
+const denyPto = id => {
+    return http.post(`/ptos/${id}/decline`);
+};
 const AdminEmployeeService = {
     fetchEmployees,
     fetchEmployee,
@@ -73,6 +84,9 @@ const AdminEmployeeService = {
     fetchPto,
     addPto,
     updatePto,
+    fetchPtoById,
+    approvePto,
+    denyPto,
 };
 
 export default AdminEmployeeService;

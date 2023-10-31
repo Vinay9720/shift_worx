@@ -39,7 +39,7 @@ const SwxCalenderInput = ({ onChange }) => {
                 />
             </IconButton>
             {calendarOpen && (
-                <div>
+                <>
                     <CalenderContainer>
                         <Calendar
                             onChange={date => {
@@ -48,7 +48,7 @@ const SwxCalenderInput = ({ onChange }) => {
                             }}
                         />
                     </CalenderContainer>
-                </div>
+                </>
             )}
         </div>
     );

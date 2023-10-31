@@ -48,10 +48,7 @@ export const StyledTitle = styled.h1`
 `;
 
 export const StyledBorderContainer = styled.div`
-    ${({ theme }) => `
-        border: 1px solid ${theme.borderColor.lightGray};
-        border-radius: ${theme.borderRadius.small};
-    `}
+    margin-top: 24px;
 `;
 
 export const StepsContainer = styled.div`
