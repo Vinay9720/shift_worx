@@ -9,9 +9,8 @@ import { Icon } from '@/lib/common/icons';
 import { SwxDataGrid, SwxTypography, SwxChip, SwxPopupMenu } from '@/lib/common/components';
 import { openModal } from '@/lib/store/slices/modal-slice';
 import { useAddNote } from '@/hooks/admin-note';
-import { usePto } from '@/hooks/admin-employee/usePto';
 import { roleBackground, statusChipBackground, statusCircleBackground } from '@/lib/util';
-import { useApprovePto, useEditPto, useDenyPto } from '@/hooks/admin-employee';
+import { useApprovePto, useEditPto, useDenyPto, useFetchPtoById, usePto } from '@/hooks/admin-employee';
 
 import { WidgetCardsContainer } from './admin-pto.styles';
 import SearchFilter from './SearchFilter';
@@ -24,21 +23,23 @@ export default function AdminPto() {
     const [employeeIdToBeApprove, setEmployeeIdToBeApprove] = useState();
     const [employeeIdToBeDenied, setEmployeeIdToBeDenied] = useState();
     const [employeeIdToBeEdited, setEmployeeIdToBeEdited] = useState();
+    const [selectedEmployee, setSelectedEmployee] = useState(null);
     const dispatch = useDispatch();
     const { mutate: addNote } = useAddNote();
     const { mutate: editPto } = useEditPto(employeeIdToBeEdited);
     const { mutate: approvePto } = useApprovePto();
     const { mutate: denyPto } = useDenyPto();
     const { data: ptoData, isLoading, isSuccess } = usePto();
+    const { data: editPtoData } = useFetchPtoById(employeeIdToBeEdited);
+    console.log(editPtoData, 'editPtoData');
 
     const menuOptions = ({ id }) => {
         return [
             {
                 label: 'Note',
-                action: e => {
-                    e.preventDefault();
-                    // console.log('Add note clicked');
+                action: () => {
                     dispatch(openModal({ modalName: 'addNoteModal' }));
+                    setSelectedEmployee({ employee: { profileable_id: id } });
                 },
                 icon: <Icon styles={{ fill: '#838A91' }} name='notes' height={20} width={20} />,
             },
@@ -73,7 +74,7 @@ export default function AdminPto() {
         if (isSuccess) {
             return (
                 ptoData &&
-                ptoData.map(user => {
+                ptoData.recordData.map(user => {
                     return {
                         id: user.id,
                         employee: user.name || 'Temporary Employee',
@@ -248,17 +249,10 @@ export default function AdminPto() {
             </WidgetCardsContainer>
             <SearchFilter actionButton={AddRequest} style={{ marginTop: '3.5rem', marginBottom: '1rem' }} />
             <SwxModal modalName='addNoteModal'>
-                <NoteForm
-                    modalName='addNoteModal'
-                    action={addNote} // employee={employee}
-                />
+                <NoteForm modalName='addNoteModal' action={addNote} employee={selectedEmployee} />
             </SwxModal>
             <SwxModal modalName='editPtoModal'>
-                <PtoForm
-                    modalName='editPtoModal'
-                    action={editPto}
-                    //  employeeData={employeePtoData}
-                />
+                <PtoForm modalName='editPtoModal' action={editPto} />
             </SwxModal>
             <DynamicPromptModal
                 modalName='approveRequestModal'

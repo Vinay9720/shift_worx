@@ -191,19 +191,19 @@ export default function ShiftForm({ modalName, action: addShift }) {
                         <InputField name='facility_name' SWXInputProps={stationProps} />
                     </Stack>
                     <Stack direction='row' spacing={2}>
-                        <SelectField name='role' SWXInputProps={roleProps} required />
+                        <SelectField name='role' SWXInputProps={roleProps} />
                     </Stack>
                     <Stack direction='row' spacing={2}>
-                        <SelectField name='speciality' SWXInputProps={specialityProps} required />
+                        <SelectField name='speciality' SWXInputProps={specialityProps} />
                     </Stack>
                     <Stack direction='row' spacing={2}>
-                        <SelectField name='facility' SWXInputProps={facilityProps} required />
+                        <SelectField name='facility' SWXInputProps={facilityProps} />
                     </Stack>
                     <Stack direction='row' spacing={2}>
-                        <SelectField name='employee' SWXInputProps={employeeProps} required />
+                        <SelectField name='employee' SWXInputProps={employeeProps} />
                     </Stack>
                     <Stack direction='row' spacing={2}>
-                        <SelectField name='employee_2' SWXInputProps={employee2Props} required />
+                        <SelectField name='employee_2' SWXInputProps={employee2Props} />
                     </Stack>
                     <Stack
                         spacing={3}

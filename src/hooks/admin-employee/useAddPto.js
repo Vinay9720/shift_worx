@@ -11,13 +11,12 @@ export const useAddPto = () => {
     const queryClient = useQueryClient();
     const dispatch = useDispatch();
     const showToast = useToast();
-
+    const PENDING = 'pending';
     const addPto = ptoData => {
         const payload = {
             ...ptoData,
             request_type: ptoData.request_type[0],
-            file_upload_keys: '3sdfsf34tfdgd',
-            state: 'pending',
+            state: PENDING,
         };
         return AdminEmployeeService.addPto(JSON.stringify(payload));
     };

@@ -1,7 +1,6 @@
 import { useMutation, useQueryClient } from 'react-query';
 import { useDispatch } from 'react-redux';
 
-// import AdminEmployeeService from '@/services/admin-employee';
 import AdminEmployeeService from '@/services/admin-employee';
 import { closeModal } from '@/lib/store/slices/modal-slice';
 
@@ -16,8 +15,6 @@ export const useEditPto = id => {
         const payload = {
             ...ptoData,
             request_type: ptoData.request_type[0],
-            file_upload_keys: '3sdfsf34tfdgd',
-            state: 'pending',
         };
 
         return AdminEmployeeService.updatePto(id, JSON.stringify(payload));

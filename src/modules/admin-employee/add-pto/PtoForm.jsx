@@ -57,6 +57,7 @@ export default function PtoForm({ modalName, requestType, action: addPto }) {
         width: '100%',
         padding: '0px',
         radius: '5px',
+        required: true,
     };
     const requestTypeProps = {
         label: 'Request Type',
@@ -128,7 +129,7 @@ export default function PtoForm({ modalName, requestType, action: addPto }) {
     const fileUploadProps = {
         label: 'Upload file',
         // required: true,
-        kind: 'primary',
+        kind: 'secondary',
     };
     return (
         <ModalContainer>
@@ -154,7 +155,7 @@ export default function PtoForm({ modalName, requestType, action: addPto }) {
                     <StyledWrapperContainer>
                         <Stack spacing={3} sx={styles.stack1}>
                             <Stack direction='row'>
-                                <SelectField name='employee' SWXInputProps={employeeProps} required />
+                                <SelectField name='employee' SWXInputProps={employeeProps} />
                             </Stack>
                             <div
                                 style={{

@@ -107,7 +107,7 @@ export default function AdminScheduleLayout({ children }) {
         <>
             <Stack direction='column' spacing={5} sx={{ mt: 7 }}>
                 <Stack direction='row'>
-                    <SwxTypography color='swxBlack' size='extraLarge' weight='bold'>
+                    <SwxTypography color='swxBlack' size='extraLarge' weight='bold' className='Manrope'>
                         Schedule
                     </SwxTypography>
                     <Stack direction='row' sx={{ display: 'flex', alignItems: 'center', widht: '100%', ml: 7 }}>
