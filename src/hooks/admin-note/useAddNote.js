@@ -13,14 +13,16 @@ export const useAddNote = () => {
     const showToast = useToast();
 
     const addNote = ({ noteData, employee }) => {
+        console.log('employee prop', employee);
         const payload = {
             step: 'notes',
-            note: { ...noteData, entity_id: employee.profileable_id, entity_type: 'Nurse' },
+            note: { ...noteData, entity_id: employee.profileable_id || employee, entity_type: 'Nurse' },
             // entitty Id will be profileable id
-            facility_user_id: employee.id,
+            facility_user_id: employee.id || employee,
         };
         // eslint-disable-next-line prefer-destructuring
         payload.note.note_type_id = noteData.note_type_id[0];
+        // console.log(payload, 'payload');
         return AdminNoteService.addNote(payload);
     };
 

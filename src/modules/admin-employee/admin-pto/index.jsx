@@ -10,7 +10,13 @@ import { SwxDataGrid, SwxTypography, SwxChip, SwxPopupMenu } from '@/lib/common/
 import { openModal } from '@/lib/store/slices/modal-slice';
 import { useAddNote } from '@/hooks/admin-note';
 import { roleBackground, statusChipBackground, statusCircleBackground } from '@/lib/util';
-import { useApprovePto, useEditPto, useDenyPto, useFetchPtoById, usePto } from '@/hooks/admin-employee';
+import {
+    useApprovePto,
+    useEditPto,
+    useDenyPto,
+    //  useFetchPtoById,
+    usePto,
+} from '@/hooks/admin-employee';
 
 import { WidgetCardsContainer } from './admin-pto.styles';
 import SearchFilter from './SearchFilter';
@@ -30,8 +36,8 @@ export default function AdminPto() {
     const { mutate: approvePto } = useApprovePto();
     const { mutate: denyPto } = useDenyPto();
     const { data: ptoData, isLoading, isSuccess } = usePto();
-    const { data: editPtoData } = useFetchPtoById(employeeIdToBeEdited);
-    console.log(editPtoData, 'editPtoData');
+    // const { data: editPtoData } = useFetchPtoById(employeeIdToBeEdited);
+    // console.log(editPtoData, 'editPtoData');
 
     const menuOptions = ({ id }) => {
         return [
@@ -39,7 +45,7 @@ export default function AdminPto() {
                 label: 'Note',
                 action: () => {
                     dispatch(openModal({ modalName: 'addNoteModal' }));
-                    setSelectedEmployee({ employee: { profileable_id: id } });
+                    setSelectedEmployee(id);
                 },
                 icon: <Icon styles={{ fill: '#838A91' }} name='notes' height={20} width={20} />,
             },
