@@ -9,6 +9,7 @@ import { useEditPto } from './useEditPto';
 import { useFetchPtoById } from './useFetchPtoById';
 import { useApprovePto } from './useApprovePto';
 import { useDenyPto } from './useDenyPto';
+import { useExpirations } from './useExpirations';
 
 export {
     useEmployees,
@@ -22,4 +23,5 @@ export {
     useFetchPtoById,
     useApprovePto,
     useDenyPto,
+    useExpirations,
 };

@@ -6,7 +6,9 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import {
     openAddCertificateForm,
+    closeAddCertificateForm,
     openEditCertificateForm,
+    closeEditCertificateForm,
     setCertificateToBeEdited,
 } from '@/lib/store/slices/edit-employee-module';
 import { CertificationCard } from '@/lib/common/layout';
@@ -41,29 +43,40 @@ function EditEmployeeStep3({ employeeData, footer }) {
                     <Stack direction='column' spacing={1.5}>
                         {!isEmpty(certificates) &&
                             certificates.map((certification, index) => {
+                                const formattedCertification = { ...certification };
+                                formattedCertification.jurisdiction = [formattedCertification.jurisdiction];
                                 return (
                                     <CertificationCard
                                         onEdit={() => {
                                             dispatch(openEditCertificateForm());
-                                            dispatch(setCertificateToBeEdited(certification));
+                                            dispatch(setCertificateToBeEdited(formattedCertification));
                                         }}
                                         key={index}
                                         certification={certification}
                                     />
                                 );
                             })}
-                        <SwxButton
-                            onClick={() => dispatch(openAddCertificateForm())}
-                            startIcon={<Icon width={17} height={12} name='addition' styles={{ fill: '#1F6FA9' }} />}
-                            size='medium'
-                            variant='text'
-                            weight='semiBold'>
-                            Add more
-                        </SwxButton>
+                        <div style={{ display: 'flex' }}>
+                            <SwxButton
+                                onClick={() => dispatch(openAddCertificateForm())}
+                                style={{ justifySelft: 'left' }}
+                                startIcon={<Icon width={17} height={12} name='addition' styles={{ fill: '#1F6FA9' }} />}
+                                size='medium'
+                                variant='text'
+                                weight='semiBold'>
+                                Add more
+                            </SwxButton>
+                        </div>
                     </Stack>
                 </Stack>
             ) : (
-                <AddCerfification employeeId={employeeData.id} defaultValues={certificateToBeEdited} />
+                <AddCerfification
+                    employeeId={employeeData.id}
+                    defaultValues={certificateToBeEdited}
+                    onCancel={() =>
+                        dispatch(addingCertificate ? closeAddCertificateForm() : closeEditCertificateForm())
+                    }
+                />
             )}
             {footer}
         </div>

@@ -1,17 +1,19 @@
 'use client';
 
+import { useRef } from 'react';
 import { Stack } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { debounce } from 'lodash';
 
 import { SwxInput, SwxSelect, SwxMultiSelect, SwxButton } from '@/lib/common/components';
 import { Icon } from '@/lib/common/icons';
-import { setSearch, setStatus, setRoles, clearFilters } from '@/lib/store/slices/filter/employeesFilterSlice';
+import { setSearch, setStatus, setRoles, clearFilters } from '@/lib/store/slices/filter/expirationsFilterSlice';
 
 const statusOptions = ['Active', 'Inactive'];
 
 function SearchFilter({ actionButton: ActionButton, style }) {
-    const { roles } = useSelector(state => state.employeesFilter);
+    const { roles, filterApplied, status } = useSelector(state => state.expirationsFilter);
+    const searchInputRef = useRef(null);
     const dispatch = useDispatch();
 
     const onRoleChange = event => {
@@ -25,6 +27,12 @@ function SearchFilter({ actionButton: ActionButton, style }) {
         debounce(setParams, 1000)();
     };
 
+    const clearSearch = () => {
+        if (searchInputRef.current) {
+            searchInputRef.current.value = '';
+        }
+    };
+
     return (
         <Stack direction='row' justifyContent='space-between' style={{ ...style }}>
             <Stack direction='row' spacing={2}>
@@ -33,6 +41,7 @@ function SearchFilter({ actionButton: ActionButton, style }) {
                     type='text'
                     style={{ width: '20rem' }}
                     onChange={onSearch}
+                    ref={searchInputRef}
                     padding='0.75rem 0.85rem'
                     placeholder='Search name, email, phone...'
                     startIcon={
@@ -43,6 +52,7 @@ function SearchFilter({ actionButton: ActionButton, style }) {
                     onChange={value => dispatch(setStatus(value))}
                     options={statusOptions}
                     placeholder='Status'
+                    value={status}
                     placeholderColor='#838A91'
                     style={{ width: '10rem' }}
                     padding='3px 6px'
@@ -56,17 +66,22 @@ function SearchFilter({ actionButton: ActionButton, style }) {
                     padding='12px 16px'
                     onChange={onRoleChange}
                 />
-                <SwxButton
-                    endIcon={<Icon width={17} height={12} name='close' styles={{ fill: '#030303' }} />}
-                    size='semiMedium'
-                    weight='thin'
-                    onClick={() => dispatch(clearFilters())}
-                    themecolor='swxBlack'
-                    variant='text'>
-                    Clear all
-                </SwxButton>
+                {filterApplied && (
+                    <SwxButton
+                        endIcon={<Icon width={17} height={12} name='close' styles={{ fill: '#030303' }} />}
+                        size='semiMedium'
+                        weight='thin'
+                        onClick={() => {
+                            dispatch(clearFilters());
+                            clearSearch();
+                        }}
+                        themecolor='swxBlack'
+                        variant='text'>
+                        Clear all
+                    </SwxButton>
+                )}
             </Stack>
-            {ActionButton && <ActionButton />}
+            {ActionButton && ActionButton}
         </Stack>
     );
 }

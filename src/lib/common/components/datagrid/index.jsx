@@ -6,7 +6,7 @@ import { DataGrid } from '@mui/x-data-grid';
 
 import { DataGridStyles } from './datagrid.styles';
 
-export default function SwxDataGrid({ rows, columns, onSelectionChange }) {
+export default function SwxDataGrid({ rows, columns, onSelectionChange, ...rest }) {
     return (
         <Box sx={{ height: '890px', width: '100%' }}>
             <DataGrid
@@ -18,6 +18,7 @@ export default function SwxDataGrid({ rows, columns, onSelectionChange }) {
                 onRowSelectionModelChange={onSelectionChange}
                 hideFooter
                 disableRowSelectionOnClick
+                {...rest}
             />
         </Box>
     );
