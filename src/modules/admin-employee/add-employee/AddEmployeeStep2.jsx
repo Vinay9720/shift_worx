@@ -68,7 +68,7 @@ function AddEmployeeStep2() {
                     Upload employee personal documents
                 </SwxTypography>
             </Stack>
-            <Form onSubmit={addEmployee} styles='flex flex-col gap-y-5'>
+            <Form onSubmit={employeeData => addEmployee({ employeeData })} styles='flex flex-col gap-y-5'>
                 <Stack direction='column' spacing={3}>
                     <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2} sx={{ padding: '0px 24px' }}>
                         <InputField name='ssn' SWXInputProps={ssnProps} />

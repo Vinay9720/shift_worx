@@ -28,7 +28,6 @@ import AddEmployeeStep3 from './AddEmployeeStep3';
 
 export default function AddEmployee() {
     const dispatch = useDispatch();
-    // const { isOpen } = useSelector(state => state.modal);
     const { currentStep } = useSelector(state => state.addEmployeeModule);
 
     return (
