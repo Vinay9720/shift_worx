@@ -1,13 +1,31 @@
 import { useQuery } from 'react-query';
+import { useSelector } from 'react-redux';
 
 import AdminEmployeeService from '@/services/admin-employee';
 
+import { usePagination } from '../common';
+
 export const usePto = () => {
-    return useQuery(['admin-pto'], () => AdminEmployeeService.fetchPto(), {
-        select: data => {
-            const ptoData = data.data;
-            return ptoData;
-        },
-        refetchOnWindowFocus: false,
-    });
+    const { itemsPerPage, currentPage, setPagination } = usePagination('adminPtoPagination');
+    const { search, status, roles } = useSelector(state => state.ptoFilter);
+    return useQuery(
+        ['admin-pto', itemsPerPage, currentPage, search, status, roles],
+        () => AdminEmployeeService.fetchPto(itemsPerPage, currentPage, search, roles, status),
+        {
+            select: data => {
+                const ptoData = data.data;
+                const formattedData = { paginationData: ptoData.pagination_data, recordData: ptoData.records };
+                return formattedData;
+            },
+            onSuccess: data => {
+                const pagination = data.paginationData;
+                setPagination({
+                    currentPage: pagination.current_page,
+                    itemsPerPage: pagination.per_page,
+                    totalItems: pagination.total_count,
+                });
+            },
+            refetchOnWindowFocus: false,
+        }
+    );
 };

@@ -1,6 +1,5 @@
 'use client';
 
-// import { useMemo } from 'react';
 import { useDispatch } from 'react-redux';
 import { Stack } from '@mui/material';
 
@@ -9,6 +8,7 @@ import { Icon } from '@/lib/common/icons';
 import { SwxButton, SwxTypography } from '@/lib/common/components';
 import {
     DatePickerField,
+    FileUploadField,
     Form,
     FormSubmitButton,
     InputField,
@@ -16,7 +16,6 @@ import {
     SelectField,
     TimePickerField,
 } from '@/lib/common/form-components';
-import { useFileUpload } from '@/hooks/common';
 
 import {
     ModalContainer,
@@ -31,20 +30,19 @@ import {
     styles,
 } from './add-pto.styles';
 
-export default function PtoForm({ modalName, requestType }) {
-    const { mutate: upload } = useFileUpload();
+export default function PtoForm({ modalName, requestType, action: addPto }) {
     const dispatch = useDispatch();
 
     const employeeOptions = ['Jack Sparrow', 'John Wick', 'Jason Statham', 'John Momoa', 'Tyler'];
     const requestTypeOptions = [
-        { label: 'Sick Leave', value: 'Sick Leave' },
-        { label: 'Vacation', value: 'Vacation' },
-        { label: 'Jury Duty', value: 'Jury Duty' },
-        { label: 'Parental Leave', value: 'Parental Leave' },
-        { label: 'Bereavement Leave', value: 'Bereavement Leave' },
-        { label: 'Holiday', value: 'Holiday' },
-        { label: 'Other', value: 'Other' },
-        { label: 'Personal', value: 'Personal' },
+        { label: 'Sick Leave', value: 'sick_leave' },
+        { label: 'Vacation', value: 'vacation' },
+        { label: 'Jury Duty', value: 'jury_duty' },
+        { label: 'Parental Leave', value: 'parental_leave' },
+        { label: 'Bereavement Leave', value: 'bereavement_leave' },
+        { label: 'Holiday', value: 'holiday' },
+        { label: 'Other', value: 'other' },
+        { label: 'Personal', value: 'personal' },
     ];
 
     const employeeProps = {
@@ -57,9 +55,9 @@ export default function PtoForm({ modalName, requestType }) {
         options: employeeOptions,
         placeholder: 'Employee Name',
         width: '100%',
-        required: true,
         padding: '0px',
         radius: '5px',
+        required: true,
     };
     const requestTypeProps = {
         label: 'Request Type',
@@ -128,6 +126,11 @@ export default function PtoForm({ modalName, requestType }) {
         rows: 4,
         style: { gap: '1px' },
     };
+    const fileUploadProps = {
+        label: 'Upload file',
+        // required: true,
+        kind: 'secondary',
+    };
     return (
         <ModalContainer>
             <HeaderContainer>
@@ -144,7 +147,11 @@ export default function PtoForm({ modalName, requestType }) {
                 </EllipseContainer>
             </HeaderContainer>
             <BodyContainer>
-                <Form onSubmit={data => console.log(data)}>
+                <Form
+                    onSubmit={ptoData => {
+                        console.log(ptoData);
+                        addPto(ptoData);
+                    }}>
                     <StyledWrapperContainer>
                         <Stack spacing={3} sx={styles.stack1}>
                             <Stack direction='row'>
@@ -167,57 +174,19 @@ export default function PtoForm({ modalName, requestType }) {
                             </Stack>
                             <Stack sx={styles.timePickerStackStyles}>
                                 <Stack sx={styles.timePicker}>
-                                    <TimePickerField name='start_time' SWXInputProps={startTimeProps} />
+                                    <TimePickerField name='time_start' SWXInputProps={startTimeProps} />
                                 </Stack>
                                 <Stack sx={styles.timePicker}>
-                                    <TimePickerField name='end_time' SWXInputProps={endTimeProps} />
+                                    <TimePickerField name='time_end' SWXInputProps={endTimeProps} />
                                 </Stack>
                             </Stack>
                             <Stack direction={{ xs: 'column', sm: 'row' }}>
                                 <InputField name='description' SWXInputProps={noteDescriptionProps} />
                             </Stack>
                         </Stack>
-                        <div
-                            style={{
-                                display: 'flex',
-                                flexDirection: 'column',
-                                width: '100%',
-                                marginTop: '24px',
-                            }}>
-                            <SwxTypography color='swxSlightlyBlack' size='semiMedium' weight='semiBold'>
-                                Upload File
-                            </SwxTypography>
-                            <StyledBorderContainer>
-                                <Stack
-                                    sx={{
-                                        justifyContent: 'space-between',
-                                        width: '100%',
-                                        padding: '12px 16px',
-                                    }}
-                                    direction='row'>
-                                    <Stack direction='column'>
-                                        <SwxTypography color='lightGray' size='semiMedium' weight='thin'>
-                                            No file choosen
-                                        </SwxTypography>
-                                        <SwxTypography color='lightGray' size='smallest' weight='semiBold'>
-                                            JPG, PNG mas 10MB
-                                        </SwxTypography>
-                                    </Stack>
-                                    <SwxButton
-                                        size='small'
-                                        padding='6px 24px'
-                                        component='label'
-                                        startIcon={
-                                            <Icon width={17} height={12} name='addition' styles={{ fill: '#1F6FA9' }} />
-                                        }
-                                        variant='outlined'
-                                        weight='bold'>
-                                        Choose File
-                                        <input type='file' onChange={upload} hidden />
-                                    </SwxButton>
-                                </Stack>
-                            </StyledBorderContainer>
-                        </div>
+                        <StyledBorderContainer>
+                            <FileUploadField name='file_name' SWXInputProps={fileUploadProps} />
+                        </StyledBorderContainer>
                     </StyledWrapperContainer>
                     <Stack
                         spacing={3}

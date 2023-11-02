@@ -46,3 +46,26 @@ export const EllipseContainer = styled.div`
     cursor: pointer;
     justify-content: center;
 `;
+export const styles = {
+    stack1: {
+        paddingRight: '96px',
+        '@media (max-width: 800px)': {
+            paddingRight: '0px',
+        },
+    },
+    timePicker: {
+        width: '235px',
+        '@media (max-width: 800px)': {
+            width: '100%',
+        },
+    },
+    timePickerStackStyles: {
+        display: 'flex',
+        flexDirection: 'row',
+        gap: '25px',
+        '@media (max-width: 800px)': {
+            display: 'flex',
+            flexDirection: 'column',
+        },
+    },
+};

@@ -22,7 +22,7 @@ const noteTypeOptions = [
 
 export default function NoteForm({ employee, modalName, action: addNote }) {
     const dispatch = useDispatch();
-
+    console.log(employee, 'employee id');
     const noteTypeProps = {
         label: 'Select type',
         validate: value => restrictEmptyArray(value, 'field can not be empty'),

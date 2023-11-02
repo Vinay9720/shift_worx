@@ -6,10 +6,12 @@ import { openModal } from '@/lib/store/slices/modal-slice';
 import { Icon } from '@/lib/common/icons';
 import { SwxButton } from '@/lib/common/components';
 import { SwxModal } from '@/lib/common/layout';
+import { useAddPto } from '@/hooks/admin-employee/useAddPto';
 
 import PtoForm from './PtoForm';
 
 export default function AddRequest() {
+    const { mutate: addPto } = useAddPto();
     const dispatch = useDispatch();
 
     return (
@@ -27,7 +29,7 @@ export default function AddRequest() {
                 Add Request
             </SwxButton>
             <SwxModal modalName='addPtoModal'>
-                <PtoForm modalName='addPtoModal' requestType='Add' />
+                <PtoForm modalName='addPtoModal' requestType='Add' action={addPto} />
             </SwxModal>
         </div>
     );

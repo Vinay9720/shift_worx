@@ -7,7 +7,7 @@ import { SwxFileUpload } from '../components';
 
 const FileUploadField = props => {
     const { control } = useFormContext();
-    const { defaultValue, SWXInputProps } = props;
+    const { defaultValue, SWXInputProps } = props; // lable, kind
     const { required, validate } = SWXInputProps;
 
     return (

@@ -6,7 +6,8 @@ import { SwxSelect } from '../components';
 
 const SelectField = props => {
     const { control } = useFormContext();
-    const { required = false, value, SWXInputProps } = props;
+    const { value, SWXInputProps } = props;
+    const { required = false } = SWXInputProps;
 
     return (
         <Controller
