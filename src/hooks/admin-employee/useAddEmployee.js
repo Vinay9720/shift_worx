@@ -44,9 +44,12 @@ export const useAddEmployee = () => {
         }
 
         const payload = {
-            user: { ...(!isCertificationStep ? employeeData : {}), ...profileableAttributes },
+            user: {
+                ...(!(isCertificationStep || urlStep === 'certificates') ? employeeData : {}),
+                ...profileableAttributes,
+            },
             step: urlStep === 'overview' ? currentStepName : urlStep,
-            ...(isCertificationStep ? nurseCertificateDetails : {}),
+            ...(isCertificationStep || urlStep === 'certificates' ? nurseCertificateDetails : {}),
             ...(facilityUserId || employeeId ? { facility_user_id: facilityUserId || employeeId } : {}),
         };
         return AdminEmployeeService.addEmployee(payload);

@@ -132,7 +132,7 @@ export default function ShiftForm({ modalName, action: addShift }) {
         ),
         placeholder: 'time',
         width: '100%',
-        // required: true,
+        required: true,
         padding: '8px 8px',
     };
 
@@ -144,7 +144,7 @@ export default function ShiftForm({ modalName, action: addShift }) {
         ),
         placeholder: 'time',
         width: '100%',
-        // required: true,
+        required: true,
         padding: '8px 8px',
     };
 

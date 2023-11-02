@@ -157,7 +157,7 @@ function AddEmployeeStep1() {
                     Add employee profile information here
                 </SwxTypography>
             </Stack>
-            <Form onSubmit={addEmployee}>
+            <Form onSubmit={employeeData => addEmployee({ employeeData })}>
                 <Stack direction='column'>
                     <Stack sx={styles.namePropStyles} direction='row'>
                         <InputField name='first_name' SWXInputProps={firstNameProps} />
