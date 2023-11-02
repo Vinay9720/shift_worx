@@ -21,7 +21,7 @@ export default function CertificationCard({ certification, onEdit }) {
         <CertificationContainer>
             <CertificationUpperSection>
                 <SwxTypography color='darkestGray' size='semiMedium' weight='bold'>
-                    Registered Nurse ({certification.name || ''})
+                    {certification.certificate.abbreviation || ''}
                 </SwxTypography>
                 <CertificationUpperRightSection>
                     <a href={getS3Url(certification.file_upload_key)}>

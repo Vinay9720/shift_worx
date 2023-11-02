@@ -7,7 +7,7 @@ export const ModalContainer = styled.div`
     transform: translate(-50%, -50%);
     max-height: 1024px;
     overflow-y: auto;
-    width: 548px;
+    width: 784px;
     height: 80vh;
     box-shadow: 24;
     ${({ theme }) => `
@@ -54,7 +54,7 @@ export const styles = {
         },
     },
     timePicker: {
-        width: '235px',
+        width: '400px',
         '@media (max-width: 800px)': {
             width: '100%',
         },
