@@ -120,7 +120,6 @@ export default function ShiftForm({ modalName, action: addShift }) {
         options: employeeOptions,
         placeholder: 'Select employee',
         width: '100%',
-        required: true,
         padding: '8px 8px',
     };
 
@@ -187,22 +186,16 @@ export default function ShiftForm({ modalName, action: addShift }) {
                             <TimePickerField name='end_time' SWXInputProps={endTimeProps} />
                         </Stack>
                     </Stack>
-                    <Stack direction='row' spacing={2}>
+                    <Stack sx={styles.timePickerStackStyles}>
                         <InputField name='facility_name' SWXInputProps={stationProps} />
-                    </Stack>
-                    <Stack direction='row' spacing={2}>
                         <SelectField name='role' SWXInputProps={roleProps} />
                     </Stack>
-                    <Stack direction='row' spacing={2}>
+                    <Stack sx={styles.timePickerStackStyles}>
                         <SelectField name='speciality' SWXInputProps={specialityProps} />
-                    </Stack>
-                    <Stack direction='row' spacing={2}>
                         <SelectField name='facility' SWXInputProps={facilityProps} />
                     </Stack>
-                    <Stack direction='row' spacing={2}>
+                    <Stack sx={styles.timePickerStackStyles}>
                         <SelectField name='employee' SWXInputProps={employeeProps} />
-                    </Stack>
-                    <Stack direction='row' spacing={2}>
                         <SelectField name='employee_2' SWXInputProps={employee2Props} />
                     </Stack>
                     <Stack
