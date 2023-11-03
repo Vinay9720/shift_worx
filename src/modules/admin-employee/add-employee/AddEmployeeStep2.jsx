@@ -16,7 +16,7 @@ function AddEmployeeStep2() {
 
     const ssnProps = {
         label: (
-            <SwxTypography color='swxSlightlyBlack' size='semiMedium' weight='thin'>
+            <SwxTypography color='swxSlightlyBlack' size='semiMedium' weight='semiBold'>
                 SSN#
             </SwxTypography>
         ),
@@ -27,7 +27,7 @@ function AddEmployeeStep2() {
 
     const driverLicenseProps = {
         label: (
-            <SwxTypography color='swxSlightlyBlack' size='semiMedium' weight='thin'>
+            <SwxTypography color='swxSlightlyBlack' size='semiMedium' weight='semiBold'>
                 Driver&apos;s License #
             </SwxTypography>
         ),
@@ -38,7 +38,7 @@ function AddEmployeeStep2() {
 
     const driverLicenseIssueProps = {
         label: (
-            <SwxTypography color='swxSlightlyBlack' size='semiMedium' weight='thin'>
+            <SwxTypography color='swxSlightlyBlack' size='semiMedium' weight='semiBold'>
                 Driver&apos;s License Issue date
             </SwxTypography>
         ),
@@ -47,16 +47,12 @@ function AddEmployeeStep2() {
 
     const driverLicenseExpireProps = {
         label: (
-            <SwxTypography color='swxSlightlyBlack' size='semiMedium' weight='thin'>
+            <SwxTypography color='swxSlightlyBlack' size='semiMedium' weight='semiBold'>
                 Driver&apos;s License Expiration Date
             </SwxTypography>
         ),
         required: true,
     };
-
-    // const onSubmit = userData => {
-    //     dispatch(setCurrentStep(3));
-    // };
 
     return (
         <>
