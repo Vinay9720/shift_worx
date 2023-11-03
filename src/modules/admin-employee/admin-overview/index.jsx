@@ -10,6 +10,7 @@ import { WidgetCard, DynamicPromptModal } from '@/lib/common/layout';
 import { SwxDataGrid, SwxChip, SwxTypography, SwxLinearProgress, SwxPopupMenu } from '@/lib/common/components';
 import { Icon } from '@/lib/common/icons';
 import SwxPagination from '@/lib/common/layout/pagination';
+import { roleBackground, userStatusChipBackground, userStatusCircleBackground, formatExpirations } from '@/lib/util';
 
 import SearchFilter from './SearchFilter';
 import { WidgetCardsContainer } from './admin-overview.styles';
@@ -26,7 +27,7 @@ export default function AdminOverview() {
     const employees = useMemo(() => {
         if (isSuccess) {
             return (overviewData.employees || []).map(employee => {
-                return { ...employee.user, ...{ expirations: employee.expirations } };
+                return { ...employee.user, ...{ expirations: employee.expirations }, ...{ roles: employee.roles[0] } };
             });
         }
         return [];
@@ -94,16 +95,17 @@ export default function AdminOverview() {
             minWidth: 120,
         },
         {
-            field: 'role',
+            field: 'roles',
             headerName: 'Role',
             width: 80,
             align: 'left',
             minWidth: 50,
             sortable: false,
             filterable: false,
-            renderCell: params => (
-                <SwxChip label={params.value || 'RN'} color='white' background='pink' size='semiMedium' />
-            ),
+            renderCell: params => {
+                const background = roleBackground(params.value);
+                return <SwxChip label={params.value || 'RN'} color='white' background={background} size='semiMedium' />;
+            },
         },
         {
             field: 'status',
@@ -111,17 +113,21 @@ export default function AdminOverview() {
             width: 140,
             align: 'left',
             // flex: 1,
-            renderCell: params => (
-                <SwxChip
-                    icon={<Icon name='circle' fill='#838A91' height={8} width={8} cx='4' cy='4' r='3.5' />}
-                    label={capitalize(params.value)}
-                    kind='rounded'
-                    color='swxBlack'
-                    background='dullGray'
-                    size='semiMedium'
-                    leftPadding='4px'
-                />
-            ),
+            renderCell: params => {
+                const circleBackground = userStatusCircleBackground(params.value);
+                const chipBackground = userStatusChipBackground(params.value);
+                return (
+                    <SwxChip
+                        icon={<Icon name='circle' fill={circleBackground} height={8} width={8} cx='4' cy='4' r='3.5' />}
+                        label={capitalize(params.value || 'Inactive')}
+                        kind='rounded'
+                        color='swxBlack'
+                        background={chipBackground}
+                        size='semiMedium'
+                        leftPadding='4px'
+                    />
+                );
+            },
             minWidth: 120,
             sortable: false,
             filterable: false,
@@ -160,7 +166,7 @@ export default function AdminOverview() {
                     <Stack direction='row' spacing={1}>
                         {!isEmpty(params.value) && <Icon name='alert' height={20} width={20} />}
                         <SwxTypography color='swxBlack' size='semiMedium' weight='extraThin'>
-                            {!isEmpty(params.value) ? params.value.join(', ') : '----'}
+                            {!isEmpty(params.value) ? formatExpirations(params.value) : 'None'}
                         </SwxTypography>
                     </Stack>
                 );
