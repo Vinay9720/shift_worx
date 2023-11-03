@@ -32,7 +32,7 @@ export default function AdminExpirations() {
         return [];
     }, [expirationsData]);
 
-    console.log('expirations', expirations);
+    // console.log('expirations', expirations);
 
     const menuOptions = ({ id }) => {
         return [
@@ -230,7 +230,9 @@ export default function AdminExpirations() {
             <DynamicPromptModal
                 modalName='deleteExpirationModal'
                 entityName='Expiration'
-                onConfirm={() => console.log('deleted')}
+                onConfirm={() => {
+                    // console.log('deleted')
+                    }}
             />
             <SearchFilter
                 actionButton={<AddNote hideButton employee={selectedEmployee} />}
