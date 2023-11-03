@@ -33,7 +33,7 @@ export default function ShiftForm({ modalName, action: addShift }) {
     const employees = useMemo(() => {
         if (isSuccess) {
             return (employeesData.employees || []).map(employee => {
-                return { name: employee.user.first_name, id: employee.user.id };
+                return { name: employee.user.first_name, id: employee.user.profileable_id };
             });
         }
         return [];
