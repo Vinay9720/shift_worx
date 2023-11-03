@@ -16,13 +16,13 @@ function EditEmployeeStep4({ employeeData }) {
     const [value, setValue] = useState('1');
     const onSearch = e => {
         const setParams = () => {
-            console.log(e.target.value);
+            // console.log(e.target.value);
         };
         debounce(setParams, 1000)();
     };
 
     const onTypeChange = type => {
-        console.log('type', type);
+        // console.log('type', type);
     };
     return (
         <>
@@ -61,7 +61,7 @@ function EditEmployeeStep4({ employeeData }) {
                         padding='0.75rem 0.85rem'
                         placeholder='From'
                         onChange={e => {
-                            console.log(e.target.value);
+                            // console.log(e.target.value);
                             setValue(e.target.value);
                         }}
                     />
@@ -72,7 +72,7 @@ function EditEmployeeStep4({ employeeData }) {
                         padding='0.75rem 0.85rem'
                         placeholder='To'
                         onChange={e => {
-                            console.log(e.target.value);
+                            // console.log(e.target.value);
                             setValue(e.target.value);
                         }}
                     />

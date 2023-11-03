@@ -35,7 +35,7 @@ const POST = async req => {
 
         return NextResponse.json({ putUrl, getUrl, key: fileName }, { status: 200 });
     } catch (error) {
-        console.log(error);
+        // console.log(error);
         throw error;
     }
 };

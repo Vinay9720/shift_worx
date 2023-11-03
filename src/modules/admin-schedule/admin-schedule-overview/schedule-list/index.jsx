@@ -11,13 +11,13 @@ export default function ScheduleList({ scheduleData, isLoading }) {
             {
                 label: 'Edit',
                 action: () => {
-                    console.log('send message clicked', id);
+                    // console.log('send message clicked', id);
                 },
             },
             {
                 label: 'Delete',
                 action: () => {
-                    console.log('send message clicked', id);
+                    // console.log('send message clicked', id);
                 },
             },
         ];
