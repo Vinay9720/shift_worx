@@ -1,4 +1,5 @@
 import { useQuery } from 'react-query';
+import { lowerCase } from 'lodash';
 import { useSelector } from 'react-redux';
 
 import AdminEmployeeService from '@/services/admin-employee';
@@ -8,9 +9,10 @@ import { usePagination } from '../common';
 export const useEmployees = () => {
     const { itemsPerPage, currentPage, setPagination } = usePagination('adminEmployeesPagination');
     const { search, status, roles } = useSelector(state => state.employeesFilter);
+    const formattedSearch = lowerCase(status);
     return useQuery(
         ['admin-employees', itemsPerPage, currentPage, search, status, roles],
-        () => AdminEmployeeService.fetchEmployees(itemsPerPage, currentPage, search, roles, status),
+        () => AdminEmployeeService.fetchEmployees(itemsPerPage, currentPage, search, roles, formattedSearch),
         {
             select: data => {
                 const res = data.data;

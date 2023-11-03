@@ -68,7 +68,7 @@ export default function AdminScheduleOverView() {
                     ) : scheduleType === 'monthly' ? (
                         <MonthWiseSchedule scheduleData={scheduleData} />
                     ) : scheduleType === 'list' ? (
-                        <ScheduleList scheduleData={scheduleData} />
+                        <ScheduleList scheduleData={scheduleData} isLoading={scheduleLoading} />
                     ) : null
                 ) : (
                     <SwxLoader loading={scheduleLoading} />

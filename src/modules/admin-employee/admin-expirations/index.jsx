@@ -21,7 +21,6 @@ import AddNote from '../add-note';
 export default function AdminExpirations() {
     const { data: expirationsData, isLoading, isSuccess } = useExpirations();
     const [selectedEmployee, setSelectedEmployee] = useState(null);
-    console.log('expirationsData', expirationsData);
     const router = useRouter();
     const dispatch = useDispatch();
 
@@ -49,14 +48,6 @@ export default function AdminExpirations() {
                     setSelectedEmployee({ employee: { profileable_id: id } });
                 },
                 icon: <Icon styles={{ fill: '#838A91' }} name='paper' height={14} width={14} />,
-            },
-            {
-                label: 'Delete',
-                action: () => {
-                    console.log('send message clicked');
-                },
-                color: 'red',
-                icon: <Icon styles={{ fill: '#F43C02' }} name='trash' height={14} width={14} />,
             },
         ];
     };
@@ -242,7 +233,7 @@ export default function AdminExpirations() {
                 actionButton={<AddNote hideButton employee={selectedEmployee} />}
                 style={{ marginTop: '3.5rem', marginBottom: '1rem' }}
             />
-            <SwxDataGrid rows={expirations} columns={columns} getRowId={row => row.nurse_id} isLoading={isLoading} />
+            <SwxDataGrid rows={expirations} columns={columns} getRowId={row => row.nurse_id} loading={isLoading} />
             <SwxPagination
                 itemsPerPageOptions={['5', '10', '15']}
                 paginationName='adminExpirationsPagination'

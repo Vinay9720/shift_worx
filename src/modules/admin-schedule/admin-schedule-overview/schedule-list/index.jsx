@@ -5,7 +5,7 @@ import { SwxDataGrid, SwxChip, SwxTypography, SwxPopupMenu } from '@/lib/common/
 import { Icon } from '@/lib/common/icons';
 import SwxPagination from '@/lib/common/layout/pagination';
 
-export default function ScheduleList({ scheduleData }) {
+export default function ScheduleList({ scheduleData, isLoading }) {
     const menuOptions = ({ id }) => {
         return [
             {
@@ -153,7 +153,7 @@ export default function ScheduleList({ scheduleData }) {
 
     return (
         <>
-            <SwxDataGrid rows={scheduleData.records} columns={columns} />
+            <SwxDataGrid loading={isLoading} rows={scheduleData.records} columns={columns} />
             <SwxPagination
                 itemsPerPageOptions={['5', '10', '15']}
                 paginationName='adminScheduleListPagination'

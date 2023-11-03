@@ -32,8 +32,6 @@ export default function AdminOverview() {
         return [];
     }, [overviewData]);
 
-    console.log('employees=====>', employees);
-
     const menuOptions = ({ id }) => {
         return [
             // {
@@ -257,11 +255,11 @@ export default function AdminOverview() {
                 onConfirm={() => deleteEmployee(employeeIdToBeDeleted)}
             />
             <SearchFilter actionButton={AddEmployee} style={{ marginTop: '3.5rem', marginBottom: '1rem' }} />
-            <SwxDataGrid rows={employees} columns={columns} isLoading={isLoading} />
+            <SwxDataGrid rows={employees} columns={columns} loading={isLoading} />
             <SwxPagination
                 itemsPerPageOptions={['5', '10', '15']}
                 paginationName='adminEmployeesPagination'
-                style={{ marginBottom: '20px' }}
+                style={{ marginBottom: '20px', marginTop: '30px' }}
             />
         </>
     );
