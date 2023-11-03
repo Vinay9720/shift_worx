@@ -84,19 +84,7 @@ module.exports = {
         'import/no-named-as-default': 'off',
         'import/prefer-default-export': 'off',
         // To be tweaked to be compatible with VSCode sort extension
-        'import/order': [
-            'error',
-            {
-                groups: ['builtin', 'external', 'internal', 'index', 'sibling', 'parent'],
-                pathGroups: [
-                    {
-                        pattern: '@/**',
-                        group: 'internal',
-                    },
-                ],
-                'newlines-between': 'always',
-            },
-        ],
+        'import/order': 'off',
         'unused-imports/no-unused-imports': 'error',
 
         /* Jest */

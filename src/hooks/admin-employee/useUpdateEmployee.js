@@ -2,14 +2,10 @@
 import { useMutation, useQueryClient } from 'react-query';
 import { useSelector, useDispatch } from 'react-redux';
 import { useSearchParams } from 'next/navigation';
-import {
-    isEmpty
-} from 'lodash';
+import { isEmpty } from 'lodash';
 import { closeAddCertificateForm } from '@/lib/store/slices/edit-employee-module';
 import AdminEmployeeService from '@/services/admin-employee';
-import {
-    useToast
-} from '../common';
+import { useToast } from '../common';
 
 export const useUpdateEmployee = () => {
     const { currentStepName, currentStep } = useSelector(state => state.editEmployeeModule);
