@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Stack } from '@mui/material';
 
 import { closeModal, openModal } from '@/lib/store/slices/modal-slice';
-import { setCurrentStep } from '@/lib/store/slices/add-employee-module';
+// import { setCurrentStep } from '@/lib/store/slices/add-employee-module';
 import { Icon } from '@/lib/common/icons';
 import { SwxButton, SwxTypography } from '@/lib/common/components';
 import { SwxModal } from '@/lib/common/layout';
@@ -59,19 +59,22 @@ export default function AddEmployee() {
                             </EllipseContainer>
                         </TitleContainer>
                         <StepsContainer>
-                            <StyledStep onClick={() => dispatch(setCurrentStep(1))}>
+                            {/* <StyledStep onClick={() => dispatch(setCurrentStep(1))}> */}
+                            <StyledStep>
                                 <StyledNumber active={currentStep === 1 && true}>1</StyledNumber>
                                 <SwxTypography color='swxBlack' size='smallest' weight='thin'>
                                     Profile Information
                                 </SwxTypography>
                             </StyledStep>
-                            <StyledStep onClick={() => dispatch(setCurrentStep(2))}>
+                            {/* <StyledStep onClick={() => dispatch(setCurrentStep(2))}> */}
+                            <StyledStep>
                                 <StyledNumber active={currentStep === 2 && true}>2</StyledNumber>
                                 <SwxTypography color='swxBlack' size='smallest' weight='thin'>
                                     Personal Document
                                 </SwxTypography>
                             </StyledStep>
-                            <StyledStep onClick={() => dispatch(setCurrentStep(3))}>
+                            {/* <StyledStep onClick={() => dispatch(setCurrentStep(3))}> */}
+                            <StyledStep>
                                 <StyledNumber active={currentStep === 3 && true}>3</StyledNumber>
                                 <SwxTypography color='swxBlack' size='smallest' weight='thin'>
                                     Certifications

@@ -2,6 +2,7 @@ import { useMemo, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Stack, Avatar, IconButton } from '@mui/material';
 import { useRouter } from 'next/navigation';
+import { capitalize } from 'lodash';
 
 // import { openModal } from '@/lib/store/slices/modal-slice';
 import { WidgetCard, DynamicPromptModal } from '@/lib/common/layout';
@@ -11,7 +12,7 @@ import { openModal } from '@/lib/store/slices/modal-slice';
 import SwxPagination from '@/lib/common/layout/pagination';
 import { useExpirations } from '@/hooks/admin-employee';
 import { roleBackground } from '@/lib/util/dynamicChipColor';
-import { userStatusChipBackground, userStatusCircleBackground, formatDate } from '@/lib/util';
+import { userStatusChipBackground, userStatusCircleBackground, formatDate, formatExpirations } from '@/lib/util';
 
 import SearchFilter from './SearchFilter';
 import { WidgetCardsContainer } from './admin-expirations.styles';
@@ -30,6 +31,8 @@ export default function AdminExpirations() {
         }
         return [];
     }, [expirationsData]);
+
+    console.log('expirations', expirations);
 
     const menuOptions = ({ id }) => {
         return [
@@ -107,7 +110,7 @@ export default function AdminExpirations() {
                 return (
                     <SwxChip
                         icon={<Icon name='circle' fill={circleBackground} height={8} width={8} cx='4' cy='4' r='3.5' />}
-                        label={params.value || 'Inactive'}
+                        label={capitalize(params.value || 'Inactive')}
                         kind='rounded'
                         color='swxBlack'
                         background={chipBackground}
@@ -129,7 +132,7 @@ export default function AdminExpirations() {
                     <Stack direction='row' spacing={1}>
                         <Icon name='alert' height={20} width={20} />
                         <SwxTypography color='swxBlack' size='semiMedium' weight='extraThin'>
-                            {params.value}
+                            {formatExpirations(params.value)}
                         </SwxTypography>
                     </Stack>
                 );
@@ -233,11 +236,16 @@ export default function AdminExpirations() {
                 actionButton={<AddNote hideButton employee={selectedEmployee} />}
                 style={{ marginTop: '3.5rem', marginBottom: '1rem' }}
             />
-            <SwxDataGrid rows={expirations} columns={columns} getRowId={row => row.nurse_id} loading={isLoading} />
+            <SwxDataGrid
+                rows={expirations.map((row, index) => ({ ...row, id: `${row.nurse_id}_${index}` }))}
+                columns={columns}
+                getRowId={row => row.id}
+                loading={isLoading}
+            />
             <SwxPagination
                 itemsPerPageOptions={['5', '10', '15']}
                 paginationName='adminExpirationsPagination'
-                style={{ marginBottom: '20px' }}
+                style={{ marginBottom: '20px', marginTop: '30px' }}
             />
         </>
     );
