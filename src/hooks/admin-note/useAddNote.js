@@ -13,7 +13,6 @@ export const useAddNote = () => {
     const showToast = useToast();
 
     const addNote = ({ noteData, employee }) => {
-        console.log('employee prop', employee);
         const payload = {
             step: 'notes',
             note: { ...noteData, entity_id: employee.profileable_id || employee, entity_type: 'Nurse' },
@@ -22,7 +21,6 @@ export const useAddNote = () => {
         };
         // eslint-disable-next-line prefer-destructuring
         payload.note.note_type_id = noteData.note_type_id[0];
-        // console.log(payload, 'payload');
         return AdminNoteService.addNote(payload);
     };
 

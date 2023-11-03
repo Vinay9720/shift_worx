@@ -144,6 +144,7 @@ function AddEmployeeStep1() {
         placeholderColor: '#838A91',
         width: '100%',
         multiple: false,
+        required: true,
         padding: '8px 4px',
     };
 

@@ -44,7 +44,7 @@ export const useAddShift = () => {
             showToast('Shift Successfully Added!', 'success');
         },
         onError: error => {
-            showToast(error.response.data.errors[0], 'error');
+            showToast(error.response.data.message, 'error');
         },
     });
 };
