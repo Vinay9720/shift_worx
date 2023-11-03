@@ -232,7 +232,7 @@ export default function AdminExpirations() {
                 entityName='Expiration'
                 onConfirm={() => {
                     // console.log('deleted')
-                    }}
+                }}
             />
             <SearchFilter
                 actionButton={<AddNote hideButton employee={selectedEmployee} />}
