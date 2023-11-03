@@ -1,10 +1,13 @@
 'use client';
 
+import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Stack } from '@mui/material';
+import moment from 'moment';
 
 import { closeModal } from '@/lib/store/slices/modal-slice';
 import { Icon } from '@/lib/common/icons';
+import { restrictEmptyArray } from '@/lib/validators';
 import { SwxButton, SwxTypography } from '@/lib/common/components';
 import {
     DatePickerField,
@@ -30,10 +33,34 @@ import {
     styles,
 } from './add-pto.styles';
 
-export default function PtoForm({ modalName, requestType, action: addPto }) {
+export default function PtoForm({ modalName, requestType, action: addPto, employee }) {
+    console.log(employee, 'employee');
+    const [formattedData, setFormattedData] = useState({});
     const dispatch = useDispatch();
+    useEffect(() => {
+        if (employee && Object.keys(formattedData).length === 0) {
+            const startDate = employee.start_time;
+            const endDate = employee.end_time;
+            const startTime = employee.start_time;
+            const endTime = employee.end_time;
+            const formattedStartTime = moment(startTime).format('hh:mma');
+            const formattedEndTime = moment(endTime).format('hh:mma');
+            const formattedStartDate = moment(startDate).format('DD-MM-YYYY');
+            const formattedEndDate = moment(endDate).format('DD-MM-YYYY');
+            const formattedEmployee = {
+                employee: employee.name || 'Admin4 User',
+                description: employee.description,
+                time_start: formattedStartTime,
+                time_end: formattedEndTime,
+                start_date: formattedStartDate,
+                end_date: formattedEndDate,
+                request_type: [employee.request_type],
+            };
+            setFormattedData(formattedEmployee);
+        }
+    }, [employee, formattedData]);
 
-    const employeeOptions = ['Jack Sparrow', 'John Wick', 'Jason Statham', 'John Momoa', 'Tyler'];
+    const employeeOptions = ['Tyler White', 'John Doe', 'Jason', 'Arthur Curry', 'Tyler'];
     const requestTypeOptions = [
         { label: 'Sick Leave', value: 'sick_leave' },
         { label: 'Vacation', value: 'vacation' },
@@ -62,7 +89,7 @@ export default function PtoForm({ modalName, requestType, action: addPto }) {
     const requestTypeProps = {
         label: 'Request Type',
         placeholder: 'Request Type',
-        // validate: value => restrictEmptyArray(value, 'field can not be empty'),
+        validate: value => restrictEmptyArray(value, 'field can not be empty'),
         options: requestTypeOptions,
         required: true,
     };
@@ -148,6 +175,7 @@ export default function PtoForm({ modalName, requestType, action: addPto }) {
             </HeaderContainer>
             <BodyContainer>
                 <Form
+                    defaultValues={formattedData}
                     onSubmit={ptoData => {
                         console.log(ptoData);
                         addPto(ptoData);

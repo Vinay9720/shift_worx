@@ -64,6 +64,7 @@ const updatePto = (id, employeeData) => {
 };
 
 const fetchPtoById = id => {
+    if (!id) return;
     return http.get(`/ptos/${id}/edit`);
 };
 
