@@ -8,10 +8,12 @@ import { SwxInput, SwxSelect, SwxMultiSelect, SwxButton } from '@/lib/common/com
 import { Icon } from '@/lib/common/icons';
 import { setSearch, setStatus, setRoles, clearFilters } from '@/lib/store/slices/filter/ptoFilterSlice';
 
+import { styles } from './admin-pto.styles';
+
 const statusOptions = ['Approved', 'Declined', 'Pending'];
 
 function SearchFilter({ actionButton: ActionButton, style }) {
-    const { roles } = useSelector(state => state.ptoFilter);
+    const { roles, filterApplied, status } = useSelector(state => state.ptoFilter);
     const dispatch = useDispatch();
 
     const onRoleChange = event => {
@@ -26,8 +28,8 @@ function SearchFilter({ actionButton: ActionButton, style }) {
     };
 
     return (
-        <Stack direction='row' justifyContent='space-between' style={{ ...style }}>
-            <Stack direction='row' spacing={2}>
+        <Stack direction='row' sx={styles.mainContainer} style={{ ...style }}>
+            <Stack direction='row' sx={styles.subContainer}>
                 <SwxInput
                     placeholderColor='lightGray'
                     type='text'
@@ -39,32 +41,37 @@ function SearchFilter({ actionButton: ActionButton, style }) {
                         <Icon styles={{ fill: '#838A91' }} name='search' aria-hidden='true' height={24} width={24} />
                     }
                 />
-                <SwxSelect
-                    onChange={value => dispatch(setStatus(value))}
-                    options={statusOptions}
-                    placeholder='Status'
-                    placeholderColor='#838A91'
-                    style={{ width: '10rem' }}
-                    padding='3px 6px'
-                />
-                <SwxMultiSelect
-                    insideLabel='Roles'
-                    multiple
-                    style={{ width: '8rem' }}
-                    options={['RN', 'LPN', 'CNA']}
-                    value={roles}
-                    padding='12px 16px'
-                    onChange={onRoleChange}
-                />
-                <SwxButton
-                    endIcon={<Icon width={17} height={12} name='close' styles={{ fill: '#030303' }} />}
-                    size='semiMedium'
-                    weight='thin'
-                    onClick={() => dispatch(clearFilters())}
-                    themecolor='swxBlack'
-                    variant='text'>
-                    Clear all
-                </SwxButton>
+                <Stack sx={styles.filtersContainer}>
+                    <SwxSelect
+                        onChange={value => dispatch(setStatus(value))}
+                        options={statusOptions}
+                        placeholder='Status'
+                        value={status}
+                        placeholderColor='#838A91'
+                        style={{ width: '10rem' }}
+                        padding='3px 6px'
+                    />
+                    <SwxMultiSelect
+                        insideLabel='Roles'
+                        multiple
+                        style={{ width: '8rem' }}
+                        options={['RN', 'LPN', 'CNA']}
+                        value={roles}
+                        padding='12px 16px'
+                        onChange={onRoleChange}
+                    />
+                </Stack>
+                {filterApplied && (
+                    <SwxButton
+                        endIcon={<Icon width={17} height={12} name='close' styles={{ fill: '#030303' }} />}
+                        size='semiMedium'
+                        weight='thin'
+                        onClick={() => dispatch(clearFilters())}
+                        themecolor='swxBlack'
+                        variant='text'>
+                        Clear all
+                    </SwxButton>
+                )}
             </Stack>
             {ActionButton && <ActionButton />}
         </Stack>

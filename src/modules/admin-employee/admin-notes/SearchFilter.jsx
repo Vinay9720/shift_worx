@@ -17,6 +17,8 @@ import {
     clearFilters,
 } from '@/lib/store/slices/filter/notesFilterSlice';
 
+import { styles } from './admin-notes.styles';
+
 const noteTypeOptions = [
     { label: 'Commendation', value: '7' },
     { label: 'Disciplinary', value: '8' },
@@ -51,8 +53,8 @@ function SearchFilter({ style }) {
     };
 
     return (
-        <Stack direction='row' justifyContent='space-between' style={{ ...style, marginTop: '3.5rem' }}>
-            <Stack direction='row' spacing={2} style={{ width: '80%' }}>
+        <Stack direction='row' sx={styles.mainContainer} style={{ ...style, marginTop: '3.5rem' }}>
+            <Stack direction='row' sx={styles.subContainer} style={{ width: '80%' }}>
                 <SwxInput
                     type='text'
                     style={{ width: '17rem' }}
@@ -63,42 +65,50 @@ function SearchFilter({ style }) {
                         <Icon styles={{ fill: '#838A91' }} name='search' aria-hidden='true' height={24} width={24} />
                     }
                 />
-                <SwxSelect
-                    onChange={onTypeChange}
-                    options={noteTypeOptions}
-                    placeholder='Type'
-                    disableClearable
-                    value={type}
-                    style={{ width: '7rem' }}
-                    padding='3px 6px'
-                />
-                <SwxSelect
-                    placeholder='Status'
-                    options={statusOptions}
-                    disableClearable
-                    value={status}
-                    onChange={value => dispatch(setStatus(value))}
-                    style={{ width: '7rem' }}
-                    padding='3px 6px'
-                />
-                <SwxDatePicker
-                    value={startDate}
-                    width='15%'
-                    padding='0.75rem 0.85rem'
-                    placeholder='From'
-                    onChange={date => {
-                        setStartDate(date);
-                    }}
-                />
-                <SwxDatePicker
-                    value={endDate}
-                    width='15%'
-                    padding='0.75rem 0.85rem'
-                    placeholder='To'
-                    onChange={date => {
-                        setEndDate(date);
-                    }}
-                />
+                <Stack sx={styles.filtersContainer}>
+                    <SwxSelect
+                        onChange={onTypeChange}
+                        options={noteTypeOptions}
+                        placeholder='Type'
+                        disableClearable
+                        value={type}
+                        style={{ width: '7rem' }}
+                        padding='3px 6px'
+                    />
+                    <SwxSelect
+                        placeholder='Status'
+                        options={statusOptions}
+                        disableClearable
+                        value={status}
+                        onChange={value => dispatch(setStatus(value))}
+                        style={{ width: '7rem' }}
+                        padding='3px 6px'
+                    />
+                </Stack>
+                <Stack sx={styles.datesContainer}>
+                    <Stack sx={styles.datesSubContainer}>
+                        <SwxDatePicker
+                            value={startDate}
+                            width='100%'
+                            padding='0.75rem 0.85rem'
+                            placeholder='From'
+                            onChange={date => {
+                                setStartDate(date);
+                            }}
+                        />
+                    </Stack>
+                    <Stack sx={styles.datesSubContainer}>
+                        <SwxDatePicker
+                            value={endDate}
+                            width='100%'
+                            padding='0.75rem 0.85rem'
+                            placeholder='To'
+                            onChange={date => {
+                                setEndDate(date);
+                            }}
+                        />
+                    </Stack>
+                </Stack>
                 {filterApplied && (
                     <SwxButton
                         endIcon={<Icon width={17} height={12} name='close' styles={{ fill: '#030303' }} />}

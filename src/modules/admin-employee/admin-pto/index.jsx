@@ -3,6 +3,7 @@
 import { useMemo, useState } from 'react';
 import { Avatar, Stack, IconButton } from '@mui/material';
 import { useDispatch } from 'react-redux';
+import moment from 'moment';
 
 import { WidgetCard, SwxPagination, SwxModal, DynamicPromptModal } from '@/lib/common/layout';
 import { Icon } from '@/lib/common/icons';
@@ -10,13 +11,8 @@ import { SwxDataGrid, SwxTypography, SwxChip, SwxPopupMenu } from '@/lib/common/
 import { openModal } from '@/lib/store/slices/modal-slice';
 import { useAddNote } from '@/hooks/admin-note';
 import { roleBackground, statusChipBackground, statusCircleBackground } from '@/lib/util';
-import {
-    useApprovePto,
-    useEditPto,
-    useDenyPto,
-    //  useFetchPtoById,
-    usePto,
-} from '@/hooks/admin-employee';
+import { useApprovePto, useEditPto, useDenyPto, usePto } from '@/hooks/admin-employee';
+import AdminEmployeeService from '@/services/admin-employee';
 
 import { WidgetCardsContainer } from './admin-pto.styles';
 import SearchFilter from './SearchFilter';
@@ -26,18 +22,14 @@ import PtoForm from '../add-pto/PtoForm';
 import AddRequest from '../add-pto';
 
 export default function AdminPto() {
-    const [employeeIdToBeApprove, setEmployeeIdToBeApprove] = useState();
-    const [employeeIdToBeDenied, setEmployeeIdToBeDenied] = useState();
-    const [employeeIdToBeEdited, setEmployeeIdToBeEdited] = useState();
-    const [selectedEmployee, setSelectedEmployee] = useState(null);
+    const [employeeId, setEmployeeId] = useState();
+    const [employeeData, setEmployeeData] = useState();
     const dispatch = useDispatch();
     const { mutate: addNote } = useAddNote();
-    const { mutate: editPto } = useEditPto(employeeIdToBeEdited);
+    const { mutate: editPto } = useEditPto(employeeId);
     const { mutate: approvePto } = useApprovePto();
     const { mutate: denyPto } = useDenyPto();
     const { data: ptoData, isLoading, isSuccess } = usePto();
-    // const { data: editPtoData } = useFetchPtoById(employeeIdToBeEdited);
-    // console.log(editPtoData, 'editPtoData');
 
     const menuOptions = ({ id }) => {
         return [
@@ -45,14 +37,17 @@ export default function AdminPto() {
                 label: 'Note',
                 action: () => {
                     dispatch(openModal({ modalName: 'addNoteModal' }));
-                    setSelectedEmployee(id);
+                    setEmployeeId(id);
                 },
                 icon: <Icon styles={{ fill: '#838A91' }} name='notes' height={20} width={20} />,
             },
             {
                 label: 'Edit',
                 action: async () => {
-                    setEmployeeIdToBeEdited(id);
+                    setEmployeeId(id);
+                    const response = await AdminEmployeeService.fetchPtoById(id);
+                    const data = await response.data;
+                    setEmployeeData(data);
                     dispatch(openModal({ modalName: 'editPtoModal' }));
                 },
                 icon: <Icon styles={{ fill: '#838A91' }} name='pencil' height={20} width={20} />,
@@ -60,7 +55,7 @@ export default function AdminPto() {
             {
                 label: 'Approve Request',
                 action: () => {
-                    setEmployeeIdToBeApprove(id);
+                    setEmployeeId(id);
                     dispatch(openModal({ modalName: 'approveRequestModal' }));
                 },
                 icon: <Icon name='approve-request' height={26} width={22} />,
@@ -68,7 +63,7 @@ export default function AdminPto() {
             {
                 label: 'Deny Request',
                 action: () => {
-                    setEmployeeIdToBeDenied(id);
+                    setEmployeeId(id);
                     dispatch(openModal({ modalName: 'denyRequestModal' }));
                 },
                 color: 'red',
@@ -81,12 +76,19 @@ export default function AdminPto() {
             return (
                 ptoData &&
                 ptoData.recordData.map(user => {
+                    const starttime = user.start_time;
+                    const endtime = user.end_time;
+                    const startTime = moment(starttime);
+                    const endTime = moment(endtime);
+                    const formattedOutput = `${startTime.format('M/D')} - ${startTime.format(
+                        'h:mm A'
+                    )} - ${endTime.format('h:mm A')}`;
                     return {
                         id: user.id,
                         employee: user.name || 'Temporary Employee',
                         role: user.role || 'RN',
-                        status: user.state,
-                        timeOffRequested: user.start_time,
+                        status: user.state.split('')[0].toUpperCase() + user.state.slice(1),
+                        timeOffRequested: formattedOutput,
                         description: user.description,
                     };
                 })
@@ -255,24 +257,24 @@ export default function AdminPto() {
             </WidgetCardsContainer>
             <SearchFilter actionButton={AddRequest} style={{ marginTop: '3.5rem', marginBottom: '1rem' }} />
             <SwxModal modalName='addNoteModal'>
-                <NoteForm modalName='addNoteModal' action={addNote} employee={selectedEmployee} />
+                <NoteForm modalName='addNoteModal' action={addNote} employee={employeeId} />
             </SwxModal>
             <SwxModal modalName='editPtoModal'>
-                <PtoForm modalName='editPtoModal' action={editPto} />
+                <PtoForm modalName='editPtoModal' action={editPto} employee={employeeData} />
             </SwxModal>
             <DynamicPromptModal
                 modalName='approveRequestModal'
                 entityName='request'
                 iconName='approve-check'
                 actionName='Approve'
-                onConfirm={() => approvePto(employeeIdToBeApprove)}
+                onConfirm={() => approvePto(employeeId)}
             />
             <DynamicPromptModal
                 modalName='denyRequestModal'
                 entityName='request'
                 iconName='circle-close-delete'
                 actionName='Deny'
-                onConfirm={() => denyPto(employeeIdToBeDenied)}
+                onConfirm={() => denyPto(employeeId)}
             />
             <SwxDataGrid columns={columns} rows={employees} loading={isLoading} />
             <SwxPagination

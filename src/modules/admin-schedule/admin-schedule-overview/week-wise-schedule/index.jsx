@@ -13,6 +13,8 @@ import Badge from '@/lib/common/layout/daily-schedule-banner';
 import { Icon } from '@/lib/common/icons';
 import { SwxPopupMenu } from '@/lib/common/components';
 
+import { styles } from './week-wise-schedule.styles';
+
 export default function WeekWiseSchedule({ scheduleData }) {
     const { currentTimeValue } = useSelector(state => state.adminScheduleModule);
     const getCurrentWeekdays = () => {
@@ -175,7 +177,7 @@ export default function WeekWiseSchedule({ scheduleData }) {
                         return (
                             <div key={i} className='flex flex-row bg-white border border-b-0 border-borderGray'>
                                 <div className='flex justify-center items-center w-[20%] py-4 bg-white text-lightGray border border-r-borderGray'>
-                                    <div className='grid grid-flow-col grid-rows-1 gap-2 '>
+                                    <div style={styles.mainDiv}>
                                         <div className='row-span-2'>
                                             <img
                                                 src='https://picsum.photos/200'
@@ -183,34 +185,36 @@ export default function WeekWiseSchedule({ scheduleData }) {
                                                 style={{ width: `50x`, height: `50px` }}
                                             />
                                         </div>
-                                        <div className='items-center justify-center col-span-1 font-semibold text-default text-newBlackColor'>
-                                            {emp.name}
-                                        </div>
-                                        <div className='flex flex-row -mt-4'>
-                                            <div className='flex items-center justify-center mr-2'>
-                                                <Icon
-                                                    styles={{ fill: '#838A91' }}
-                                                    name='clock'
-                                                    aria-hidden='true'
-                                                    height={16}
-                                                    width={16}
-                                                />
+                                        <div>
+                                            <div className='items-center justify-space-evenly col-span-1 mb-4 font-semibold text-default text-newBlackColor'>
+                                                {emp.name}
                                             </div>
-                                            <div className='flex items-center justify-center mr-2 text-sm font-medium text-newLightGray'>
-                                                {emp.start_time || '08:00hrs'}
-                                            </div>
-                                            <div className='flex items-center justify-center mt-2 mr-2 gray_dot' />
-                                            <div className='flex items-center justify-center mr-2'>
-                                                <Icon
-                                                    styles={{ fill: '#838A91' }}
-                                                    name='calender'
-                                                    aria-hidden='true'
-                                                    height={16}
-                                                    width={16}
-                                                />
-                                            </div>
-                                            <div className='flex items-center justify-center mr-2 text-sm font-medium text-newLightGray'>
-                                                {emp.schedule_count || 1}
+                                            <div className='flex flex-row -mt-4'>
+                                                <div className='flex items-center justify-center mr-2'>
+                                                    <Icon
+                                                        styles={{ fill: '#838A91' }}
+                                                        name='clock'
+                                                        aria-hidden='true'
+                                                        height={16}
+                                                        width={16}
+                                                    />
+                                                </div>
+                                                <div className='flex items-center justify-center mr-2 text-sm font-medium text-newLightGray'>
+                                                    {emp.start_time || '08:00hrs'}
+                                                </div>
+                                                <div className='flex items-center justify-center mt-2 mr-2 gray_dot' />
+                                                <div className='flex items-center justify-center mr-2'>
+                                                    <Icon
+                                                        styles={{ fill: '#838A91' }}
+                                                        name='calender'
+                                                        aria-hidden='true'
+                                                        height={16}
+                                                        width={16}
+                                                    />
+                                                </div>
+                                                <div className='flex items-center justify-center mr-2 text-sm font-medium text-newLightGray'>
+                                                    {emp.schedule_count || 1}
+                                                </div>
                                             </div>
                                         </div>
                                     </div>

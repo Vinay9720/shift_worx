@@ -12,11 +12,11 @@ export const roleBackground = status => {
 };
 export const statusChipBackground = status => {
     switch (status) {
-        case 'approved':
+        case 'Approved':
             return 'paleGreen';
-        case 'declined':
+        case 'Declined':
             return 'lightPink';
-        case 'pending':
+        case 'Pending':
             return 'dullGray';
         default:
             return 'dullGray';
@@ -24,11 +24,11 @@ export const statusChipBackground = status => {
 };
 export const statusCircleBackground = status => {
     switch (status) {
-        case 'approved':
+        case 'Approved':
             return '#02B692';
-        case 'declined':
+        case 'Declined':
             return '#E65889';
-        case 'pending':
+        case 'Pending':
             return '#838A91';
         default:
             return '#838A91';
