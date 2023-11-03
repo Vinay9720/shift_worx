@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef } from 'react';
+import { useRef, useEffect } from 'react';
 import { Stack } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { debounce } from 'lodash';
@@ -15,6 +15,12 @@ function SearchFilter({ actionButton: ActionButton, style }) {
     const { roles, filterApplied, status } = useSelector(state => state.employeesFilter);
     const searchInputRef = useRef(null);
     const dispatch = useDispatch();
+
+    useEffect(() => {
+        return () => {
+            dispatch(clearFilters());
+        };
+    }, []);
 
     const onRoleChange = event => {
         dispatch(setRoles(event.target.value));

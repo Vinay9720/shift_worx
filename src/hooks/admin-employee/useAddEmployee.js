@@ -61,6 +61,10 @@ export const useAddEmployee = () => {
                 dispatch(handleNext());
                 dispatch(setFacilityUserId(response.data.facility_user.id));
             }
+            if (isCertificationStep || urlStep === 'certificates') {
+                showToast('saved successfully', 'success');
+                dispatch(closeAddCertificateForm());
+            }
             dispatch(closeAddCertificateForm());
             dispatch(closeCertificateFormFromEditEmployee());
             dispatch(setCertificates(response.data.certificates));

@@ -1,28 +1,24 @@
 'use client';
 
 import { Stack } from '@mui/material';
-import { useDispatch } from 'react-redux';
 
-import { useAddEmployee } from '@/hooks/admin-employee';
-import { closeAddCertificateForm } from '@/lib/store/slices/add-employee-module';
+import { useUpdateEmployee } from '@/hooks/admin-employee';
 
-import CertificateForm from './CertificateForm';
-import { styles } from './add-certificate.styles';
+import CertificateForm from '../add-certificate/CertificateForm';
+import { styles } from '../add-certificate/add-certificate.styles';
 
-function AddCerfification({ defaultValues, employeeId }) {
-    const dispatch = useDispatch();
-
-    const { mutate: addEmployee } = useAddEmployee();
+function EditCerfification({ defaultValues, employeeId, onCancel }) {
+    const { mutate: updateCertification } = useUpdateEmployee();
 
     return (
         <Stack direction='column' spacing={3} sx={styles.mainStack}>
             <CertificateForm
-                onSubmit={formValues => addEmployee(formValues, employeeId)}
+                onSubmit={employeeData => updateCertification({ id: employeeId, employeeData })}
                 defaultValues={defaultValues}
-                onCancel={() => dispatch(closeAddCertificateForm())}
+                onCancel={onCancel}
             />
         </Stack>
     );
 }
 
-export default AddCerfification;
+export default EditCerfification;

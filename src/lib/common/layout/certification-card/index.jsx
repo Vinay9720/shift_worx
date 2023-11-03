@@ -2,7 +2,7 @@
 
 import { Stack } from '@mui/material';
 
-import { getS3Url } from '@/lib/util';
+// import { getS3Url } from '@/lib/util';
 
 import {
     CertificationContainer,
@@ -21,10 +21,12 @@ export default function CertificationCard({ certification, onEdit }) {
         <CertificationContainer>
             <CertificationUpperSection>
                 <SwxTypography color='darkestGray' size='semiMedium' weight='bold'>
-                    {certification.certificate.abbreviation || ''}
+                    {certification.certificate
+                        ? certification.certificate.abbreviation || ''
+                        : certification.name || ''}
                 </SwxTypography>
                 <CertificationUpperRightSection>
-                    <a href={getS3Url(certification.file_upload_key)}>
+                    {/* <a href={getS3Url(certification.file_upload_key)}>
                         <SwxButton
                             startIcon={<Icon width={17} height={12} name='eye' styles={{ fill: '#1F6FA9' }} />}
                             variant='text'
@@ -33,7 +35,7 @@ export default function CertificationCard({ certification, onEdit }) {
                             weight='bold'>
                             View Document
                         </SwxButton>
-                    </a>
+                    </a> */}
                     <SwxButton
                         startIcon={<Icon width={15} height={16} name='edit' styles={{ fill: '#1F6FA9' }} />}
                         variant='text'

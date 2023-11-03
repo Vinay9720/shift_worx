@@ -16,6 +16,7 @@ import { SwxTypography, SwxButton } from '@/lib/common/components';
 import { Icon } from '@/lib/common/icons';
 
 import AddCerfification from '../add-certificate';
+import EditCerfification from '../edit-certificate';
 
 function EditEmployeeStep3({ employeeData, footer }) {
     const { addingCertificate, editingCertificate, certificateToBeEdited } = useSelector(
@@ -69,15 +70,25 @@ function EditEmployeeStep3({ employeeData, footer }) {
                         </div>
                     </Stack>
                 </Stack>
-            ) : (
+            ) : addingCertificate ? (
                 <AddCerfification
                     employeeId={employeeData.id}
                     defaultValues={certificateToBeEdited}
-                    onCancel={() =>
-                        dispatch(addingCertificate ? closeAddCertificateForm() : closeEditCertificateForm())
-                    }
+                    onCancel={() => {
+                        dispatch(closeEditCertificateForm());
+                        dispatch(closeAddCertificateForm());
+                    }}
                 />
-            )}
+            ) : editingCertificate ? (
+                <EditCerfification
+                    employeeId={employeeData.id}
+                    defaultValues={certificateToBeEdited}
+                    onCancel={() => {
+                        dispatch(closeEditCertificateForm());
+                        dispatch(closeAddCertificateForm());
+                    }}
+                />
+            ) : null}
             {footer}
         </div>
     );

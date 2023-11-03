@@ -265,7 +265,7 @@ export default function AdminOverview() {
             <SwxPagination
                 itemsPerPageOptions={['5', '10', '15']}
                 paginationName='adminEmployeesPagination'
-                style={{ marginBottom: '20px', marginTop: '30px' }}
+                style={{ marginBottom: '20px', marginTop: '15px' }}
             />
         </>
     );
