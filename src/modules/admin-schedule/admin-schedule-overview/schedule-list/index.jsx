@@ -6,7 +6,7 @@ import { Icon } from '@/lib/common/icons';
 import SwxPagination from '@/lib/common/layout/pagination';
 
 export default function ScheduleList({ scheduleData, isLoading }) {
-    const menuOptions = ({ id }) => {
+    const menuOptions = ({ }) => {
         return [
             {
                 label: 'Edit',

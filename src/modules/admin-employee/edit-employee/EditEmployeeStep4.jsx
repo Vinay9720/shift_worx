@@ -14,14 +14,14 @@ import AddNote from '../add-note';
 
 function EditEmployeeStep4({ employeeData }) {
     const [value, setValue] = useState('1');
-    const onSearch = e => {
+    const onSearch = () => {
         const setParams = () => {
             // console.log(e.target.value);
         };
         debounce(setParams, 1000)();
     };
 
-    const onTypeChange = type => {
+    const onTypeChange = () => {
         // console.log('type', type);
     };
     return (

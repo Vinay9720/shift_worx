@@ -52,6 +52,7 @@ module.exports = {
         'no-nested-ternary': 'off',
         'max-params': 'off',
         'no-multiple-empty-lines': 'error',
+        'no-useless-catch': 'off',
         complexity: ['error', 35],
         quotes: [
             'error',
