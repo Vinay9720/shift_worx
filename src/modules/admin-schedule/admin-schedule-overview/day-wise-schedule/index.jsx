@@ -160,7 +160,7 @@ export default function DayWiseSchedule({ scheduleData }) {
                                         <div className='flex flex-row -mt-4'>
                                             <div className='flex items-center justify-center mr-2'>
                                                 <Icon
-                                                    styles='fill-newLightGray'
+                                                    styles={{ fill: '#838A91' }}
                                                     name='clock'
                                                     aria-hidden='true'
                                                     height={16}
