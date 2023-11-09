@@ -104,58 +104,6 @@ export default function DayWiseSchedule({ scheduleData }) {
         const differenceInMinutes = totalMinutes2 - totalMinutes1;
         return `${differenceInMinutes * 1.66}`;
     };
-    // const getScheduleBanner = (start, end, floor, session, cert) => {
-    //     return (
-    //         <div className='columns'>
-    //             <div className='flex justify-between'>
-    //                 <div className='flex gap-4'>
-    //                     <Badge
-    //                         kind={cert === 'LPN' ? 'certLPN' : cert === 'CNA' ? 'certCNA' : 'certPink'}
-    //                         styles='px-[2px] h-fit text-white'
-    //                         text={cert || 'LPN'}
-    //                     />
-    //                     <div className='text-sm font-bold text-black'>
-    //                         <div className='flex flex-row'>
-    //                             <div className='text-sm font-semibold'>
-    //                                 {start} {`>`} {end}{' '}
-    //                             </div>
-    //                             <div className='py-[2px] px-2 ml-2 flex text-sm font-semibold bg-white rounded'>
-    //                                 <div className='flex self-center mr-1'>
-    //                                     <Icon
-    //                                         styles={{ fill: '#1DB304' }}
-    //                                         name='activity-status'
-    //                                         aria-hidden='true'
-    //                                         height={10}
-    //                                         width={10}
-    //                                     />
-    //                                 </div>
-    //                                 <div>{session}</div>
-    //                             </div>
-    //                         </div>
-    //                         <div className='text-sm font-semibold text-newLightGray'>{floor}</div>
-    //                     </div>
-    //                 </div>
-    //                 <div>
-    //                     <SwxPopupMenu
-    //                         buttonElement={
-    //                             <IconButton>
-    //                                 <Icon
-    //                                     styles={{ fill: '#838A91' }}
-    //                                     name='vertical-menu'
-    //                                     aria-hidden='true'
-    //                                     height={15}
-    //                                     width={10}
-    //                                 />
-    //                             </IconButton>
-    //                         }
-    //                         options={menuOptions()}
-    //                     />
-    //                 </div>
-    //             </div>
-    //         </div>
-    //     );
-    // };
-
     return (
         <StyledMainDiv>
             <StyledGridMainDiv>
@@ -163,7 +111,6 @@ export default function DayWiseSchedule({ scheduleData }) {
                     <StyledViewUsersDiv style={{ flex: `0 0 auto` }}>View by Users</StyledViewUsersDiv>
                     <StyledGridSubDiv>
                         {shiftsByDate.map((emp, i) => {
-                            console.log(emp, 'employrrrrrrrrr');
                             return (
                                 <StyledFlexDiv style={{ flex: `0 0 auto` }} key={i}>
                                     <StyledSubFlexDiv style={{ flex: `0 0 auto` }}>
@@ -244,15 +191,9 @@ export default function DayWiseSchedule({ scheduleData }) {
                                         marginLeft: getMarginLeft(shift.start_time),
                                     });
                                 });
-
                                 return (
                                     <div className='relative' key={i}>
                                         <StyledSortedShiftsMainContainer>
-                                            {/* <div style={{ display: 'flex' }}>
-                                                {timeSlots.map((time, index) => {
-                                                    return <StyledBoderBoxSlotDiv key={index} />;
-                                                })}
-                                            </div> */}
                                             <div style={{ width: leftBgColr, background: '#F7F8F8' }}>&nbsp;</div>
                                             <div className='bg-black-50 bg-opacity-1' style={{ width: rightBgColr }}>
                                                 &nbsp;
@@ -266,16 +207,17 @@ export default function DayWiseSchedule({ scheduleData }) {
                                                 })}
                                             </div>
                                             {sortedShifts.map((shift, index) => {
+                                                let margin;
                                                 const getMargin = () => {
-                                                    let margin;
                                                     if (index === 0) {
                                                         margin = shiftDurationAndMargin[0].marginLeft;
                                                         return margin;
                                                     }
-                                                    margin =
-                                                        parseInt(shiftDurationAndMargin[index].marginLeft, 10) -
-                                                        (parseInt(shiftDurationAndMargin[index - 1].marginLeft, 10) +
-                                                            parseInt(shiftDurationAndMargin[index - 1].duration, 10));
+                                                    margin = parseInt(shiftDurationAndMargin[index].marginLeft, 10);
+                                                    // -(
+                                                    //     parseInt(shiftDurationAndMargin[index - 1].marginLeft, 10) +
+                                                    //     parseInt(shiftDurationAndMargin[index - 1].duration, 10)
+                                                    // );
                                                     return margin;
                                                 };
                                                 return (

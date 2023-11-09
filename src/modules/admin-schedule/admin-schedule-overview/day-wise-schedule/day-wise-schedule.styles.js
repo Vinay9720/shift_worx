@@ -13,7 +13,6 @@ export const StyledGridMainDiv = styled.div`
 export const StyledGridSubDiv = styled.div`
     display: flex;
     flex-direction: column;
-    // border: 1px solid #e6e8e9;
 `;
 export const StyledViewUsersDiv = styled.div`
     width: 200px;
@@ -126,7 +125,7 @@ export const StyledTimePositionContainer = styled.div`
 `;
 export const StyledSortedShiftsMainContainer = styled.div`
     display: flex;
-    width: 1920px;
+    width: 2400px;
     min-height: 74px;
 `;
 export const StyledSortedShiftsContainer = styled.div`
