@@ -1,19 +1,19 @@
 import styled from 'styled-components';
 
-const getBackgroundColor = kind => {
+export const getBackgroundColor = kind => {
     switch (kind) {
         case 'LPN':
             return 'lightblue';
         case 'RN':
-            return 'lightgreen';
-        case 'CNA':
             return 'lightpink';
+        case 'CNA':
+            return 'lightOrange';
         default:
-            return 'white';
+            return 'lightpink';
     }
 };
 
-const getBorderColor = kind => {
+export const getBorderColor = kind => {
     switch (kind) {
         case 'LPN':
             return 'blue';
@@ -22,20 +22,26 @@ const getBorderColor = kind => {
         case 'CNA':
             return 'pink';
         default:
-            return 'black';
+            return 'white';
     }
 };
 
 export const BannerWrapper = styled.div`
-    padding: 8px 12px;
+    height: 74px;
+    position: absolute;
     ${({ theme, kind }) => `
-        background-color: ${theme.backgroundColor[getBackgroundColor(kind)]};
-        border: 2px solid ${theme.borderColor[getBorderColor(kind)]};
-    `}
+        // background-color: ${theme.backgroundColor[getBackgroundColor(kind)]};
+        // border: 1.5px solid ${theme.borderColor[getBorderColor(kind)]};
+    `};
 `;
 
 export const Bannercontainer = styled.div`
+    height: 56px;
+    margin-top: 9px;
+    padding: 9px 12px;
+    border-radius: 10px;
     display: flex;
-    flex-direction: row;
-    gap: 8px;
+    gap: 16px;
+    background-color: #fcebf1;
+    border: 2px solid #ffffff;
 `;

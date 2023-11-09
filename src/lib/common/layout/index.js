@@ -8,6 +8,7 @@ import CertificationCard from './certification-card';
 import NoteCard from './note-card';
 import SwxPagination from './pagination';
 import DynamicPromptModal from './dynamic-prompt-modal';
+import DailyScheduleBanner from './daily-schedule-banner';
 
 export {
     NavBar,
@@ -20,4 +21,5 @@ export {
     NoteCard,
     SwxPagination,
     DynamicPromptModal,
+    DailyScheduleBanner,
 };

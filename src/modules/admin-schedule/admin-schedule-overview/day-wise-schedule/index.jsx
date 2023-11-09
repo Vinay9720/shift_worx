@@ -3,12 +3,38 @@
 import moment from 'moment';
 import { isEmpty } from 'lodash';
 import { useSelector } from 'react-redux';
-import { Avatar, IconButton } from '@mui/material';
+import { Avatar } from '@mui/material';
 
-import Badge from '@/lib/common/layout/daily-schedule-banner';
+// import Badge from '@/lib/common/layout/daily-schedule-banner';
 import { Icon } from '@/lib/common/icons';
 import { timeSlots } from '@/lib/constants';
-import { SwxPopupMenu } from '@/lib/common/components';
+import {
+    StyledAvatarGridContainer,
+    StyledBoderBoxSlotDiv,
+    StyledCalenderDiv,
+    StyledDotDiv,
+    StyledEmployeeName,
+    StyledFlexDiv,
+    StyledFlexRow,
+    StyledGridMainDiv,
+    StyledGridSubDiv,
+    StyledMainDiv,
+    StyledMarginDiv,
+    StyledNameFlexContainer,
+    StyledNoSchedulesContainer,
+    StyledShiftByDateContainer,
+    // StyledShiftDurationContainer,
+    StyledShiftLengthDiv,
+    StyledSortedShiftsContainer,
+    StyledSortedShiftsMainContainer,
+    StyledSubFlexDiv,
+    StyledTimeDiv,
+    StyledTimePositionContainer,
+    StyledTimeSlotDiv,
+    StyledTimeSlotMainDiv,
+    StyledViewUsersDiv,
+} from './day-wise-schedule.styles';
+import { DailyScheduleBanner } from '@/lib/common/layout';
 
 const twidth = '1920';
 
@@ -17,7 +43,7 @@ export default function DayWiseSchedule({ scheduleData }) {
     const currentTime = new Date();
     const currentHour = currentTime.getHours();
     const currentMinutes = currentTime.getMinutes();
-    const currentTimePosition = `${currentHour * 80 + currentMinutes * 1.33}px`;
+    const currentTimePosition = `${currentHour * 100 + currentMinutes * 1.66}px`;
     const rightBgColr = `${(twidth - currentTimePosition.split('px', 1)).toFixed(2)}px`;
     const leftBgColr = `${currentTimePosition.split('px', 1)[0]}px`;
 
@@ -66,7 +92,7 @@ export default function DayWiseSchedule({ scheduleData }) {
     const getMarginLeft = start => {
         const startTime = convertTo24HourFormat(start);
         const [startTimeHour, startTimeMinutes] = startTime.split(':');
-        return `${parseInt(startTimeHour, 10) * 80 + parseInt(startTimeMinutes, 10) * 1.33}`;
+        return `${parseInt(startTimeHour, 10) * 100 + parseInt(startTimeMinutes, 10) * 1.66}`;
     };
     const getScheduleWidth = (start, end) => {
         const startTime = convertTo24HourFormat(start);
@@ -76,136 +102,126 @@ export default function DayWiseSchedule({ scheduleData }) {
         const totalMinutes1 = parseInt(startTimeHour, 10) * 60 + parseInt(startTimeMinutes, 10);
         const totalMinutes2 = parseInt(endTimeHour, 10) * 60 + parseInt(endTimeMinutes, 10);
         const differenceInMinutes = totalMinutes2 - totalMinutes1;
-        return `${differenceInMinutes * 1.33}`;
+        return `${differenceInMinutes * 1.66}`;
     };
-    const getScheduleBanner = (start, end, floor, session, cert) => {
-        return (
-            <div className='columns'>
-                <div className='flex justify-between'>
-                    <div className='flex gap-4'>
-                        <Badge
-                            kind={cert === 'LPN' ? 'certLPN' : cert === 'CNA' ? 'certCNA' : 'certPink'}
-                            styles='px-[2px] h-fit text-white'
-                            text={cert || 'LPN'}
-                        />
-                        <div className='text-sm font-bold text-black'>
-                            <div className='flex flex-row'>
-                                <div className='text-sm font-semibold'>
-                                    {start} {`>`} {end}{' '}
-                                </div>
-                                <div className='py-[2px] px-2 ml-2 flex text-sm font-semibold bg-white rounded'>
-                                    <div className='flex self-center mr-1'>
-                                        <Icon
-                                            styles={{ fill: '#1DB304' }}
-                                            name='activity-status'
-                                            aria-hidden='true'
-                                            height={10}
-                                            width={10}
-                                        />
-                                    </div>
-                                    <div>{session}</div>
-                                </div>
-                            </div>
-                            <div className='text-sm font-semibold text-newLightGray'>{floor}</div>
-                        </div>
-                    </div>
-                    <div>
-                        <SwxPopupMenu
-                            buttonElement={
-                                <IconButton>
-                                    <Icon
-                                        styles={{ fill: '#838A91' }}
-                                        name='vertical-menu'
-                                        aria-hidden='true'
-                                        height={15}
-                                        width={10}
-                                    />
-                                </IconButton>
-                            }
-                            options={menuOptions()}
-                        />
-                    </div>
-                </div>
-            </div>
-        );
-    };
+    // const getScheduleBanner = (start, end, floor, session, cert) => {
+    //     return (
+    //         <div className='columns'>
+    //             <div className='flex justify-between'>
+    //                 <div className='flex gap-4'>
+    //                     <Badge
+    //                         kind={cert === 'LPN' ? 'certLPN' : cert === 'CNA' ? 'certCNA' : 'certPink'}
+    //                         styles='px-[2px] h-fit text-white'
+    //                         text={cert || 'LPN'}
+    //                     />
+    //                     <div className='text-sm font-bold text-black'>
+    //                         <div className='flex flex-row'>
+    //                             <div className='text-sm font-semibold'>
+    //                                 {start} {`>`} {end}{' '}
+    //                             </div>
+    //                             <div className='py-[2px] px-2 ml-2 flex text-sm font-semibold bg-white rounded'>
+    //                                 <div className='flex self-center mr-1'>
+    //                                     <Icon
+    //                                         styles={{ fill: '#1DB304' }}
+    //                                         name='activity-status'
+    //                                         aria-hidden='true'
+    //                                         height={10}
+    //                                         width={10}
+    //                                     />
+    //                                 </div>
+    //                                 <div>{session}</div>
+    //                             </div>
+    //                         </div>
+    //                         <div className='text-sm font-semibold text-newLightGray'>{floor}</div>
+    //                     </div>
+    //                 </div>
+    //                 <div>
+    //                     <SwxPopupMenu
+    //                         buttonElement={
+    //                             <IconButton>
+    //                                 <Icon
+    //                                     styles={{ fill: '#838A91' }}
+    //                                     name='vertical-menu'
+    //                                     aria-hidden='true'
+    //                                     height={15}
+    //                                     width={10}
+    //                                 />
+    //                             </IconButton>
+    //                         }
+    //                         options={menuOptions()}
+    //                     />
+    //                 </div>
+    //             </div>
+    //         </div>
+    //     );
+    // };
 
     return (
-        <div className='bg-white'>
-            <div className='grid grid-flow-col gap-0 border grid-col-2 border-borderGray'>
-                <div className='col-span-1 bg-white border border-borderGray'>
-                    <div
-                        className='w-[200px] flex justify-startcborder items-center justify-center ml-4 text-black text-default font-medium py-2'
-                        style={{ flex: `0 0 auto` }}>
-                        View by Users
-                    </div>
-                    {shiftsByDate.map((emp, i) => {
-                        return (
-                            <div
-                                className='flex bg-white border border-borderGray border-r-0 min-h-[100px]'
-                                style={{ flex: `0 0 auto` }}
-                                key={i}>
-                                <div
-                                    className='flex justify-center items-center w-[200px] bg-white text-lightGray'
-                                    style={{ flex: `0 0 auto` }}>
-                                    <div className='grid grid-flow-col grid-rows-1 gap-2'>
-                                        <div className='row-span-2'>
-                                            <Avatar sx={{ width: 32, height: 32 }}>{`${
-                                                emp.name.split('')[0] || ''
-                                            }`}</Avatar>
-                                        </div>
-                                        <div className='items-center justify-center col-span-1 text-sm font-extrabold text-darkGray'>
-                                            {emp.name}
-                                        </div>
-                                        <div className='flex flex-row -mt-4'>
-                                            <div className='flex items-center justify-center mr-2'>
-                                                <Icon
-                                                    styles='fill-newLightGray'
-                                                    name='clock'
-                                                    aria-hidden='true'
-                                                    height={16}
-                                                    width={16}
-                                                />
+        <StyledMainDiv>
+            <StyledGridMainDiv>
+                <div>
+                    <StyledViewUsersDiv style={{ flex: `0 0 auto` }}>View by Users</StyledViewUsersDiv>
+                    <StyledGridSubDiv>
+                        {shiftsByDate.map((emp, i) => {
+                            console.log(emp, 'employrrrrrrrrr');
+                            return (
+                                <StyledFlexDiv style={{ flex: `0 0 auto` }} key={i}>
+                                    <StyledSubFlexDiv style={{ flex: `0 0 auto` }}>
+                                        <StyledAvatarGridContainer>
+                                            <div className='row-span-2'>
+                                                <Avatar sx={{ width: 32, height: 32 }}>{`${
+                                                    emp.name.split('')[0] || ''
+                                                }`}</Avatar>
                                             </div>
-                                            <div className='flex items-center justify-center mr-2 text-sm font-normal text-newLightGray'>
-                                                {emp.shifts[0].start_time.slice(0, 5)}
-                                            </div>
-                                            <div className='flex items-center justify-center mt-2 mr-2 text-newLightGray gray_dot' />
-                                            <div className='flex items-center justify-center mr-2'>
-                                                <Icon
-                                                    styles={{ fill: '#838A91' }}
-                                                    name='calender'
-                                                    aria-hidden='true'
-                                                    height={16}
-                                                    width={16}
-                                                />
-                                            </div>
-                                            <div className='flex items-center justify-center mr-2 text-sm font-normal text-newLightGray'>
-                                                {emp.shifts.length || 1}
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        );
-                    })}
+                                            <StyledNameFlexContainer>
+                                                <StyledEmployeeName>{emp.name}</StyledEmployeeName>
+                                                <StyledFlexRow>
+                                                    <StyledMarginDiv>
+                                                        <Icon
+                                                            styles={{ fill: '#838A91' }}
+                                                            name='clock'
+                                                            aria-hidden='true'
+                                                            height={16}
+                                                            width={16}
+                                                        />
+                                                    </StyledMarginDiv>
+                                                    <StyledTimeDiv>
+                                                        {emp.shifts[0].start_time.slice(0, 5)}
+                                                    </StyledTimeDiv>
+                                                    <StyledDotDiv />
+                                                    <StyledCalenderDiv>
+                                                        <Icon
+                                                            styles={{ fill: '#838A91' }}
+                                                            name='calender'
+                                                            aria-hidden='true'
+                                                            height={16}
+                                                            width={16}
+                                                        />
+                                                    </StyledCalenderDiv>
+                                                    <StyledShiftLengthDiv>
+                                                        {emp.shifts.length || 1}
+                                                    </StyledShiftLengthDiv>
+                                                </StyledFlexRow>
+                                            </StyledNameFlexContainer>
+                                        </StyledAvatarGridContainer>
+                                    </StyledSubFlexDiv>
+                                </StyledFlexDiv>
+                            );
+                        })}
+                    </StyledGridSubDiv>
                 </div>
-                <div className='relative h-sr'>
-                    <div className='flex col-span-12 bg-white'>
+                <div className='relative h-sr' style={{ width: '1040px', overflowY: 'hidden' }}>
+                    <StyledTimeSlotMainDiv>
                         {timeSlots.map((time, index) => (
-                            <div
-                                className='w-[80px] border bg-white border-borderGray flex justify-start first-letter items-center text-black text-sm py-2'
-                                style={{ flex: `0 0 auto` }}
-                                key={index}>
+                            <StyledTimeSlotDiv style={{ flex: `0 0 auto` }} key={index}>
                                 <p className='ml-2 font-normal'>{time}</p>
-                            </div>
+                            </StyledTimeSlotDiv>
                         ))}
-                    </div>
-                    <div className='col-span-12 bg-white'>
+                    </StyledTimeSlotMainDiv>
+                    <StyledShiftByDateContainer>
                         <>
                             <h1 className='absolute dot' style={{ left: currentTimePosition }} />
-                            <div
-                                className='absolute top-0 left-0 border-2 border-l border-newBorderBlue mt-[39px]'
+                            <StyledTimePositionContainer
                                 style={{
                                     left: currentTimePosition,
                                     zIndex: '1',
@@ -231,16 +247,24 @@ export default function DayWiseSchedule({ scheduleData }) {
 
                                 return (
                                     <div className='relative' key={i}>
-                                        <div className='flex w-[1920px] min-h-[100px]'>
+                                        <StyledSortedShiftsMainContainer>
+                                            {/* <div style={{ display: 'flex' }}>
+                                                {timeSlots.map((time, index) => {
+                                                    return <StyledBoderBoxSlotDiv key={index} />;
+                                                })}
+                                            </div> */}
                                             <div style={{ width: leftBgColr, background: '#F7F8F8' }}>&nbsp;</div>
                                             <div className='bg-black-50 bg-opacity-1' style={{ width: rightBgColr }}>
                                                 &nbsp;
                                             </div>
-                                        </div>
-                                        <div
-                                            className='flex border border-borderGray border-b-borderGray min-h-[100px] absolute top-0'
-                                            style={{ flex: `0 0 auto`, width: `1920px` }}
-                                            key={i}>
+                                        </StyledSortedShiftsMainContainer>
+
+                                        <StyledSortedShiftsContainer key={i}>
+                                            <div style={{ display: 'flex' }}>
+                                                {timeSlots.map((time, index) => {
+                                                    return <StyledBoderBoxSlotDiv key={index} />;
+                                                })}
+                                            </div>
                                             {sortedShifts.map((shift, index) => {
                                                 const getMargin = () => {
                                                     let margin;
@@ -255,46 +279,32 @@ export default function DayWiseSchedule({ scheduleData }) {
                                                     return margin;
                                                 };
                                                 return (
-                                                    <div
-                                                        className='flex items-center justify-center py-2'
+                                                    <DailyScheduleBanner
+                                                        key={index}
+                                                        startTime={shift.start_time}
+                                                        endTime={shift.end_time}
+                                                        floor={shift.floor || 'First Floor'}
+                                                        session={shift.session_type || 'Morning'}
+                                                        kind={shift.title || 'CNA'}
+                                                        menuOptions={menuOptions()}
                                                         style={{
                                                             marginLeft: `${getMargin()}px`,
                                                             width: `${shiftDurationAndMargin[index].duration}px`,
                                                             flex: `0 0 auto`,
                                                         }}
-                                                        key={index}>
-                                                        <Badge
-                                                            text={getScheduleBanner(
-                                                                shift.start_time,
-                                                                shift.end_time,
-                                                                shift.floor || 'First Floor',
-                                                                shift.session_type || 'Morning',
-                                                                shift.cert || 'RN'
-                                                            )}
-                                                            kind={
-                                                                shift.title === 'RN'
-                                                                    ? 'scheduleOrange'
-                                                                    : shift.title === 'LPN'
-                                                                    ? 'scheduleCyan'
-                                                                    : shift.title === 'CNA'
-                                                                    ? 'scheduleMistyRose'
-                                                                    : 'scheduleOrange'
-                                                            }
-                                                            styles='p-1 w-full'
-                                                        />
-                                                    </div>
+                                                    />
                                                 );
                                             })}
-                                        </div>
+                                        </StyledSortedShiftsContainer>
                                     </div>
                                 );
                             })
                         ) : (
-                            <div className='p-3 text-default text-darkGray'>No schedules to display.</div>
+                            <StyledNoSchedulesContainer>No schedules to display.</StyledNoSchedulesContainer>
                         )}
-                    </div>
+                    </StyledShiftByDateContainer>
                 </div>
-            </div>
-        </div>
+            </StyledGridMainDiv>
+        </StyledMainDiv>
     );
 }

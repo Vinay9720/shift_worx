@@ -2,51 +2,81 @@
 
 // NEEDS TO CHANGE THIS COMPONENT WITH STYLED WHICH IS COMMENTED FOR NOW
 
-// import { Stack } from '@mui/material';
-
-// import { SwxChip, SwxTypography } from '@/lib/common/components';
-// import { Icon } from '@/lib/common/icons';
-
-// import { BannerWrapper, Bannercontainer } from './daily-schedule-banner.styles';
-
-// function DailyScheduleBanner({ kind, startTime, endTime, floor, session }) {
-//     const getBackGroundColor = () => {
-//         switch (kind) {
-//             case 'LPN':
-//                 return 'blue';
-//             case 'RN':
-//                 return 'green';
-//             case 'CNA':
-//                 return 'pink';
-//             default:
-//                 return 'black';
-//         }
-//     };
-//     return (
-//         <BannerWrapper>
-//             <Bannercontainer>
-//                 <SwxChip label={kind} color='white' background={getBackGroundColor()} size='smallest' />
-//                 <Stack direction='column' sx={{ ml: '4px' }}>
-//                     <SwxTypography>
-//                         {startTime} {'>'} {endTime}
-//                     </SwxTypography>
-//                     <SwxTypography>{floor || 'Second Floor'}</SwxTypography>
-//                 </Stack>
-//                 <SwxChip
-//                     label={session || 'morning'}
-//                     icon={<Icon styles={{ fill: '#1DB304' }} name='activity-status' height={6} width={6} />}
-//                     color='black'
-//                     background='white'
-//                     size='smallest'
-//                 />
-//             </Bannercontainer>
-//         </BannerWrapper>
-//     );
-// }
-
-// export default DailyScheduleBanner;
-
+import { IconButton, Stack } from '@mui/material';
 import { cva } from 'class-variance-authority';
+
+import { SwxChip, SwxPopupMenu, SwxTypography } from '@/lib/common/components';
+import { Icon } from '@/lib/common/icons';
+
+import { BannerWrapper, Bannercontainer } from './daily-schedule-banner.styles';
+
+function DailyScheduleBanner({ kind, startTime, endTime, floor, session, menuOptions, style }) {
+    const getBackGroundColor = () => {
+        switch (kind) {
+            case 'LPN':
+                return 'blue';
+            case 'RN':
+                return 'pink';
+            case 'CNA':
+                return 'lightOrange';
+            default:
+                return 'black';
+        }
+    };
+    return (
+        <BannerWrapper kind={kind}>
+            <Bannercontainer style={style}>
+                <SwxChip label={kind} color='white' background={getBackGroundColor()} size='smallest' />
+                <Stack direction='column' sx={{ ml: '4px' }}>
+                    <SwxTypography
+                        sx={{ fontFamily: '__Manrope_36d688' }}
+                        color='swxBlack'
+                        size='small'
+                        weight='semiBold'>
+                        {startTime} {'>'} {endTime}
+                    </SwxTypography>
+                    <SwxTypography
+                        color='lightGray'
+                        size='small'
+                        weight='semiBold'
+                        sx={{ fontFamily: '__Manrope_36d688' }}>
+                        {floor || 'Second Floor'}
+                    </SwxTypography>
+                </Stack>
+                <SwxChip
+                    label={session || 'morning'}
+                    icon={
+                        <Icon
+                            styles={{ fill: '#1DB304', marginRight: '4px' }}
+                            name='activity-status'
+                            height={6}
+                            width={6}
+                        />
+                    }
+                    color='black'
+                    background='white'
+                    size='smallest'
+                />
+                <SwxPopupMenu
+                    buttonElement={
+                        <IconButton>
+                            <Icon
+                                styles={{ fill: '#838A91' }}
+                                name='vertical-menu'
+                                aria-hidden='true'
+                                height={15}
+                                width={10}
+                            />
+                        </IconButton>
+                    }
+                    options={menuOptions}
+                />
+            </Bannercontainer>
+        </BannerWrapper>
+    );
+}
+
+export default DailyScheduleBanner;
 
 const badgleStyles = cva('text-sm font-medium rounded w-fit flex', {
     variants: {
@@ -71,7 +101,7 @@ const badgleStyles = cva('text-sm font-medium rounded w-fit flex', {
     },
 });
 
-const Badge = ({ text, kind, styles, icon }) => {
+export const Badge = ({ text, kind, styles, icon }) => {
     return (
         <div className={`${badgleStyles({ kind })} ${styles}`}>
             <div className={`${styles}`}>
@@ -81,4 +111,4 @@ const Badge = ({ text, kind, styles, icon }) => {
     );
 };
 
-export default Badge;
+// export default Badge;
