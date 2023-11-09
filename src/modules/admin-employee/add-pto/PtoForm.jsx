@@ -34,7 +34,6 @@ import {
 } from './add-pto.styles';
 
 export default function PtoForm({ modalName, requestType, action: addPto, employee }) {
-    // console.log(employee, 'employee');
     const [formattedData, setFormattedData] = useState({});
     const dispatch = useDispatch();
     useEffect(() => {
@@ -177,7 +176,6 @@ export default function PtoForm({ modalName, requestType, action: addPto, employ
                 <Form
                     defaultValues={formattedData}
                     onSubmit={ptoData => {
-                        // console.log(ptoData);
                         addPto(ptoData);
                     }}>
                     <StyledWrapperContainer>

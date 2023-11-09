@@ -1,8 +1,7 @@
 'use client';
 
-import { Stack } from '@mui/material';
-
-// import { getS3Url } from '@/lib/util';
+import { Stack, CircularProgress } from '@mui/material';
+import { useEffect } from 'react';
 
 import {
     CertificationContainer,
@@ -15,8 +14,22 @@ import {
 
 import { SwxTypography, SwxButton } from '../../components';
 import { Icon } from '../../icons';
+import { useUploadedFile } from '@/hooks/common';
 
 export default function CertificationCard({ certification, onEdit }) {
+    const {
+        mutate: getFile,
+        isLoading: gettingFile,
+        data: uploadedFile,
+        isSuccess: gettingFileSuccess,
+    } = useUploadedFile();
+
+    useEffect(() => {
+        if (gettingFileSuccess) {
+            window.open(uploadedFile.uploadedUrl, '_blank');
+        }
+    }, [gettingFileSuccess]);
+
     return (
         <CertificationContainer>
             <CertificationUpperSection>
@@ -26,16 +39,22 @@ export default function CertificationCard({ certification, onEdit }) {
                         : certification.name || ''}
                 </SwxTypography>
                 <CertificationUpperRightSection>
-                    {/* <a href={getS3Url(certification.file_upload_key)}>
+                    {!gettingFile ? (
                         <SwxButton
                             startIcon={<Icon width={17} height={12} name='eye' styles={{ fill: '#1F6FA9' }} />}
+                            onClick={() => getFile({ uploadedFileKey: certification.file_upload_key, action: 'get' })}
                             variant='text'
                             size='small'
                             label='link'
                             weight='bold'>
                             View Document
                         </SwxButton>
-                    </a> */}
+                    ) : (
+                        <CircularProgress
+                            style={{ width: '25px', height: '25px', marginLeft: '24px' }}
+                            color='primary'
+                        />
+                    )}
                     <SwxButton
                         startIcon={<Icon width={15} height={16} name='edit' styles={{ fill: '#1F6FA9' }} />}
                         variant='text'
