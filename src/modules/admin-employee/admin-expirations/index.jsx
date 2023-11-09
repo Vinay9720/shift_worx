@@ -32,8 +32,6 @@ export default function AdminExpirations() {
         return [];
     }, [expirationsData]);
 
-    // console.log('expirations', expirations);
-
     const menuOptions = ({ id }) => {
         return [
             {
