@@ -152,7 +152,7 @@ export const styles = {
         '@media (max-width: 600px)': {
             display: 'flex',
             flexDirection: 'column',
-            alignItems: 'center',
+            alignItems: 'flex-start',
         },
     },
     namePropStyles: {

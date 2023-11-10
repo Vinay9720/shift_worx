@@ -2,13 +2,15 @@ import styled from 'styled-components';
 import { IconButton } from '@mui/material';
 
 export const StyledIconComponent = styled(IconButton)`
+    height: 42px;
+    width: 42px;
     ${({ theme, isactive }) => `
         border-radius: ${theme.borderRadius.large} !important;
         border: 1px solid ${
             isactive === 'true' ? theme.backgroundColor.blue : theme.backgroundColor.lighterGray
         } !important;
         padding: 0px !important;
-    `}
+    `};
 `;
 
 export const StyledTodayButton = styled.button`
@@ -47,14 +49,24 @@ export const StyledCurrentTime = styled.p`
 `;
 
 export const StyledDateDetailsContainer = styled.div`
-    margin-left: 16px;
-    width: 100%;
+    width: 335px;
     padding-left: 16px;
     display: flex;
     align-self: center;
     ${({ theme }) => `
-        border-left: 1px solid ${theme.borderColor.lightGray}
+        border-left: 1px solid ${theme.borderColor.lightGray};
     `}
+    @media (max-width: 800px) {
+        width: 100%;
+        height: 48px;
+        border-radius: 8px;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0;
+        ${({ theme }) => `
+            border: 1px solid ${theme.borderColor.lightGray};
+        `}
+    }
 `;
 
 export const StyledDateContainer = styled.div`
@@ -65,3 +77,35 @@ export const StyledDateContainer = styled.div`
         margin-left: ${isList && '8px'};
     `}
 `;
+export const styles = {
+    mainContainer: {
+        display: 'flex',
+        flexDirection: 'row',
+        gap: '16px',
+        '@media(max-width:800px)': {
+            flexDirection: 'column',
+        },
+    },
+    iconContainer: {
+        display: 'flex',
+        flexDirection: 'row',
+        gap: '8px',
+    },
+    scheduleContainer: {
+        width: '335px',
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        '@media(max-width:800px)': {
+            width: '100%',
+        },
+    },
+    buttonGroup: {
+        marginTop: '1px',
+        width: '100%',
+        height: '38px',
+        '@media(max-width:600px)': {
+            width: '335px',
+        },
+    },
+};

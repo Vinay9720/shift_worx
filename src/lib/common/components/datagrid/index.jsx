@@ -7,8 +7,10 @@ import { DataGrid } from '@mui/x-data-grid';
 import { DataGridStyles } from './datagrid.styles';
 
 export default function SwxDataGrid({ rows, columns, loading, onSelectionChange, ...rest }) {
+    const dataGridHeight = rows.length * 80 + 56;
+
     return (
-        <Box sx={{ height: '890px', width: '100%' }}>
+        <Box sx={{ height: `${dataGridHeight}px`, width: '100%' }}>
             <DataGrid
                 sx={DataGridStyles}
                 getRowClassName={params => (params.indexRelativeToCurrentPage % 2 === 0 ? 'Mui-even' : 'Mui-odd')}
