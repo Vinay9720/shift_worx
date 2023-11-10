@@ -9,11 +9,11 @@ import { IconButton } from '@mui/material';
 import { useSelector } from 'react-redux';
 import { isEmpty } from 'lodash';
 
-import Badge from '@/lib/common/layout/daily-schedule-banner';
+import { Badge } from '@/lib/common/layout/daily-schedule-banner';
 import { Icon } from '@/lib/common/icons';
 import { SwxPopupMenu } from '@/lib/common/components';
 
-import { styles } from './week-wise-schedule.styles';
+import { UsersContainer, styles, ViewByUsersContainer, WeekDaysContainer } from './week-wise-schedule.styles';
 
 export default function WeekWiseSchedule({ scheduleData }) {
     const { currentTimeValue } = useSelector(state => state.adminScheduleModule);
@@ -98,18 +98,13 @@ export default function WeekWiseSchedule({ scheduleData }) {
     return (
         <>
             <div>
-                <div className='flex flex-row bg-white border border-borderGray'>
-                    <div className='flex items-center justify-center w-[20%] border border-b-0 border-borderGray text-newBlackColor text-default font-medium'>
-                        View by Users
-                    </div>
+                <UsersContainer>
+                    <ViewByUsersContainer>View by Users</ViewByUsersContainer>
                     {weekdays.map((weekDay, index) => (
-                        <div
-                            className={`flex flex-col items-center border-b-0 py-2 ${
-                                parseInt(weekDay.date.split('-')[0]) === new Date().getDate() &&
-                                'bg-gray-700 bg-opacity-5'
-                            } w-[15%] border border-borderGray text-darkGray font-medium`}
+                        <WeekDaysContainer
+                            isCurrentDate={parseInt(weekDay.date.split('-')[0]) === new Date().getDate()}
                             key={index}>
-                            <div className='flex'>
+                            <div style={{ display: 'flex' }}>
                                 <div className='mr-3 font-medium text-semi text-newBlackColor'>
                                     {parseInt(weekDay.date.split('-')[0]) === new Date().getDate() ? (
                                         <button className='text-white rounded-full bg-newBorderBlue w-7 h-7 hover:bg-black-500'>
@@ -169,9 +164,9 @@ export default function WeekWiseSchedule({ scheduleData }) {
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </WeekDaysContainer>
                     ))}
-                </div>
+                </UsersContainer>
                 {!isEmpty(scheduleData.records) ? (
                     scheduleData.records.map((emp, i) => {
                         return (

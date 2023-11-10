@@ -47,22 +47,6 @@ export default function DayWiseSchedule({ scheduleData }) {
     const rightBgColr = `${(twidth - currentTimePosition.split('px', 1)).toFixed(2)}px`;
     const leftBgColr = `${currentTimePosition.split('px', 1)[0]}px`;
 
-    const menuOptions = () => {
-        return [
-            {
-                label: 'Edit',
-                action: () => null,
-                icon: <Icon styles={{ fill: '#838A91' }} name='pencil' height={14} width={14} />,
-            },
-            {
-                label: 'Delete',
-                action: () => null,
-                color: 'red',
-                icon: <Icon styles={{ fill: '#F43C02' }} name='trash' height={14} width={14} />,
-            },
-        ];
-    };
-
     const getShiftsByDate = (data, date) => {
         const shifts = [];
         const formattedDate = moment(date, 'ddd, MMM D').format('MM-DD-YY');
@@ -104,6 +88,7 @@ export default function DayWiseSchedule({ scheduleData }) {
         const differenceInMinutes = totalMinutes2 - totalMinutes1;
         return `${differenceInMinutes * 1.66}`;
     };
+
     return (
         <StyledMainDiv>
             <StyledGridMainDiv>
@@ -214,10 +199,6 @@ export default function DayWiseSchedule({ scheduleData }) {
                                                         return margin;
                                                     }
                                                     margin = parseInt(shiftDurationAndMargin[index].marginLeft, 10);
-                                                    // -(
-                                                    //     parseInt(shiftDurationAndMargin[index - 1].marginLeft, 10) +
-                                                    //     parseInt(shiftDurationAndMargin[index - 1].duration, 10)
-                                                    // );
                                                     return margin;
                                                 };
                                                 return (
@@ -228,7 +209,6 @@ export default function DayWiseSchedule({ scheduleData }) {
                                                         floor={shift.floor || 'First Floor'}
                                                         session={shift.session_type || 'Morning'}
                                                         kind={shift.title || 'CNA'}
-                                                        menuOptions={menuOptions()}
                                                         style={{
                                                             marginLeft: `${getMargin()}px`,
                                                             width: `${shiftDurationAndMargin[index].duration}px`,
