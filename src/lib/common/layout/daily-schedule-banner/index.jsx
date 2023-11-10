@@ -10,7 +10,23 @@ import { Icon } from '@/lib/common/icons';
 
 import { BannerWrapper, Bannercontainer } from './daily-schedule-banner.styles';
 
-function DailyScheduleBanner({ kind, startTime, endTime, floor, session, menuOptions, style }) {
+function DailyScheduleBanner({ kind, startTime, endTime, floor, session, style }) {
+    const menuOptions = () => {
+        return [
+            {
+                label: 'Edit',
+                action: () => null,
+                icon: <Icon styles={{ fill: '#838A91' }} name='pencil' height={14} width={14} />,
+            },
+            {
+                label: 'Delete',
+                action: () => null,
+                color: 'red',
+                icon: <Icon styles={{ fill: '#F43C02' }} name='trash' height={14} width={14} />,
+            },
+        ];
+    };
+
     const getBackGroundColor = () => {
         switch (kind) {
             case 'LPN':
@@ -69,7 +85,8 @@ function DailyScheduleBanner({ kind, startTime, endTime, floor, session, menuOpt
                             />
                         </IconButton>
                     }
-                    options={menuOptions}
+                    options={menuOptions && menuOptions()}
+                    from='daily schedule'
                 />
             </Bannercontainer>
         </BannerWrapper>
