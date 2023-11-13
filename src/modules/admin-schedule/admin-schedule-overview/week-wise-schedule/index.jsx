@@ -13,7 +13,13 @@ import { Badge } from '@/lib/common/layout/daily-schedule-banner';
 import { Icon } from '@/lib/common/icons';
 import { SwxPopupMenu } from '@/lib/common/components';
 
-import { UsersContainer, styles, ViewByUsersContainer, WeekDaysContainer } from './week-wise-schedule.styles';
+import {
+    UsersContainer,
+    styles,
+    ViewByUsersContainer,
+    WeekDaysContainer,
+    StyledWeekDaysContainer,
+} from './week-wise-schedule.styles';
 
 export default function WeekWiseSchedule({ scheduleData }) {
     const { currentTimeValue } = useSelector(state => state.adminScheduleModule);
@@ -63,7 +69,7 @@ export default function WeekWiseSchedule({ scheduleData }) {
                         <div className='text-sm font-semibold text-newLightGray'>{floor}</div>
                     </div>
                 </div>
-                <div className='flex justify-between mt-4'>
+                <div className='flex justify-between mt-2'>
                     <div className='py-[4px] px-2 w-fit flex text-sm font-semibold bg-white rounded'>
                         <div className='flex self-center mr-1'>
                             <Icon
@@ -96,10 +102,59 @@ export default function WeekWiseSchedule({ scheduleData }) {
     };
 
     return (
-        <>
-            <div>
+        <div style={{ display: 'flex', border: '1px solid #E6E8E9', borderRadius: '8px' }}>
+            <div style={{ minWidth: '256px' }}>
+                <ViewByUsersContainer>View by Users</ViewByUsersContainer>
+                {!isEmpty(scheduleData.records)
+                    ? scheduleData.records.map((emp, i) => {
+                          return (
+                              <div style={styles.mainDiv} key={i}>
+                                  <div className='row-span-2'>
+                                      <img
+                                          src='https://picsum.photos/200'
+                                          className='border border-gray-300 rounded-full '
+                                          style={{ width: `50x`, height: `50px` }}
+                                      />
+                                  </div>
+                                  <div>
+                                      <div className='items-center justify-space-evenly col-span-1  font-semibold text-default text-newBlackColor'>
+                                          {emp.name}
+                                      </div>
+                                      <div className='flex flex-row '>
+                                          <div className='flex items-center justify-center mr-2'>
+                                              <Icon
+                                                  styles={{ fill: '#838A91' }}
+                                                  name='clock'
+                                                  aria-hidden='true'
+                                                  height={16}
+                                                  width={16}
+                                              />
+                                          </div>
+                                          <div className='flex items-center justify-center mr-2 text-sm font-medium text-newLightGray'>
+                                              {emp.start_time || '08:00hrs'}
+                                          </div>
+                                          <div className='flex items-center justify-center mt-2 mr-2 gray_dot' />
+                                          <div className='flex items-center justify-center mr-2'>
+                                              <Icon
+                                                  styles={{ fill: '#838A91' }}
+                                                  name='calender'
+                                                  aria-hidden='true'
+                                                  height={16}
+                                                  width={16}
+                                              />
+                                          </div>
+                                          <div className='flex items-center justify-center mr-2 text-sm font-medium text-newLightGray'>
+                                              {emp.schedule_count || 1}
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+                          );
+                      })
+                    : null}
+            </div>
+            <div style={{ overflowX: 'auto' }}>
                 <UsersContainer>
-                    <ViewByUsersContainer>View by Users</ViewByUsersContainer>
                     {weekdays.map((weekDay, index) => (
                         <WeekDaysContainer
                             isCurrentDate={parseInt(weekDay.date.split('-')[0]) === new Date().getDate()}
@@ -152,7 +207,7 @@ export default function WeekWiseSchedule({ scheduleData }) {
                                     <div className='flex items-center justify-center mt-2 mr-1 gray_dot' />
                                     <div className='flex items-center justify-center mr-1'>
                                         <Icon
-                                            styles={{ fill: '#ffffff' }}
+                                            styles={{ fill: '#838A91' }}
                                             name='user'
                                             aria-hidden='true'
                                             height={16}
@@ -170,90 +225,54 @@ export default function WeekWiseSchedule({ scheduleData }) {
                 {!isEmpty(scheduleData.records) ? (
                     scheduleData.records.map((emp, i) => {
                         return (
-                            <div key={i} className='flex flex-row bg-white border border-b-0 border-borderGray'>
-                                <div className='flex justify-center items-center w-[20%] py-4 bg-white text-lightGray border border-r-borderGray'>
-                                    <div style={styles.mainDiv}>
-                                        <div className='row-span-2'>
-                                            <img
-                                                src='https://picsum.photos/200'
-                                                className='border border-gray-300 rounded-full '
-                                                style={{ width: `50x`, height: `50px` }}
-                                            />
-                                        </div>
-                                        <div>
-                                            <div className='items-center justify-space-evenly col-span-1 mb-4 font-semibold text-default text-newBlackColor'>
-                                                {emp.name}
-                                            </div>
-                                            <div className='flex flex-row -mt-4'>
-                                                <div className='flex items-center justify-center mr-2'>
-                                                    <Icon
-                                                        styles={{ fill: '#838A91' }}
-                                                        name='clock'
-                                                        aria-hidden='true'
-                                                        height={16}
-                                                        width={16}
-                                                    />
-                                                </div>
-                                                <div className='flex items-center justify-center mr-2 text-sm font-medium text-newLightGray'>
-                                                    {emp.start_time || '08:00hrs'}
-                                                </div>
-                                                <div className='flex items-center justify-center mt-2 mr-2 gray_dot' />
-                                                <div className='flex items-center justify-center mr-2'>
-                                                    <Icon
-                                                        styles={{ fill: '#838A91' }}
-                                                        name='calender'
-                                                        aria-hidden='true'
-                                                        height={16}
-                                                        width={16}
-                                                    />
-                                                </div>
-                                                <div className='flex items-center justify-center mr-2 text-sm font-medium text-newLightGray'>
-                                                    {emp.schedule_count || 1}
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                            <StyledWeekDaysContainer key={i}>
                                 {weekdays.map((weekDay, index) => {
                                     return (
                                         <div
                                             className={`flex items-center ${
                                                 parseInt(weekDay.date.split('-')[0]) === new Date().getDate() &&
                                                 'bg-newLighterGray'
-                                            } justify-center w-[15%] py-3 border border-borderGray text-darkGray text-sm font-medium flex-col gap-2 min-h-[180px]`}
+                                            } justify-center min-w-[205px] py-3 border-l border-t border-borderGray text-darkGray text-sm font-medium flex-col gap-2 min-h-[96px]`}
                                             key={index}>
-                                            {Object.entries(emp.shifts).map(([date, shifts]) => {
-                                                if (moment(date, 'MM-DD-YY').format('DD-MM-YYYY') === weekDay.date) {
-                                                    return shifts.map((shift, key) => (
-                                                        <div key={key} className='flex text-light'>
-                                                            <Badge
-                                                                text={getScheduleBanner(
-                                                                    shift.start_time,
-                                                                    shift.end_time,
-                                                                    shift.floor || 'First Floor',
-                                                                    shift.session_type || 'Morning',
-                                                                    shift.cert || 'RN'
-                                                                )}
-                                                                kind={
-                                                                    shift.title === 'RN'
-                                                                        ? 'scheduleOrange'
-                                                                        : shift.title === 'LPN'
-                                                                        ? 'scheduleCyan'
-                                                                        : shift.title === 'CNA'
-                                                                        ? 'scheduleMistyRose'
-                                                                        : 'scheduleOrange'
-                                                                }
-                                                                styles='p-1 w-full'
-                                                            />
-                                                        </div>
-                                                    ));
-                                                }
-                                                return null;
-                                            })}
+                                            <div key={index}>
+                                                {Object.entries(emp.shifts).map(([date, shifts]) => {
+                                                    if (
+                                                        moment(date, 'MM-DD-YY').format('DD-MM-YYYY') === weekDay.date
+                                                    ) {
+                                                        return shifts.map((shift, key) => (
+                                                            <div
+                                                                key={key}
+                                                                className='flex text-light'
+                                                                style={{ width: '200px', height: '90px' }}>
+                                                                <Badge
+                                                                    text={getScheduleBanner(
+                                                                        shift.start_time,
+                                                                        shift.end_time,
+                                                                        shift.floor || 'First Floor',
+                                                                        shift.session_type || 'Morning',
+                                                                        shift.cert || 'RN'
+                                                                    )}
+                                                                    kind={
+                                                                        shift.title === 'RN'
+                                                                            ? 'scheduleOrange'
+                                                                            : shift.title === 'LPN'
+                                                                            ? 'scheduleCyan'
+                                                                            : shift.title === 'CNA'
+                                                                            ? 'scheduleMistyRose'
+                                                                            : 'scheduleOrange'
+                                                                    }
+                                                                    styles='p-1 w-full'
+                                                                />
+                                                            </div>
+                                                        ));
+                                                    }
+                                                    return null;
+                                                })}
+                                            </div>
                                         </div>
                                     );
                                 })}
-                            </div>
+                            </StyledWeekDaysContainer>
                         );
                     })
                 ) : (
@@ -262,6 +281,6 @@ export default function WeekWiseSchedule({ scheduleData }) {
                     </div>
                 )}
             </div>
-        </>
+        </div>
     );
 }
