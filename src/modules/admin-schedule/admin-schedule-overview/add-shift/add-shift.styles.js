@@ -77,4 +77,9 @@ export const styles = {
             flexDirection: 'column-reverse',
         },
     },
+    addShiftButton: {
+        '@media (max-width: 980px)': {
+            width: '100%',
+        },
+    },
 };

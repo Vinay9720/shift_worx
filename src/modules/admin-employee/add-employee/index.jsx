@@ -21,6 +21,7 @@ import {
     TitleContainer,
     CloseContainer,
     EllipseContainer,
+    styles,
 } from './add-employee.styles';
 import AddEmployeeStep1 from './AddEmployeeStep1';
 import AddEmployeeStep2 from './AddEmployeeStep2';
@@ -41,6 +42,7 @@ export default function AddEmployee() {
                 }}
                 padding='10px 16px'
                 variant='contained'
+                sx={styles.addEmployeeButton}
                 weight='semiBold'>
                 Add Employee
             </SwxButton>

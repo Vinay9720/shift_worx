@@ -49,7 +49,6 @@ export const StyledCurrentTime = styled.p`
 `;
 
 export const StyledDateDetailsContainer = styled.div`
-    width: 335px;
     padding-left: 16px;
     display: flex;
     align-self: center;

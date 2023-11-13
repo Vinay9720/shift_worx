@@ -224,4 +224,9 @@ export const styles = {
             height: 'auto',
         },
     },
+    addEmployeeButton: {
+        '@media (max-width: 980px)': {
+            width: '100%',
+        },
+    },
 };

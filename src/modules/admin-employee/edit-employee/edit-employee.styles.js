@@ -56,6 +56,7 @@ export const styles = {
             span: {
                 display: 'none',
             },
+            border: '1px solid #e6e8e9',
         },
     },
 };

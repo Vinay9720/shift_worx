@@ -140,4 +140,9 @@ export const styles = {
             flexDirection: 'column',
         },
     },
+    addRequestButton: {
+        '@media (max-width: 980px)': {
+            width: '100%',
+        },
+    },
 };
