@@ -4,7 +4,7 @@ import moment from 'moment';
 import { useSelector } from 'react-redux';
 import { IconButton } from '@mui/material';
 
-import Badge from '@/lib/common/layout/daily-schedule-banner';
+import { Badge } from '@/lib/common/layout/daily-schedule-banner';
 import { SwxPopupMenu } from '@/lib/common/components';
 import { Icon } from '@/lib/common/icons';
 
@@ -107,6 +107,7 @@ export default function MonthWiseSchedule({ scheduleData }) {
                                     />
                                 </IconButton>
                             }
+                            from='month wise'
                             options={menuOptions()}
                         />
                     </div>
