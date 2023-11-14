@@ -42,7 +42,7 @@ function SearchFilter() {
                 <SwxInput
                     placeholderColor='lightGray'
                     type='text'
-                    style={{ width: '20rem' }}
+                    sx={styles.inputField}
                     ref={searchInputRef}
                     onChange={onSearch}
                     padding='0.75rem 0.85rem'
@@ -58,33 +58,35 @@ function SearchFilter() {
                         placeholder='Status'
                         placeholderColor='#838A91'
                         value={status}
-                        style={{ width: '10rem' }}
+                        sx={styles.statusSelectField}
                         padding='3px 6px'
                     />
                     <SwxMultiSelect
                         insideLabel='Roles'
                         multiple
-                        style={{ width: '8rem' }}
+                        style={{ width: '126px' }}
                         options={['RN', 'LPN', 'CNA']}
                         value={roles}
-                        padding='12px 16px'
+                        padding='12px 12px'
                         onChange={onRoleChange}
                     />
+                    {filterApplied && (
+                        <SwxButton
+                            // endIcon={<Icon width={17} height={12} name='close' styles={{ fill: '#030303' }} />}
+                            size='semiMedium'
+                            weight='thin'
+                            sx={styles.clearAllButton}
+                            onClick={() => {
+                                dispatch(clearFilters());
+                                clearSearch();
+                            }}
+                            themecolor='swxBlack'
+                            variant='text'>
+                            <span>Clear all</span>
+                            <Icon width={17} height={12} name='close' styles={{ fill: '#030303' }} />
+                        </SwxButton>
+                    )}
                 </Stack>
-                {filterApplied && (
-                    <SwxButton
-                        endIcon={<Icon width={17} height={12} name='close' styles={{ fill: '#030303' }} />}
-                        size='semiMedium'
-                        weight='thin'
-                        onClick={() => {
-                            dispatch(clearFilters());
-                            clearSearch();
-                        }}
-                        themecolor='swxBlack'
-                        variant='text'>
-                        Clear all
-                    </SwxButton>
-                )}
             </Stack>
             <AddShift />
         </Stack>

@@ -198,11 +198,7 @@ export default function ShiftForm({ modalName, action: addShift }) {
                         <SelectField name='employee' SWXInputProps={employeeProps} />
                         <SelectField name='employee_2' SWXInputProps={employee2Props} />
                     </Stack>
-                    <Stack
-                        spacing={3}
-                        justifyContent='flex-end'
-                        direction='row'
-                        style={{ marginBottom: '24px', marginTop: '30px' }}>
+                    <Stack sx={styles.actionButtons} style={{ marginBottom: '24px', marginTop: '30px' }}>
                         <SwxButton onClick={() => dispatch(closeModal({ modalName }))} variant='text' size='medium'>
                             Cancel
                         </SwxButton>

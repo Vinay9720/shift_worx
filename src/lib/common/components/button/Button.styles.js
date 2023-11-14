@@ -21,9 +21,6 @@ export const StyledButton = styled(Button)`
           border-radius: ${theme.borderRadius[radius || 'small']} !important;
         //   box-shadow: ${theme.boxShadow.darkBlueShadow} !important;
           font-style: normal;
-          @media (max-width: 390px) {
-            width: 360px;
-        }
       `
             : variant === 'text'
             ? `

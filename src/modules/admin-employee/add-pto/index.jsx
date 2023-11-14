@@ -9,6 +9,7 @@ import { SwxModal } from '@/lib/common/layout';
 import { useAddPto } from '@/hooks/admin-employee/useAddPto';
 
 import PtoForm from './PtoForm';
+import { styles } from './add-pto.styles';
 
 export default function AddRequest() {
     const { mutate: addPto } = useAddPto();
@@ -25,6 +26,7 @@ export default function AddRequest() {
                 }}
                 padding='10px 16px'
                 variant='contained'
+                sx={styles.addRequestButton}
                 weight='semiBold'>
                 Add Request
             </SwxButton>

@@ -16,6 +16,7 @@ import {
     StyledCurrentTime,
     StyledDateDetailsContainer,
     StyledTodayButton,
+    styles,
 } from './admin-layout.styles';
 
 import { SwxTypography, SwxTabs, SwxButtonGroup, SwxCalenderInput } from '../../components';
@@ -106,12 +107,12 @@ export default function AdminScheduleLayout({ children }) {
     return (
         <>
             <Stack direction='column' spacing={5} sx={{ mt: 7 }}>
-                <Stack direction='row'>
-                    <SwxTypography color='swxBlack' size='extraLarge' weight='bold' className='Manrope'>
-                        Schedule
-                    </SwxTypography>
-                    <Stack direction='row' sx={{ display: 'flex', alignItems: 'center', widht: '100%', ml: 7 }}>
-                        <Stack direction='row' spacing={1}>
+                <Stack sx={styles.mainContainer}>
+                    <Stack sx={styles.scheduleContainer}>
+                        <SwxTypography color='swxBlack' size='extraLarge' weight='bold' className='Manrope'>
+                            Schedule
+                        </SwxTypography>
+                        <Stack sx={styles.iconContainer}>
                             <StyledIconComponent
                                 name='calender'
                                 isactive={scheduleType !== 'list' ? 'true' : 'false'}
@@ -129,37 +130,33 @@ export default function AdminScheduleLayout({ children }) {
                                 isactive={scheduleType === 'list' ? 'true' : 'false'}>
                                 <Icon styles={{ fill: '#838A91', margin: '8px' }} name='list' height={16} width={16} />
                             </StyledIconComponent>
-                            {scheduleType !== 'list' && (
-                                <div style={{ marginTop: '1px' }}>
-                                    <SwxButtonGroup>
-                                        <button
-                                            name='daily'
-                                            onClick={e =>
-                                                dispatch(setScheduleType(e.target.name || e.currentTarget.name))
-                                            }
-                                            className={`${scheduleType === 'daily' ? 'active' : ''}`}>
-                                            Day
-                                        </button>
-                                        <button
-                                            name='weekly'
-                                            onClick={e =>
-                                                dispatch(setScheduleType(e.target.name || e.currentTarget.name))
-                                            }
-                                            className={`${scheduleType === 'weekly' ? 'active' : ''}`}>
-                                            Week
-                                        </button>
-                                        <button
-                                            name='monthly'
-                                            onClick={e =>
-                                                dispatch(setScheduleType(e.target.name || e.currentTarget.name))
-                                            }
-                                            className={`${scheduleType === 'monthly' ? 'active' : ''}`}>
-                                            Month
-                                        </button>
-                                    </SwxButtonGroup>
-                                </div>
-                            )}
                         </Stack>
+                    </Stack>
+                    <Stack direction='row' sx={{ display: 'flex', alignItems: 'center' }}>
+                        {scheduleType !== 'list' && (
+                            <div style={styles.buttonGroup}>
+                                <SwxButtonGroup height='42px'>
+                                    <button
+                                        name='daily'
+                                        onClick={e => dispatch(setScheduleType(e.target.name || e.currentTarget.name))}
+                                        className={`${scheduleType === 'daily' ? 'active' : ''}`}>
+                                        Day
+                                    </button>
+                                    <button
+                                        name='weekly'
+                                        onClick={e => dispatch(setScheduleType(e.target.name || e.currentTarget.name))}
+                                        className={`${scheduleType === 'weekly' ? 'active' : ''}`}>
+                                        Week
+                                    </button>
+                                    <button
+                                        name='monthly'
+                                        onClick={e => dispatch(setScheduleType(e.target.name || e.currentTarget.name))}
+                                        className={`${scheduleType === 'monthly' ? 'active' : ''}`}>
+                                        Month
+                                    </button>
+                                </SwxButtonGroup>
+                            </div>
+                        )}
                     </Stack>
                     <StyledDateDetailsContainer>
                         <StyledTodayButton onClick={() => dispatch(setInitialTimeValue())}>Today</StyledTodayButton>

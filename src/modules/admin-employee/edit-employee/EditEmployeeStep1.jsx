@@ -123,6 +123,7 @@ function EditEmployeeStep1({ employeeData, footer }) {
         options: UsStates,
         placeholder: 'state',
         width: '100%',
+        padding: '8px',
         multiple: false,
     };
 

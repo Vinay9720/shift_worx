@@ -152,7 +152,7 @@ export const styles = {
         '@media (max-width: 600px)': {
             display: 'flex',
             flexDirection: 'column',
-            alignItems: 'center',
+            alignItems: 'flex-start',
         },
     },
     namePropStyles: {
@@ -222,6 +222,11 @@ export const styles = {
             flexDirection: 'column',
             alignItems: 'center',
             height: 'auto',
+        },
+    },
+    addEmployeeButton: {
+        '@media (max-width: 980px)': {
+            width: '100%',
         },
     },
 };

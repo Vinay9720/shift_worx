@@ -51,3 +51,10 @@ export const EllipseContainer = styled.div`
     position: relative;
     justify-content: center;
 `;
+export const styles = {
+    addNoteButton: {
+        '@media (max-width: 980px)': {
+            width: '100%',
+        },
+    },
+};

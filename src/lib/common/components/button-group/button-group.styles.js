@@ -7,6 +7,7 @@ export const ButtonGroupContainer = styled.div`
     padding: 2px;
     gap: 5px;
     align-items: center;
+    justify-content: space-between;
     border-radius: 6px;
     background-color: ${({ theme }) => theme.backgroundColor.lightGray};
     color: ${({ theme }) => theme.fontColor.lightGray};
@@ -27,5 +28,8 @@ export const ButtonGroupContainer = styled.div`
         border-radius: 6px;
         background: ${({ theme }) => theme.backgroundColor.white};
         box-shadow: ${({ theme }) => theme.boxShadow.whiteShadow};
+    }
+    @media (max-width: 800px) {
+        height: ${({ height }) => height || null};
     }
 `;

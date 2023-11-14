@@ -107,7 +107,13 @@ export default function Registration() {
             {!isLoading ? (
                 <StyledRegistrationContainer>
                     <HeadingContainer>
-                        <Image src='/images/Swx-login.png' alt='logo' width={215} height={57} priority />
+                        <Image
+                            src='/images/shiftworx_logo_text_white.png'
+                            alt='logo'
+                            width={215}
+                            height={57}
+                            priority
+                        />
                         <SwxTypography color='white' size='large' weight='bolder' className='nunito'>
                             Member Registration
                         </SwxTypography>

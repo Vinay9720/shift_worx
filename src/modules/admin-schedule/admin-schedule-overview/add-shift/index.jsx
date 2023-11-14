@@ -9,6 +9,7 @@ import { SwxModal } from '@/lib/common/layout';
 import { useAddShift } from '@/hooks/admin-schedule';
 
 import ShiftForm from './ShiftForm';
+import { styles } from './add-shift.styles';
 
 export default function AddShift() {
     const { mutate: addShift } = useAddShift();
@@ -25,6 +26,7 @@ export default function AddShift() {
                 }}
                 padding='10px 16px'
                 variant='contained'
+                sx={styles.addShiftButton}
                 weight='semiBold'>
                 Add Shift
             </SwxButton>

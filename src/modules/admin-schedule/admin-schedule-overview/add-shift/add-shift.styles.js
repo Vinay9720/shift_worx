@@ -68,4 +68,18 @@ export const styles = {
             flexDirection: 'column',
         },
     },
+    actionButtons: {
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'flex-end',
+        gap: '24px',
+        '@media (max-width: 800px)': {
+            flexDirection: 'column-reverse',
+        },
+    },
+    addShiftButton: {
+        '@media (max-width: 980px)': {
+            width: '100%',
+        },
+    },
 };

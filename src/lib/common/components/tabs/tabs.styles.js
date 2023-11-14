@@ -7,6 +7,10 @@ export const LinkWrapper = styled.div`
     // padding-bottom: 7px;
     border-bottom: 1px solid #e6e8e9;
     color: #666666;
+    @media (max-width: 500px) {
+        flex-direction: column;
+        gap: 16px;
+    }
 `;
 
 export const StyledTab = styled.button`

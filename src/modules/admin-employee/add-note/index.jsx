@@ -9,6 +9,7 @@ import { SwxButton } from '@/lib/common/components';
 import { SwxModal } from '@/lib/common/layout';
 
 import NoteForm from './noteForm';
+// import { styles } from './add-note.styles';
 
 export default function AddNote({ employee, sx, hideButton }) {
     const { mutate: addNote } = useAddNote();
@@ -27,6 +28,7 @@ export default function AddNote({ employee, sx, hideButton }) {
                     }}
                     padding='10px 16px'
                     variant='contained'
+                    // sx={styles.addNoteButton}
                     weight='semiBold'>
                     Add New
                 </SwxButton>
