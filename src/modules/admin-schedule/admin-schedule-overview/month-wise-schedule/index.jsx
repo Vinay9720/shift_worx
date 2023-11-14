@@ -5,8 +5,21 @@ import { useSelector } from 'react-redux';
 import { IconButton } from '@mui/material';
 
 import { Badge } from '@/lib/common/layout/daily-schedule-banner';
-import { SwxPopupMenu } from '@/lib/common/components';
+import { SwxPopupMenu, SwxChip } from '@/lib/common/components';
 import { Icon } from '@/lib/common/icons';
+import {
+    DateContainer,
+    DayContainer,
+    DaysConatiner,
+    EmployeeNameContainer,
+    ScheduleBannerContainer,
+    ScheduleBannerWrapper,
+    ShowMoreButtonWrapper,
+    StyledShowMoreButton,
+    TimeContainer,
+    WeekDayContainer,
+    WeekDaysContainer,
+} from './month-wise-schedule.styles';
 
 export default function MonthWiseSchedule({ scheduleData }) {
     const { currentTimeValue } = useSelector(state => state.adminScheduleModule);
@@ -84,16 +97,28 @@ export default function MonthWiseSchedule({ scheduleData }) {
     };
 
     const monthDays = getCurrentMonthDays();
+    const getBackGroundColor = kind => {
+        switch (kind) {
+            case 'LPN':
+                return 'blue';
+            case 'RN':
+                return 'pink';
+            case 'CNA':
+                return 'lightOrange';
+            default:
+                return 'black';
+        }
+    };
 
     const getScheduleBanner = (empName, cert, start, end) => {
         return (
-            <div className='flex items-center justify-between gap-2'>
-                <div className='text-[12px] font-semibold text-newBlackColor'>
+            <ScheduleBannerContainer>
+                <TimeContainer>
                     {start} {`>`} {end}
-                </div>
-                <div className='text-[12px] font-semibold text-newLightGray'>{empName.substring(0, 6)}</div>
-                <div className='mt-[27px]'>
-                    <Badge kind='certPink' styles='rounded px-[2px] text-white h-fit' text={cert || 'RN'} />
+                </TimeContainer>
+                <EmployeeNameContainer>{empName.substring(0, 6)}</EmployeeNameContainer>
+                <div style={{ marginTop: '27px' }}>
+                    <SwxChip label={cert} color='white' background={getBackGroundColor(cert)} size='smallest' />
                     <div>
                         <SwxPopupMenu
                             buttonElement={
@@ -112,47 +137,39 @@ export default function MonthWiseSchedule({ scheduleData }) {
                         />
                     </div>
                 </div>
-            </div>
+            </ScheduleBannerContainer>
         );
     };
 
     return (
         <>
-            <div className='grid grid-cols-7 bg-white'>
+            <WeekDaysContainer>
                 {fixedWeekDays.map((weekDay, index) => (
-                    <div
-                        className='justify-start py-3 font-medium border h-fit border-r-borderGray text-newBlackColor text-default'
-                        key={index}>
-                        <p className='ml-3'>{weekDay}</p>
-                    </div>
+                    <WeekDayContainer key={index}>
+                        <p style={{ marginLeft: '12px' }}>{weekDay}</p>
+                    </WeekDayContainer>
                 ))}
-            </div>
-            <div className='grid grid-cols-7 bg-white border border-borderGray'>
+            </WeekDaysContainer>
+            <DaysConatiner>
                 {monthDays.map((day, i) => {
                     let noOfShifts = 0;
                     const shiftsToShow = [];
                     const formattedDate = parseInt(day.date.split('-')[0], 10).toString();
                     const isToday = moment().format('DD-MM-YYYY') === day.date;
                     return (
-                        <div
-                            className={`w-full h-[190px] ${isToday && 'bg-newCellColor'} border border-borderGray`}
-                            style={{ gridColumnStart: `${day.startingColumn}` }}
-                            key={i}>
-                            <p
-                                className={`ml-4 mt-3 text-sm font-medium ${
-                                    isToday && 'py-[2px] px-[5px] bg-newBorderBlue rounded-circle w-fit text-white'
-                                } text-left ${day.isFromCurrentMonth ? 'text-black' : 'text-calenderDateDisabled'}`}>
+                        <DayContainer isToday={isToday} style={{ gridColumnStart: `${day.startingColumn}` }} key={i}>
+                            <DateContainer isToday={isToday} isFromCurrentMonth={day.isFromCurrentMonth}>
                                 {formattedDate}
-                            </p>
+                            </DateContainer>
                             {(scheduleData.records || []).map(data => {
-                                const employeeName = data.name;
+                                const employeeName = data.name || 'Nurse';
                                 return Object.entries(data.shifts).map(([date, shifts]) => {
                                     if (moment(date, 'MM-DD-YY').format('DD-MM-YYYY') === day.date) {
                                         shifts.forEach((shift, key) => {
                                             noOfShifts += 1;
                                             if (noOfShifts <= 2) {
                                                 shiftsToShow.push(
-                                                    <div key={key} className='mb-2 flex justify-center m-[2px]'>
+                                                    <ScheduleBannerWrapper key={key}>
                                                         <Badge
                                                             text={getScheduleBanner(
                                                                 employeeName,
@@ -173,7 +190,7 @@ export default function MonthWiseSchedule({ scheduleData }) {
                                                             }
                                                             styles='p-[3px] w-full'
                                                         />
-                                                    </div>
+                                                    </ScheduleBannerWrapper>
                                                 );
                                             }
                                         });
@@ -183,18 +200,18 @@ export default function MonthWiseSchedule({ scheduleData }) {
                             })}
                             {shiftsToShow}
                             {noOfShifts > 3 && (
-                                <div className='flex items-end justify-center'>
-                                    <button
-                                        // onClick={() => showShiftsPopup(day.date)}
-                                        className='text-sm font-bold text-newBrand'>
+                                <ShowMoreButtonWrapper>
+                                    <StyledShowMoreButton
+                                    // onClick={() => showShiftsPopup(day.date)}
+                                    >
                                         {`View ${noOfShifts - 3}`} More&nbsp;
-                                    </button>
-                                </div>
+                                    </StyledShowMoreButton>
+                                </ShowMoreButtonWrapper>
                             )}
-                        </div>
+                        </DayContainer>
                     );
                 })}
-            </div>
+            </DaysConatiner>
         </>
     );
 }
