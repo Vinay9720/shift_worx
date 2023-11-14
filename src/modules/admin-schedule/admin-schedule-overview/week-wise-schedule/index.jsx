@@ -19,6 +19,7 @@ import {
     ViewByUsersContainer,
     WeekDaysContainer,
     StyledWeekDaysContainer,
+    StyledRootContainer,
 } from './week-wise-schedule.styles';
 
 export default function WeekWiseSchedule({ scheduleData }) {
@@ -102,7 +103,7 @@ export default function WeekWiseSchedule({ scheduleData }) {
     };
 
     return (
-        <div style={{ display: 'flex', border: '1px solid #E6E8E9', borderRadius: '8px' }}>
+        <StyledRootContainer>
             <div style={{ minWidth: '256px' }}>
                 <ViewByUsersContainer>View by Users</ViewByUsersContainer>
                 {!isEmpty(scheduleData.records)
@@ -281,6 +282,6 @@ export default function WeekWiseSchedule({ scheduleData }) {
                     </div>
                 )}
             </div>
-        </div>
+        </StyledRootContainer>
     );
 }

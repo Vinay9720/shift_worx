@@ -7,10 +7,14 @@ export const styles = {
         flexWrap: 'wrap',
         justifyContent: 'space-evenly',
         alignItems: 'center',
-        // borderRight: '1px solid #E6E8E9',
         borderTop: '1px solid #E6E8E9',
     },
 };
+export const StyledRootContainer = styled.div`
+    display: flex;
+    border: 1px solid #e6e8e9;
+    border-radius: 8px;
+`;
 export const StyledWeekDaysContainer = styled.div`
     display: flex;
     flex-direction: row;
@@ -30,7 +34,6 @@ export const ViewByUsersContainer = styled.div`
     align-items: center;
     justify-content: center;
     height: 84px;
-    // border-right: 1px solid #e6e8e9;
     color: #030303;
     font-weight: 500;
 `;
