@@ -261,7 +261,7 @@ export default function AdminOverview() {
                 onConfirm={() => deleteEmployee(employeeIdToBeDeleted)}
             />
             <SearchFilter actionButton={AddEmployee} style={{ marginTop: '3.5rem', marginBottom: '1rem' }} />
-            <SwxDataGrid rows={employees} columns={columns} loading={isLoading} />
+            <SwxDataGrid rows={employees} checkboxSelection columns={columns} loading={isLoading} />
             <SwxPagination
                 itemsPerPageOptions={['5', '10', '15']}
                 paginationName='adminEmployeesPagination'

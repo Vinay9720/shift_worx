@@ -276,7 +276,7 @@ export default function AdminPto() {
                 actionName='Deny'
                 onConfirm={() => denyPto(employeeId)}
             />
-            <SwxDataGrid columns={columns} rows={employees} loading={isLoading} />
+            <SwxDataGrid checkboxSelection columns={columns} rows={employees} loading={isLoading} />
             <SwxPagination
                 paginationName='adminPtoPagination'
                 itemsPerPageOptions={['5', '10', '15']}

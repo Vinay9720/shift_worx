@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { IconButton } from '@mui/material';
+import { IconButton, Stack } from '@mui/material';
 
 export const StyledIconComponent = styled(IconButton)`
     height: 42px;
@@ -108,3 +108,27 @@ export const styles = {
         },
     },
 };
+
+export const TimeOfRequestWidgetWrapper = styled(Stack)`
+    ${({ theme }) => `
+        border-bottom: 1px solid ${theme.borderColor.lightGray};
+    `}
+`;
+
+export const ShiftsAndExpirationsWidgetsWrapper = styled(Stack)`
+    ${({ theme }) => `
+        border-bottom: 1px solid ${theme.borderColor.lightGray};
+    `}
+`;
+
+export const UnfilledShiftsWidgetWrapper = styled(Stack)`
+    ${({ theme }) => `
+        border-right: 1px solid ${theme.borderColor.lightGray};
+    `}
+`;
+
+export const AcitivityWidgetWrapper = styled(Stack)`
+    ${({ theme }) => `
+        border-right: 1px solid ${theme.borderColor.lightGray};
+    `}
+`;

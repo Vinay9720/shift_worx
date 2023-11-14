@@ -153,7 +153,7 @@ export default function ScheduleList({ scheduleData, isLoading }) {
 
     return (
         <>
-            <SwxDataGrid loading={isLoading} rows={scheduleData.records} columns={columns} />
+            <SwxDataGrid checkboxSelection loading={isLoading} rows={scheduleData.records} columns={columns} />
             <SwxPagination
                 itemsPerPageOptions={['5', '10', '15']}
                 paginationName='adminScheduleListPagination'

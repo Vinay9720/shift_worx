@@ -239,6 +239,7 @@ export default function AdminExpirations() {
             <SwxDataGrid
                 rows={expirations.map((row, index) => ({ ...row, id: `${row.nurse_id}_${index}` }))}
                 columns={columns}
+                checkboxSelection
                 getRowId={row => row.id}
                 loading={isLoading}
             />

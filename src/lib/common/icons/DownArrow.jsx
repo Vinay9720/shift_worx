@@ -3,7 +3,7 @@ export default function DownArrow({ width, height, fill, styles, ...rest }) {
         <svg
             width={width}
             height={height}
-            className={styles}
+            style={{ ...styles }}
             xmlns='http://www.w3.org/2000/svg'
             viewBox='0 0 10 13'
             fill='none'
