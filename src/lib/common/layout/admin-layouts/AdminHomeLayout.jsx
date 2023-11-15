@@ -7,6 +7,9 @@ import {
     ShiftsAndExpirationsWidgetsWrapper,
     UnfilledShiftsWidgetWrapper,
     AcitivityWidgetWrapper,
+    ActivitiesAndEventsContainer,
+    EmployeeEventsWidgetWrapper,
+    EmployeeExpirationsWidgetWrapper,
 } from './admin-layout.styles';
 
 export default function AdminHomeLayout({
@@ -15,7 +18,7 @@ export default function AdminHomeLayout({
     timeOffRequestWidget,
     unfilledShiftsWidget,
     emplyeeExpirationsWidget,
-    activitesWidget,
+    activityWidget,
     emplyeeEventsWidget,
 }) {
     return (
@@ -31,19 +34,21 @@ export default function AdminHomeLayout({
                     {timeOffRequestWidget}
                 </TimeOfRequestWidgetWrapper>
                 <ShiftsAndExpirationsWidgetsWrapper direction='row'>
-                    <UnfilledShiftsWidgetWrapper style={{ minHeight: '420px', width: '40%', background: '#fff' }}>
+                    <UnfilledShiftsWidgetWrapper style={{ minHeight: '420px', background: '#fff' }}>
                         {unfilledShiftsWidget}
                     </UnfilledShiftsWidgetWrapper>
-                    <Stack style={{ minHeight: '420px', width: '60%', background: '#fff' }}>
+                    <EmployeeExpirationsWidgetWrapper style={{ minHeight: '420px', background: '#fff' }}>
                         {emplyeeExpirationsWidget}
-                    </Stack>
+                    </EmployeeExpirationsWidgetWrapper>
                 </ShiftsAndExpirationsWidgetsWrapper>
-                <Stack direction='row'>
-                    <AcitivityWidgetWrapper style={{ minHeight: '420px', width: '40%', background: '#fff' }}>
-                        Activity
+                <ActivitiesAndEventsContainer direction='row'>
+                    <AcitivityWidgetWrapper style={{ minHeight: '420px', background: '#fff' }}>
+                        {activityWidget}
                     </AcitivityWidgetWrapper>
-                    <Stack style={{ minHeight: '420px', width: '60%', background: '#fff' }}>Employee Events</Stack>
-                </Stack>
+                    <EmployeeEventsWidgetWrapper style={{ minHeight: '420px', background: '#fff' }}>
+                        {emplyeeEventsWidget}
+                    </EmployeeEventsWidgetWrapper>
+                </ActivitiesAndEventsContainer>
             </Stack>
         </>
     );

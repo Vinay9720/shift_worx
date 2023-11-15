@@ -1,6 +1,7 @@
 import { SwxTypography, SwxButton, SwxDataGrid, SwxPopupMenu } from '@/lib/common/components';
 import { Stack, IconButton, Avatar } from '@mui/material';
 import { Icon } from '@/lib/common/icons';
+import { EmployeeExpirationsWidgetWrapper } from './admin-home.styles';
 
 export default function EmployeeExpirationsWidget() {
     const rows = [
@@ -146,7 +147,7 @@ export default function EmployeeExpirationsWidget() {
     ];
 
     return (
-        <Stack direction='column' sx={{ my: 5, ml: 5 }}>
+        <EmployeeExpirationsWidgetWrapper direction='column'>
             <Stack justifyContent='space-between' direction='row'>
                 <SwxTypography size='semiLarge' color='swxSlightlyBlack' weight='bold'>
                     Employee Expirations
@@ -167,6 +168,6 @@ export default function EmployeeExpirationsWidget() {
                 isRowSelectable={false}
                 checkboxSelection={false}
             />
-        </Stack>
+        </EmployeeExpirationsWidgetWrapper>
     );
 }

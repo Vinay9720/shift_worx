@@ -1,6 +1,7 @@
 import { SwxTypography, SwxButton, SwxDataGrid, SwxPopupMenu } from '@/lib/common/components';
 import { Stack, IconButton } from '@mui/material';
 import { Icon } from '@/lib/common/icons';
+import { UnfilledShiftsWidgetWrapper } from './admin-home.styles';
 
 export default function UnfilledShiftsWidget() {
     const rows = [
@@ -112,7 +113,7 @@ export default function UnfilledShiftsWidget() {
     ];
 
     return (
-        <Stack direction='column' sx={{ my: 5, mr: 5 }}>
+        <UnfilledShiftsWidgetWrapper direction='column' sx={{ my: 5, mr: 5 }}>
             <Stack justifyContent='space-between' direction='row'>
                 <SwxTypography size='semiLarge' color='swxSlightlyBlack' weight='bold'>
                     Unfilled Shifts
@@ -133,6 +134,6 @@ export default function UnfilledShiftsWidget() {
                 isRowSelectable={false}
                 checkboxSelection={false}
             />
-        </Stack>
+        </UnfilledShiftsWidgetWrapper>
     );
 }

@@ -60,6 +60,7 @@ import CircleCloseDelete from './CircleCloseDelete';
 import PaperWithCircleBackSlash from './PaperWithCircleBackSlash';
 import CalenderWeek from './CalenderWeek';
 import CalenderMonth from './CalenderMonth';
+import Radio from './Radio';
 
 export const Icon = ({ name, width, height, fill, styles, ...rest }) => {
     switch (name) {
@@ -185,6 +186,8 @@ export const Icon = ({ name, width, height, fill, styles, ...rest }) => {
             return <CalenderWeek width={width} height={height} fill={fill} styles={styles} {...rest} />;
         case 'calender-month':
             return <CalenderMonth width={width} height={height} fill={fill} styles={styles} {...rest} />;
+        case 'radio':
+            return <Radio width={width} height={height} fill={fill} styles={styles} {...rest} />;
         default:
             return <div>Icon</div>;
     }

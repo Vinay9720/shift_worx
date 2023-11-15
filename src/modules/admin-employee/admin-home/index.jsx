@@ -5,6 +5,8 @@ import { WidgetCard } from '@/lib/common/layout';
 import TimeOffRequestsWidget from './TimeOffRequestsWidget';
 import UnfilledShiftsWidget from './UnfilledShiftsWidget';
 import EmployeeExpirationsWidget from './EmployeeExpirationsWidget';
+import ActivityWidget from './ActivityWidget';
+import EmployeeEventssWidget from './EmployeeEventsWidget';
 
 export default function AdminHome() {
     const cardsData = useMemo(
@@ -58,6 +60,8 @@ export default function AdminHome() {
             timeOffRequestWidget={<TimeOffRequestsWidget />}
             unfilledShiftsWidget={<UnfilledShiftsWidget />}
             emplyeeExpirationsWidget={<EmployeeExpirationsWidget />}
+            activityWidget={<ActivityWidget />}
+            emplyeeEventsWidget={<EmployeeEventssWidget />}
         />
     );
 }

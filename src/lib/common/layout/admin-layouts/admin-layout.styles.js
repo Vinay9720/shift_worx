@@ -119,16 +119,61 @@ export const ShiftsAndExpirationsWidgetsWrapper = styled(Stack)`
     ${({ theme }) => `
         border-bottom: 1px solid ${theme.borderColor.lightGray};
     `}
+    @media (max-width: 767px) {
+        display: flex;
+        flex-direction: column;
+    }
+`;
+
+export const ActivitiesAndEventsContainer = styled(Stack)`
+    @media (max-width: 767px) {
+        display: flex;
+        flex-direction: column;
+    }
 `;
 
 export const UnfilledShiftsWidgetWrapper = styled(Stack)`
     ${({ theme }) => `
         border-right: 1px solid ${theme.borderColor.lightGray};
+        width: 40%;
+        @media (max-width: 767px) {
+            border-right: none;
+            width: 100%;
+            border-bottom: 1px solid ${theme.borderColor.lightGray};
+        }
+    `}
+`;
+
+export const EmployeeExpirationsWidgetWrapper = styled(Stack)`
+    ${({ theme }) => `
+        width: 60%;
+        @media (max-width: 767px) {
+            border-right: none;
+            width: 100%;
+            // border-bottom: 1px solid ${theme.borderColor.lightGray};
+        }
+    `}
+`;
+
+export const EmployeeEventsWidgetWrapper = styled(Stack)`
+    ${({ theme }) => `
+        width: 60%;
+        @media (max-width: 767px) {
+            border-right: none;
+            width: 100%;
+            // border-bottom: 1px solid ${theme.borderColor.lightGray};
+        }
     `}
 `;
 
 export const AcitivityWidgetWrapper = styled(Stack)`
     ${({ theme }) => `
         border-right: 1px solid ${theme.borderColor.lightGray};
+        width: 40%;
+        @media (max-width: 767px) {
+            border-right: none;
+            width: 100%;
+            border-bottom: 1px solid ${theme.borderColor.lightGray};
+        }
     `}
 `;
