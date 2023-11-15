@@ -1,9 +1,9 @@
 import styled from 'styled-components';
 
 export const WeekDaysContainer = styled.div`
+    width: 1247px;
     display: grid;
     grid-template-columns: repeat(7, 1fr);
-    background-color: #ffffff;
 `;
 
 export const WeekDayContainer = styled.div`
@@ -11,29 +11,28 @@ export const WeekDayContainer = styled.div`
     padding-top: 0.75rem;
     padding-bottom: 0.75rem;
     font-weight: 500;
-    border-width: 1px;
-    height: fit-content;
-    border-right-width: 1px;
-    border-color: #d4d4d4;
-    color: #030303;
+    ${({ theme }) => `
+        border-left: 1px solid ${theme.borderColor.lightGray};
+        color: ${theme.fontColor.swxBlack};
+    `}
+    height: 46px;
+    min-width: 178px;
 `;
 
 export const DaysConatiner = styled.div`
+    width: 1247px;
     display: grid;
     grid-template-columns: repeat(7, 1fr);
-    background-color: #ffffff;
-    border-width: 1px;
-    border-style: solid;
-    border-color: #d4d4d4;
 `;
 
 export const DayContainer = styled.div`
-    width: 100%;
-    height: 250px;
+    min-width: 100%;
+    height: 206px;
     background-color: ${({ isToday }) => (isToday ? '#f7f7f8' : '#ffffff')};
-    border-width: 1px;
-    border-style: solid;
-    border-color: #d4d4d4;
+    ${({ theme }) => `
+        border-left: 1px solid ${theme.borderColor.lightGray};
+        border-top: 1px solid ${theme.borderColor.lightGray};
+    `}
 `;
 
 export const DateContainer = styled.p`
@@ -59,6 +58,7 @@ export const DateContainer = styled.p`
 `;
 
 export const ScheduleBannerWrapper = styled.div`
+    height: 52px;
     margin-bottom: 0.5rem;
     display: flex;
     justify-content: center;
@@ -79,7 +79,7 @@ export const StyledShowMoreButton = styled.button`
 
 export const ScheduleBannerContainer = styled.div`
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: space-between;
     gap: 0.5rem;
 `;
@@ -91,7 +91,20 @@ export const TimeContainer = styled.div`
 `;
 
 export const EmployeeNameContainer = styled.div`
+    width: 36px;
     font-size: 12px;
     font-weight: 600;
-    color: #f7f7f8;
+    color: #838a91;
+`;
+export const StyledRootMainContainer = styled.div`
+    position: relative;
+`;
+export const StyledBorderContainer = styled.div`
+    width: 100%;
+    position: absolute;
+    overflow: auto;
+    ${({ theme }) => `
+        border: 1px solid ${theme.borderColor.lightGray};
+        border-radius: ${theme.borderRadius.small};
+    `}
 `;

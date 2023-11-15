@@ -15,6 +15,8 @@ import {
     ScheduleBannerContainer,
     ScheduleBannerWrapper,
     ShowMoreButtonWrapper,
+    StyledBorderContainer,
+    StyledRootMainContainer,
     StyledShowMoreButton,
     TimeContainer,
     WeekDayContainer,
@@ -111,18 +113,24 @@ export default function MonthWiseSchedule({ scheduleData }) {
     };
 
     const getScheduleBanner = (empName, cert, start, end) => {
+        const timeStartInput = start;
+        const timeEndInput = end;
+        const parsedStartTime = moment(timeStartInput, 'h:mma');
+        const parsedEndTime = moment(timeEndInput, 'h:mma');
+        const outputStartTime = parsedStartTime.format('hha');
+        const outputEndTime = parsedEndTime.format('hha');
         return (
             <ScheduleBannerContainer>
                 <TimeContainer>
-                    {start} {`>`} {end}
+                    {outputStartTime} {`>`} {outputEndTime}
                 </TimeContainer>
                 <EmployeeNameContainer>{empName.substring(0, 6)}</EmployeeNameContainer>
-                <div style={{ marginTop: '27px' }}>
+                <div>
                     <SwxChip label={cert} color='white' background={getBackGroundColor(cert)} size='smallest' />
                     <div>
                         <SwxPopupMenu
                             buttonElement={
-                                <IconButton>
+                                <IconButton sx={{ height: '10px' }}>
                                     <Icon
                                         styles={{ fill: '#838A91', transform: 'rotate(90deg)' }}
                                         name='vertical-menu'
@@ -142,76 +150,81 @@ export default function MonthWiseSchedule({ scheduleData }) {
     };
 
     return (
-        <>
-            <WeekDaysContainer>
-                {fixedWeekDays.map((weekDay, index) => (
-                    <WeekDayContainer key={index}>
-                        <p style={{ marginLeft: '12px' }}>{weekDay}</p>
-                    </WeekDayContainer>
-                ))}
-            </WeekDaysContainer>
-            <DaysConatiner>
-                {monthDays.map((day, i) => {
-                    let noOfShifts = 0;
-                    const shiftsToShow = [];
-                    const formattedDate = parseInt(day.date.split('-')[0], 10).toString();
-                    const isToday = moment().format('DD-MM-YYYY') === day.date;
-                    return (
-                        <DayContainer isToday={isToday} style={{ gridColumnStart: `${day.startingColumn}` }} key={i}>
-                            <DateContainer isToday={isToday} isFromCurrentMonth={day.isFromCurrentMonth}>
-                                {formattedDate}
-                            </DateContainer>
-                            {(scheduleData.records || []).map(data => {
-                                const employeeName = data.name || 'Nurse';
-                                return Object.entries(data.shifts).map(([date, shifts]) => {
-                                    if (moment(date, 'MM-DD-YY').format('DD-MM-YYYY') === day.date) {
-                                        shifts.forEach((shift, key) => {
-                                            noOfShifts += 1;
-                                            if (noOfShifts <= 2) {
-                                                shiftsToShow.push(
-                                                    <ScheduleBannerWrapper key={key}>
-                                                        <Badge
-                                                            text={getScheduleBanner(
-                                                                employeeName,
-                                                                shift.cert || 'RN',
-                                                                shift.start_time,
-                                                                shift.end_time,
-                                                                shift.session || 'Morning',
-                                                                shift.station || 'First Floor'
-                                                            )}
-                                                            kind={
-                                                                shift.title === 'RN'
-                                                                    ? 'scheduleOrange'
-                                                                    : shift.title === 'LPN'
-                                                                    ? 'scheduleCyan'
-                                                                    : shift.title === 'CNA'
-                                                                    ? 'scheduleMistyRose'
-                                                                    : 'scheduleOrange'
-                                                            }
-                                                            styles='p-[3px] w-full'
-                                                        />
-                                                    </ScheduleBannerWrapper>
-                                                );
-                                            }
-                                        });
-                                    }
-                                    return null;
-                                });
-                            })}
-                            {shiftsToShow}
-                            {noOfShifts > 3 && (
-                                <ShowMoreButtonWrapper>
-                                    <StyledShowMoreButton
-                                    // onClick={() => showShiftsPopup(day.date)}
-                                    >
-                                        {`View ${noOfShifts - 3}`} More&nbsp;
-                                    </StyledShowMoreButton>
-                                </ShowMoreButtonWrapper>
-                            )}
-                        </DayContainer>
-                    );
-                })}
-            </DaysConatiner>
-        </>
+        <StyledRootMainContainer>
+            <StyledBorderContainer>
+                <WeekDaysContainer>
+                    {fixedWeekDays.map((weekDay, index) => (
+                        <WeekDayContainer key={index}>
+                            <p style={{ marginLeft: '12px' }}>{weekDay}</p>
+                        </WeekDayContainer>
+                    ))}
+                </WeekDaysContainer>
+                <DaysConatiner>
+                    {monthDays.map((day, i) => {
+                        let noOfShifts = 0;
+                        const shiftsToShow = [];
+                        const formattedDate = parseInt(day.date.split('-')[0], 10).toString();
+                        const isToday = moment().format('DD-MM-YYYY') === day.date;
+                        return (
+                            <DayContainer
+                                isToday={isToday}
+                                style={{ gridColumnStart: `${day.startingColumn}` }}
+                                key={i}>
+                                <DateContainer isToday={isToday} isFromCurrentMonth={day.isFromCurrentMonth}>
+                                    {formattedDate}
+                                </DateContainer>
+                                {(scheduleData.records || []).map(data => {
+                                    const employeeName = data.name || 'Nurse';
+                                    return Object.entries(data.shifts).map(([date, shifts]) => {
+                                        if (moment(date, 'MM-DD-YY').format('DD-MM-YYYY') === day.date) {
+                                            shifts.forEach((shift, key) => {
+                                                noOfShifts += 1;
+                                                if (noOfShifts <= 2) {
+                                                    shiftsToShow.push(
+                                                        <ScheduleBannerWrapper key={key}>
+                                                            <Badge
+                                                                text={getScheduleBanner(
+                                                                    employeeName,
+                                                                    shift.cert || 'RN',
+                                                                    shift.start_time,
+                                                                    shift.end_time,
+                                                                    shift.session || 'Morning',
+                                                                    shift.station || 'First Floor'
+                                                                )}
+                                                                kind={
+                                                                    shift.title === 'RN'
+                                                                        ? 'scheduleOrange'
+                                                                        : shift.title === 'LPN'
+                                                                        ? 'scheduleCyan'
+                                                                        : shift.title === 'CNA'
+                                                                        ? 'scheduleMistyRose'
+                                                                        : 'scheduleOrange'
+                                                                }
+                                                                styles='p-[3px] w-full'
+                                                            />
+                                                        </ScheduleBannerWrapper>
+                                                    );
+                                                }
+                                            });
+                                        }
+                                        return null;
+                                    });
+                                })}
+                                {shiftsToShow}
+                                {noOfShifts > 3 && (
+                                    <ShowMoreButtonWrapper>
+                                        <StyledShowMoreButton
+                                        // onClick={() => showShiftsPopup(day.date)}
+                                        >
+                                            {`View ${noOfShifts - 3}`} More&nbsp;
+                                        </StyledShowMoreButton>
+                                    </ShowMoreButtonWrapper>
+                                )}
+                            </DayContainer>
+                        );
+                    })}
+                </DaysConatiner>
+            </StyledBorderContainer>
+        </StyledRootMainContainer>
     );
 }
