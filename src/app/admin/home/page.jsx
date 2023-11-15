@@ -1,7 +1,7 @@
 'use client';
 
-const AdminHome = () => {
-    return <div>Admin Home</div>;
-};
+import { AdminHome } from '@/modules/admin-employee';
 
-export default AdminHome;
+export default function Page() {
+    return <AdminHome />;
+}

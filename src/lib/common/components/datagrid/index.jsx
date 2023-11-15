@@ -6,7 +6,7 @@ import { DataGrid } from '@mui/x-data-grid';
 
 import { DataGridStyles } from './datagrid.styles';
 
-export default function SwxDataGrid({ rows, columns, loading, onSelectionChange, ...rest }) {
+export default function SwxDataGrid({ rows, columns, loading, onSelectionChange, checkboxSelection, ...rest }) {
     const dataGridHeight = rows.length * 80 + 56;
 
     return (
@@ -16,7 +16,7 @@ export default function SwxDataGrid({ rows, columns, loading, onSelectionChange,
                 getRowClassName={params => (params.indexRelativeToCurrentPage % 2 === 0 ? 'Mui-even' : 'Mui-odd')}
                 rows={rows}
                 columns={columns}
-                checkboxSelection
+                checkboxSelection={checkboxSelection}
                 onRowSelectionModelChange={onSelectionChange}
                 hideFooter
                 loading={loading}
