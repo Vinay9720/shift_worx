@@ -35,16 +35,41 @@ export const CertificationLowerSection = styled.div`
 `;
 export const styles = {
     notesSearchField: {
-        padding: '0px 80px 0px 80px',
         display: 'flex',
-        gap: '16px',
+        justifyContent: 'space-between',
         '@media(max-width:900px)': {
             flexDirection: 'column',
-            padding: '0px 8px',
+            gap: '16px',
+        },
+    },
+    mainContainer: {
+        display: 'flex',
+        gap: '16px',
+        flexDirection: 'row',
+        '@media(max-width:900px)': {
+            flexDirection: 'column',
+        },
+    },
+    inputField: {
+        width: '280px',
+        '@media(max-width:800px)': {
+            width: '100%',
+        },
+    },
+    typeField: {
+        width: '100px',
+        '@media(max-width:800px)': {
+            width: '100%',
+        },
+    },
+    dateField: {
+        width: '165px',
+        '@media(max-width:800px)': {
+            width: '100%',
         },
     },
     addButton: {
-        '@media(max-width:600px)': {
+        '@media(max-width:800px)': {
             width: '100%',
         },
     },
@@ -57,6 +82,54 @@ export const styles = {
                 display: 'none',
             },
             border: '1px solid #e6e8e9',
+        },
+    },
+};
+export const firstStepStyles = {
+    rootContainer: {
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '32px',
+    },
+    inputContainer: {
+        padding: '0px 220px 0px 0px',
+        display: 'flex',
+        flexDirection: 'row',
+        gap: '68px',
+        '@media(max-width:700px)': {
+            flexDirection: 'column',
+            padding: '0px',
+        },
+    },
+    dateInputContainer: {
+        width: '56%',
+        padding: '0px 220px 0px 0px',
+        '@media(max-width:700px)': {
+            padding: '0px',
+            width: '100%',
+        },
+    },
+};
+export const secondStepStyles = {
+    rootContainer: {
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '32px',
+    },
+    inputContainer: {
+        padding: '0px 220px 0px 0px',
+        width: '836px',
+        '@media(max-width:600px)': {
+            padding: '0px',
+            width: '100%',
+        },
+    },
+    dateContainer: {
+        padding: '0px 220px 0px 0px',
+        width: '520px',
+        '@media(max-width:600px)': {
+            padding: '0px',
+            width: '100%',
         },
     },
 };

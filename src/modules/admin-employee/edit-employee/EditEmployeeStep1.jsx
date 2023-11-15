@@ -6,6 +6,7 @@ import { UsStates } from '@/lib/constants';
 import { SwxTypography } from '@/lib/common/components';
 import { SelectField, Form, InputField, DatePickerField, PhoneNumberField } from '@/lib/common/form-components';
 import { useUpdateEmployee } from '@/hooks/admin-employee';
+import { firstStepStyles } from './edit-employee.styles';
 
 function EditEmployeeStep1({ employeeData, footer }) {
     const { mutate: updateEmployee } = useUpdateEmployee();
@@ -99,7 +100,6 @@ function EditEmployeeStep1({ employeeData, footer }) {
         ),
         placeholder: 'XXXXX',
         type: 'number',
-        width: '47%',
         required: 'Enter city',
     };
 
@@ -132,19 +132,19 @@ function EditEmployeeStep1({ employeeData, footer }) {
             <Form
                 onSubmit={updatedData => updateEmployee({ id: employeeData.id, employeeData: updatedData })}
                 defaultValues={employeeData}>
-                <Stack direction='column' spacing={4}>
+                <Stack sx={firstStepStyles.rootContainer}>
                     <SwxTypography color='swxBlack' size='semiLarge' weight='bold'>
                         General Information
                     </SwxTypography>
-                    <Stack direction={{ xs: 'column', sm: 'row' }} spacing={8.5} sx={{ padding: '0px 220px 0px 0px' }}>
+                    <Stack sx={firstStepStyles.inputContainer}>
                         <InputField name='first_name' SWXInputProps={firstNameProps} />
                         <InputField name='last_name' SWXInputProps={lastNameProps} />
                     </Stack>
-                    <Stack direction={{ xs: 'column', sm: 'row' }} spacing={8.5} sx={{ padding: '0px 220px 0px 0px' }}>
+                    <Stack sx={firstStepStyles.inputContainer}>
                         <InputField name='email' SWXInputProps={emailProps} />
                         <PhoneNumberField name='phone_number' SWXInputProps={phoneNumberProps} />
                     </Stack>
-                    <Stack direction={{ xs: 'column', sm: 'row' }} spacing={8.5} sx={{ padding: '0px 220px 0px 0px' }}>
+                    <Stack sx={firstStepStyles.inputContainer}>
                         <SwxTypography
                             color='mediumGreen'
                             size='semiMedium'
@@ -154,23 +154,23 @@ function EditEmployeeStep1({ employeeData, footer }) {
                         </SwxTypography>
                         <InputField name='password' SWXInputProps={passwordProps} />
                     </Stack>
-                    <Stack direction={{ xs: 'column', sm: 'row' }} spacing={8.5} sx={{ padding: '0px 220px 0px 0px' }}>
-                        <DatePickerField name='date_of_birth' SWXInputProps={dateProps} width='47%' />
+                    <Stack sx={firstStepStyles.dateInputContainer}>
+                        <DatePickerField name='date_of_birth' SWXInputProps={dateProps} />
                     </Stack>
                     {/* <Hr /> */}
                     <Divider flexItem />
                     <SwxTypography color='swxBlack' size='semiLarge' weight='bold'>
                         Address
                     </SwxTypography>
-                    <Stack direction={{ xs: 'column', sm: 'row' }} spacing={8.5} sx={{ padding: '0px 220px 0px 0px' }}>
+                    <Stack sx={firstStepStyles.inputContainer}>
                         <InputField name='address1' SWXInputProps={addressLine1Props} />
                         <InputField name='address2' SWXInputProps={addressLine2Props} />
                     </Stack>
-                    <Stack direction={{ xs: 'column', sm: 'row' }} spacing={8.5} sx={{ padding: '0px 220px 0px 0px' }}>
+                    <Stack sx={firstStepStyles.inputContainer}>
                         <InputField name='city' SWXInputProps={cityProps} />
                         <SelectField name='State' SWXInputProps={stateProps} />
                     </Stack>
-                    <Stack direction={{ xs: 'column', sm: 'row' }} spacing={8.5} sx={{ padding: '0px 220px 0px 0px' }}>
+                    <Stack sx={firstStepStyles.dateInputContainer}>
                         <InputField name='zipcode' SWXInputProps={zipProps} />
                     </Stack>
                 </Stack>
