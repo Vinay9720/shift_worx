@@ -34,3 +34,23 @@ export const statusCircleBackground = status => {
             return '#838A91';
     }
 };
+export const filledCircleBackground = status => {
+    switch (status) {
+        case 'Filled':
+            return '#02B692';
+        case 'Unfilled':
+            return '#E65889';
+        default:
+            return '#838A91';
+    }
+};
+export const filledChipBackground = status => {
+    switch (status) {
+        case 'Filled':
+            return 'paleGreen';
+        case 'Unfilled':
+            return 'lightPink';
+        default:
+            return 'dullGray';
+    }
+};

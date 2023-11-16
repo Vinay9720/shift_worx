@@ -4,7 +4,7 @@ import { Divider, IconButton } from '@mui/material';
 
 import { formatDate } from '@/lib/util';
 
-import { NoteWrapper, NoteLeftContainer, NoteContainer, DescriptionContainer } from './note-card.styles';
+import { NoteWrapper, NoteLeftContainer, NoteContainer, DescriptionContainer, styles } from './note-card.styles';
 
 import { SwxTypography, SwxChip, SwxPopupMenu } from '../../components';
 import { Icon } from '../../icons';
@@ -43,7 +43,8 @@ export default function NoteCard({ note, actions }) {
                         </SwxTypography>
                     </div>
                 </NoteLeftContainer>
-                <Divider orientation='vertical' flexItem />
+                <Divider orientation='vertical' flexItem sx={styles.vertical} />
+                <Divider orientation='horizontal' flexItem sx={styles.horizontal} />
                 <DescriptionContainer>
                     <SwxTypography color='swxBlack' size='semiMedium' weight='thin'>
                         {note.description}

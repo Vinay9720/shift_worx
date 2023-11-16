@@ -173,6 +173,7 @@ export const styles = {
         padding: '0px 24px',
         height: '86px',
         marginTop: '24px',
+        marginBottom: '12px',
         '@media (max-width: 600px)': {
             display: 'flex',
             flexDirection: 'column',

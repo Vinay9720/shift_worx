@@ -16,16 +16,30 @@ export const styles = {
         marginTop: '56px',
         marginBottom: '24px',
         justifyContent: 'space-between',
-        '@media(max-width:600px)': {
+        '@media(max-width:700px)': {
             flexDirection: 'column',
             gap: '16px',
         },
     },
     subContainer: {
+        width: '80%',
         display: 'flex',
         gap: '16px',
-        '@media(max-width:970px)': {
+        '@media(max-width:1000px)': {
             flexDirection: 'column',
+            width: '100%',
+        },
+    },
+    inputField: {
+        width: '17rem',
+        '@media(max-width:900px)': {
+            width: '100%',
+        },
+    },
+    selectField: {
+        width: '7.5rem',
+        '@media(max-width:900px)': {
+            width: '100%',
         },
     },
     filtersContainer: {
@@ -33,22 +47,21 @@ export const styles = {
         flexDirection: 'row',
         gap: '16px',
         '@media(max-width:900px)': {
-            gap: '30px',
+            justifyContent: 'space-between',
         },
     },
     datesContainer: {
-        width: '400px',
         display: 'flex',
         flexDirection: 'row',
         gap: '16px',
-        '@media(max-width:600px)': {
+        '@media(max-width:900px)': {
             flexDirection: 'column',
         },
     },
     datesSubContainer: {
-        width: '170px',
-        '@media(max-width:600px)': {
-            width: '68%',
+        width: '150px',
+        '@media(max-width:900px)': {
+            width: '100%',
         },
     },
 };
