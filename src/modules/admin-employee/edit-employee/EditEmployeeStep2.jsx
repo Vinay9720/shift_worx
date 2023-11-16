@@ -5,6 +5,7 @@ import { Stack } from '@mui/material';
 import { Form, InputField, DatePickerField } from '@/lib/common/form-components';
 import { SwxTypography } from '@/lib/common/components';
 import { useUpdateEmployee } from '@/hooks/admin-employee';
+import { secondStepStyles } from './edit-employee.styles';
 
 function EditEmployeeStep2({ employeeData, footer }) {
     const { mutate: updateEmployee } = useUpdateEmployee();
@@ -16,7 +17,6 @@ function EditEmployeeStep2({ employeeData, footer }) {
         ),
         placeholder: 'xxx-xxx-xxx',
         type: 'number',
-        width: '60%',
         required: 'Enter first name',
     };
 
@@ -28,7 +28,6 @@ function EditEmployeeStep2({ employeeData, footer }) {
         ),
         placeholder: 'xxx-xxx-xxx',
         type: 'number',
-        width: '60%',
         required: 'Enter last name',
     };
 
@@ -54,21 +53,21 @@ function EditEmployeeStep2({ employeeData, footer }) {
         <Form
             onSubmit={updatedData => updateEmployee({ id: employeeData.id, employeeData: updatedData })}
             defaultValues={employeeData}>
-            <Stack direction='column' spacing={4}>
+            <Stack sx={secondStepStyles.rootContainer}>
                 <SwxTypography color='swxBlack' size='semiLarge' weight='bold'>
                     Personal Documents
                 </SwxTypography>
-                <Stack direction={{ xs: 'column', sm: 'row' }} spacing={8.5} sx={{ padding: '0px 220px 0px 0px' }}>
+                <Stack sx={secondStepStyles.inputContainer}>
                     <InputField name='ssn' SWXInputProps={ssnProps} />
                 </Stack>
-                <Stack direction={{ xs: 'column', sm: 'row' }} spacing={8.5} sx={{ padding: '0px 220px 0px 0px' }}>
+                <Stack sx={secondStepStyles.inputContainer}>
                     <InputField name='dl_number' SWXInputProps={driverLicenseProps} />
                 </Stack>
-                <Stack direction={{ xs: 'column', sm: 'row' }} spacing={8.5} sx={{ padding: '0px 220px 0px 0px' }}>
-                    <DatePickerField name='dl_issue_date' SWXInputProps={driverLicenseIssueProps} width='30%' />
+                <Stack sx={secondStepStyles.dateContainer}>
+                    <DatePickerField name='dl_issue_date' SWXInputProps={driverLicenseIssueProps} />
                 </Stack>
-                <Stack direction={{ xs: 'column', sm: 'row' }} spacing={8.5} sx={{ padding: '0px 220px 0px 0px' }}>
-                    <DatePickerField name='dl_expiration_date' SWXInputProps={driverLicenseExpireProps} width='30%' />
+                <Stack sx={secondStepStyles.dateContainer}>
+                    <DatePickerField name='dl_expiration_date' SWXInputProps={driverLicenseExpireProps} />
                 </Stack>
             </Stack>
             {/* <Stack spacing={0.5} direction='row' style={{ float: 'right', padding: '60px 0px' }}>
