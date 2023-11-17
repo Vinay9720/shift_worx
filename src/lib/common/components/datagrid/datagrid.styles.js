@@ -6,6 +6,8 @@ export const DataGridStyles = {
     '&.MuiDataGrid-root': {
         border: 'none',
         fontFamily: '__Manrope_36d688',
+        color: '#030303',
+        fontWeight: '500',
     },
     '.MuiDataGrid-columnHeader': {
         borderBottom: '1px solid #838A91',
@@ -40,7 +42,7 @@ export const DataGridStyles = {
         backgroundColor: '#E65889',
         borderColor: '#FFFFFF',
         path: {
-            fill: 'white', // Set the fill color to blue
+            fill: 'white', // Set the fill color to white
             display: 'block', // Display the tick icon
         },
     },

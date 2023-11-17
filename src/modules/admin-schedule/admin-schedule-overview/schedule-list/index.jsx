@@ -3,7 +3,9 @@ import { capitalize } from 'lodash';
 
 import { SwxDataGrid, SwxChip, SwxTypography, SwxPopupMenu } from '@/lib/common/components';
 import { Icon } from '@/lib/common/icons';
+import { roleBackground, filledCircleBackground, filledChipBackground } from '@/lib/util';
 import SwxPagination from '@/lib/common/layout/pagination';
+import moment from 'moment';
 
 export default function ScheduleList({ scheduleData, isLoading }) {
     const menuOptions = () => {
@@ -29,9 +31,13 @@ export default function ScheduleList({ scheduleData, isLoading }) {
             headerName: 'Employee',
             width: 250,
             renderCell: params => (
-                <Stack direction='row' spacing={1} alignItems='center'>
-                    <Avatar sx={{ width: 32, height: 32 }}>{`${params.row.name.split('')[0] || ''}`}</Avatar>
-                    <SwxTypography>{`${params.row.name || ''}`}</SwxTypography>
+                <Stack direction='row' spacing={1} alignItems='center' style={{ cursor: 'pointer' }}>
+                    <Avatar sx={{ width: 32, height: 32, bgcolor: '#1F6FA9' }}>{`${
+                        params.row.name.split('')[0].toUpperCase() || 'K'
+                    }`}</Avatar>
+                    <SwxTypography color='swxBlack' size='semiMedium' weight='semiBold'>{`${
+                        params.row.name || ''
+                    }`}</SwxTypography>
                 </Stack>
             ),
             align: 'left',
@@ -47,9 +53,10 @@ export default function ScheduleList({ scheduleData, isLoading }) {
             minWidth: 120,
             sortable: false,
             filterable: false,
-            renderCell: params => (
-                <SwxChip label={params.value || 'RN'} color='white' background='swxBlue' size='semiMedium' />
-            ),
+            renderCell: params => {
+                const background = roleBackground(params.value);
+                return <SwxChip label={params.value || 'RN'} color='white' background={background} size='semiMedium' />;
+            },
         },
         {
             field: 'date',
@@ -58,7 +65,11 @@ export default function ScheduleList({ scheduleData, isLoading }) {
             align: 'left',
             // flex: 1,
             sortable: false,
-            valueGetter: params => params.value || 'Jan 23, 2023',
+            valueGetter: params => {
+                const inputDate = params.value;
+                const formattedDate = moment(inputDate, 'MM-DD-YYYY').format('MMM D, YYYY');
+                return formattedDate || 'Jan 23, 2023';
+            },
             filterable: false,
             minWidth: 120,
         },
@@ -69,7 +80,7 @@ export default function ScheduleList({ scheduleData, isLoading }) {
             align: 'left',
             // flex: 1,
             sortable: false,
-            valueGetter: params => params.value || 'Some station',
+            valueGetter: params => params.value.toUpperCase() || 'Some station',
             filterable: false,
             minWidth: 120,
         },
@@ -78,15 +89,21 @@ export default function ScheduleList({ scheduleData, isLoading }) {
             headerName: 'Status',
             width: 140,
             align: 'left',
-            renderCell: params => (
-                <SwxChip
-                    label={capitalize(params.value)}
-                    kind='rounded'
-                    color='swxBlack'
-                    background='lightPink'
-                    size='semiMedium'
-                />
-            ),
+            renderCell: params => {
+                const circleBackground = filledCircleBackground(params.value);
+                const chipBackground = filledChipBackground(params.value);
+                return (
+                    <SwxChip
+                        icon={<Icon name='circle' fill={circleBackground} height={8} width={8} cx='4' cy='4' r='3.5' />}
+                        label={capitalize(params.value)}
+                        kind='rounded'
+                        color='swxBlack'
+                        background={chipBackground}
+                        size='semiMedium'
+                        leftPadding='4px'
+                    />
+                );
+            },
             minWidth: 120,
             sortable: false,
             filterable: false,
@@ -98,7 +115,9 @@ export default function ScheduleList({ scheduleData, isLoading }) {
             align: 'left',
             // flex: 1,
             sortable: false,
-            valueGetter: params => params.value || '05:00 AM - 05:00 AM',
+            valueGetter: params => {
+                return params.value || '05:00 AM - 05:00 AM';
+            },
             filterable: false,
             minWidth: 150,
         },

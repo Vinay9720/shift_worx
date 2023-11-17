@@ -85,11 +85,11 @@ const ListBox = ({ label, options, setSelectedOptions, selectedOptions, maxHeigh
             )}
             <TitleContainer style={{ cursor: 'pointer' }}>
                 <Icon
-                    width={12}
-                    height={13}
+                    width={14}
+                    height={14}
                     onClick={() => setIsOpen(!isOpen)}
-                    name='select-down-arrow'
-                    styles={{ fill: '#838A91' }}
+                    name='dropdown-arrow'
+                    styles={{ marginTop: '3px', marginRight: '5px' }}
                 />
             </TitleContainer>
         </ListBoxWrapper>

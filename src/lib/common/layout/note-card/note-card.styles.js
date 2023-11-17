@@ -20,6 +20,9 @@ export const NoteContainer = styled.div`
             border-radius: 5px;
             border-left: 5px solid ${theme.backgroundColor.blue};
     `}
+    @media (max-width: 800px) {
+        flex-direction: column;
+    }
 `;
 
 export const NoteLeftContainer = styled.div`
@@ -27,6 +30,9 @@ export const NoteLeftContainer = styled.div`
     flex-direction: column;
     gap: 12px;
     width: 40%;
+    @media (max-width: 800px) {
+        width: 100%;
+    }
 `;
 
 export const DescriptionContainer = styled.div`
@@ -34,3 +40,17 @@ export const DescriptionContainer = styled.div`
     justify-content: space-between;
     width: 100%;
 `;
+export const styles = {
+    horizontal: {
+        display: 'none',
+        '@media(max-width:800px)': {
+            display: 'block',
+        },
+    },
+    vertical: {
+        display: 'block',
+        '@media(max-width:800px)': {
+            display: 'none',
+        },
+    },
+};
