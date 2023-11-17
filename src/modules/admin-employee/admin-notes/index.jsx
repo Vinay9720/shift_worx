@@ -2,7 +2,7 @@
 
 import { useMemo } from 'react';
 import { Stack } from '@mui/material';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { useDeleteNote, useNotes, useReadNote, useUpdateNote } from '@/hooks/admin-note';
 import { openEditNoteForm, setnoteToBeUpdated } from '@/lib/store/slices/admin-notes-module';
@@ -21,14 +21,19 @@ export default function AdminNotes() {
     const { mutate: updateNote } = useUpdateNote();
     const { mutate: deleteNote } = useDeleteNote();
     const { mutate: readNote } = useReadNote();
+    const { noteToBeUpdated } = useSelector(state => state.adminNotesModule);
     const menuOptions = ({ note }) => {
+        const formattedNote = {
+            ...note,
+            note_type_id: [JSON.stringify(note.note_type.id)],
+        };
         return [
             {
                 label: 'Edit',
                 action: () => {
                     dispatch(openEditNoteForm());
                     dispatch(openModal({ modalName: 'editNoteModal' }));
-                    dispatch(setnoteToBeUpdated(note));
+                    dispatch(setnoteToBeUpdated(formattedNote));
                 },
             },
             {
@@ -93,7 +98,12 @@ export default function AdminNotes() {
                 {!isLoading ? (
                     <Stack direction='column' spacing={3} style={{ width: '100%' }}>
                         <SwxModal modalName='editNoteModal'>
-                            <NoteForm modalName='editNoteModal' action={updateNote} />
+                            <NoteForm
+                                modalName='editNoteModal'
+                                defaultValues={noteToBeUpdated}
+                                title='Edit Note'
+                                action={updateNote}
+                            />
                         </SwxModal>
                         {notesData.notes.map((note, index) => {
                             return (

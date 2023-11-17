@@ -44,7 +44,9 @@ const ListBox = ({ label, options, setSelectedOptions, selectedOptions, maxHeigh
                             {selectedOptions
                                 .map(value => {
                                     const foundObject = options.find(option =>
-                                        isString(option.value) ? option.value : JSON.stringify(option.value) === value
+                                        isString(option.value)
+                                            ? option.value === value
+                                            : JSON.stringify(option.value) === value
                                     );
                                     return foundObject && foundObject.label;
                                 })

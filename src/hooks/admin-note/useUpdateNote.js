@@ -15,9 +15,6 @@ export const useUpdateNote = () => {
     const updateNote = noteData => {
         const payload = {
             ...noteData.noteData,
-            entity_id: '98',
-            entity_type: 'Nurse',
-            note_type_id: '12',
             id: noteToBeUpdated.id,
         };
         return AdminNoteService.updateNote(noteToBeUpdated.id, payload);

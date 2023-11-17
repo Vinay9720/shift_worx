@@ -20,7 +20,7 @@ const noteTypeOptions = [
     { label: 'Tardiness', value: '12' },
 ];
 
-export default function NoteForm({ employee, modalName, action: addNote }) {
+export default function NoteForm({ title = 'Add Note', employee, modalName, action: addNote, defaultValues }) {
     const dispatch = useDispatch();
     const noteTypeProps = {
         label: 'Select type',
@@ -51,7 +51,7 @@ export default function NoteForm({ employee, modalName, action: addNote }) {
         <ModalContainer>
             <HeaderContainer>
                 <SwxTypography color='swxBlack' size='large' weight='bold'>
-                    Add Note
+                    {title}
                 </SwxTypography>
                 <EllipseContainer onClick={() => dispatch(closeModal({ modalName: 'addNoteModal' }))}>
                     <CloseContainer>
@@ -62,7 +62,7 @@ export default function NoteForm({ employee, modalName, action: addNote }) {
                     </Stack>
                 </EllipseContainer>
             </HeaderContainer>
-            <Form onSubmit={noteData => addNote({ noteData, employee })}>
+            <Form onSubmit={noteData => addNote({ noteData, employee })} defaultValues={defaultValues}>
                 <Stack direction='column' spacing={2} sx={{ padding: '24px 24px 0px 24px' }}>
                     <div
                         style={{
