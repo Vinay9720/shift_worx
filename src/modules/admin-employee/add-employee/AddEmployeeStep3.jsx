@@ -71,7 +71,7 @@ function AddEmployeeStep3() {
                 <SwxButton onClick={() => dispatch(closeModal({ modalName: 'addEmployeeModal' }))} variant='text'>
                     Cancel
                 </SwxButton>
-                <SwxButton onClick={onSubmit} variant='contained'>
+                <SwxButton disabled={isEmpty(certificates)} onClick={onSubmit} variant='contained'>
                     Submit
                 </SwxButton>
             </FooterContainer>

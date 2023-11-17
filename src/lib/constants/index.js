@@ -16,7 +16,7 @@ export const EMPLOYEE_NAV_LINKS = [
 export const ADMIN_NAV_LINKS = [
     {
         label: 'Home',
-        destination: '/admin/home',
+        destination: '/admin/home/?step=anniversaries',
     },
     {
         label: 'Schedule',

@@ -10,7 +10,7 @@ const eventTabs = [
 
 export default function EmployeeEventssWidget() {
     const searchParams = useSearchParams();
-    const currentStep = searchParams.get('event-type');
+    const currentStep = searchParams.get('step');
     return (
         <EmployeeEventsWidgetWrapper direction='column'>
             <Stack justifyContent='space-between' direction='row' sx={{ mb: 4 }}>

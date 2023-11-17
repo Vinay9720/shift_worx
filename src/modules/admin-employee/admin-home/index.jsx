@@ -12,23 +12,23 @@ export default function AdminHome() {
     const cardsData = useMemo(
         () => [
             {
-                title: 'Total Employees',
-                iconName: 'people-group',
-                totalCount: 22,
-                percentage: '80%',
-                badgeArrow: 'up-arrow',
-            },
-            {
-                title: 'Scheduled Employees',
+                title: 'Employee Utilization',
                 iconName: 'calender-check',
-                totalCount: 35,
-                percentage: '40%',
+                totalCount: '35.3%',
+                percentage: '80%',
                 badgeArrow: 'up-arrow',
             },
             {
                 title: 'Expirations',
                 iconName: 'calender-todo',
-                totalCount: 40,
+                totalCount: 14,
+                percentage: '40%',
+                badgeArrow: 'up-arrow',
+            },
+            {
+                title: 'Unfilled Shifts',
+                iconName: 'calender-todo',
+                totalCount: 23,
                 percentage: '89%',
                 badgeArrow: 'down-arrow',
             },
