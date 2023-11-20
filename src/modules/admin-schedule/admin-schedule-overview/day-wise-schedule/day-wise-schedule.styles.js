@@ -7,8 +7,10 @@ export const StyledMainDiv = styled.div`
 export const StyledGridMainDiv = styled.div`
     display: flex;
     flex-direction: row;
-    border: 1px solid #e6e8e9;
-    border-radius: 12px;
+    ${({ theme }) => `
+        border: 1px solid ${theme.borderColor.lightGray};
+        border-radius: ${theme.borderRadius.aboveMedium};
+    `}
 `;
 export const StyledGridSubDiv = styled.div`
     display: flex;
@@ -21,13 +23,17 @@ export const StyledViewUsersDiv = styled.div`
     justify-content: center;
     align-items: center;
     margin-left: 4px;
-    color: #030303;
-    font-weight: 500;
-    font-size: 16px;
+    ${({ theme }) => `
+        color: ${theme.fontColor.swxBlack};
+        font-weight: ${theme.fontWeight.thin};
+        font-size: ${theme.fontSize.semiMedium};
+    `}
 `;
 export const StyledFlexDiv = styled.div`
     display: flex;
-    border: 1px solid #e6e8e9;
+    ${({ theme }) => `
+        border: 1px solid ${theme.borderColor.lightGray};
+    `}
     border-left: none;
     border-bottom: none;
     border-right: 0;
@@ -38,7 +44,9 @@ export const StyledSubFlexDiv = styled.div`
     justify-content: center;
     align-items: center;
     width: 200px;
-    color: #e6e8e9;
+    ${({ theme }) => `
+         color: ${theme.fontColor.lighterGray};
+    `}
 `;
 export const StyledAvatarGridContainer = styled.div`
     display: flex;
@@ -53,9 +61,11 @@ export const StyledNameFlexContainer = styled.div`
     gap: 20px;
 `;
 export const StyledEmployeeName = styled.div`
-    font-size: 18px;
-    font-weight: 600;
-    color: #030303;
+    ${({ theme }) => `
+        color: ${theme.fontColor.swxBlack};
+        font-weight: ${theme.fontWeight.semiBold};
+        font-size: ${theme.fontSize.medium};
+    `}
 `;
 export const StyledFlexRow = styled.div`
     display: flex;
@@ -68,24 +78,30 @@ export const StyledMarginDiv = styled.div`
     margin-right: 0.5rem;
 `;
 export const StyledTimeDiv = styled.div`
+    ${({ theme }) => `
+        color: ${theme.fontColor.lightGray};
+        font-weight: ${theme.fontWeight.extraThin};
+        font-size: ${theme.fontSize.small};
+    `}
     margin-right: 0.5rem;
-    font-size: 14px;
-    font-weight: 400;
-    color: #a1a5b4;
 `;
 export const StyledDotDiv = styled.div`
     width: 5px;
     height: 5px;
     border-radius: 50%;
-    background-color: #a1a5b4;
+    ${({ theme }) => `
+    background-color: ${theme.backgroundColor.paleGray};
+    `}
     margin-right: 0.5rem;
 `;
 export const StyledCalenderDiv = styled.div`
     margin-right: 0.5rem;
 `;
 export const StyledShiftLengthDiv = styled.div`
+    ${({ theme }) => `
+        color: ${theme.fontColor.lightGray};
+    `}
     margin-right: 0.5rem;
-    color: #838a91;
 `;
 export const StyledTimeSlotMainDiv = styled.div`
     display: flex;
@@ -96,11 +112,13 @@ export const StyledTimeSlotDiv = styled.div`
     justify-content: space-between;
     align-items: center;
     width: 100px;
-    border: 1px solid #e6e8e9;
+    ${({ theme }) => `
+        color: ${theme.fontColor.swxBlack};
+        font-size: ${theme.fontSize.small};
+        border: 1px solid ${theme.borderColor.lightGray};
+    `}
     border-top: none;
     border-right: none;
-    color: #030303;
-    font-size: 14px;
     padding: 8px;
 `;
 
@@ -108,9 +126,11 @@ export const StyledBoderBoxSlotDiv = styled.div`
     width: 100px;
     border-top: 0px;
     border-right: 0px;
-    border-left: 0.5px solid #e6e8e9;
-    border-bottom: 0.5px solid #e6e8e9;
-    color: #030303;
+    ${({ theme }) => `
+        color: ${theme.fontColor.swxBlack};
+        border-bottom: 0.5px solid ${theme.borderColor.lightGray};
+        border-left: 0.5px solid ${theme.borderColor.lightGray};
+    `}
 `;
 export const StyledShiftByDateContainer = styled.div`
     display: grid;
@@ -120,7 +140,9 @@ export const StyledTimePositionContainer = styled.div`
     position: absolute;
     top: 0;
     left: 0;
-    border: 1px solid #027ef4;
+    ${({ theme }) => `
+        border: 1px solid ${theme.borderColor.blue};
+    `}
     margin-top: 39px;
 `;
 export const StyledSortedShiftsMainContainer = styled.div`
@@ -136,7 +158,9 @@ export const StyledSortedShiftsContainer = styled.div`
 `;
 export const StyledNoSchedulesContainer = styled.div`
     padding: 12px;
-    color: #030303;
-    font-weight: 500;
-    border-left: 1px solid #e6e8e9;
+    ${({ theme }) => `
+        color: ${theme.fontColor.swxBlack};
+        border-left: 1px solid ${theme.borderColor.lightGray};
+        font-weight: ${theme.fontWeight.thin};
+    `}
 `;
