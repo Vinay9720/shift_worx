@@ -57,24 +57,28 @@ function SearchFilter({ actionButton: ActionButton, style }) {
                     }
                 />
                 <Stack sx={styles.filtersContainer}>
-                    <SwxSelect
-                        onChange={value => dispatch(setStatus(value))}
-                        options={statusOptions}
-                        placeholder='Status'
-                        value={status}
-                        placeholderColor='#838A91'
-                        sx={styles.statusSelectField}
-                        padding='3px 6px'
-                    />
-                    <SwxMultiSelect
-                        insideLabel='Roles'
-                        multiple
-                        style={{ width: '126px' }}
-                        options={['RN', 'LPN', 'CNA']}
-                        value={roles}
-                        padding='12px 12px'
-                        onChange={onRoleChange}
-                    />
+                    <Stack sx={styles.statusSelectField}>
+                        <SwxSelect
+                            onChange={value => dispatch(setStatus(value))}
+                            options={statusOptions}
+                            placeholder='Status'
+                            value={status}
+                            placeholderColor='#838A91'
+                            style={{ width: '100%' }}
+                            padding='3px 6px'
+                        />
+                    </Stack>
+                    <Stack sx={styles.multiSelect}>
+                        <SwxMultiSelect
+                            insideLabel='Roles'
+                            multiple
+                            style={{ width: '100%' }}
+                            options={['RN', 'LPN', 'CNA']}
+                            value={roles}
+                            padding='12px 12px'
+                            onChange={onRoleChange}
+                        />
+                    </Stack>
                     {filterApplied && (
                         <SwxButton
                             // endIcon={<Icon width={17} height={12} name='close' styles={{ fill: '#030303' }} />}

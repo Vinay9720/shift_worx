@@ -29,6 +29,7 @@ export const white = {
         lightRed: '#FFE0D7',
         lightPink: '#FAE0E9',
         pink: '#E65889',
+        palePink: '#FCEBF1',
         lighterGreen: '#02B692',
         paleGreen: '#E6FFFA',
         lightOrange: '#F47602',
@@ -43,6 +44,7 @@ export const white = {
         verySmall: '5px',
         small: '8px',
         medium: '6px',
+        aboveMedium: '12px',
     },
     fontSize: {
         smallest: '0.75rem', // 12px

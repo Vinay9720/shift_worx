@@ -68,7 +68,9 @@ export const HeaderContainer = styled.div`
     display: flex;
     justify-content: space-between;
     padding: 16px 16px 27px 32px;
-    border-bottom: 2px solid #027ef4;
+    ${({ theme }) => `        
+        border-bottom: 2px solid ${theme.borderColor.blue};
+  `}
     height: 90px;
 `;
 
@@ -104,7 +106,9 @@ export const EllipseContainer = styled.div`
 `;
 export const StyledWrapperContainer = styled.div`
     padding: 31px 151px 30px 32px;
-    border-bottom: 2px solid #e6e8e9;
+    ${({ theme }) => `        
+        border-bottom: 2px solid ${theme.borderColor.lightGray};
+  `}
     @media (max-width: 800px) {
         padding: 32px;
     }

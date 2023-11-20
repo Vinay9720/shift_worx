@@ -192,4 +192,13 @@ export const styles = {
             width: '100%',
         },
     },
+    multiSelect: {
+        width: '126px',
+        '@media(max-width:700px)': {
+            width: '100%',
+        },
+        '@media(max-width:400px)': {
+            width: '126px',
+        },
+    },
 };

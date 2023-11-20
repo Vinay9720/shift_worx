@@ -72,9 +72,11 @@ export const ShowMoreButtonWrapper = styled.div`
 `;
 
 export const StyledShowMoreButton = styled.button`
-    font-size: 0.875rem;
-    font-weight: 700;
-    color: #1f6fa9;
+    ${({ theme }) => `
+        font-size: ${theme.fontSize.small};
+        color: ${theme.fontColor.darkBlue};
+        font-weight:${theme.fontWeight.bold};
+    `}
 `;
 
 export const ScheduleBannerContainer = styled.div`
@@ -85,16 +87,20 @@ export const ScheduleBannerContainer = styled.div`
 `;
 
 export const TimeContainer = styled.div`
-    font-size: 12px;
-    font-weight: 600;
-    color: #030303;
+    ${({ theme }) => `
+        font-size: ${theme.fontSize.smallest};
+        color: ${theme.fontColor.swxBlack};
+        font-weight:${theme.fontWeight.thin};
+    `}
 `;
 
 export const EmployeeNameContainer = styled.div`
     width: 36px;
-    font-size: 12px;
-    font-weight: 600;
-    color: #838a91;
+    ${({ theme }) => `
+        font-size: ${theme.fontSize.smallest};
+        font-weight:${theme.fontWeight.semiBold};
+        color: ${theme.fontColor.lightGray};
+    `}
 `;
 export const StyledRootMainContainer = styled.div`
     position: relative;
