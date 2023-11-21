@@ -29,6 +29,25 @@ export default function Page({ params }) {
     const navigateTo = useEditEmployeeNavigation();
     const currentStepName = searchParams.get('step');
 
+    const isCertificateExpired = certificate => {
+        const expirationDate = certificate.expiration_date;
+
+        if (expirationDate && new Date(expirationDate) < new Date()) {
+            return true;
+        }
+
+        return false;
+    };
+
+    const anyCertificateExpired = (employeeData ? employeeData.certificates : []).some(isCertificateExpired);
+
+    const tabs = [
+        { label: 'General Information', step: 'profile_information' },
+        { label: 'Personal Documents', step: 'personal_documents' },
+        { label: 'Certs/Licenses', step: 'certificates', icon: anyCertificateExpired ? 'alert' : undefined },
+        { label: 'Notes', step: 'notes' },
+    ];
+
     const renderFooterSection = useCallback(() => {
         return (
             <Stack spacing={0.5} direction='row' style={{ float: 'right', padding: '60px 0px' }}>
@@ -65,7 +84,7 @@ export default function Page({ params }) {
     }, [stepsMap[currentStepName], navigateTo]);
 
     return (
-        <EditEmployeeLayout>
+        <EditEmployeeLayout tabs={tabs}>
             <div
                 style={{
                     minHeight: '88vh',

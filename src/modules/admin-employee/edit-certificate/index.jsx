@@ -8,13 +8,18 @@ import CertificateForm from '../add-certificate/CertificateForm';
 import { styles } from '../add-certificate/add-certificate.styles';
 
 function EditCerfification({ defaultValues, employeeId, onCancel }) {
+    const formattedDefaultValues = {
+        ...defaultValues,
+        certificate_id: [JSON.stringify(defaultValues.certificate.id)],
+        jurisdiction: defaultValues.jurisdiction,
+    };
     const { mutate: updateCertification } = useUpdateEmployee();
 
     return (
         <Stack direction='column' spacing={3} sx={styles.mainStack}>
             <CertificateForm
                 onSubmit={employeeData => updateCertification({ id: employeeId, employeeData })}
-                defaultValues={defaultValues}
+                defaultValues={formattedDefaultValues}
                 onCancel={onCancel}
             />
         </Stack>
