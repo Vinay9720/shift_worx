@@ -18,7 +18,7 @@ const addEmployee = employeeData => {
 };
 
 const updateEmployee = (id, employeeData) => {
-    return http.patch(`/facility_users/${id}`, employeeData);
+    return http.put(`/facility_users/${id}`, employeeData);
 };
 
 const fetchEmployee = id => {

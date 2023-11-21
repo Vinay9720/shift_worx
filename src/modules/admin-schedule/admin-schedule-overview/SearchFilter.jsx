@@ -12,7 +12,7 @@ import { setSearch, setStatus, setRoles, clearFilters } from '@/lib/store/slices
 import AddShift from './add-shift';
 import { styles } from './admin-schedule-overview.styles';
 
-const statusOptions = ['Active', 'Inactive'];
+const statusOptions = ['Filled', 'Unfilled'];
 
 function SearchFilter() {
     const { roles, filterApplied, status } = useSelector(state => state.scheduleFilter);

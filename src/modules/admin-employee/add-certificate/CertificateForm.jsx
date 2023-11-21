@@ -22,6 +22,8 @@ function CertificateForm({ defaultValues, onSubmit, onCancel }) {
     const { data: certificationOptions, isLoading: isCertificateOptionsLoading } = useCertificateOptions();
     const { data: specialityOptions, isLoading: isSpecialityOptionsLoading } = useSpecialityOptions();
 
+    console.log('formatted values===>', defaultValues);
+
     const certificationProps = {
         label: 'Select type',
         validate: value => restrictEmptyArray(value, 'field can not be empty'),

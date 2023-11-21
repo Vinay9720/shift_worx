@@ -46,7 +46,7 @@ export const useUpdateEmployee = () => {
                 ...(!(isCertificationStep || urlStep === 'certificates') ? employeeData : {}),
                 ...profileableAttributes,
             },
-            step: currentStepName,
+            step: isCertificationStep || urlStep === 'certificates' ? 'certificates' : currentStepName,
             ...(isCertificationStep || urlStep === 'certificates' ? nurseCertificateDetails : {}),
             ...(id ? { facility_user_id: id } : {}),
         };

@@ -180,7 +180,7 @@ function AddEmployeeStep1() {
                     <Stack direction='row' sx={styles.cityStatePropStyles}>
                         <InputField name='city' SWXInputProps={cityProps} />
                         <Stack direction='row' spacing={2} style={{ width: '100%' }}>
-                            <SelectField name='State' SWXInputProps={stateProps} />
+                            <SelectField name='state' SWXInputProps={stateProps} />
                             <InputField name='zipcode' SWXInputProps={zipProps} />
                         </Stack>
                     </Stack>

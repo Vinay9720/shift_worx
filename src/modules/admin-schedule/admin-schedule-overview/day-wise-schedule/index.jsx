@@ -102,11 +102,11 @@ export default function DayWiseSchedule({ scheduleData }) {
                                         <StyledAvatarGridContainer>
                                             <div className='row-span-2'>
                                                 <Avatar sx={{ width: 32, height: 32 }}>{`${
-                                                    emp.name.split('')[0] || ''
+                                                    (emp.name || 'Nurse').split('')[0]
                                                 }`}</Avatar>
                                             </div>
                                             <StyledNameFlexContainer>
-                                                <StyledEmployeeName>{emp.name}</StyledEmployeeName>
+                                                <StyledEmployeeName>{emp.name || 'Nurse'}</StyledEmployeeName>
                                                 <StyledFlexRow>
                                                     <StyledMarginDiv>
                                                         <Icon
