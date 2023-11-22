@@ -133,3 +133,10 @@ export const secondStepStyles = {
         },
     },
 };
+
+export const LoaderContainer = styled.div`
+    display: flex;
+    align-self: end;
+    width: 64%;
+    align-items: center;
+`;

@@ -1,15 +1,16 @@
 'use client';
 
-import { Stack, Divider } from '@mui/material';
+import { Stack, Divider, CircularProgress } from '@mui/material';
 
 import { UsStates } from '@/lib/constants';
 import { SwxTypography } from '@/lib/common/components';
 import { SelectField, Form, InputField, DatePickerField, PhoneNumberField } from '@/lib/common/form-components';
-import { useUpdateEmployee } from '@/hooks/admin-employee';
-import { firstStepStyles } from './edit-employee.styles';
+import { useUpdateEmployee, useInvitation } from '@/hooks/admin-employee';
+import { LoaderContainer, firstStepStyles } from './edit-employee.styles';
 
 function EditEmployeeStep1({ employeeData, footer }) {
     const { mutate: updateEmployee } = useUpdateEmployee();
+    const { mutate: sendInvitationLink, isLoading: sendingInvitation } = useInvitation();
     const firstNameProps = {
         label: (
             <SwxTypography color='swxSlightlyBlack' size='semiMedium' weight='thin'>
@@ -152,12 +153,32 @@ function EditEmployeeStep1({ employeeData, footer }) {
                             style={{ width: '100%' }}>
                             Click to update email without verification.
                         </SwxTypography>
-                        <InputField name='password' SWXInputProps={passwordProps} />
+                        <Stack style={{ width: '100%' }} spacing={3.2} direction='row'>
+                            <InputField name='password' SWXInputProps={passwordProps} />
+                            {!sendingInvitation ? (
+                                <SwxTypography
+                                    color='darkBlue'
+                                    size='semiMedium'
+                                    weight='semiBold'
+                                    onClick={() => sendInvitationLink(employeeData.id)}
+                                    style={{
+                                        width: '64%',
+                                        alignSelf: 'end',
+                                        textDecoration: 'underline',
+                                        cursor: 'pointer',
+                                    }}>
+                                    Resend Invitation Link
+                                </SwxTypography>
+                            ) : (
+                                <LoaderContainer>
+                                    <CircularProgress style={{ width: '25px', height: '25px' }} color='primary' />
+                                </LoaderContainer>
+                            )}
+                        </Stack>
                     </Stack>
                     <Stack sx={firstStepStyles.dateInputContainer}>
                         <DatePickerField name='date_of_birth' SWXInputProps={dateProps} />
                     </Stack>
-                    {/* <Hr /> */}
                     <Divider flexItem />
                     <SwxTypography color='swxBlack' size='semiLarge' weight='bold'>
                         Address
