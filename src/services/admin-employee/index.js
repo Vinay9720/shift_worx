@@ -75,6 +75,10 @@ const approvePto = id => {
     return http.post(`/ptos/${id}/approve`);
 };
 
+const inviteEmplpyee = id => {
+    return http.post(`facility_users/${id}/resend_invitation`);
+};
+
 const denyPto = id => {
     return http.post(`/ptos/${id}/decline`);
 };
@@ -91,6 +95,7 @@ const AdminEmployeeService = {
     fetchPtoById,
     approvePto,
     denyPto,
+    inviteEmplpyee,
 };
 
 export default AdminEmployeeService;

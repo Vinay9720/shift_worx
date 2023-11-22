@@ -23,7 +23,7 @@ import { useFacilityOptions } from '@/hooks/facility';
 import { ModalContainer, HeaderContainer, EllipseContainer, CloseContainer, styles } from './add-shift.styles';
 
 export default function ShiftForm({ modalName, action: addShift }) {
-    const { data: employeesData, isSuccess } = useEmployees();
+    const { data: employeesData, isSuccess } = useEmployees(true);
     const { data: certificationOptions } = useCertificateOptions();
     const { data: specialityOptions } = useSpecialityOptions();
     const { data: facilityOptions } = useFacilityOptions();

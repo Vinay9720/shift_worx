@@ -10,6 +10,7 @@ import { useFetchPtoById } from './useFetchPtoById';
 import { useApprovePto } from './useApprovePto';
 import { useDenyPto } from './useDenyPto';
 import { useExpirations } from './useExpirations';
+import { useInvitation } from './useInvitationLink';
 
 export {
     useEmployees,
@@ -24,4 +25,5 @@ export {
     useApprovePto,
     useDenyPto,
     useExpirations,
+    useInvitation,
 };

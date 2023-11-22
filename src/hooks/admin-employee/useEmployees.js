@@ -6,13 +6,20 @@ import AdminEmployeeService from '@/services/admin-employee';
 
 import { usePagination } from '../common';
 
-export const useEmployees = () => {
+export const useEmployees = returnAllEmployees => {
     const { itemsPerPage, currentPage, setPagination } = usePagination('adminEmployeesPagination');
     const { search, status, roles } = useSelector(state => state.employeesFilter);
     const formattedSearch = lowerCase(status);
     return useQuery(
         ['admin-employees', itemsPerPage, currentPage, search, status, roles],
-        () => AdminEmployeeService.fetchEmployees(itemsPerPage, currentPage, search, roles, formattedSearch),
+        () =>
+            AdminEmployeeService.fetchEmployees(
+                !returnAllEmployees ? itemsPerPage : 'all',
+                currentPage,
+                search,
+                roles,
+                formattedSearch
+            ),
         {
             select: data => {
                 const res = data.data;
@@ -28,12 +35,14 @@ export const useEmployees = () => {
                 return formattedData;
             },
             onSuccess: data => {
-                const pagination = data.paginationData;
-                setPagination({
-                    currentPage: pagination.current_page,
-                    itemsPerPage: pagination.per_page,
-                    totalItems: pagination.total_count,
-                });
+                if (!returnAllEmployees) {
+                    const pagination = data.paginationData;
+                    setPagination({
+                        currentPage: pagination.current_page,
+                        itemsPerPage: pagination.per_page,
+                        totalItems: pagination.total_count,
+                    });
+                }
             },
             refetchOnWindowFocus: false,
         }
