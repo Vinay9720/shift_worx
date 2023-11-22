@@ -277,7 +277,9 @@ export default function WeekWiseSchedule({ scheduleData }) {
                         );
                     })
                 ) : (
-                    <div className='flex flex-row justify-center p-3 bg-white border border-b-0 text-default text-darkGray border-borderGray'>
+                    <div
+                        className='flex flex-row p-3 bg-white border border-b-0 border-r-0 text-default text-darkGray border-borderGray'
+                        style={{ width: '1435px' }}>
                         No schedules to display.
                     </div>
                 )}

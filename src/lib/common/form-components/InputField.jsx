@@ -7,7 +7,16 @@ import { SwxInput } from '../components';
 const InputField = props => {
     const { control } = useFormContext();
     const { defaultValue, value, SWXInputProps } = props;
-    const { required = false, validate, pattern, minLength, maxLength, placeholderColor, ...rest } = SWXInputProps;
+    const {
+        required = false,
+        validate,
+        pattern,
+        minLength,
+        maxLength,
+        placeholderColor,
+        font,
+        ...rest
+    } = SWXInputProps;
 
     return (
         <Controller
@@ -21,6 +30,7 @@ const InputField = props => {
                         required={required}
                         {...rest}
                         placeholderColor={placeholderColor}
+                        font={font}
                         errorText={error?.message}
                         value={field.value || value || ''}
                         onChange={evt => field.onChange(evt.target.value)}

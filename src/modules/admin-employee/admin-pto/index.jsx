@@ -216,26 +216,26 @@ export default function AdminPto() {
             {
                 title: 'Pending Time Off Request',
                 iconName: 'restart-line',
-                totalCount: 3,
+                totalCount: ptoData ? ptoData.kpiCardData.pending : 0,
                 percentage: '15%',
                 badgeArrow: 'up-arrow',
             },
             {
                 title: 'Approved Time Off Request',
                 iconName: 'filled-check',
-                totalCount: 12,
+                totalCount: ptoData ? ptoData.kpiCardData.approved : 0,
                 percentage: '9%',
                 badgeArrow: 'up-arrow',
             },
             {
                 title: 'Declined Time Off Request',
                 iconName: 'file-close',
-                totalCount: 2,
+                totalCount: ptoData ? ptoData.kpiCardData.declined : 0,
                 percentage: '29%',
                 badgeArrow: 'down-arrow',
             },
         ],
-        []
+        [ptoData]
     );
 
     return (

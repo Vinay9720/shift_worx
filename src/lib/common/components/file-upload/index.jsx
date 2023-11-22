@@ -58,6 +58,7 @@ const SwxFileUpload = ({ onChange, kind, label, fileKey }) => {
                         {!isLoading && !fileKey ? (
                             <>
                                 <SwxButton
+                                    sx={{ width: '160px' }}
                                     size='small'
                                     padding='6px 24px'
                                     component='label'

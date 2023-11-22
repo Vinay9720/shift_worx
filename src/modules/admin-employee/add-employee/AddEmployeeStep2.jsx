@@ -8,7 +8,7 @@ import { closeModal } from '@/lib/store/slices/modal-slice';
 import { SwxButton, SwxTypography } from '@/lib/common/components';
 import { Form, InputField, DatePickerField, FormSubmitButton } from '@/lib/common/form-components';
 
-import { FooterContainer } from './add-employee.styles';
+import { FooterContainer, styles } from './add-employee.styles';
 
 function AddEmployeeStep2() {
     const dispatch = useDispatch();
@@ -65,21 +65,28 @@ function AddEmployeeStep2() {
                 </SwxTypography>
             </Stack>
             <Form onSubmit={employeeData => addEmployee({ employeeData })} styles='flex flex-col gap-y-5'>
-                <Stack direction='column' spacing={3}>
+                <Stack direction='column' spacing={3} sx={{ marginTop: '24px' }}>
                     <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2} sx={{ padding: '0px 24px' }}>
                         <InputField name='ssn' SWXInputProps={ssnProps} />
                     </Stack>
+                    <Divider orientation='horizontal' flexItem />
                     <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2} sx={{ padding: '0px 24px' }}>
                         <InputField name='dl_number' SWXInputProps={driverLicenseProps} />
                     </Stack>
-                    <Divider orientation='vertical' flexItem />
-                    <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2} sx={{ padding: '0px 24px' }}>
-                        <DatePickerField name='dl_issue_date' SWXInputProps={driverLicenseIssueProps} />
-                        <DatePickerField name='dl_expiration_date' SWXInputProps={driverLicenseExpireProps} />
+                    <Stack sx={styles.driverLicenseContainer}>
+                        <DatePickerField name='dl_issue_date' SWXInputProps={driverLicenseIssueProps} width='100%' />
+                        <DatePickerField
+                            name='dl_expiration_date'
+                            SWXInputProps={driverLicenseExpireProps}
+                            width='100%'
+                        />
                     </Stack>
                 </Stack>
                 <FooterContainer>
-                    <SwxButton onClick={() => dispatch(closeModal({ modalName: 'addEmployeeModal' }))} variant='text'>
+                    <SwxButton
+                        onClick={() => dispatch(closeModal({ modalName: 'addEmployeeModal' }))}
+                        variant='text'
+                        size='medium'>
                         Cancel
                     </SwxButton>
                     <FormSubmitButton variant='contained' buttonName='Next' />

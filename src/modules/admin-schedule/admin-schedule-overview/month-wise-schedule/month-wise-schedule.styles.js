@@ -103,6 +103,7 @@ export const EmployeeNameContainer = styled.div`
     `}
 `;
 export const StyledRootMainContainer = styled.div`
+    height: 1084px;
     position: relative;
 `;
 export const StyledBorderContainer = styled.div`

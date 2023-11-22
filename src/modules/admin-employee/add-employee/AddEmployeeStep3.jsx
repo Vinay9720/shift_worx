@@ -68,7 +68,10 @@ function AddEmployeeStep3() {
             )}
             <Divider orientation='vertical' flexItem sx={{ borderBottom: '1px solid #E6E8E9' }} />
             <FooterContainer>
-                <SwxButton onClick={() => dispatch(closeModal({ modalName: 'addEmployeeModal' }))} variant='text'>
+                <SwxButton
+                    onClick={() => dispatch(closeModal({ modalName: 'addEmployeeModal' }))}
+                    variant='text'
+                    size='medium'>
                     Cancel
                 </SwxButton>
                 <SwxButton disabled={isEmpty(certificates)} onClick={onSubmit} variant='contained'>

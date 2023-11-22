@@ -4,8 +4,9 @@ import { Select, InputLabel } from '@mui/material';
 export const StyledSelect = styled(Select)`
     & .MuiOutlinedInput-input {
         ${({ theme, padding }) => `
+            font-family: __Manrope_36d688;
             padding: ${padding || '17px 16px'};
-            color: ${theme.fontColor.swxSlightlyBlack};
+            color: ${theme.fontColor.lightGray};
         `}
     }
     & .MuiOutlinedInput-notchedOutline {
@@ -37,9 +38,9 @@ export const ValueContainer = styled.span`
     ${({ theme, multiple }) =>
         multiple
             ? `
-            margin-left: 58px;
+            margin-left: 56px;
             border-radius: 100px;
-            padding: 0px 4px;
+            padding: 0px 6px;
             background: ${theme.backgroundColor.swxBlue};
             font-size: ${theme.fontSize.small};
             color: ${theme.fontColor.white};

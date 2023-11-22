@@ -19,6 +19,7 @@ const SwxInput = forwardRef(
             placeholderColor,
             errorText,
             required,
+            font,
             ...restProps
         },
         ref
@@ -40,6 +41,7 @@ const SwxInput = forwardRef(
                     type={type}
                     placeholder={placeholder}
                     inputRef={ref}
+                    font={font}
                     placeholderColor={placeholderColor}
                     {...restProps}
                     startAdornment={StartIcon && <InputAdornment position='start'>{StartIcon}</InputAdornment>}
