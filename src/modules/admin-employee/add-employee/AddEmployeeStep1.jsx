@@ -23,74 +23,68 @@ function AddEmployeeStep1() {
     const dispatch = useDispatch();
     const firstNameProps = {
         label: (
-            <SwxTypography color='swxSlightlyBlack' size='semiMedium' weight='semiBold'>
+            <SwxTypography color='swxSlightlyBlack' size='semiMedium' weight='semiBold' className='Manrope'>
                 First Name
             </SwxTypography>
         ),
         placeholder: 'Employee first name',
-        placeholderColor: 'lightGray',
         required: 'Enter first name',
     };
 
     const emailProps = {
         label: (
-            <SwxTypography color='swxSlightlyBlack' size='semiMedium' weight='semiBold'>
+            <SwxTypography color='swxSlightlyBlack' size='semiMedium' weight='semiBold' className='Manrope'>
                 Email
             </SwxTypography>
         ),
         placeholder: 'Employee email',
-        placeholderColor: 'lightGray',
         required: 'Enter email',
     };
 
     const passwordProps = {
         label: (
-            <SwxTypography color='swxSlightlyBlack' size='semiMedium' weight='semiBold'>
+            <SwxTypography color='swxSlightlyBlack' size='semiMedium' weight='semiBold' className='Manrope'>
                 Password
             </SwxTypography>
         ),
         type: 'password',
         placeholder: 'Employee password',
-        placeholderColor: 'lightGray',
         required: 'Enter password',
     };
 
     const addressLine1Props = {
         label: (
-            <SwxTypography color='swxSlightlyBlack' size='semiMedium' weight='semiBold'>
+            <SwxTypography color='swxSlightlyBlack' size='semiMedium' weight='semiBold' className='Manrope'>
                 Address
             </SwxTypography>
         ),
         placeholder: 'Employee address',
-        placeholderColor: 'lightGray',
         required: 'Enter address',
     };
 
     const addressLine2Props = {
         label: (
-            <SwxTypography color='swxSlightlyBlack' size='semiMedium' weight='semiBold'>
+            <SwxTypography color='swxSlightlyBlack' size='semiMedium' weight='semiBold' className='Manrope'>
                 Address line 2
             </SwxTypography>
         ),
         placeholder: 'Employee address',
-        placeholderColor: 'lightGray',
         required: false,
     };
 
     const lastNameProps = {
         label: (
-            <SwxTypography color='swxSlightlyBlack' size='semiMedium' weight='semiBold'>
+            <SwxTypography color='swxSlightlyBlack' size='semiMedium' weight='semiBold' className='Manrope'>
                 Last Name
             </SwxTypography>
         ),
         placeholder: 'Employee last name',
-        placeholderColor: 'lightGray',
         required: 'Enter last name',
     };
 
     const phoneNumberProps = {
         label: (
-            <SwxTypography color='swxSlightlyBlack' size='semiMedium' weight='semiBold'>
+            <SwxTypography color='swxSlightlyBlack' size='semiMedium' weight='semiBold' className='Manrope'>
                 Phone number
             </SwxTypography>
         ),
@@ -100,30 +94,28 @@ function AddEmployeeStep1() {
 
     const cityProps = {
         label: (
-            <SwxTypography color='swxSlightlyBlack' size='semiMedium' weight='semiBold'>
+            <SwxTypography color='swxSlightlyBlack' size='semiMedium' weight='semiBold' className='Manrope'>
                 City
             </SwxTypography>
         ),
         placeholder: 'City',
-        placeholderColor: 'lightGray',
         required: 'Enter city',
     };
 
     const zipProps = {
         label: (
-            <SwxTypography color='swxSlightlyBlack' size='semiMedium' weight='semiBold'>
+            <SwxTypography color='swxSlightlyBlack' size='semiMedium' weight='semiBold' className='Manrope'>
                 ZIP Code
             </SwxTypography>
         ),
         placeholder: 'XXXXX',
-        placeholderColor: 'lightGray',
         type: 'number',
         required: 'Enter zip code',
     };
 
     const dateProps = {
         label: (
-            <SwxTypography color='swxSlightlyBlack' size='semiMedium' weight='semiBold'>
+            <SwxTypography color='swxSlightlyBlack' size='semiMedium' weight='semiBold' className='Manrope'>
                 Date of Birth
             </SwxTypography>
         ),
@@ -135,13 +127,12 @@ function AddEmployeeStep1() {
 
     const stateProps = {
         label: (
-            <SwxTypography color='swxSlightlyBlack' size='semiMedium' weight='semiBold'>
+            <SwxTypography color='swxSlightlyBlack' size='semiMedium' weight='semiBold' className='Manrope'>
                 State
             </SwxTypography>
         ),
         options: UsStates,
         placeholder: 'state',
-        placeholderColor: '#838A91',
         width: '100%',
         multiple: false,
         required: true,
@@ -151,10 +142,10 @@ function AddEmployeeStep1() {
     return (
         <>
             <Stack direction='column' spacing={1} sx={styles.headerStyles}>
-                <SwxTypography color='swxBlack' size='semiLarge' weight='bold'>
+                <SwxTypography color='swxBlack' size='semiLarge' weight='bold' className='Manrope'>
                     Profile Information
                 </SwxTypography>
-                <SwxTypography color='lightGray' size='small' weight='thin'>
+                <SwxTypography color='lightGray' size='small' weight='thin' className='Manrope'>
                     Add employee profile information here
                 </SwxTypography>
             </Stack>

@@ -16,7 +16,7 @@ function AddEmployeeStep2() {
 
     const ssnProps = {
         label: (
-            <SwxTypography color='swxSlightlyBlack' size='semiMedium' weight='semiBold'>
+            <SwxTypography color='swxSlightlyBlack' size='semiMedium' weight='semiBold' className='Manrope'>
                 SSN#
             </SwxTypography>
         ),
@@ -27,7 +27,7 @@ function AddEmployeeStep2() {
 
     const driverLicenseProps = {
         label: (
-            <SwxTypography color='swxSlightlyBlack' size='semiMedium' weight='semiBold'>
+            <SwxTypography color='swxSlightlyBlack' size='semiMedium' weight='semiBold' className='Manrope'>
                 Driver&apos;s License #
             </SwxTypography>
         ),
@@ -38,29 +38,31 @@ function AddEmployeeStep2() {
 
     const driverLicenseIssueProps = {
         label: (
-            <SwxTypography color='swxSlightlyBlack' size='semiMedium' weight='semiBold'>
+            <SwxTypography color='swxSlightlyBlack' size='semiMedium' weight='semiBold' className='Manrope'>
                 Driver&apos;s License Issue date
             </SwxTypography>
         ),
         required: true,
+        width: '100%',
     };
 
     const driverLicenseExpireProps = {
         label: (
-            <SwxTypography color='swxSlightlyBlack' size='semiMedium' weight='semiBold'>
+            <SwxTypography color='swxSlightlyBlack' size='semiMedium' weight='semiBold' className='Manrope'>
                 Driver&apos;s License Expiration Date
             </SwxTypography>
         ),
         required: true,
+        width: '100%',
     };
 
     return (
         <>
             <Stack direction='column' spacing={1} sx={{ padding: '0px 24px' }}>
-                <SwxTypography color='swxBlack' size='semiLarge' weight='bold'>
+                <SwxTypography color='swxBlack' size='semiLarge' weight='bold' className='Manrope'>
                     Personal Documents
                 </SwxTypography>
-                <SwxTypography color='lightGray' size='small' weight='thin'>
+                <SwxTypography color='lightGray' size='small' weight='thin' className='Manrope'>
                     Upload employee personal documents
                 </SwxTypography>
             </Stack>
@@ -74,12 +76,8 @@ function AddEmployeeStep2() {
                         <InputField name='dl_number' SWXInputProps={driverLicenseProps} />
                     </Stack>
                     <Stack sx={styles.driverLicenseContainer}>
-                        <DatePickerField name='dl_issue_date' SWXInputProps={driverLicenseIssueProps} width='100%' />
-                        <DatePickerField
-                            name='dl_expiration_date'
-                            SWXInputProps={driverLicenseExpireProps}
-                            width='100%'
-                        />
+                        <DatePickerField name='dl_issue_date' SWXInputProps={driverLicenseIssueProps} />
+                        <DatePickerField name='dl_expiration_date' SWXInputProps={driverLicenseExpireProps} />
                     </Stack>
                 </Stack>
                 <FooterContainer>

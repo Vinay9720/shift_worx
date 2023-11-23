@@ -31,7 +31,7 @@ export default function SwxSelect({
                 <SpanContainer>
                     <label>{label}</label>
                     {!required && (
-                        <SwxTypography size='semiMedium' color='lightGray' weight='thin'>
+                        <SwxTypography size='semiMedium' color='lightGray' weight='thin' className='Manrope'>
                             Optional
                         </SwxTypography>
                     )}

@@ -64,21 +64,21 @@ export default function AddEmployee() {
                             {/* <StyledStep onClick={() => dispatch(setCurrentStep(1))}> */}
                             <StyledStep>
                                 <StyledNumber active={currentStep === 1 && true}>1</StyledNumber>
-                                <SwxTypography color='swxBlack' size='smallest' weight='thin'>
+                                <SwxTypography color='swxBlack' size='smallest' weight='thin' className='Manrope'>
                                     Profile Information
                                 </SwxTypography>
                             </StyledStep>
                             {/* <StyledStep onClick={() => dispatch(setCurrentStep(2))}> */}
                             <StyledStep>
                                 <StyledNumber active={currentStep === 2 && true}>2</StyledNumber>
-                                <SwxTypography color='swxBlack' size='smallest' weight='thin'>
+                                <SwxTypography color='swxBlack' size='smallest' weight='thin' className='Manrope'>
                                     Personal Document
                                 </SwxTypography>
                             </StyledStep>
                             {/* <StyledStep onClick={() => dispatch(setCurrentStep(3))}> */}
                             <StyledStep>
                                 <StyledNumber active={currentStep === 3 && true}>3</StyledNumber>
-                                <SwxTypography color='swxBlack' size='smallest' weight='thin'>
+                                <SwxTypography color='swxBlack' size='smallest' weight='thin' className='Manrope'>
                                     Certifications
                                 </SwxTypography>
                             </StyledStep>

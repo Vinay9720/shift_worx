@@ -31,7 +31,7 @@ function CertificateForm({ defaultValues, onSubmit, onCancel }) {
 
     const effectiveDateProps = {
         label: (
-            <SwxTypography color='swxSlightlyBlack' size='smallOdd' weight='semiBold'>
+            <SwxTypography color='swxSlightlyBlack' size='smallOdd' weight='semiBold' className='Manrope'>
                 Effective Date
             </SwxTypography>
         ),
@@ -44,7 +44,7 @@ function CertificateForm({ defaultValues, onSubmit, onCancel }) {
 
     const expirationDateProps = {
         label: (
-            <SwxTypography color='swxSlightlyBlack' size='smallOdd' weight='semiBold'>
+            <SwxTypography color='swxSlightlyBlack' size='smallOdd' weight='semiBold' className='Manrope'>
                 Expiration Date
             </SwxTypography>
         ),
@@ -79,7 +79,7 @@ function CertificateForm({ defaultValues, onSubmit, onCancel }) {
 
     const certificateNumberProps = {
         label: (
-            <SwxTypography color='swxSlightlyBlack' size='semiMedium' weight='semiBold'>
+            <SwxTypography color='swxSlightlyBlack' size='semiMedium' weight='semiBold' className='Manrope'>
                 License Number
             </SwxTypography>
         ),
@@ -99,7 +99,7 @@ function CertificateForm({ defaultValues, onSubmit, onCancel }) {
             <Stack direction='column' spacing={3} style={{ width: '100%' }}>
                 <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2} sx={{ padding: '0px 24px' }}>
                     <div style={{ display: 'flex', flexDirection: 'column', width: '100%' }}>
-                        <SwxTypography color='swxSlightlyBlack' size='smallOdd' weight='semiBold'>
+                        <SwxTypography color='swxSlightlyBlack' size='smallOdd' weight='semiBold' className='Manrope'>
                             Certificate/License Type
                         </SwxTypography>
                         <ListBoxField name='certificate_id' SWXInputProps={certificationProps} />
@@ -107,7 +107,7 @@ function CertificateForm({ defaultValues, onSubmit, onCancel }) {
                 </Stack>
                 <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2} sx={{ padding: '0px 24px' }}>
                     <div style={{ display: 'flex', flexDirection: 'column', width: '100%' }}>
-                        <SwxTypography color='swxSlightlyBlack' size='smallOdd' weight='semiBold'>
+                        <SwxTypography color='swxSlightlyBlack' size='smallOdd' weight='semiBold' className='Manrope'>
                             Specialties
                         </SwxTypography>
                         <ListBoxField name='speciality' SWXInputProps={specilityProps} />
@@ -115,7 +115,7 @@ function CertificateForm({ defaultValues, onSubmit, onCancel }) {
                 </Stack>
                 <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2} sx={{ padding: '0px 24px' }}>
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '4px', width: '100%' }}>
-                        <SwxTypography color='swxSlightlyBlack' size='smallOdd' weight='semiBold'>
+                        <SwxTypography color='swxSlightlyBlack' size='smallOdd' weight='semiBold' className='Manrope'>
                             Jurisdiction
                         </SwxTypography>
                         <ListBoxField name='jurisdiction' SWXInputProps={jurisdictionProps} />
