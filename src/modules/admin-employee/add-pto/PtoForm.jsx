@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Stack } from '@mui/material';
 import moment from 'moment';
@@ -32,8 +32,10 @@ import {
     StyledWrapperContainer,
     styles,
 } from './add-pto.styles';
+import { useEmployees } from '@/hooks/admin-employee';
 
 export default function PtoForm({ modalName, requestType, action: addPto, employee }) {
+    const { data: employeesData, isSuccess } = useEmployees(true);
     const [formattedData, setFormattedData] = useState({});
     const dispatch = useDispatch();
     useEffect(() => {
@@ -59,7 +61,21 @@ export default function PtoForm({ modalName, requestType, action: addPto, employ
         }
     }, [employee, formattedData]);
 
-    const employeeOptions = ['Tyler White', 'John Doe', 'Jason', 'Arthur Curry', 'Tyler'];
+    // const employeeOptions = ['Tyler White', 'John Doe', 'Jason', 'Arthur Curry', 'Tyler'];
+    const employees = useMemo(() => {
+        if (isSuccess) {
+            return (employeesData.employees || []).map(user => {
+                return { name: user.user.first_name, id: user.user.profileable_id };
+            });
+        }
+        return [];
+    }, [employeesData]);
+
+    const employeeOptions = [
+        ...employees.map(user => {
+            return { label: user.name, value: user.id, avatar: true, groupBy: 'Select Employee' };
+        }),
+    ];
     const requestTypeOptions = [
         { label: 'Sick Leave', value: 'sick_leave' },
         { label: 'Vacation', value: 'vacation' },
