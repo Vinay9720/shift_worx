@@ -73,7 +73,7 @@ export default function PtoForm({ modalName, requestType, action: addPto, employ
 
     const employeeProps = {
         label: (
-            <SwxTypography color='swxSlightlyBlack' size='semiMedium' weight='semiBold'>
+            <SwxTypography color='swxSlightlyBlack' size='semiMedium' weight='semiBold' className='Manrope'>
                 Employee
             </SwxTypography>
         ),
@@ -91,10 +91,11 @@ export default function PtoForm({ modalName, requestType, action: addPto, employ
         validate: value => restrictEmptyArray(value, 'field can not be empty'),
         options: requestTypeOptions,
         required: true,
+        maxHeight: '188px',
     };
     const startDateProps = {
         label: (
-            <SwxTypography color='swxSlightlyBlack' size='semiMedium' weight='semiBold'>
+            <SwxTypography color='swxSlightlyBlack' size='semiMedium' weight='semiBold' className='Manrope'>
                 Start Date
             </SwxTypography>
         ),
@@ -106,7 +107,7 @@ export default function PtoForm({ modalName, requestType, action: addPto, employ
     };
     const endDateProps = {
         label: (
-            <SwxTypography color='swxSlightlyBlack' size='semiMedium' weight='semiBold'>
+            <SwxTypography color='swxSlightlyBlack' size='semiMedium' weight='semiBold' className='Manrope'>
                 End Date
             </SwxTypography>
         ),
@@ -118,7 +119,7 @@ export default function PtoForm({ modalName, requestType, action: addPto, employ
     };
     const startTimeProps = {
         label: (
-            <SwxTypography color='swxSlightlyBlack' size='semiMedium' weight='semiBold'>
+            <SwxTypography color='swxSlightlyBlack' size='semiMedium' weight='semiBold' className='Manrope'>
                 Time Start
             </SwxTypography>
         ),
@@ -130,7 +131,7 @@ export default function PtoForm({ modalName, requestType, action: addPto, employ
 
     const endTimeProps = {
         label: (
-            <SwxTypography color='swxSlightlyBlack' size='semiMedium' weight='semiBold'>
+            <SwxTypography color='swxSlightlyBlack' size='semiMedium' weight='semiBold' className='Manrope'>
                 Time End
             </SwxTypography>
         ),
@@ -141,7 +142,7 @@ export default function PtoForm({ modalName, requestType, action: addPto, employ
     };
     const noteDescriptionProps = {
         label: (
-            <SwxTypography color='swxSlightlyBlack' size='semiMedium' weight='semiBold'>
+            <SwxTypography color='swxSlightlyBlack' size='semiMedium' weight='semiBold' className='Manrope'>
                 Description
             </SwxTypography>
         ),
@@ -189,10 +190,14 @@ export default function PtoForm({ modalName, requestType, action: addPto, employ
                                     flexDirection: 'column',
                                     width: '100%',
                                 }}>
-                                <SwxTypography color='swxSlightlyBlack' size='semiMedium' weight='semiBold'>
+                                <SwxTypography
+                                    color='swxSlightlyBlack'
+                                    size='semiMedium'
+                                    weight='semiBold'
+                                    className='Manrope'>
                                     Request Type
                                 </SwxTypography>
-                                <ListBoxField name='request_type' SWXInputProps={requestTypeProps} maxHeight='188px' />
+                                <ListBoxField name='request_type' SWXInputProps={requestTypeProps} />
                             </div>
                             <Stack sx={styles.datePickerStackStyles}>
                                 <DatePickerField name='start_date' SWXInputProps={startDateProps} />

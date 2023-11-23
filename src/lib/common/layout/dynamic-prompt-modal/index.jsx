@@ -27,10 +27,10 @@ export default function DynamicPromptModal({ modalName, entityName, onConfirm, a
                         width={64}
                     />
                     <Stack alignItems='center'>
-                        <SwxTypography color='swxBlack' weight='bold' size='semiLarge'>
+                        <SwxTypography color='swxBlack' weight='bold' size='semiLarge' className='Manrope'>
                             {actionName || 'Delete'} {entityName}
                         </SwxTypography>
-                        <SwxTypography color='lightGray' weight='thin' size='small'>
+                        <SwxTypography color='lightGray' weight='thin' size='small' className='Manrope'>
                             Are you sure you want to {actionName || 'Delete'} this {entityName} ?
                         </SwxTypography>
                     </Stack>

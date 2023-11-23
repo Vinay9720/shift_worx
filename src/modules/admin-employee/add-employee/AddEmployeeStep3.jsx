@@ -30,10 +30,10 @@ function AddEmployeeStep3() {
     return (
         <>
             <Stack direction='column' spacing={1} sx={{ padding: '0px 24px' }}>
-                <SwxTypography color='swxBlack' size='semiLarge' weight='bold'>
+                <SwxTypography color='swxBlack' size='semiLarge' weight='bold' className='Manrope'>
                     Certifications
                 </SwxTypography>
-                <SwxTypography color='lightGray' size='small' weight='thin'>
+                <SwxTypography color='lightGray' size='small' weight='thin' className='Manrope'>
                     Select certifications and specialities
                 </SwxTypography>
             </Stack>
@@ -44,7 +44,8 @@ function AddEmployeeStep3() {
                             style={{ marginBottom: '12px', marginTop: '24px' }}
                             color='swxSlightlyBlack'
                             size='semiMedium'
-                            weight='semiBold'>
+                            weight='semiBold'
+                            className='Manrope'>
                             Licenses
                         </SwxTypography>
                         <CertificationsContainer>
@@ -68,7 +69,10 @@ function AddEmployeeStep3() {
             )}
             <Divider orientation='vertical' flexItem sx={{ borderBottom: '1px solid #E6E8E9' }} />
             <FooterContainer>
-                <SwxButton onClick={() => dispatch(closeModal({ modalName: 'addEmployeeModal' }))} variant='text'>
+                <SwxButton
+                    onClick={() => dispatch(closeModal({ modalName: 'addEmployeeModal' }))}
+                    variant='text'
+                    size='medium'>
                     Cancel
                 </SwxButton>
                 <SwxButton disabled={isEmpty(certificates)} onClick={onSubmit} variant='contained'>

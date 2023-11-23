@@ -49,7 +49,7 @@ export default function ShiftForm({ modalName, action: addShift }) {
 
     const dateProps = {
         label: (
-            <SwxTypography color='swxSlightlyBlack' size='semiMedium' weight='semiBold'>
+            <SwxTypography color='swxSlightlyBlack' size='semiMedium' weight='semiBold' className='Manrope'>
                 Date
             </SwxTypography>
         ),
@@ -61,7 +61,7 @@ export default function ShiftForm({ modalName, action: addShift }) {
 
     const roleProps = {
         label: (
-            <SwxTypography color='swxSlightlyBlack' size='semiMedium' weight='semiBold'>
+            <SwxTypography color='swxSlightlyBlack' size='semiMedium' weight='semiBold' className='Manrope'>
                 Role
             </SwxTypography>
         ),
@@ -74,7 +74,7 @@ export default function ShiftForm({ modalName, action: addShift }) {
 
     const specialityProps = {
         label: (
-            <SwxTypography color='swxSlightlyBlack' size='semiMedium' weight='semiBold'>
+            <SwxTypography color='swxSlightlyBlack' size='semiMedium' weight='semiBold' className='Manrope'>
                 Speciality
             </SwxTypography>
         ),
@@ -87,7 +87,7 @@ export default function ShiftForm({ modalName, action: addShift }) {
 
     const facilityProps = {
         label: (
-            <SwxTypography color='swxSlightlyBlack' size='semiMedium' weight='semiBold'>
+            <SwxTypography color='swxSlightlyBlack' size='semiMedium' weight='semiBold' className='Manrope'>
                 Facility
             </SwxTypography>
         ),
@@ -100,7 +100,7 @@ export default function ShiftForm({ modalName, action: addShift }) {
 
     const employeeProps = {
         label: (
-            <SwxTypography color='swxSlightlyBlack' size='semiMedium' weight='semiBold'>
+            <SwxTypography color='swxSlightlyBlack' size='semiMedium' weight='semiBold' className='Manrope'>
                 Employee
             </SwxTypography>
         ),
@@ -113,7 +113,7 @@ export default function ShiftForm({ modalName, action: addShift }) {
 
     const employee2Props = {
         label: (
-            <SwxTypography color='swxSlightlyBlack' size='semiMedium' weight='semiBold'>
+            <SwxTypography color='swxSlightlyBlack' size='semiMedium' weight='semiBold' className='Manrope'>
                 Employee 2
             </SwxTypography>
         ),
@@ -125,7 +125,7 @@ export default function ShiftForm({ modalName, action: addShift }) {
 
     const startTimeProps = {
         label: (
-            <SwxTypography color='swxSlightlyBlack' size='semiMedium' weight='semiBold'>
+            <SwxTypography color='swxSlightlyBlack' size='semiMedium' weight='semiBold' className='Manrope'>
                 Time Start
             </SwxTypography>
         ),
@@ -137,7 +137,7 @@ export default function ShiftForm({ modalName, action: addShift }) {
 
     const endTimeProps = {
         label: (
-            <SwxTypography color='swxSlightlyBlack' size='semiMedium' weight='semiBold'>
+            <SwxTypography color='swxSlightlyBlack' size='semiMedium' weight='semiBold' className='Manrope'>
                 Time End
             </SwxTypography>
         ),
@@ -149,12 +149,12 @@ export default function ShiftForm({ modalName, action: addShift }) {
 
     const stationProps = {
         label: (
-            <SwxTypography color='swxSlightlyBlack' size='semiMedium' weight='semiBold'>
+            <SwxTypography color='swxSlightlyBlack' size='semiMedium' weight='semiBold' className='Manrope'>
                 Location/Station
             </SwxTypography>
         ),
         placeholder: 'Station',
-        placeholderColor: 'lightGray',
+        // placeholderColor: 'lightGray',
         required: 'Enter station',
     };
 

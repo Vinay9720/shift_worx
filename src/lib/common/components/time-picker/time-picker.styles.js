@@ -5,6 +5,7 @@ import styled from 'styled-components';
 export const StyledTimeField = styled(TimeField)`
     & .MuiOutlinedInput-input {
         padding: 17px 14px;
+        font-family: __Manrope_36d688;
         ${({ theme }) => `
             color: ${theme.fontColor.swxSlightlyBlack};
         `}
@@ -29,6 +30,7 @@ export const StyledAMPMSelect = styled(Select)`
         padding-right: 0 !important;
     }
     & .MuiOutlinedInput-input {
+        font-family: __Manrope_36d688;
         ${({ theme, padding }) => `
             padding: ${padding || '17px 16px'};
             color: ${theme.fontColor.swxSlightlyBlack};

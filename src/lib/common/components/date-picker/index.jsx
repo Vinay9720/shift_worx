@@ -31,7 +31,7 @@ export default function SwxDatePicker({
                 <SpanContainer>
                     <label>{label}</label>
                     {!required && (
-                        <SwxTypography size='semiMedium' color='lightGray' weight='thin'>
+                        <SwxTypography size='semiMedium' color='lightGray' weight='thin' className='Manrope'>
                             Optional
                         </SwxTypography>
                     )}
@@ -43,9 +43,13 @@ export default function SwxDatePicker({
                     return (
                         <StyledDateContainer padding={padding} onClick={openCalendar} style={styles}>
                             {dateValue ? (
-                                <SwxTypography color='swxSlightlyBlack'>{dateValue}</SwxTypography>
+                                <SwxTypography color='swxSlightlyBlack' className='Manrope'>
+                                    {dateValue}
+                                </SwxTypography>
                             ) : (
-                                <SwxTypography color='lightGray'>{placeholder || 'Select Date'}</SwxTypography>
+                                <SwxTypography color='lightGray' className='Manrope'>
+                                    {placeholder || 'Select Date'}
+                                </SwxTypography>
                             )}
                             <Icon styles='fill-brand' name='eye' aria-hidden='true' height={20} width={20} />
                         </StyledDateContainer>
@@ -77,7 +81,7 @@ export default function SwxDatePicker({
                 plugins={multiple ? [<DatePanel position='left' key='plugin-1' removeButton={false} />] : []}
             />
             {error && (
-                <SwxTypography color='red' size='smallest' weight='thin'>
+                <SwxTypography color='red' size='smallest' weight='thin' className='Manrope'>
                     Date is required
                 </SwxTypography>
             )}

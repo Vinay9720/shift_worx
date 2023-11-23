@@ -19,6 +19,7 @@ const SwxInput = forwardRef(
             placeholderColor,
             errorText,
             required,
+            font,
             ...restProps
         },
         ref
@@ -29,7 +30,7 @@ const SwxInput = forwardRef(
                     <SpanContainer>
                         <label>{label}</label>
                         {!required && (
-                            <SwxTypography size='semiMedium' color='lightGray' weight='thin'>
+                            <SwxTypography size='semiMedium' color='lightGray' weight='thin' className='Manrope'>
                                 Optional
                             </SwxTypography>
                         )}
@@ -40,13 +41,14 @@ const SwxInput = forwardRef(
                     type={type}
                     placeholder={placeholder}
                     inputRef={ref}
+                    font={font}
                     placeholderColor={placeholderColor}
                     {...restProps}
                     startAdornment={StartIcon && <InputAdornment position='start'>{StartIcon}</InputAdornment>}
                     endAdornment={EndIcon && <InputAdornment position='start'>{EndIcon}</InputAdornment>}
                 />
                 {errorText && (
-                    <SwxTypography color='red' size='smallest' weight='thin'>
+                    <SwxTypography color='red' size='smallest' weight='thin' className='Manrope'>
                         {errorText}
                     </SwxTypography>
                 )}

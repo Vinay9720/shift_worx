@@ -165,7 +165,7 @@ export default function AdminOverview() {
                 return (
                     <Stack direction='row' spacing={1}>
                         {!isEmpty(params.value) && <Icon name='alert' height={20} width={20} />}
-                        <SwxTypography color='swxBlack' size='semiMedium' weight='extraThin'>
+                        <SwxTypography color='swxBlack' size='semiMedium' weight='thin' className='Manrope'>
                             {!isEmpty(params.value) ? formatExpirations(params.value) : 'None'}
                         </SwxTypography>
                     </Stack>

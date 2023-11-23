@@ -47,7 +47,7 @@ export default function SwxTimeComponent({ onChange, time, format, label, width,
                 <SpanContainer>
                     <label>{label}</label>
                     {!required && (
-                        <SwxTypography size='semiMedium' color='lightGray' weight='thin'>
+                        <SwxTypography size='semiMedium' color='lightGray' weight='thin' className='Manrope'>
                             Optional
                         </SwxTypography>
                     )}
