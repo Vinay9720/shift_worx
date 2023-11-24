@@ -61,7 +61,6 @@ export default function PtoForm({ modalName, requestType, action: addPto, employ
         }
     }, [employee, formattedData]);
 
-    // const employeeOptions = ['Tyler White', 'John Doe', 'Jason', 'Arthur Curry', 'Tyler'];
     const employees = useMemo(() => {
         if (isSuccess) {
             return (employeesData.employees || []).map(user => {
@@ -86,7 +85,6 @@ export default function PtoForm({ modalName, requestType, action: addPto, employ
         { label: 'Other', value: 'other' },
         { label: 'Personal', value: 'personal' },
     ];
-
     const employeeProps = {
         label: (
             <SwxTypography color='swxSlightlyBlack' size='semiMedium' weight='semiBold'>
@@ -106,6 +104,7 @@ export default function PtoForm({ modalName, requestType, action: addPto, employ
         placeholder: 'Request Type',
         validate: value => restrictEmptyArray(value, 'field can not be empty'),
         options: requestTypeOptions,
+        maxHeight: '188px',
         required: true,
     };
     const startDateProps = {
@@ -192,12 +191,12 @@ export default function PtoForm({ modalName, requestType, action: addPto, employ
                 <Form
                     defaultValues={formattedData}
                     onSubmit={ptoData => {
-                        addPto(ptoData);
+                        addPto({ ...ptoData, nurse_id: ptoData.nurse_id.value });
                     }}>
                     <StyledWrapperContainer>
                         <Stack spacing={3} sx={styles.stack1}>
                             <Stack direction='row'>
-                                <SelectField name='employee' SWXInputProps={employeeProps} />
+                                <SelectField name='nurse_id' SWXInputProps={employeeProps} />
                             </Stack>
                             <div
                                 style={{
@@ -208,7 +207,7 @@ export default function PtoForm({ modalName, requestType, action: addPto, employ
                                 <SwxTypography color='swxSlightlyBlack' size='semiMedium' weight='semiBold'>
                                     Request Type
                                 </SwxTypography>
-                                <ListBoxField name='request_type' SWXInputProps={requestTypeProps} maxHeight='188px' />
+                                <ListBoxField name='request_type' SWXInputProps={requestTypeProps} />
                             </div>
                             <Stack sx={styles.datePickerStackStyles}>
                                 <DatePickerField name='start_date' SWXInputProps={startDateProps} />
