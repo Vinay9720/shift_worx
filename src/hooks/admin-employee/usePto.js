@@ -16,7 +16,11 @@ export const usePto = () => {
         {
             select: data => {
                 const ptoData = data.data;
-                const formattedData = { paginationData: ptoData.pagination_data, recordData: ptoData.records };
+                const formattedData = {
+                    paginationData: ptoData.pagination_data,
+                    recordData: ptoData.records,
+                    kpiCardData: ptoData.kpi,
+                };
                 return formattedData;
             },
             onSuccess: data => {

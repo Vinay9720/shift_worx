@@ -40,7 +40,7 @@ const ListBox = ({ label, options, setSelectedOptions, selectedOptions, maxHeigh
             {!isOpen ? (
                 <TitleContainer>
                     {!isEmpty(selectedOptions) ? (
-                        <SwxTypography color='swxSlightlyBlack'>
+                        <SwxTypography color='swxSlightlyBlack' className='Manrope'>
                             {selectedOptions
                                 .map(value => {
                                     const foundObject = options.find(option =>
@@ -53,7 +53,9 @@ const ListBox = ({ label, options, setSelectedOptions, selectedOptions, maxHeigh
                                 .join(', ')}
                         </SwxTypography>
                     ) : (
-                        <SwxTypography color='lightGray'>{label}</SwxTypography>
+                        <SwxTypography color='lightGray' className='Manrope'>
+                            {label}
+                        </SwxTypography>
                     )}
                 </TitleContainer>
             ) : (
@@ -65,6 +67,9 @@ const ListBox = ({ label, options, setSelectedOptions, selectedOptions, maxHeigh
                                 sx={{ color: '#030303', height: '25px' }}
                                 control={
                                     <Checkbox
+                                        sx={{
+                                            '& .MuiSvgIcon-root': { fontSize: 30, color: '#1F6FA9' },
+                                        }}
                                         checked={(selectedOptions || []).includes(
                                             isString(option.value) ? option.value : JSON.stringify(option.value)
                                         )}

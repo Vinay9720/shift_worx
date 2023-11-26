@@ -6,8 +6,8 @@ import SwxDatePicker from '../components/date-picker';
 
 const DatePickerField = props => {
     const { control } = useFormContext();
-    const { defaultValue, value, SWXInputProps, width } = props;
-    const { required = false, validate, range, padding, multiple, ...rest } = SWXInputProps;
+    const { defaultValue, value, SWXInputProps } = props;
+    const { required = false, validate, range, padding, multiple, width, ...rest } = SWXInputProps;
     return (
         <Controller
             name={props.name}

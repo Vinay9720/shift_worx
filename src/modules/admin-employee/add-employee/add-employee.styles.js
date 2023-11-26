@@ -72,7 +72,9 @@ export const StyledStep = styled.div`
 `;
 
 export const StyledNumber = styled.span`
-    padding: 1px 8px;
+    height: 20px;
+    width: 20px;
+    padding: 0px 6px;
     ${({ theme, active }) => `
         color: ${active ? theme.fontColor.blue : theme.fontColor.lightGray};
         font-size: ${theme.fontSize.smallest};
@@ -107,7 +109,7 @@ export const FooterContainer = styled.div`
     display: flex;
     gap: 24px;
     padding: 0px 24px 24px 24px;
-    margin-top: 62px;
+    margin-top: 38px;
     justify-content: end;
 `;
 
@@ -228,6 +230,16 @@ export const styles = {
     addEmployeeButton: {
         '@media (max-width: 980px)': {
             width: '100%',
+        },
+    },
+    driverLicenseContainer: {
+        display: 'flex',
+        flexDirection: 'row',
+        gap: '16px',
+        padding: '0px 24px',
+        justifyContent: 'space-between',
+        '@media (max-width: 600px)': {
+            flexDirection: 'column',
         },
     },
 };

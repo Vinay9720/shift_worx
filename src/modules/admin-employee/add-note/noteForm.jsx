@@ -26,12 +26,13 @@ export default function NoteForm({ title = 'Add Note', employee, modalName, acti
         label: 'Select type',
         validate: value => restrictEmptyArray(value, 'field can not be empty'),
         options: noteTypeOptions,
+        maxHeight: '188px',
         required: true,
     };
 
     const noteDescriptionProps = {
         label: (
-            <SwxTypography color='swxSlightlyBlack' size='semiMedium' weight='semiBold'>
+            <SwxTypography color='swxSlightlyBlack' size='semiMedium' weight='semiBold' className='Manrope'>
                 Your Note
             </SwxTypography>
         ),
@@ -50,7 +51,7 @@ export default function NoteForm({ title = 'Add Note', employee, modalName, acti
     return (
         <ModalContainer>
             <HeaderContainer>
-                <SwxTypography color='swxBlack' size='large' weight='bold'>
+                <SwxTypography color='swxBlack' size='large' weight='bold' className='Manrope'>
                     {title}
                 </SwxTypography>
                 <EllipseContainer onClick={() => dispatch(closeModal({ modalName: 'addNoteModal' }))}>
@@ -71,10 +72,10 @@ export default function NoteForm({ title = 'Add Note', employee, modalName, acti
                             gap: '4px',
                             width: '100%',
                         }}>
-                        <SwxTypography color='swxSlightlyBlack' size='semiMedium' weight='semiBold'>
+                        <SwxTypography color='swxSlightlyBlack' size='semiMedium' weight='semiBold' className='Manrope'>
                             Note Type
                         </SwxTypography>
-                        <ListBoxField name='note_type_id' SWXInputProps={noteTypeProps} maxHeight='188px' />
+                        <ListBoxField name='note_type_id' SWXInputProps={noteTypeProps} />
                     </div>
                     <Stack direction={{ xs: 'column', sm: 'row' }}>
                         <InputField name='description' SWXInputProps={noteDescriptionProps} />

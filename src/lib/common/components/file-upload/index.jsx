@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 
 import { useFileUpload, useUploadedFile, useDeleteFile } from '@/hooks/common';
 
-import { StyledBorderContainer, StyledBorderContainerSecondary } from './file-upload.styles';
+import { StyledBorderContainer, StyledBorderContainerSecondary, styles } from './file-upload.styles';
 
 import SwxTypography from '../typography';
 import { SwxButton } from '..';
@@ -50,7 +50,8 @@ const SwxFileUpload = ({ onChange, kind, label, fileKey }) => {
                     style={{ paddingLeft: '24px' }}
                     color='swxSlightlyBlack'
                     size='smallOdd'
-                    weight='semiBold'>
+                    weight='semiBold'
+                    className='Manrope'>
                     {label}
                 </SwxTypography>
                 {!fileKey ? (
@@ -58,6 +59,7 @@ const SwxFileUpload = ({ onChange, kind, label, fileKey }) => {
                         {!isLoading && !fileKey ? (
                             <>
                                 <SwxButton
+                                    sx={styles.chooseFileButton}
                                     size='small'
                                     padding='6px 24px'
                                     component='label'
@@ -82,7 +84,8 @@ const SwxFileUpload = ({ onChange, kind, label, fileKey }) => {
                             style={{ cursor: 'pointer' }}
                             color='darkBlue'
                             size='smallOdd'
-                            weight='thin'>
+                            weight='thin'
+                            className='Manrope'>
                             {fileKey}
                         </SwxTypography>
                         <IconButton onClick={() => deleteFile({ uploadedFileKey: fileKey, action: 'delete' })}>
@@ -99,7 +102,7 @@ const SwxFileUpload = ({ onChange, kind, label, fileKey }) => {
     if (kind === 'secondary') {
         return (
             <>
-                <SwxTypography color='swxSlightlyBlack' size='semiMedium' weight='semiBold'>
+                <SwxTypography color='swxSlightlyBlack' size='semiMedium' weight='semiBold' className='Manrope'>
                     {label}
                 </SwxTypography>
                 {!fileKey ? (
@@ -114,10 +117,18 @@ const SwxFileUpload = ({ onChange, kind, label, fileKey }) => {
                             <Stack direction='column'>
                                 {!isLoading && !fileKey ? (
                                     <>
-                                        <SwxTypography color='lightGray' size='semiMedium' weight='thin'>
+                                        <SwxTypography
+                                            color='lightGray'
+                                            size='semiMedium'
+                                            weight='thin'
+                                            className='Manrope'>
                                             {fileToBeUploaded ? fileToBeUploaded.name : 'No File Chosen'}
                                         </SwxTypography>
-                                        <SwxTypography color='lightGray' size='smallest' weight='semiBold'>
+                                        <SwxTypography
+                                            color='lightGray'
+                                            size='smallest'
+                                            weight='semiBold'
+                                            className='Manrope'>
                                             JPG, PNG mas 10MB
                                         </SwxTypography>
                                     </>
@@ -131,7 +142,8 @@ const SwxFileUpload = ({ onChange, kind, label, fileKey }) => {
                                 component='label'
                                 startIcon={<Icon width={17} height={12} name='addition' styles={{ fill: '#1F6FA9' }} />}
                                 variant='outlined'
-                                weight='bold'>
+                                weight='bold'
+                                className='Manrope'>
                                 Choose File
                                 <input type='file' onChange={uploadFile} hidden />
                             </SwxButton>
@@ -139,7 +151,7 @@ const SwxFileUpload = ({ onChange, kind, label, fileKey }) => {
                     </StyledBorderContainerSecondary>
                 ) : (
                     <Stack spacing={1.5} sx={{ padding: '0px 24px' }} direction='row' alignItems='center'>
-                        <SwxTypography color='swxSlightlyBlack' size='small' weight='thin'>
+                        <SwxTypography color='swxSlightlyBlack' size='small' weight='thin' className='Manrope'>
                             {fileKey}
                         </SwxTypography>
                         <Icon name='close' fill='#838A91' height={10.6} width={10.6} />

@@ -15,3 +15,11 @@ export const StyledBorderContainerSecondary = styled.div`
         border-radius: ${theme.borderRadius.small};
     `}
 `;
+export const styles = {
+    chooseFileButton: {
+        width: '160px',
+        '@media (max-width: 600px)': {
+            width: '100%',
+        },
+    },
+};
