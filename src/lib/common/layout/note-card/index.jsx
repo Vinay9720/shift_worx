@@ -15,7 +15,7 @@ export default function NoteCard({ note, actions }) {
             <NoteContainer isRead={note.read}>
                 <NoteLeftContainer>
                     <div style={{ display: 'flex', gap: '4px', alignItems: 'center' }}>
-                        <SwxTypography color='swxBlack' size='semiLarge' weight='bold'>
+                        <SwxTypography color='swxBlack' size='semiLarge' weight='bold' className='Manrope'>
                             {note.note_type.title}
                         </SwxTypography>
                         <span>
@@ -23,7 +23,12 @@ export default function NoteCard({ note, actions }) {
                         </span>
                     </div>
                     <div style={{ display: 'flex' }}>
-                        <SwxTypography color='swxBlack' size='small' weight='thin' style={{ marginRight: '10px' }}>
+                        <SwxTypography
+                            color='swxBlack'
+                            size='small'
+                            weight='thin'
+                            style={{ marginRight: '10px' }}
+                            className='Manrope'>
                             {note.entity_type || 'Admin'}
                         </SwxTypography>
                         <div style={{ display: 'flex ', alignItems: 'center', marginRight: '4px' }}>
@@ -34,11 +39,21 @@ export default function NoteCard({ note, actions }) {
                                 height={6}
                                 width={6}
                             />
-                            <SwxTypography style={{ marginLeft: '10px' }} color='lightGray' size='small' weight='thin'>
+                            <SwxTypography
+                                style={{ marginLeft: '10px' }}
+                                color='lightGray'
+                                size='small'
+                                weight='thin'
+                                className='Manrope'>
                                 Sent at
                             </SwxTypography>
                         </div>
-                        <SwxTypography style={{ marginLeft: '3px' }} color='swxBlack' size='small' weight='thin'>
+                        <SwxTypography
+                            style={{ marginLeft: '3px' }}
+                            color='swxBlack'
+                            size='small'
+                            weight='thin'
+                            className='Manrope'>
                             {formatDate(note.created_at)}
                         </SwxTypography>
                     </div>
@@ -46,7 +61,7 @@ export default function NoteCard({ note, actions }) {
                 <Divider orientation='vertical' flexItem sx={styles.vertical} />
                 <Divider orientation='horizontal' flexItem sx={styles.horizontal} />
                 <DescriptionContainer>
-                    <SwxTypography color='swxBlack' size='semiMedium' weight='thin'>
+                    <SwxTypography color='swxBlack' size='semiMedium' weight='thin' className='Manrope'>
                         {note.description}
                     </SwxTypography>
                     {actions && (

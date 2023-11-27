@@ -106,7 +106,6 @@ export default function PtoForm({ modalName, requestType, action: addPto, employ
         options: requestTypeOptions,
         maxHeight: '188px',
         required: true,
-        maxHeight: '188px',
     };
     const startDateProps = {
         label: (
