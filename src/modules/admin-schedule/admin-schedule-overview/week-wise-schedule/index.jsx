@@ -238,7 +238,7 @@ export default function WeekWiseSchedule({ scheduleData }) {
                                             <div key={index}>
                                                 {Object.entries(emp.shifts).map(([date, shifts]) => {
                                                     if (
-                                                        moment(date, 'MM-DD-YY').format('DD-MM-YYYY') === weekDay.date
+                                                        moment(date, 'MM-DD-YYYY').format('DD-MM-YYYY') === weekDay.date
                                                     ) {
                                                         return shifts.map((shift, key) => (
                                                             <div

@@ -49,7 +49,7 @@ export default function DayWiseSchedule({ scheduleData }) {
 
     const getShiftsByDate = (data, date) => {
         const shifts = [];
-        const formattedDate = moment(date, 'ddd, MMM D').format('MM-DD-YY');
+        const formattedDate = moment(date, 'ddd, MMM D').format('MM-DD-YYYY');
         for (const employee of data || []) {
             const employeeShifts = employee.shifts[formattedDate];
             if (employeeShifts) {

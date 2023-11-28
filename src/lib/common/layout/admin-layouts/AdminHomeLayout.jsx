@@ -33,7 +33,7 @@ export default function AdminHomeLayout({
                 <TimeOfRequestWidgetWrapper style={{ minHeight: '420px', background: '#fff' }}>
                     {timeOffRequestWidget}
                 </TimeOfRequestWidgetWrapper>
-                <ShiftsAndExpirationsWidgetsWrapper direction='row'>
+                <ShiftsAndExpirationsWidgetsWrapper>
                     <UnfilledShiftsWidgetWrapper style={{ minHeight: '420px', background: '#fff' }}>
                         {unfilledShiftsWidget}
                     </UnfilledShiftsWidgetWrapper>
@@ -41,7 +41,7 @@ export default function AdminHomeLayout({
                         {emplyeeExpirationsWidget}
                     </EmployeeExpirationsWidgetWrapper>
                 </ShiftsAndExpirationsWidgetsWrapper>
-                <ActivitiesAndEventsContainer direction='row'>
+                <ActivitiesAndEventsContainer>
                     <AcitivityWidgetWrapper style={{ minHeight: '420px', background: '#fff' }}>
                         {activityWidget}
                     </AcitivityWidgetWrapper>
