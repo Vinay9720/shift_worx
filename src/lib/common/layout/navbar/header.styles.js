@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import styled from 'styled-components';
+import { Stack } from '@mui/material';
 
 export const HeaderContainer = styled.div`
     display: flex;
@@ -44,6 +45,23 @@ export const StyledLink = styled(Link)`
         text-decoration: none;
     `}
 `;
+
+export const LinksContainer = styled.div`
+    ${({ isMobile }) => `
+        display: flex;
+        flex-direction: ${isMobile ? 'column' : 'row'};
+        margin-top: ${isMobile ? '38px' : '0px'};
+        margin-left: ${isMobile ? '6px' : '0px'};
+    `}
+`;
+
+export const MobileLogoContainer = styled(Stack)`
+    ${({ theme }) => `
+        padding: 24px 0 24px 6px;
+        border-bottom: 1px solid ${theme.fontColor.lightBlue};
+    `}
+`;
+
 export const styles = {
     stackOne: {
         display: 'flex',
