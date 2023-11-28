@@ -1,17 +1,27 @@
 'use client';
 
 import Link from 'next/link';
+import { useState } from 'react';
 import { usePathname, useRouter } from 'next/navigation';
 import { signOut, useSession } from 'next-auth/react';
 import Image from 'next/image';
-import { Avatar, Stack } from '@mui/material';
+import { Avatar, Stack, Drawer } from '@mui/material';
 
-import { HeaderContainer, HeaderWrapper, StyledLink, StyledLinkContainer, styles } from './header.styles';
+import {
+    HeaderContainer,
+    HeaderWrapper,
+    StyledLink,
+    StyledLinkContainer,
+    styles,
+    LinksContainer,
+    MobileLogoContainer,
+} from './header.styles';
 
 import { SwxPopupMenu } from '../../components';
 import { Icon } from '../../icons';
 
 const NavBar = ({ navLinks }) => {
+    const [navbar, setNavBar] = useState(false);
     const pathname = usePathname();
     const { data } = useSession();
     const router = useRouter();
@@ -37,18 +47,21 @@ const NavBar = ({ navLinks }) => {
         }
     };
 
-    const renderLinks = () => {
+    const renderLinks = isMobile => {
         return (
-            <div style={{ display: 'flex' }}>
+            <LinksContainer isMobile={isMobile}>
                 {navLinks.map((link, index) => {
                     return (
-                        <StyledLinkContainer key={index} active={isActive(link.destination)}>
+                        <StyledLinkContainer
+                            onClick={() => (isMobile ? setNavBar(false) : null)}
+                            key={index}
+                            active={isActive(link.destination)}>
                             <Icon name={getIconName(link.label)} height={18} width={18} />
                             <Link href={link.destination}>{link.label}</Link>
                         </StyledLinkContainer>
                     );
                 })}
-            </div>
+            </LinksContainer>
         );
     };
 
@@ -66,6 +79,22 @@ const NavBar = ({ navLinks }) => {
     return (
         <HeaderWrapper>
             <HeaderContainer>
+                <Drawer
+                    PaperProps={{
+                        sx: {
+                            backgroundColor: '#1F6FA9',
+                        },
+                    }}
+                    anchor='left'
+                    onClose={() => setNavBar(false)}
+                    open={navbar}>
+                    <>
+                        <MobileLogoContainer direction='row' alignItems='center'>
+                            <Image src='/images/swx-logo.png' alt='logo' width={137} height={25} />
+                        </MobileLogoContainer>
+                        {renderLinks(true)}
+                    </>
+                </Drawer>
                 <Stack spacing={3} direction='row'>
                     <Stack direction='row' alignItems='center'>
                         <Image src='/images/swx-logo.png' alt='logo' width={137} height={25} />
@@ -108,7 +137,7 @@ const NavBar = ({ navLinks }) => {
                             buttonElement={
                                 <Stack direction='row' spacing={1.5} alignItems='center'>
                                     <Avatar
-                                        alt='Jack Sparrow'
+                                        alt='image'
                                         sx={{ width: 36, height: 36, bgcolor: '#1B6397' }}
                                         src='/static/images/avatar/5.jpg'
                                     />
@@ -121,7 +150,7 @@ const NavBar = ({ navLinks }) => {
                         />
                     </Stack>
                     <Stack sx={styles.hamburger}>
-                        <Stack sx={styles.stackTwo}>
+                        <Stack onClick={() => setNavBar(true)} sx={styles.stackTwo}>
                             <Icon name='ellipse' width={36} height={36} fill='#1B6397' />
                             <Stack sx={styles.stackThree}>
                                 <Stack sx={styles.stackFour}>
