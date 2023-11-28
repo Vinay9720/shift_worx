@@ -118,6 +118,8 @@ export const TimeOfRequestWidgetWrapper = styled(Stack)`
 export const ShiftsAndExpirationsWidgetsWrapper = styled(Stack)`
     ${({ theme }) => `
         border-bottom: 1px solid ${theme.borderColor.lightGray};
+        display: flex;
+        flex-direction: row;
     `}
     @media (max-width: 767px) {
         display: flex;
@@ -126,6 +128,8 @@ export const ShiftsAndExpirationsWidgetsWrapper = styled(Stack)`
 `;
 
 export const ActivitiesAndEventsContainer = styled(Stack)`
+    display: flex;
+    flex-direction: row;
     @media (max-width: 767px) {
         display: flex;
         flex-direction: column;
