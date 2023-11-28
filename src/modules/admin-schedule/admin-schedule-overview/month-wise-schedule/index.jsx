@@ -176,7 +176,7 @@ export default function MonthWiseSchedule({ scheduleData }) {
                                 {(scheduleData.records || []).map(data => {
                                     const employeeName = data.name || 'Nurse';
                                     return Object.entries(data.shifts).map(([date, shifts]) => {
-                                        if (moment(date, 'MM-DD-YY').format('DD-MM-YYYY') === day.date) {
+                                        if (moment(date, 'MM-DD-YYYY').format('DD-MM-YYYY') === day.date) {
                                             shifts.forEach((shift, key) => {
                                                 noOfShifts += 1;
                                                 if (noOfShifts <= 2) {
