@@ -1,9 +1,11 @@
 import { SwxTypography, SwxButton, SwxDataGrid, SwxPopupMenu } from '@/lib/common/components';
+import { useRouter } from 'next/navigation';
 import { Stack, IconButton, Avatar } from '@mui/material';
 import { Icon } from '@/lib/common/icons';
 import { EmployeeExpirationsWidgetWrapper } from './admin-home.styles';
 
 export default function EmployeeExpirationsWidget() {
+    const router = useRouter();
     const rows = [
         {
             id: 1,
@@ -72,7 +74,7 @@ export default function EmployeeExpirationsWidget() {
                     <Avatar sx={{ width: 32, height: 32, bgcolor: '#1F6FA9' }}>{`${
                         params.row.name.split('')[0].toUpperCase() || ''
                     }`}</Avatar>
-                    <SwxTypography color='swxBlack' size='semiMedium' weight='semiBold'>{`${
+                    <SwxTypography className='Manrope' color='swxBlack' size='semiMedium' weight='semiBold'>{`${
                         params.row.name || ''
                     }`}</SwxTypography>
                 </Stack>
@@ -93,7 +95,11 @@ export default function EmployeeExpirationsWidget() {
                 return (
                     <Stack direction='row' spacing={1}>
                         <Icon name='alert' height={20} width={20} />
-                        <SwxTypography color='swxSlightlyBlack' size='semiMedium' weight='extraThin'>
+                        <SwxTypography
+                            className='Manrope'
+                            color='swxSlightlyBlack'
+                            size='semiMedium'
+                            weight='extraThin'>
                             {params.value}
                         </SwxTypography>
                     </Stack>
@@ -111,7 +117,7 @@ export default function EmployeeExpirationsWidget() {
             sortable: false,
             renderCell: params => {
                 return (
-                    <SwxTypography color='swxSlightlyBlack' size='semiMedium' weight='extraThin'>
+                    <SwxTypography className='Manrope' color='swxSlightlyBlack' size='semiMedium' weight='extraThin'>
                         {params.value || 'Jan 28, 2023'}
                     </SwxTypography>
                 );
@@ -149,7 +155,7 @@ export default function EmployeeExpirationsWidget() {
     return (
         <EmployeeExpirationsWidgetWrapper direction='column'>
             <Stack justifyContent='space-between' direction='row'>
-                <SwxTypography size='semiLarge' color='swxSlightlyBlack' weight='bold'>
+                <SwxTypography className='Manrope' size='semiLarge' color='swxSlightlyBlack' weight='semiBold'>
                     Employee Expirations
                 </SwxTypography>
                 <SwxButton
@@ -157,6 +163,7 @@ export default function EmployeeExpirationsWidget() {
                     variant='text'
                     size='small'
                     label='link'
+                    onClick={() => router.push('/admin/employees?step=expirations')}
                     weight='bold'>
                     View more
                 </SwxButton>

@@ -1,8 +1,10 @@
 import { SwxTypography, SwxButton, SwxDataGrid, SwxPopupMenu } from '@/lib/common/components';
+import { useRouter } from 'next/navigation';
 import { Stack, Avatar, IconButton } from '@mui/material';
 import { Icon } from '@/lib/common/icons';
 
 export default function TimeOffRequestsWidget() {
+    const router = useRouter();
     const rows = [
         {
             id: 1,
@@ -71,7 +73,7 @@ export default function TimeOffRequestsWidget() {
                     <Avatar sx={{ width: 32, height: 32, bgcolor: '#1F6FA9' }}>{`${
                         params.row.employee.split('')[0].toUpperCase() || 'K'
                     }`}</Avatar>
-                    <SwxTypography color='swxBlack' size='semiMedium' weight='semiBold'>{`${
+                    <SwxTypography className='Manrope' color='swxBlack' size='semiMedium' weight='semiBold'>{`${
                         params.row.employee || ''
                     } `}</SwxTypography>
                 </Stack>
@@ -87,7 +89,7 @@ export default function TimeOffRequestsWidget() {
             align: 'left',
             sortable: false,
             renderCell: params => (
-                <SwxTypography color='swxSlightlyBlack' size='semiMedium' weight='extraThin'>{`${
+                <SwxTypography className='Manrope' color='swxSlightlyBlack' size='semiMedium' weight='extraThin'>{`${
                     params.value || '7/4 - 8:00 AM - 8:00 PM'
                 } `}</SwxTypography>
             ),
@@ -102,7 +104,7 @@ export default function TimeOffRequestsWidget() {
             flex: 1,
             sortable: false,
             renderCell: params => (
-                <SwxTypography color='swxSlightlyBlack' size='semiMedium' weight='extraThin'>{`${
+                <SwxTypography className='Manrope' color='swxSlightlyBlack' size='semiMedium' weight='extraThin'>{`${
                     params.value || "I'm requesting time off to attend my brother's wedding"
                 } `}</SwxTypography>
             ),
@@ -139,7 +141,7 @@ export default function TimeOffRequestsWidget() {
     return (
         <Stack direction='column' sx={{ mb: 5 }}>
             <Stack justifyContent='space-between' direction='row'>
-                <SwxTypography size='semiLarge' color='swxSlightlyBlack' weight='bold'>
+                <SwxTypography className='Manrope' size='semiLarge' color='swxSlightlyBlack' weight='semiBold'>
                     Time Off Requests
                 </SwxTypography>
                 <SwxButton
@@ -147,6 +149,7 @@ export default function TimeOffRequestsWidget() {
                     variant='text'
                     size='small'
                     label='link'
+                    onClick={() => router.push('/admin/employees?step=pto')}
                     weight='bold'>
                     View more
                 </SwxButton>

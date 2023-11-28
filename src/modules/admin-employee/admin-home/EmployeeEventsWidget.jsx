@@ -14,7 +14,7 @@ export default function EmployeeEventssWidget() {
     return (
         <EmployeeEventsWidgetWrapper direction='column'>
             <Stack justifyContent='space-between' direction='row' sx={{ mb: 4 }}>
-                <SwxTypography size='semiLarge' color='swxSlightlyBlack' weight='bold'>
+                <SwxTypography className='Manrope' size='semiLarge' color='swxSlightlyBlack' weight='semiBold'>
                     Employee Events
                 </SwxTypography>
                 {/* <SwxButton
@@ -32,10 +32,10 @@ export default function EmployeeEventssWidget() {
                     <Stack sx={{ py: '14px', pl: '16px' }} direction='row' spacing={2}>
                         <Avatar sx={{ width: 40, height: 40, bgcolor: '#1F6FA9' }}>{`${'J'}`}</Avatar>
                         <Stack>
-                            <SwxTypography color='swxBlack' size='medium' weight='semiBold'>
+                            <SwxTypography className='Manrope' color='swxBlack' size='medium' weight='semiBold'>
                                 John Thomas
                             </SwxTypography>
-                            <SwxTypography color='lightGray' size='smallest' weight='thin'>
+                            <SwxTypography className='Manrope' color='lightGray' size='smallest' weight='thin'>
                                 Jan 3, 2023
                             </SwxTypography>
                         </Stack>
@@ -45,10 +45,10 @@ export default function EmployeeEventssWidget() {
                     <Stack sx={{ py: '14px', pl: '16px' }} direction='row' spacing={2}>
                         <Avatar sx={{ width: 40, height: 40, bgcolor: '#1F6FA9' }}>{`${'J'}`}</Avatar>
                         <Stack>
-                            <SwxTypography color='swxBlack' size='medium' weight='semiBold'>
+                            <SwxTypography className='Manrope' color='swxBlack' size='medium' weight='semiBold'>
                                 John Thomas
                             </SwxTypography>
-                            <SwxTypography color='lightGray' size='smallest' weight='thin'>
+                            <SwxTypography className='Manrope' color='lightGray' size='smallest' weight='thin'>
                                 Jan 3, 2023
                             </SwxTypography>
                         </Stack>
@@ -58,10 +58,10 @@ export default function EmployeeEventssWidget() {
                     <Stack sx={{ py: '14px', pl: '16px' }} direction='row' spacing={2}>
                         <Avatar sx={{ width: 40, height: 40, bgcolor: '#1F6FA9' }}>{`${'J'}`}</Avatar>
                         <Stack>
-                            <SwxTypography color='swxBlack' size='medium' weight='semiBold'>
+                            <SwxTypography className='Manrope' color='swxBlack' size='medium' weight='semiBold'>
                                 John Thomas
                             </SwxTypography>
-                            <SwxTypography color='lightGray' size='smallest' weight='thin'>
+                            <SwxTypography className='Manrope' color='lightGray' size='smallest' weight='thin'>
                                 Jan 3, 2023
                             </SwxTypography>
                         </Stack>
@@ -71,10 +71,10 @@ export default function EmployeeEventssWidget() {
                     <Stack sx={{ py: '14px', pl: '16px' }} direction='row' spacing={2}>
                         <Avatar sx={{ width: 40, height: 40, bgcolor: '#1F6FA9' }}>{`${'J'}`}</Avatar>
                         <Stack>
-                            <SwxTypography color='swxBlack' size='medium' weight='semiBold'>
+                            <SwxTypography className='Manrope' color='swxBlack' size='medium' weight='semiBold'>
                                 John Thomas
                             </SwxTypography>
-                            <SwxTypography color='lightGray' size='smallest' weight='thin'>
+                            <SwxTypography className='Manrope' color='lightGray' size='smallest' weight='thin'>
                                 Jan 3, 2023
                             </SwxTypography>
                         </Stack>
@@ -84,10 +84,10 @@ export default function EmployeeEventssWidget() {
                     <Stack sx={{ py: '14px', pl: '16px' }} direction='row' spacing={2}>
                         <Avatar sx={{ width: 40, height: 40, bgcolor: '#1F6FA9' }}>{`${'J'}`}</Avatar>
                         <Stack>
-                            <SwxTypography color='swxBlack' size='medium' weight='semiBold'>
+                            <SwxTypography className='Manrope' color='swxBlack' size='medium' weight='semiBold'>
                                 John Thomas
                             </SwxTypography>
-                            <SwxTypography color='lightGray' size='smallest' weight='thin'>
+                            <SwxTypography className='Manrope' color='lightGray' size='smallest' weight='thin'>
                                 Jan 3, 2023
                             </SwxTypography>
                         </Stack>
@@ -97,10 +97,10 @@ export default function EmployeeEventssWidget() {
                     <Stack sx={{ py: '14px', pl: '16px' }} direction='row' spacing={2}>
                         <Avatar sx={{ width: 40, height: 40, bgcolor: '#1F6FA9' }}>{`${'J'}`}</Avatar>
                         <Stack>
-                            <SwxTypography color='swxBlack' size='medium' weight='semiBold'>
+                            <SwxTypography className='Manrope' color='swxBlack' size='medium' weight='semiBold'>
                                 John Thomas
                             </SwxTypography>
-                            <SwxTypography color='lightGray' size='smallest' weight='thin'>
+                            <SwxTypography className='Manrope' color='lightGray' size='smallest' weight='thin'>
                                 Jan 3, 2023
                             </SwxTypography>
                         </Stack>
