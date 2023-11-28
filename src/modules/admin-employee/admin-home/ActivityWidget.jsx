@@ -7,7 +7,7 @@ export default function ActivityWidget() {
     return (
         <AcitivityWidgetWrapper direction='column'>
             <Stack justifyContent='space-between' direction='row'>
-                <SwxTypography size='semiLarge' color='swxSlightlyBlack' weight='bold'>
+                <SwxTypography className='Manrope' size='semiLarge' color='swxSlightlyBlack' weight='semiBold'>
                     Activity
                 </SwxTypography>
                 {/* <SwxButton
@@ -23,7 +23,7 @@ export default function ActivityWidget() {
                 <Stack>
                     <Stack direction='row' spacing={1.25}>
                         <Icon name='radio' height={20} width={20} />
-                        <SwxTypography color='swxBlack' size='small' weight='semiBold'>
+                        <SwxTypography className='Manrope' color='swxBlack' size='small' weight='semiBold'>
                             Today
                         </SwxTypography>
                     </Stack>
@@ -32,11 +32,15 @@ export default function ActivityWidget() {
                             <Stack sx={{ py: '14px', pl: '16px' }} direction='row' spacing={2}>
                                 <Avatar sx={{ width: 40, height: 40, bgcolor: '#1F6FA9' }}>{`${'J'}`}</Avatar>
                                 <Stack>
-                                    <SwxTypography color='lightGray' size='semiMedium' weight='extraThin'>
+                                    <SwxTypography
+                                        className='Manrope'
+                                        color='lightGray'
+                                        size='semiMedium'
+                                        weight='extraThin'>
                                         <StyledNameContainer>Janet</StyledNameContainer> accepted your shift proposal
                                         for 6/18
                                     </SwxTypography>
-                                    <SwxTypography color='lightGray' size='smallest' weight='thin'>
+                                    <SwxTypography className='Manrope' color='lightGray' size='smallest' weight='thin'>
                                         1 min ago
                                     </SwxTypography>
                                 </Stack>
@@ -46,11 +50,15 @@ export default function ActivityWidget() {
                             <Stack sx={{ py: '14px', pl: '16px' }} direction='row' spacing={2}>
                                 <Avatar sx={{ width: 40, height: 40, bgcolor: '#1F6FA9' }}>{`${'J'}`}</Avatar>
                                 <Stack>
-                                    <SwxTypography color='lightGray' size='semiMedium' weight='extraThin'>
+                                    <SwxTypography
+                                        className='Manrope'
+                                        color='lightGray'
+                                        size='semiMedium'
+                                        weight='extraThin'>
                                         <StyledNameContainer>Janet</StyledNameContainer> accepted your shift proposal
                                         for 6/18
                                     </SwxTypography>
-                                    <SwxTypography color='lightGray' size='smallest' weight='thin'>
+                                    <SwxTypography className='Manrope' color='lightGray' size='smallest' weight='thin'>
                                         1 min ago
                                     </SwxTypography>
                                 </Stack>
@@ -61,7 +69,7 @@ export default function ActivityWidget() {
                 <Stack>
                     <Stack direction='row' spacing={1.25}>
                         <Icon name='radio' height={20} width={20} />
-                        <SwxTypography color='swxBlack' size='small' weight='semiBold'>
+                        <SwxTypography className='Manrope' color='swxBlack' size='small' weight='semiBold'>
                             Yesterday
                         </SwxTypography>
                     </Stack>
@@ -70,11 +78,15 @@ export default function ActivityWidget() {
                             <Stack sx={{ py: '14px', pl: '16px' }} direction='row' spacing={2}>
                                 <Avatar sx={{ width: 40, height: 40, bgcolor: '#1F6FA9' }}>{`${'J'}`}</Avatar>
                                 <Stack>
-                                    <SwxTypography color='lightGray' size='semiMedium' weight='extraThin'>
+                                    <SwxTypography
+                                        className='Manrope'
+                                        color='lightGray'
+                                        size='semiMedium'
+                                        weight='extraThin'>
                                         <StyledNameContainer>Janet</StyledNameContainer> accepted your shift proposal
                                         for 6/18
                                     </SwxTypography>
-                                    <SwxTypography color='lightGray' size='smallest' weight='thin'>
+                                    <SwxTypography className='Manrope' color='lightGray' size='smallest' weight='thin'>
                                         1 min ago
                                     </SwxTypography>
                                 </Stack>
@@ -84,11 +96,15 @@ export default function ActivityWidget() {
                             <Stack sx={{ py: '14px', pl: '16px' }} direction='row' spacing={2}>
                                 <Avatar sx={{ width: 40, height: 40, bgcolor: '#1F6FA9' }}>{`${'J'}`}</Avatar>
                                 <Stack>
-                                    <SwxTypography color='lightGray' size='semiMedium' weight='extraThin'>
+                                    <SwxTypography
+                                        className='Manrope'
+                                        color='lightGray'
+                                        size='semiMedium'
+                                        weight='extraThin'>
                                         <StyledNameContainer>Janet</StyledNameContainer> accepted your shift proposal
                                         for 6/18
                                     </SwxTypography>
-                                    <SwxTypography color='lightGray' size='smallest' weight='thin'>
+                                    <SwxTypography className='Manrope' color='lightGray' size='smallest' weight='thin'>
                                         1 min ago
                                     </SwxTypography>
                                 </Stack>
@@ -98,11 +114,15 @@ export default function ActivityWidget() {
                             <Stack sx={{ py: '14px', pl: '16px' }} direction='row' spacing={2}>
                                 <Avatar sx={{ width: 40, height: 40, bgcolor: '#1F6FA9' }}>{`${'J'}`}</Avatar>
                                 <Stack>
-                                    <SwxTypography color='lightGray' size='semiMedium' weight='extraThin'>
+                                    <SwxTypography
+                                        className='Manrope'
+                                        color='lightGray'
+                                        size='semiMedium'
+                                        weight='extraThin'>
                                         <StyledNameContainer>Janet</StyledNameContainer> accepted your shift proposal
                                         for 6/18
                                     </SwxTypography>
-                                    <SwxTypography color='lightGray' size='smallest' weight='thin'>
+                                    <SwxTypography className='Manrope' color='lightGray' size='smallest' weight='thin'>
                                         1 min ago
                                     </SwxTypography>
                                 </Stack>

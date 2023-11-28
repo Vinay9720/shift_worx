@@ -62,7 +62,7 @@ export default function UnfilledShiftsWidget() {
             headerName: 'Role',
             width: 150,
             renderCell: params => (
-                <SwxTypography color='swxBlack' size='semiMedium' weight='semiBold'>
+                <SwxTypography color='swxBlack' size='semiMedium' weight='semiBold' className='Manrope'>
                     {params.value}
                 </SwxTypography>
             ),
@@ -78,7 +78,7 @@ export default function UnfilledShiftsWidget() {
             align: 'left',
             sortable: false,
             renderCell: params => (
-                <SwxTypography color='swxSlightlyBlack' size='semiMedium' weight='extraThin'>{`${
+                <SwxTypography color='swxSlightlyBlack' size='semiMedium' className='Manrope' weight='extraThin'>{`${
                     params.value || '7/4 - 8:00 AM - 8:00 PM'
                 } `}</SwxTypography>
             ),
@@ -115,7 +115,7 @@ export default function UnfilledShiftsWidget() {
     return (
         <UnfilledShiftsWidgetWrapper direction='column' sx={{ my: 5, mr: 5 }}>
             <Stack justifyContent='space-between' direction='row'>
-                <SwxTypography size='semiLarge' color='swxSlightlyBlack' weight='bold'>
+                <SwxTypography className='Manrope' size='semiLarge' color='swxSlightlyBlack' weight='semiBold'>
                     Unfilled Shifts
                 </SwxTypography>
                 <SwxButton
