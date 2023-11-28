@@ -21,13 +21,14 @@ import { useSpecialityOptions } from '@/hooks/speciality';
 import { useFacilityOptions } from '@/hooks/facility';
 
 import { ModalContainer, HeaderContainer, EllipseContainer, CloseContainer, styles } from './add-shift.styles';
+import { useToast } from '@/hooks/common';
 
 export default function ShiftForm({ modalName, action: addShift }) {
     const { data: employeesData, isSuccess } = useEmployees(true);
     const { data: certificationOptions } = useCertificateOptions();
     const { data: specialityOptions } = useSpecialityOptions();
     const { data: facilityOptions } = useFacilityOptions();
-
+    const showToast = useToast();
     const dispatch = useDispatch();
 
     const employees = useMemo(() => {
@@ -173,7 +174,42 @@ export default function ShiftForm({ modalName, action: addShift }) {
                     </Stack>
                 </EllipseContainer>
             </HeaderContainer>
-            <Form onSubmit={shiftData => addShift({ shiftData })}>
+            <Form
+                onSubmit={shiftData => {
+                    const convertTo24HourFormat = time12h => {
+                        const time = time12h.slice(0, 5); // Extract the first 5 characters for the time
+                        const period = time12h.slice(5);
+                        const [hour, minutes] = time.split(':');
+                        let hourValue = parseInt(hour, 10);
+                        if (period.toLowerCase() === 'pm' && hourValue !== 12) {
+                            hourValue += 12;
+                        }
+                        if (period.toLowerCase() === 'am' && hourValue === 12) {
+                            hourValue = 0;
+                        }
+                        return `${hourValue}:${+minutes}`;
+                    };
+                    const startTime = convertTo24HourFormat(shiftData.start_time);
+                    const endTime = convertTo24HourFormat(shiftData.end_time);
+                    const [startTimeHour, startTimeMinutes] = startTime.split(':');
+                    const [endTimeHour, endTimeMinutes] = endTime.split(':');
+                    const totalMinutes1 = parseInt(startTimeHour, 10) * 60 + parseInt(startTimeMinutes, 10);
+                    const totalMinutes2 = parseInt(endTimeHour, 10) * 60 + parseInt(endTimeMinutes, 10);
+                    const differenceInMinutes = totalMinutes2 - totalMinutes1;
+                    const timeDifference = differenceInMinutes / 60;
+                    if (timeDifference < 4 || timeDifference > 12) {
+                        showToast(
+                            timeDifference < 4
+                                ? 'Shift Should Not Be LessThan 4 Hours !'
+                                : timeDifference > 12
+                                ? 'Shift Should Not Be GreaterThan 12 Hours !'
+                                : '',
+                            'warning'
+                        );
+                    } else {
+                        addShift({ shiftData });
+                    }
+                }}>
                 <Stack direction='column' spacing={2} sx={{ padding: '0px 24px', mt: 1 }}>
                     <Stack direction='row' spacing={2}>
                         <DatePickerField name='date' SWXInputProps={dateProps} />
