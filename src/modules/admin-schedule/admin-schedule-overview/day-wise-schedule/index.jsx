@@ -4,8 +4,6 @@ import moment from 'moment';
 import { isEmpty } from 'lodash';
 import { useSelector } from 'react-redux';
 import { Avatar } from '@mui/material';
-
-// import Badge from '@/lib/common/layout/daily-schedule-banner';
 import { Icon } from '@/lib/common/icons';
 import { timeSlots } from '@/lib/constants';
 import {
@@ -23,7 +21,6 @@ import {
     StyledNameFlexContainer,
     StyledNoSchedulesContainer,
     StyledShiftByDateContainer,
-    // StyledShiftDurationContainer,
     StyledShiftLengthDiv,
     StyledSortedShiftsContainer,
     StyledSortedShiftsMainContainer,
@@ -35,6 +32,7 @@ import {
     StyledViewUsersDiv,
 } from './day-wise-schedule.styles';
 import { DailyScheduleBanner } from '@/lib/common/layout';
+import { convertTo24HourFormat } from '@/lib/util/shiftTimeDifference';
 
 const twidth = '1920';
 
@@ -60,19 +58,6 @@ export default function DayWiseSchedule({ scheduleData }) {
         return shifts;
     };
     const shiftsByDate = getShiftsByDate(scheduleData.records, currentTimeValue);
-    const convertTo24HourFormat = time12h => {
-        const time = time12h.slice(0, 5); // Extract the first 5 characters for the time
-        const period = time12h.slice(5);
-        const [hour, minutes] = time.split(':');
-        let hourValue = parseInt(hour, 10);
-        if (period.toLowerCase() === 'pm' && hourValue !== 12) {
-            hourValue += 12;
-        }
-        if (period.toLowerCase() === 'am' && hourValue === 12) {
-            hourValue = 0;
-        }
-        return `${hourValue}:${+minutes}`;
-    };
     const getMarginLeft = start => {
         const startTime = convertTo24HourFormat(start);
         const [startTimeHour, startTimeMinutes] = startTime.split(':');
