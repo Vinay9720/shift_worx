@@ -6,7 +6,7 @@
 
 import moment from 'moment';
 import { IconButton } from '@mui/material';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { isEmpty } from 'lodash';
 
 import { Badge } from '@/lib/common/layout/daily-schedule-banner';
@@ -21,8 +21,11 @@ import {
     StyledWeekDaysContainer,
     StyledRootContainer,
 } from './week-wise-schedule.styles';
+import { DynamicPromptModal } from '@/lib/common/layout';
+import { openModal } from '@/lib/store/slices/modal-slice';
 
 export default function WeekWiseSchedule({ scheduleData }) {
+    const dispatch = useDispatch();
     const { currentTimeValue } = useSelector(state => state.adminScheduleModule);
     const getCurrentWeekdays = () => {
         const weekdaysWithDates = [];
@@ -41,13 +44,15 @@ export default function WeekWiseSchedule({ scheduleData }) {
     const menuOptions = () => {
         return [
             {
-                label: 'Edit',
+                label: 'Edit Shift',
                 action: () => null,
                 icon: <Icon styles={{ fill: '#838A91' }} name='pencil' height={14} width={14} />,
             },
             {
-                label: 'Delete',
-                action: () => null,
+                label: 'Delete Shift',
+                action: () => {
+                    dispatch(openModal({ modalName: 'deleteShiftModal' }));
+                },
                 color: 'red',
                 icon: <Icon styles={{ fill: '#F43C02' }} name='trash' height={14} width={14} />,
             },
@@ -284,6 +289,11 @@ export default function WeekWiseSchedule({ scheduleData }) {
                     </div>
                 )}
             </div>
+            <DynamicPromptModal
+                modalName='deleteShiftModal'
+                entityName='Shift'
+                // onConfirm={() => denyPto(employeeId)}
+            />
         </StyledRootContainer>
     );
 }
