@@ -6,7 +6,7 @@
 
 import moment from 'moment';
 import { IconButton } from '@mui/material';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { isEmpty } from 'lodash';
 
 import { Badge } from '@/lib/common/layout/daily-schedule-banner';
@@ -23,8 +23,12 @@ import {
     ShowMoreButtonWrapper,
     StyledShowMoreButton,
 } from './week-wise-schedule.styles';
+import ShiftForm from '../add-shift/ShiftForm';
+import { SwxModal } from '@/lib/common/layout';
+import { openModal } from '@/lib/store/slices/modal-slice';
 
 export default function WeekWiseSchedule({ scheduleData }) {
+    const dispatch = useDispatch();
     const { currentTimeValue } = useSelector(state => state.adminScheduleModule);
     const getCurrentWeekdays = () => {
         const weekdaysWithDates = [];
@@ -44,7 +48,9 @@ export default function WeekWiseSchedule({ scheduleData }) {
         return [
             {
                 label: 'Edit',
-                action: () => null,
+                action: () => {
+                    dispatch(openModal({ modalName: 'editShiftModal' }));
+                },
                 icon: <Icon styles={{ fill: '#838A91' }} name='pencil' height={14} width={14} />,
             },
             {
@@ -298,6 +304,12 @@ export default function WeekWiseSchedule({ scheduleData }) {
                     </div>
                 )}
             </div>
+            <SwxModal modalName='editShiftModal'>
+                <ShiftForm
+                    modalName='editShiftModal'
+                    // action={addShift}
+                />
+            </SwxModal>
         </StyledRootContainer>
     );
 }
