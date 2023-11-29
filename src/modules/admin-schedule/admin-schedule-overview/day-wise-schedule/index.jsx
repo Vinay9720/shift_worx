@@ -106,7 +106,13 @@ export default function DayWiseSchedule({ scheduleData }) {
                                                 }`}</Avatar>
                                             </div>
                                             <StyledNameFlexContainer>
-                                                <StyledEmployeeName>{emp.name || 'Nurse'}</StyledEmployeeName>
+                                                <StyledEmployeeName>
+                                                    {emp.name
+                                                        ? `${emp.name.slice(0, 7)} ${emp.name
+                                                              .slice(7, 8)
+                                                              .toUpperCase()}`
+                                                        : 'Nurse'}
+                                                </StyledEmployeeName>
                                                 <StyledFlexRow>
                                                     <StyledMarginDiv>
                                                         <Icon
