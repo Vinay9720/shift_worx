@@ -20,6 +20,8 @@ import {
     WeekDaysContainer,
     StyledWeekDaysContainer,
     StyledRootContainer,
+    ShowMoreButtonWrapper,
+    StyledShowMoreButton,
 } from './week-wise-schedule.styles';
 import { DynamicPromptModal } from '@/lib/common/layout';
 import { openModal } from '@/lib/store/slices/modal-slice';
@@ -124,7 +126,7 @@ export default function WeekWiseSchedule({ scheduleData }) {
                                   </div>
                                   <div>
                                       <div className='items-center justify-space-evenly col-span-1  font-semibold text-default text-newBlackColor'>
-                                          {emp.name}
+                                          {`${emp.name.slice(0, 7)} ${emp.name.slice(7, 8).toUpperCase()}`}
                                       </div>
                                       <div className='flex flex-row '>
                                           <div className='flex items-center justify-center mr-2'>
@@ -245,30 +247,42 @@ export default function WeekWiseSchedule({ scheduleData }) {
                                                     if (
                                                         moment(date, 'MM-DD-YYYY').format('DD-MM-YYYY') === weekDay.date
                                                     ) {
-                                                        return shifts.map((shift, key) => (
-                                                            <div
-                                                                key={key}
-                                                                className='flex text-light'
-                                                                style={{ width: '200px', height: '90px' }}>
-                                                                <Badge
-                                                                    text={getScheduleBanner(
-                                                                        shift.start_time,
-                                                                        shift.end_time,
-                                                                        shift.floor || 'First Floor',
-                                                                        shift.session_type || 'Morning',
-                                                                        shift.cert || 'RN'
-                                                                    )}
-                                                                    kind={
-                                                                        shift.title === 'RN'
-                                                                            ? 'scheduleOrange'
-                                                                            : shift.title === 'LPN'
-                                                                            ? 'scheduleCyan'
-                                                                            : shift.title === 'CNA'
-                                                                            ? 'scheduleMistyRose'
-                                                                            : 'scheduleOrange'
-                                                                    }
-                                                                    styles='p-1 w-full'
-                                                                />
+                                                        const duplicateShifts = [...shifts];
+                                                        return duplicateShifts.slice(0, 1).map((shift, key) => (
+                                                            <div key={key}>
+                                                                <div
+                                                                    className='flex text-light'
+                                                                    style={{ width: '200px', height: '90px' }}>
+                                                                    <Badge
+                                                                        text={getScheduleBanner(
+                                                                            shift.start_time,
+                                                                            shift.end_time,
+                                                                            shift.floor || 'First Floor',
+                                                                            shift.session_type || 'Morning',
+                                                                            shift.cert || 'RN'
+                                                                        )}
+                                                                        kind={
+                                                                            shift.title === 'RN'
+                                                                                ? 'scheduleOrange'
+                                                                                : shift.title === 'LPN'
+                                                                                ? 'scheduleCyan'
+                                                                                : shift.title === 'CNA'
+                                                                                ? 'scheduleMistyRose'
+                                                                                : 'scheduleOrange'
+                                                                        }
+                                                                        styles='p-1 w-full'
+                                                                    />
+                                                                </div>
+                                                                {shifts.length > 1 && (
+                                                                    <ShowMoreButtonWrapper>
+                                                                        <StyledShowMoreButton
+                                                                        // onClick={() => showShiftsPopup(day.date)}
+                                                                        >
+                                                                            {`View ${shifts.slice(1, 4).length} `}
+                                                                            More&nbsp;
+                                                                        </StyledShowMoreButton>
+                                                                    </ShowMoreButtonWrapper>
+                                                                )}
                                                             </div>
                                                         ));
                                                     }

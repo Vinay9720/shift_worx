@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export const styles = {
     mainDiv: {
-        height: '96px',
+        height: '120px',
         display: 'flex',
         flexWrap: 'wrap',
         justifyContent: 'space-evenly',
@@ -20,7 +20,7 @@ export const StyledWeekDaysContainer = styled.div`
     flex-direction: row;
     background-color: white;
     border-bottom: 0;
-    height: 96px;
+    height: 120px;
 `;
 export const UsersContainer = styled.div`
     display: flex;
@@ -51,4 +51,16 @@ export const WeekDaysContainer = styled.div`
     color: #616a71;
     font-weight: 500;
     background-color: ${({ isCurrentDate }) => (isCurrentDate ? 'rgba(55, 65, 81, 0.05)' : '#ffffff')};
+`;
+export const ShowMoreButtonWrapper = styled.div`
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+`;
+export const StyledShowMoreButton = styled.button`
+    ${({ theme }) => `
+        font-size: ${theme.fontSize.small};
+        color: ${theme.fontColor.darkBlue};
+        font-weight:${theme.fontWeight.bold};
+    `}
 `;

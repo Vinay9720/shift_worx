@@ -4,7 +4,7 @@
 
 import { Stack } from '@mui/material';
 
-import { statesWithkeys } from '@/lib/constants';
+import { statesWithCodes } from '@/lib/constants';
 import { restrictEmptyArray } from '@/lib/validators';
 import { useCertificateOptions } from '@/hooks/certificate';
 import { useSpecialityOptions } from '@/hooks/speciality';
@@ -67,7 +67,7 @@ function CertificateForm({ defaultValues, onSubmit, onCancel }) {
 
     const jurisdictionProps = {
         label: 'Select jurisdiction',
-        options: statesWithkeys,
+        options: statesWithCodes,
         required: true,
         validate: value => restrictEmptyArray(value, 'field can not be empty'),
         maxHeight: '100px',
