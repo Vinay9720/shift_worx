@@ -32,7 +32,7 @@ import {
     StyledViewUsersDiv,
 } from './day-wise-schedule.styles';
 import { DailyScheduleBanner } from '@/lib/common/layout';
-import { convertTo24HourFormat } from '@/lib/util/shiftTimeDifference';
+import { convertTo24HourFormat } from '@/lib/util';
 
 const twidth = '1920';
 

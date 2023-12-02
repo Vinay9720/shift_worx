@@ -22,7 +22,7 @@ import { useFacilityOptions } from '@/hooks/facility';
 
 import { ModalContainer, HeaderContainer, EllipseContainer, CloseContainer, styles } from './add-shift.styles';
 import { useToast } from '@/hooks/common';
-import { convertTo24HourFormat } from '@/lib/util/shiftTimeDifference';
+import { convertTo24HourFormat, today } from '@/lib/util';
 
 export default function ShiftForm({ modalName, action: addShift }) {
     const { data: employeesData, isSuccess } = useEmployees(true);
@@ -81,6 +81,7 @@ export default function ShiftForm({ modalName, action: addShift }) {
         width: '100%',
         required: true,
         range: false,
+        minDate: today(),
     };
 
     const roleProps = {

@@ -11,6 +11,8 @@ import {
 } from './dynamicChipColor';
 import { formatExpirations } from './formatExpirationsArray';
 import { userStatusChipBackground, userStatusCircleBackground } from './dynamicUserStatusChip';
+import { today } from './getToday';
+import { convertTo24HourFormat } from './convertTo24HourFormat';
 
 export {
     redirectUser,
@@ -25,4 +27,6 @@ export {
     formatExpirations,
     filledCircleBackground,
     filledChipBackground,
+    today,
+    convertTo24HourFormat,
 };
