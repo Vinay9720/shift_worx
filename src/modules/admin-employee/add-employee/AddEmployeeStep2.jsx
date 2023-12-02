@@ -9,6 +9,7 @@ import { SwxButton, SwxTypography } from '@/lib/common/components';
 import { Form, InputField, DatePickerField, FormSubmitButton } from '@/lib/common/form-components';
 
 import { FooterContainer, styles } from './add-employee.styles';
+import { today } from '@/lib/util';
 
 function AddEmployeeStep2() {
     const dispatch = useDispatch();
@@ -43,6 +44,7 @@ function AddEmployeeStep2() {
             </SwxTypography>
         ),
         required: true,
+        maxDate: today(),
         width: '100%',
     };
 
@@ -53,6 +55,7 @@ function AddEmployeeStep2() {
             </SwxTypography>
         ),
         required: true,
+        minDate: today(),
         width: '100%',
     };
 
