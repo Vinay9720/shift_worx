@@ -33,12 +33,8 @@ export default function SwxMultiSelect({
     width,
     padding,
     errorText,
+    marginleft,
 }) {
-    // const [open, setOpen] = useState(false);
-
-    // const handleCustomIconClick = () => {
-    //     setOpen(!open);
-    // };
     return (
         <div style={{ width: width || '100%', ...style }}>
             {OutSideLabel && <OutSideLabel />}
@@ -57,8 +53,6 @@ export default function SwxMultiSelect({
                                 name='dropdown-arrow'
                                 width='14'
                                 styles={{ margin: '2px 12px 4px 12px', cursor: 'pointer' }}
-                                // open={open}
-                                // onClick={handleCustomIconClick}
                             />
                         );
                     }}
@@ -68,7 +62,9 @@ export default function SwxMultiSelect({
                     onChange={onChange}
                     renderValue={selected => {
                         return (
-                            <ValueContainer multiple={multiple}>{multiple ? selected.length : selected}</ValueContainer>
+                            <ValueContainer marginleft={marginleft} multiple={multiple}>
+                                {multiple ? selected.length : selected}
+                            </ValueContainer>
                         );
                     }}
                     MenuProps={MenuProps}>

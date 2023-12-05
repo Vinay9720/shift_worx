@@ -17,12 +17,11 @@ import {
     FileUploadField,
 } from '@/lib/common/form-components';
 import { SwxTypography, SwxButton, SwxLoader } from '@/lib/common/components';
+import { today } from '@/lib/util';
 
 function CertificateForm({ defaultValues, onSubmit, onCancel }) {
     const { data: certificationOptions, isLoading: isCertificateOptionsLoading } = useCertificateOptions();
     const { data: specialityOptions, isLoading: isSpecialityOptionsLoading } = useSpecialityOptions();
-
-    console.log('formatted values===>', defaultValues);
 
     const certificationProps = {
         label: 'Select type',
@@ -40,6 +39,7 @@ function CertificateForm({ defaultValues, onSubmit, onCancel }) {
         multiple: false,
         range: false,
         required: true,
+        maxDate: today(),
         width: '100%',
         padding: '10px 12px',
     };
@@ -53,6 +53,7 @@ function CertificateForm({ defaultValues, onSubmit, onCancel }) {
         multiple: false,
         range: false,
         required: true,
+        minDate: today(),
         width: '100%',
         padding: '10px 12px',
     };

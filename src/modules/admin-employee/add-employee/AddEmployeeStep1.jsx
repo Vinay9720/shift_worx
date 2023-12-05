@@ -17,6 +17,7 @@ import { useAddEmployee } from '@/hooks/admin-employee';
 import { closeModal } from '@/lib/store/slices/modal-slice';
 
 import { FooterContainer, styles } from './add-employee.styles';
+import { today } from '@/lib/util';
 
 function AddEmployeeStep1() {
     const { mutate: addEmployee } = useAddEmployee();
@@ -120,6 +121,7 @@ function AddEmployeeStep1() {
             </SwxTypography>
         ),
         multiple: false,
+        maxDate: today(),
         width: '100%',
         required: true,
         range: false,
@@ -137,6 +139,7 @@ function AddEmployeeStep1() {
         multiple: false,
         required: true,
         padding: '8px 4px',
+        disableClearable: true,
     };
 
     return (

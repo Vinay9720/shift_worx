@@ -24,7 +24,10 @@ export default function SwxDatePicker({
     placeholder,
     styles,
     required,
+    minDate,
+    maxDate,
 }) {
+    console.log('maxDate', maxDate);
     return (
         <Stack direction='column' spacing={0.5} style={{ width }}>
             {label && (
@@ -60,6 +63,8 @@ export default function SwxDatePicker({
                 format='MM/DD/YYYY'
                 placeholder='Select date'
                 required
+                maxDate={moment(maxDate, 'MM/DD/YYYY').toDate()}
+                minDate={moment(minDate, 'MM/DD/YYYY').toDate()}
                 currentDate={new Date()}
                 onChange={dates => {
                     if (isArray(dates)) {
