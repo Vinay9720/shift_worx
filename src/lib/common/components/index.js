@@ -15,6 +15,7 @@ import SwxTimeComponent from './time-picker';
 import SwxLoader from './loader';
 import SwxCalenderInput from './calender-input';
 import SwxFileUpload from './file-upload';
+import SwxSwitch from './switch';
 
 export {
     SwxInput,
@@ -34,4 +35,5 @@ export {
     SwxLoader,
     SwxCalenderInput,
     SwxFileUpload,
+    SwxSwitch,
 };
