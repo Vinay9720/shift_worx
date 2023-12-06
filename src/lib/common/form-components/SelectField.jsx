@@ -28,6 +28,7 @@ const SelectField = props => {
                         errorText={error?.message}
                         label={SWXInputProps.label}
                         multiple={SWXInputProps.multiple}
+                        disableClearable={SWXInputProps.disableClearable}
                         outsideLabel={SWXInputProps.outsideLabel}
                         value={field.value || ''}
                         onChange={field.onChange}

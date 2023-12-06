@@ -6,6 +6,7 @@ import { Form, InputField, DatePickerField } from '@/lib/common/form-components'
 import { SwxTypography } from '@/lib/common/components';
 import { useUpdateEmployee } from '@/hooks/admin-employee';
 import { secondStepStyles } from './edit-employee.styles';
+import { today } from '@/lib/util';
 
 function EditEmployeeStep2({ employeeData, footer }) {
     const { mutate: updateEmployee } = useUpdateEmployee();
@@ -37,6 +38,7 @@ function EditEmployeeStep2({ employeeData, footer }) {
                 Driver&apos;s License Issue date
             </SwxTypography>
         ),
+        maxDate: today(),
         required: true,
     };
 
@@ -46,6 +48,7 @@ function EditEmployeeStep2({ employeeData, footer }) {
                 Driver&apos;s License Expiration Date
             </SwxTypography>
         ),
+        minDate: today(),
         required: true,
     };
 
