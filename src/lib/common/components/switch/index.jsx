@@ -3,7 +3,7 @@ import { StyledSwitch } from './switch.styles';
 import { FormControlLabel } from '@mui/material';
 
 const SwxSwitch = () => {
-    const [checked, setChecked] = useState(true);
+    const [checked, setChecked] = useState(false);
 
     const handleChange = event => {
         setChecked(event.target.checked);

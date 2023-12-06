@@ -2,26 +2,21 @@
 
 import { Stack } from '@mui/material';
 import { useRef } from 'react';
-import {
-    // useDispatch,
-    useSelector,
-} from 'react-redux';
+import // useDispatch,
+'react-redux';
 // import { debounce } from 'lodash';
 
-import { SwxInput, SwxSelect } from '@/lib/common/components';
+import { SwxInput, SwxMultiSelect } from '@/lib/common/components';
 import { Icon } from '@/lib/common/icons';
 // import {
 //     setSearch,
 //     setStatus,
 // } from '@/lib/store/slices/filter/scheduleFilterSlice';
 
-import CreateTemplate from './add-shift-template';
+import CreateTemplate from './create-template';
 import { styles } from './admin-schedule-templates.styles';
 
-const statusOptions = ['All'];
-
 function SearchFilter() {
-    const { status } = useSelector(state => state.scheduleFilter);
     const searchInputRef = useRef(null);
     // const dispatch = useDispatch();
 
@@ -49,14 +44,13 @@ function SearchFilter() {
                 />
                 <Stack sx={styles.filtersContainer}>
                     <Stack sx={styles.statusSelectField}>
-                        <SwxSelect
-                            // onChange={value => dispatch(setStatus(value))}
-                            options={statusOptions}
-                            placeholder='Publish Status'
-                            placeholderColor='#838A91'
-                            value={status}
+                        <SwxMultiSelect
+                            insideLabel='Publish Status'
                             style={{ width: '100%' }}
-                            padding='3px 6px'
+                            value={['All']}
+                            options={['All']}
+                            padding='12px 12px'
+                            marginleft={120}
                         />
                     </Stack>
                 </Stack>

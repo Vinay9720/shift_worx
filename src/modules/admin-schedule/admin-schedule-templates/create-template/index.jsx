@@ -1,20 +1,13 @@
 'use client';
 
-import { useDispatch } from 'react-redux';
-
-import { openModal } from '@/lib/store/slices/modal-slice';
 import { Icon } from '@/lib/common/icons';
 import { SwxButton } from '@/lib/common/components';
-import { SwxModal } from '@/lib/common/layout';
-// import { useAddShift } from '@/hooks/admin-schedule';
 
-import TemplateForm from './TemplateForm';
-import { styles } from './add-shift-template.styles';
+import { styles } from './create-template.styles';
+import { useRouter } from 'next/navigation';
 
 export default function CreateTemplate() {
-    // const { mutate: addShift } = useAddShift();
-    const dispatch = useDispatch();
-
+    const router = useRouter();
     return (
         <div className='flex items-center mt-0'>
             <SwxButton
@@ -22,7 +15,7 @@ export default function CreateTemplate() {
                 size='small'
                 onClick={e => {
                     e.preventDefault();
-                    dispatch(openModal({ modalName: 'addShiftModal' }));
+                    router.push('/admin/schedule/create-template');
                 }}
                 padding='10px 16px'
                 variant='contained'
@@ -30,12 +23,6 @@ export default function CreateTemplate() {
                 weight='semiBold'>
                 Create A Template
             </SwxButton>
-            <SwxModal modalName='addShiftModal'>
-                <TemplateForm
-                    modalName='addShiftModal'
-                    //  action={addShift}
-                />
-            </SwxModal>
         </div>
     );
 }
