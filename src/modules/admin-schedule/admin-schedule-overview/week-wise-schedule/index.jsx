@@ -5,7 +5,7 @@
 'use client';
 
 import moment from 'moment';
-import { IconButton } from '@mui/material';
+import { Avatar, IconButton } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { isEmpty } from 'lodash';
 
@@ -118,11 +118,9 @@ export default function WeekWiseSchedule({ scheduleData }) {
                           return (
                               <div style={styles.mainDiv} key={i}>
                                   <div className='row-span-2'>
-                                      <img
-                                          src='https://picsum.photos/200'
-                                          className='border border-gray-300 rounded-full '
-                                          style={{ width: `50x`, height: `50px` }}
-                                      />
+                                      <Avatar sx={{ width: 42, height: 42, bgcolor: '#1F6FA9' }}>{`${
+                                          emp.name.split('')[0].toUpperCase() || 'K'
+                                      }`}</Avatar>
                                   </div>
                                   <div>
                                       <div className='items-center justify-space-evenly col-span-1  font-semibold text-default text-newBlackColor'>
