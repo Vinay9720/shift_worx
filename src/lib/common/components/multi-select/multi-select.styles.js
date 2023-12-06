@@ -35,7 +35,7 @@ export const StyledInsideLabel = styled(InputLabel)`
 `;
 
 export const ValueContainer = styled.span`
-    ${({ theme, multiple }) =>
+    ${({ theme, multiple, marginleft }) =>
         multiple
             ? `
             margin-left: 56px;
@@ -46,5 +46,8 @@ export const ValueContainer = styled.span`
             color: ${theme.fontColor.white};
             margin-top: 2px;
     `
-            : ''}
+            : `
+            margin-left: ${marginleft}px;
+            color: ${theme.fontColor.swxSlightlyBlack};
+    `}
 `;

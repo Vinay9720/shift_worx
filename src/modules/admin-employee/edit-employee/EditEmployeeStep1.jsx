@@ -7,6 +7,7 @@ import { SwxTypography } from '@/lib/common/components';
 import { SelectField, Form, InputField, DatePickerField, PhoneNumberField } from '@/lib/common/form-components';
 import { useUpdateEmployee, useInvitation } from '@/hooks/admin-employee';
 import { LoaderContainer, firstStepStyles } from './edit-employee.styles';
+import { today } from '@/lib/util';
 
 function EditEmployeeStep1({ employeeData, footer }) {
     const { mutate: updateEmployee } = useUpdateEmployee();
@@ -112,6 +113,7 @@ function EditEmployeeStep1({ employeeData, footer }) {
         ),
         multiple: false,
         // required: true,
+        maxDate: today(),
         range: false,
     };
 

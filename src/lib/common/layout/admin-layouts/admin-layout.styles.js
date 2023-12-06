@@ -181,3 +181,12 @@ export const AcitivityWidgetWrapper = styled(Stack)`
         }
     `}
 `;
+
+export const ScheduleTemplateTitleContainer = styled.div`
+    display: flex;
+    padding: 42px 0px 42px 0px;
+    margin-top: 23px;
+    ${({ theme }) => `
+        border-bottom: 1px solid ${theme.borderColor.lightGray}
+    `}
+`;
