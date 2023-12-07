@@ -5,7 +5,7 @@
 'use client';
 
 import moment from 'moment';
-import { IconButton } from '@mui/material';
+import { Avatar, IconButton } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { isEmpty } from 'lodash';
 
@@ -24,7 +24,7 @@ import {
     StyledShowMoreButton,
 } from './week-wise-schedule.styles';
 import ShiftForm from '../add-shift/ShiftForm';
-import { SwxModal } from '@/lib/common/layout';
+import { SwxModal, DynamicPromptModal } from '@/lib/common/layout';
 import { openModal } from '@/lib/store/slices/modal-slice';
 
 export default function WeekWiseSchedule({ scheduleData }) {
@@ -47,15 +47,17 @@ export default function WeekWiseSchedule({ scheduleData }) {
     const menuOptions = () => {
         return [
             {
-                label: 'Edit',
+                label: 'Edit Shift',
                 action: () => {
                     dispatch(openModal({ modalName: 'editShiftModal' }));
                 },
                 icon: <Icon styles={{ fill: '#838A91' }} name='pencil' height={14} width={14} />,
             },
             {
-                label: 'Delete',
-                action: () => null,
+                label: 'Delete Shift',
+                action: () => {
+                    dispatch(openModal({ modalName: 'deleteShiftModal' }));
+                },
                 color: 'red',
                 icon: <Icon styles={{ fill: '#F43C02' }} name='trash' height={14} width={14} />,
             },
@@ -119,11 +121,9 @@ export default function WeekWiseSchedule({ scheduleData }) {
                           return (
                               <div style={styles.mainDiv} key={i}>
                                   <div className='row-span-2'>
-                                      <img
-                                          src='https://picsum.photos/200'
-                                          className='border border-gray-300 rounded-full '
-                                          style={{ width: `50x`, height: `50px` }}
-                                      />
+                                      <Avatar sx={{ width: 42, height: 42, bgcolor: '#1F6FA9' }}>{`${
+                                          emp.name.split('')[0].toUpperCase() || 'K'
+                                      }`}</Avatar>
                                   </div>
                                   <div>
                                       <div className='items-center justify-space-evenly col-span-1  font-semibold text-default text-newBlackColor'>
@@ -304,10 +304,15 @@ export default function WeekWiseSchedule({ scheduleData }) {
                     </div>
                 )}
             </div>
+            <DynamicPromptModal
+                modalName='deleteShiftModal'
+                entityName='Shift'
+                // onConfirm={() => denyPto(employeeId)}
+            />
             <SwxModal modalName='editShiftModal'>
                 <ShiftForm
                     modalName='editShiftModal'
-                    edit='Edit'
+                    title='Edit'
                     // action={addShift}
                 />
             </SwxModal>
