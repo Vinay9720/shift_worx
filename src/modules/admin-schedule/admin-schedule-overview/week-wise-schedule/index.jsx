@@ -307,6 +307,7 @@ export default function WeekWiseSchedule({ scheduleData }) {
             <SwxModal modalName='editShiftModal'>
                 <ShiftForm
                     modalName='editShiftModal'
+                    edit='Edit'
                     // action={addShift}
                 />
             </SwxModal>

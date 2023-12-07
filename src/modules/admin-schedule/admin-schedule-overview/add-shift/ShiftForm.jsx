@@ -24,7 +24,7 @@ import { ModalContainer, HeaderContainer, EllipseContainer, CloseContainer, styl
 import { useToast } from '@/hooks/common';
 import { convertTo24HourFormat, today } from '@/lib/util';
 
-export default function ShiftForm({ modalName, action: addShift }) {
+export default function ShiftForm({ modalName, edit, action: addShift }) {
     const { data: employeesData, isSuccess } = useEmployees(true);
     const { data: certificationOptions } = useCertificateOptions();
     const { data: specialityOptions } = useSpecialityOptions();
@@ -187,7 +187,7 @@ export default function ShiftForm({ modalName, action: addShift }) {
         <ModalContainer>
             <HeaderContainer>
                 <SwxTypography color='swxBlack' size='large' weight='bold'>
-                    Add Shift
+                    {edit || 'Add'} Shift
                 </SwxTypography>
                 <EllipseContainer onClick={() => dispatch(closeModal({ modalName }))}>
                     <CloseContainer>
