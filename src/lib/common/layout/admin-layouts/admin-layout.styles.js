@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { IconButton, Stack } from '@mui/material';
+import { IconButton } from '@mui/material';
 
 export const StyledIconComponent = styled(IconButton)`
     height: 42px;
@@ -109,13 +109,13 @@ export const styles = {
     },
 };
 
-export const TimeOfRequestWidgetWrapper = styled(Stack)`
+export const TimeOfRequestWidgetWrapper = styled.div`
     ${({ theme }) => `
         border-bottom: 1px solid ${theme.borderColor.lightGray};
     `}
 `;
 
-export const ShiftsAndExpirationsWidgetsWrapper = styled(Stack)`
+export const ShiftsAndExpirationsWidgetsWrapper = styled.div`
     ${({ theme }) => `
         border-bottom: 1px solid ${theme.borderColor.lightGray};
         display: flex;
@@ -127,7 +127,7 @@ export const ShiftsAndExpirationsWidgetsWrapper = styled(Stack)`
     }
 `;
 
-export const ActivitiesAndEventsContainer = styled(Stack)`
+export const ActivitiesAndEventsContainer = styled.div`
     display: flex;
     flex-direction: row;
     @media (max-width: 767px) {
@@ -136,7 +136,7 @@ export const ActivitiesAndEventsContainer = styled(Stack)`
     }
 `;
 
-export const UnfilledShiftsWidgetWrapper = styled(Stack)`
+export const UnfilledShiftsWidgetWrapper = styled.div`
     ${({ theme }) => `
         border-right: 1px solid ${theme.borderColor.lightGray};
         width: 40%;
@@ -148,7 +148,7 @@ export const UnfilledShiftsWidgetWrapper = styled(Stack)`
     `}
 `;
 
-export const EmployeeExpirationsWidgetWrapper = styled(Stack)`
+export const EmployeeExpirationsWidgetWrapper = styled.div`
     ${({ theme }) => `
         width: 60%;
         @media (max-width: 767px) {
@@ -159,7 +159,7 @@ export const EmployeeExpirationsWidgetWrapper = styled(Stack)`
     `}
 `;
 
-export const EmployeeEventsWidgetWrapper = styled(Stack)`
+export const EmployeeEventsWidgetWrapper = styled.div`
     ${({ theme }) => `
         width: 60%;
         @media (max-width: 767px) {
@@ -170,7 +170,7 @@ export const EmployeeEventsWidgetWrapper = styled(Stack)`
     `}
 `;
 
-export const AcitivityWidgetWrapper = styled(Stack)`
+export const AcitivityWidgetWrapper = styled.div`
     ${({ theme }) => `
         border-right: 1px solid ${theme.borderColor.lightGray};
         width: 40%;
