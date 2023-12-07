@@ -23,7 +23,8 @@ import {
     ShowMoreButtonWrapper,
     StyledShowMoreButton,
 } from './week-wise-schedule.styles';
-import { DynamicPromptModal } from '@/lib/common/layout';
+import ShiftForm from '../add-shift/ShiftForm';
+import { SwxModal, DynamicPromptModal } from '@/lib/common/layout';
 import { openModal } from '@/lib/store/slices/modal-slice';
 
 export default function WeekWiseSchedule({ scheduleData }) {
@@ -47,7 +48,9 @@ export default function WeekWiseSchedule({ scheduleData }) {
         return [
             {
                 label: 'Edit Shift',
-                action: () => null,
+                action: () => {
+                    dispatch(openModal({ modalName: 'editShiftModal' }));
+                },
                 icon: <Icon styles={{ fill: '#838A91' }} name='pencil' height={14} width={14} />,
             },
             {
@@ -306,6 +309,13 @@ export default function WeekWiseSchedule({ scheduleData }) {
                 entityName='Shift'
                 // onConfirm={() => denyPto(employeeId)}
             />
+            <SwxModal modalName='editShiftModal'>
+                <ShiftForm
+                    modalName='editShiftModal'
+                    title='Edit'
+                    // action={addShift}
+                />
+            </SwxModal>
         </StyledRootContainer>
     );
 }
