@@ -27,7 +27,6 @@ export default function SwxDatePicker({
     minDate,
     maxDate,
 }) {
-    console.log('maxDate', maxDate);
     return (
         <Stack direction='column' spacing={0.5} style={{ width }}>
             {label && (

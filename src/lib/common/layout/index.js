@@ -9,6 +9,7 @@ import NoteCard from './note-card';
 import SwxPagination from './pagination';
 import DynamicPromptModal from './dynamic-prompt-modal';
 import DailyScheduleBanner from './daily-schedule-banner';
+import NoRowsOverlay from './no-rows-overlay';
 
 export {
     NavBar,
@@ -22,4 +23,5 @@ export {
     SwxPagination,
     DynamicPromptModal,
     DailyScheduleBanner,
+    NoRowsOverlay,
 };

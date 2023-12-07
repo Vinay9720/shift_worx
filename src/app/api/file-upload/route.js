@@ -52,7 +52,17 @@ const POST = async req => {
             // eslint-disable-next-line no-unused-vars
             const response = await client.send(deleteObjectCommand);
 
-            return NextResponse.json({ status: 'success' }, { status: 200 });
+            return NextResponse.json(
+                { status: 'success' },
+                { status: 200 },
+                {
+                    headers: {
+                        'Access-Control-Allow-Origin': '*',
+                        'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
+                        'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+                    },
+                }
+            );
         }
     } catch (error) {
         throw error;

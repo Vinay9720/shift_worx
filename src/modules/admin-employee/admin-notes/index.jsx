@@ -12,6 +12,7 @@ import { SwxLoader } from '@/lib/common/components';
 
 import { WidgetCardsContainer } from './admin-notes.styles';
 import SearchFilter from './SearchFilter';
+import { Icon } from '@/lib/common/icons';
 
 import NoteForm from '../add-note/noteForm';
 
@@ -27,7 +28,8 @@ export default function AdminNotes() {
             ...note,
             note_type_id: [JSON.stringify(note.note_type.id)],
         };
-        return [
+
+        const options = [
             {
                 label: 'Edit',
                 action: () => {
@@ -35,20 +37,29 @@ export default function AdminNotes() {
                     dispatch(openModal({ modalName: 'editNoteModal' }));
                     dispatch(setnoteToBeUpdated(formattedNote));
                 },
+                icon: <Icon styles={{ fill: '#838A91' }} name='pencil' height={14} width={14} />,
             },
             {
                 label: 'Delete',
                 action: () => {
                     deleteNote(note.id);
                 },
+                color: 'red',
+                icon: <Icon styles={{ fill: '#F43C02' }} name='trash' height={14} width={14} />,
             },
-            {
+        ];
+
+        if (!note.read) {
+            options.push({
                 label: 'Mark as read',
                 action: () => {
                     readNote(note.id);
                 },
-            },
-        ];
+                icon: <Icon width={14} height={14} name='check' styles={{ fill: '#838A91' }} />,
+            });
+        }
+
+        return options;
     };
     const cardsData = useMemo(
         () => [
