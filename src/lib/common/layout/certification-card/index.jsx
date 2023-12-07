@@ -16,7 +16,7 @@ import { SwxTypography, SwxButton } from '../../components';
 import { Icon } from '../../icons';
 import { useUploadedFile } from '@/hooks/common';
 
-export default function CertificationCard({ certification, onEdit }) {
+export default function CertificationCard({ certification }) {
     const {
         mutate: getFile,
         isLoading: gettingFile,
@@ -55,14 +55,14 @@ export default function CertificationCard({ certification, onEdit }) {
                             color='primary'
                         />
                     )}
-                    <SwxButton
+                    {/* <SwxButton
                         startIcon={<Icon width={15} height={16} name='edit' styles={{ fill: '#1F6FA9' }} />}
                         variant='text'
                         size='small'
                         onClick={onEdit}
                         weight='bold'>
                         Edit
-                    </SwxButton>
+                    </SwxButton> */}
                 </CertificationUpperRightSection>
             </CertificationUpperSection>
             <CertificationLowerSection>

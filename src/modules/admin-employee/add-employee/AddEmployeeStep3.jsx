@@ -6,7 +6,7 @@ import { Divider, Stack } from '@mui/material';
 import { useQueryClient } from 'react-query';
 
 import { closeModal } from '@/lib/store/slices/modal-slice';
-import { openAddCertificateForm } from '@/lib/store/slices/add-employee-module';
+import { openAddCertificateForm, setCurrentStep } from '@/lib/store/slices/add-employee-module';
 import { useToast } from '@/hooks/common';
 import { Icon } from '@/lib/common/icons';
 import { SwxButton, SwxTypography } from '@/lib/common/components';
@@ -25,6 +25,7 @@ function AddEmployeeStep3() {
     const onSubmit = () => {
         queryClient.invalidateQueries('admin-employees');
         dispatch(closeModal({ modalName: 'addEmployeeModal' }));
+        dispatch(setCurrentStep(1));
         showToast('Employees added successfully', 'success');
     };
     return (

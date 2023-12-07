@@ -5,7 +5,7 @@ import { useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { debounce } from 'lodash';
 
-import { useReadNotes } from '@/hooks/admin-note/useReadNotes';
+// import { useReadNotes } from '@/hooks/admin-note/useReadNotes';
 import { Icon } from '@/lib/common/icons';
 import { SwxDatePicker, SwxInput, SwxSelect, SwxButton } from '@/lib/common/components';
 import {
@@ -30,8 +30,8 @@ const noteTypeOptions = [
 const statusOptions = ['Active', 'Inactive'];
 
 function SearchFilter({ style }) {
-    const { filterApplied, type, status, startDate, endDate } = useSelector(state => state.notersFilter);
-    const { mutate: readNotes } = useReadNotes();
+    const { filterApplied, status, startDate, endDate } = useSelector(state => state.notersFilter);
+    // const { mutate: readNotes } = useReadNotes();
     const searchInputRef = useRef(null);
     const dispatch = useDispatch();
 
@@ -80,7 +80,6 @@ function SearchFilter({ style }) {
                             options={noteTypeOptions}
                             placeholder='Type'
                             disableClearable
-                            value={type}
                             style={{ width: '100%' }}
                             padding='3px 6px'
                         />
@@ -105,7 +104,7 @@ function SearchFilter({ style }) {
                             padding='0.64rem 0.85rem'
                             placeholder='From'
                             onChange={date => {
-                                setStartDate(date);
+                                dispatch(setStartDate(date));
                             }}
                         />
                     </Stack>
@@ -116,7 +115,7 @@ function SearchFilter({ style }) {
                             padding='0.64rem 0.85rem'
                             placeholder='To'
                             onChange={date => {
-                                setEndDate(date);
+                                dispatch(setEndDate(date));
                             }}
                         />
                     </Stack>
@@ -136,14 +135,14 @@ function SearchFilter({ style }) {
                     )}
                 </Stack>
             </Stack>
-            <SwxButton
+            {/* <SwxButton
                 onClick={readNotes}
                 startIcon={<Icon width={24} height={24} name='check' styles={{ fill: '#1F6FA9' }} />}
                 size='medium'
                 variant='text'
                 weight='semiBold'>
                 Mark All as Read
-            </SwxButton>
+            </SwxButton> */}
         </Stack>
     );
 }
