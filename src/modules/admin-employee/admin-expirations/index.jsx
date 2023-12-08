@@ -70,7 +70,7 @@ export default function AdminExpirations() {
                     <Avatar sx={{ width: 32, height: 32, bgcolor: '#1F6FA9' }}>{`${
                         params.row.name.split('')[0].toUpperCase() || ''
                     }`}</Avatar>
-                    <SwxTypography color='swxBlack' size='semiMedium' weight='semiBold'>{`${
+                    <SwxTypography color='swxBlack' size='semiMedium' weight='semiBold' className='Manrope'>{`${
                         params.row.name || ''
                     }`}</SwxTypography>
                 </Stack>
@@ -129,7 +129,7 @@ export default function AdminExpirations() {
                 return (
                     <Stack direction='row' spacing={1}>
                         <Icon name='alert' height={20} width={20} />
-                        <SwxTypography color='swxBlack' size='semiMedium' weight='extraThin'>
+                        <SwxTypography color='swxBlack' size='semiMedium' weight='extraThin' className='Manrope'>
                             {formatExpirations(params.value)}
                         </SwxTypography>
                     </Stack>
@@ -147,7 +147,7 @@ export default function AdminExpirations() {
             sortable: false,
             renderCell: params => {
                 return (
-                    <SwxTypography color='swxBlack' size='semiMedium' weight='extraThin'>
+                    <SwxTypography color='swxBlack' size='semiMedium' weight='extraThin' className='Manrope'>
                         {formatDate(params.value, 'MMM D, YYYY') || 'Jan 28, 2023'}
                     </SwxTypography>
                 );
