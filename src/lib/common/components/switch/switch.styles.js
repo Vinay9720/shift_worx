@@ -2,10 +2,6 @@ import { Switch } from '@mui/material';
 import styled from 'styled-components';
 
 export const StyledSwitch = styled(Switch)`
-    width: 42px;
-    height: 26px;
-    padding: 0;
-
     & .MuiSwitch-switchBase {
         padding: 0;
         margin: 2px;

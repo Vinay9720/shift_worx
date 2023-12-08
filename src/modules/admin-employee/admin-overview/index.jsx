@@ -84,7 +84,7 @@ export default function AdminOverview() {
                     <Avatar sx={{ width: 32, height: 32, bgcolor: '#1F6FA9' }}>{`${
                         params.row.first_name.split('')[0].toUpperCase() || ''
                     }`}</Avatar>
-                    <SwxTypography color='swxBlack' size='semiMedium' weight='semiBold'>{`${
+                    <SwxTypography color='swxBlack' size='semiMedium' weight='semiBold' className='Manrope'>{`${
                         params.row.first_name || ''
                     } ${params.row.last_name || ''}`}</SwxTypography>
                 </Stack>

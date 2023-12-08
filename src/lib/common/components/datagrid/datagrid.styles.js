@@ -5,7 +5,7 @@ export const DataGridStyles = {
     },
     '&.MuiDataGrid-root': {
         border: 'none',
-        fontFamily: '__Manrope_36d688',
+        fontFamily: 'var(--font-Manrope)',
         color: '#030303',
         fontWeight: '500',
     },
