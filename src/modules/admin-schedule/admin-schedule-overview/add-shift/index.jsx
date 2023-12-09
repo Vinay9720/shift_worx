@@ -19,7 +19,7 @@ export default function AddShift() {
         <div className='flex items-center mt-0'>
             <SwxButton
                 startIcon={<Icon width={17} height={12} name='addition' styles={{ fill: '#FFFFFF' }} />}
-                size='small'
+                size='medium'
                 onClick={e => {
                     e.preventDefault();
                     dispatch(openModal({ modalName: 'addShiftModal' }));

@@ -3,7 +3,7 @@ import { Chip } from '@mui/material';
 
 export const StyledChip = styled(Chip)`
     ${({ theme, kind, swxcolor, background, size, leftPadding }) => `
-        font-family: var(--font-Manrope);
+        font-family: var(--font-Manrope) !important;
         padding-left:${leftPadding || null};
         border-radius: ${kind === 'rounded' ? theme.borderRadius.large : '0.375rem'} !important;
         background: ${theme.backgroundColor[background]} !important;

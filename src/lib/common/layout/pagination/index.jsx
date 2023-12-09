@@ -26,7 +26,7 @@ export default function SwxPagination({ itemsPerPageOptions, paginationName, ...
                     weight='semiBold'>
                     <Icon styles={{ fill: '#838A91' }} name='left-arrow' height={14} width={14} />
                 </SwxButton>
-                <SwxTypography>{currentPage}</SwxTypography>
+                <SwxTypography className='Manrope'>{currentPage}</SwxTypography>
                 <SwxButton
                     size='small'
                     onClick={nextPage}
@@ -49,7 +49,9 @@ export default function SwxPagination({ itemsPerPageOptions, paginationName, ...
                         padding='0px'
                         borderRight='lightGray'
                     />
-                    <SwxTypography sx={styles.text}>Entries per page</SwxTypography>
+                    <SwxTypography sx={styles.text} className='Manrope'>
+                        Entries per page
+                    </SwxTypography>
                 </Stack>
                 <Stack sx={styles.previousNextButtons}>
                     <Stack direction='row' spacing={2} alignItems='center'>
@@ -63,7 +65,7 @@ export default function SwxPagination({ itemsPerPageOptions, paginationName, ...
                             weight='semiBold'>
                             <Icon styles={{ fill: '#838A91' }} name='left-arrow' height={14} width={14} />
                         </SwxButton>
-                        <SwxTypography>{currentPage}</SwxTypography>
+                        <SwxTypography className='Manrope'>{currentPage}</SwxTypography>
                         <SwxButton
                             size='small'
                             onClick={nextPage}
@@ -77,7 +79,9 @@ export default function SwxPagination({ itemsPerPageOptions, paginationName, ...
                     </Stack>
                 </Stack>
                 <Stack direction='row' spacing={2} alignItems='center'>
-                    <SwxTypography sx={styles.text}>Page</SwxTypography>
+                    <SwxTypography sx={styles.text} className='Manrope'>
+                        Page
+                    </SwxTypography>
                     <SwxSelect
                         disableClearable
                         options={createNumberArray(totalPages)}
