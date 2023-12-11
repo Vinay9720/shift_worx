@@ -17,6 +17,7 @@ export const StyledButton = styled(Button)`
           background: ${theme.backgroundColor.blue} !important;
           color: ${theme.fontColor.white} !important;
           font-size: ${theme.fontSize[size || 'medium']} !important;
+          font-family: var(--font-Manrope) !important;
           font-weight: ${theme.fontWeight.semiBold} !important;
           border-radius: ${theme.borderRadius[radius || 'small']} !important;
         //   box-shadow: ${theme.boxShadow.darkBlueShadow} !important;
@@ -27,6 +28,7 @@ export const StyledButton = styled(Button)`
           color: ${theme.fontColor[themecolor || 'darkBlue']} !important;
           font-size: ${theme.fontSize[size]} !important;
           font-weight: ${theme.fontWeight[weight || 'semiBold']} !important;
+          font-family: var(--font-Manrope) !important;
           font-style: normal;
       `
             : variant === 'outlined'
@@ -36,6 +38,7 @@ export const StyledButton = styled(Button)`
           color: ${theme.fontColor[themecolor || 'darkBlue']} !important;
           font-size: ${theme.fontSize[size || 'medium']} !important;
           font-weight: ${theme.fontWeight.semiBold} !important;
+          font-family: var(--font-Manrope) !important;
           border-radius: ${theme.borderRadius[radius || 'small']} !important;
           font-style: normal;
       `
