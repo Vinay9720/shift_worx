@@ -4,7 +4,7 @@ import { HeaderWithTabs } from '..';
 
 const adminEmployeeTabs = [
     { label: 'Overview', step: 'overview' },
-    { label: 'Expirtations', step: 'expirations' },
+    { label: 'Expirations', step: 'expirations' },
     { label: 'PTO', step: 'pto' },
     { label: 'Notes', step: 'notes' },
 ];

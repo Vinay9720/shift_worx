@@ -15,6 +15,8 @@ const initialState = {
     facilityUserId: null,
     addingCertificate: false,
     certificates: [],
+    editingCertificate: false,
+    certificateToBeEdited: {},
 };
 
 const addEmployeeModule = createSlice({
@@ -64,6 +66,15 @@ const addEmployeeModule = createSlice({
         setCertificates: (state, action) => {
             state.certificates = action.payload;
         },
+        openEditCertificateForm: state => {
+            state.editingCertificate = true;
+        },
+        closeEditCertificateForm: state => {
+            state.editingCertificate = false;
+        },
+        setCertificateToBeEdited: (state, action) => {
+            state.certificateToBeEdited = action.payload;
+        },
     },
 });
 
@@ -75,5 +86,8 @@ export const {
     openAddCertificateForm,
     closeAddCertificateForm,
     setCertificates,
+    openEditCertificateForm,
+    closeEditCertificateForm,
+    setCertificateToBeEdited,
 } = addEmployeeModule.actions;
 export default addEmployeeModule.reducer;
