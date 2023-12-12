@@ -46,7 +46,7 @@ export default function SaveScheduleTemplateForm({ modalName }) {
                     </Stack>
                 </EllipseContainer>
             </HeaderContainer>
-            <Form onSubmit={templateData => console.log(templateData)}>
+            <Form>
                 <Stack sx={{ padding: '10px 150px 21px 16px', backgroundColor: '#F6FAFD' }}>
                     <SwxTypography>Save shift schedule for the week of Jan 1 to Jan 7</SwxTypography>
                     <SwxTypography>Total Shifts: 32</SwxTypography>
