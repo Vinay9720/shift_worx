@@ -64,12 +64,12 @@ export default function SaveScheduleTemplateForm({ modalName }) {
                             Ignore Assignees
                         </SwxTypography>
                         <SwxMultiSelect
-                            insideLabel='Shifts will be  saved as unassigned'
+                            // insideLabel='Shifts will be  saved as unassigned'
                             style={{ width: '100%' }}
                             value={['Yes']}
                             options={['Yes', 'No']}
                             padding='16px 12px'
-                            marginleft={280}
+                            // marginleft={280}
                         />
                     </Stack>
                     <Stack
