@@ -12,6 +12,7 @@ function EditCerfification({ defaultValues, employeeId, onCancel }) {
         ...defaultValues,
         certificate_id: [JSON.stringify(defaultValues.certificate.id)],
         jurisdiction: defaultValues.jurisdiction,
+        speciality: defaultValues.specialities.map(speciality => JSON.stringify(speciality.id)),
     };
     const { mutate: updateCertification } = useUpdateEmployee();
 

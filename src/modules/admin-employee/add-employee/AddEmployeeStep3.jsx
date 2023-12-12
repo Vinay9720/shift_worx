@@ -61,7 +61,7 @@ function AddEmployeeStep3() {
                             size='medium'
                             variant='text'
                             weight='semiBold'>
-                            Add more
+                            {!isEmpty(certificates) ? 'Add more' : 'Add'}
                         </SwxButton>
                     </CertificationsWrapper>
                 </>

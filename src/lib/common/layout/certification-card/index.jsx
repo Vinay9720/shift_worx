@@ -105,7 +105,7 @@ export default function CertificationCard({ certification, onEdit }) {
                                 style={{ marginLeft: '2px' }}
                                 size='smallest'
                                 weight='extraThin'>
-                                {(certification.speciality || []).join(', ')}
+                                {(certification.specialities.map(speciality => speciality.name) || []).join(', ')}
                             </SwxTypography>
                         </Stack>
                     </div>

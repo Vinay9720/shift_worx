@@ -4,8 +4,7 @@ import { Stack, Avatar, IconButton } from '@mui/material';
 import { useRouter } from 'next/navigation';
 import { capitalize } from 'lodash';
 
-// import { openModal } from '@/lib/store/slices/modal-slice';
-import { WidgetCard, DynamicPromptModal } from '@/lib/common/layout';
+import { WidgetCard } from '@/lib/common/layout';
 import { SwxDataGrid, SwxChip, SwxTypography, SwxPopupMenu } from '@/lib/common/components';
 import { Icon } from '@/lib/common/icons';
 import { openModal } from '@/lib/store/slices/modal-slice';
@@ -225,13 +224,6 @@ export default function AdminExpirations() {
                     );
                 })}
             </WidgetCardsContainer>
-            <DynamicPromptModal
-                modalName='deleteExpirationModal'
-                entityName='Expiration'
-                onConfirm={() => {
-                    // console.log('deleted')
-                }}
-            />
             <SearchFilter
                 actionButton={<AddNote hideButton employee={selectedEmployee} />}
                 style={{ marginTop: '3.5rem', marginBottom: '1rem' }}

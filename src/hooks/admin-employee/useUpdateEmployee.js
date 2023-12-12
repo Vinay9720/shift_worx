@@ -3,7 +3,7 @@ import { useMutation, useQueryClient } from 'react-query';
 import { useSelector, useDispatch } from 'react-redux';
 import { useSearchParams } from 'next/navigation';
 import { isEmpty } from 'lodash';
-import { closeAddCertificateForm } from '@/lib/store/slices/edit-employee-module';
+import { closeAddCertificateForm, closeEditCertificateForm } from '@/lib/store/slices/edit-employee-module';
 import AdminEmployeeService from '@/services/admin-employee';
 import { useToast } from '../common';
 
@@ -28,7 +28,7 @@ export const useUpdateEmployee = () => {
 
         const nurseCertificateDetails = {
             nurse_certificate: {
-                speciality: employeeData.speciality,
+                specility_ids: employeeData.specility_ids,
                 cert_license_number: employeeData.cert_license_number,
                 effective_date: employeeData.effective_date,
                 expiration_date: employeeData.expiration_date,
@@ -58,6 +58,7 @@ export const useUpdateEmployee = () => {
             queryClient.invalidateQueries('admin-employee');
             if (isCertificationStep || urlStep === 'certificates') {
                 dispatch(closeAddCertificateForm());
+                dispatch(closeEditCertificateForm());
             }
             showToast('Saved successfully', 'success');
         },
