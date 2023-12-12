@@ -58,7 +58,7 @@ export default function AdminScheduleOverView() {
                     );
                 })}
             </WidgetCardsContainer>
-            <SearchFilter />
+            <SearchFilter scheduleType={scheduleType} />
             <div style={{ marginBottom: '2rem' }}>
                 {!scheduleLoading ? (
                     scheduleType === 'daily' ? (
