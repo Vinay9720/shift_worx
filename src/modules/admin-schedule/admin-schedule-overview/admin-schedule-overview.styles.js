@@ -58,4 +58,9 @@ export const styles = {
             width: '126px',
         },
     },
+    actionButtons: {
+        dislplay: 'flex',
+        flexDirection: 'row',
+        gap: '8px',
+    },
 };

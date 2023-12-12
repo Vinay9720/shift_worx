@@ -11,10 +11,11 @@ import { setSearch, setStatus, setRoles, clearFilters } from '@/lib/store/slices
 
 import AddShift from './add-shift';
 import { styles } from './admin-schedule-overview.styles';
+import AddSaveScheduleTemplate from './save-schedule-template';
 
 const statusOptions = ['Filled', 'Unfilled'];
 
-function SearchFilter() {
+function SearchFilter({ scheduleType }) {
     const { roles, filterApplied, status } = useSelector(state => state.scheduleFilter);
     const searchInputRef = useRef(null);
     const dispatch = useDispatch();
@@ -92,7 +93,10 @@ function SearchFilter() {
                     )}
                 </Stack>
             </Stack>
-            <AddShift />
+            <Stack sx={styles.actionButtons}>
+                <AddSaveScheduleTemplate scheduleType={scheduleType} />
+                <AddShift />
+            </Stack>
         </Stack>
     );
 }

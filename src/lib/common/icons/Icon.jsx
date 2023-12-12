@@ -61,6 +61,7 @@ import PaperWithCircleBackSlash from './PaperWithCircleBackSlash';
 import CalenderWeek from './CalenderWeek';
 import CalenderMonth from './CalenderMonth';
 import Radio from './Radio';
+import SaveScheduleTemplate from './SaveScheduleTemplate';
 
 export const Icon = ({ name, width, height, fill, styles, ...rest }) => {
     switch (name) {
@@ -188,6 +189,8 @@ export const Icon = ({ name, width, height, fill, styles, ...rest }) => {
             return <CalenderMonth width={width} height={height} fill={fill} styles={styles} {...rest} />;
         case 'radio':
             return <Radio width={width} height={height} fill={fill} styles={styles} {...rest} />;
+        case 'save-schedule-template':
+            return <SaveScheduleTemplate width={width} height={height} fill={fill} styles={styles} {...rest} />;
         default:
             return <div>Icon</div>;
     }
