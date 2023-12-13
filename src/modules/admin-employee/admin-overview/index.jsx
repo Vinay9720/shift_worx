@@ -217,7 +217,11 @@ export default function AdminOverview() {
             {
                 title: 'Total Employees',
                 iconName: 'people-group',
-                totalCount: overviewData ? overviewData.paginationData.total_count : 0,
+                totalCount: overviewData
+                    ? overviewData.paginationData
+                        ? overviewData.paginationData.total_count
+                        : 0
+                    : 0,
                 percentage: overviewData ? overviewData.employeePercentage : 0,
                 badgeArrow: 'up-arrow',
             },
