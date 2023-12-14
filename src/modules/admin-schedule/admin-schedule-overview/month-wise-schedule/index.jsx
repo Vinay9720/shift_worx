@@ -1,7 +1,7 @@
 'use client';
 
 import moment from 'moment';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { IconButton } from '@mui/material';
 
 import { Badge } from '@/lib/common/layout/daily-schedule-banner';
@@ -22,9 +22,11 @@ import {
     WeekDayContainer,
     WeekDaysContainer,
 } from './month-wise-schedule.styles';
+import { setCurrentTimeValue, setScheduleType } from '@/lib/store/slices/admin-schedule-module';
 
 export default function MonthWiseSchedule({ scheduleData }) {
     const { currentTimeValue } = useSelector(state => state.adminScheduleModule);
+    const dispatch = useDispatch();
 
     const fixedWeekDays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
     const getCurrentMonthDays = () => {
@@ -149,6 +151,11 @@ export default function MonthWiseSchedule({ scheduleData }) {
         );
     };
 
+    const handleShowMoreButton = date => {
+        dispatch(setScheduleType('daily'));
+        dispatch(setCurrentTimeValue(moment(date, 'DD-MM-YYYY').format('ddd, MMM D, YYYY')));
+    };
+
     return (
         <StyledRootMainContainer>
             <StyledBorderContainer>
@@ -213,9 +220,7 @@ export default function MonthWiseSchedule({ scheduleData }) {
                                 {shiftsToShow}
                                 {noOfShifts > 3 && (
                                     <ShowMoreButtonWrapper>
-                                        <StyledShowMoreButton
-                                        // onClick={() => showShiftsPopup(day.date)}
-                                        >
+                                        <StyledShowMoreButton onClick={() => handleShowMoreButton(day.date)}>
                                             {`View ${noOfShifts - 3}`} More&nbsp;
                                         </StyledShowMoreButton>
                                     </ShowMoreButtonWrapper>

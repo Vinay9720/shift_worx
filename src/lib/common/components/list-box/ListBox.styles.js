@@ -25,6 +25,7 @@ export const TitleContainer = styled.div`
 
 export const ListContainer = styled.div`
     padding: 10px 12px;
+    gap: 8px;
     display: flex;
     flex-direction: column;
 `;
