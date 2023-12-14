@@ -28,7 +28,7 @@ export const useUpdateEmployee = () => {
 
         const nurseCertificateDetails = {
             nurse_certificate: {
-                specility_ids: employeeData.specility_ids,
+                specility_ids: employeeData.speciality_ids,
                 cert_license_number: employeeData.cert_license_number,
                 effective_date: employeeData.effective_date,
                 expiration_date: employeeData.expiration_date,
