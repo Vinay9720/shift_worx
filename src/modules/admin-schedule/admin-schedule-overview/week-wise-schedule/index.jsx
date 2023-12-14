@@ -26,6 +26,7 @@ import {
 import ShiftForm from '../add-shift/ShiftForm';
 import { SwxModal, DynamicPromptModal } from '@/lib/common/layout';
 import { openModal } from '@/lib/store/slices/modal-slice';
+import { setCurrentTimeValue, setScheduleType } from '@/lib/store/slices/admin-schedule-module';
 
 export default function WeekWiseSchedule({ scheduleData }) {
     const dispatch = useDispatch();
@@ -110,6 +111,11 @@ export default function WeekWiseSchedule({ scheduleData }) {
                 </div>
             </div>
         );
+    };
+
+    const handleShowMoreButton = date => {
+        dispatch(setScheduleType('daily'));
+        dispatch(setCurrentTimeValue(moment(date, 'MM-DD-YYYY').format('ddd, MMM D, YYYY')));
     };
 
     return (
@@ -277,8 +283,7 @@ export default function WeekWiseSchedule({ scheduleData }) {
                                                                 {shifts.length > 1 && (
                                                                     <ShowMoreButtonWrapper>
                                                                         <StyledShowMoreButton
-                                                                        // onClick={() => showShiftsPopup(day.date)}
-                                                                        >
+                                                                            onClick={() => handleShowMoreButton(date)}>
                                                                             {`View ${shifts.slice(1, 4).length} `}
                                                                             More&nbsp;
                                                                         </StyledShowMoreButton>
