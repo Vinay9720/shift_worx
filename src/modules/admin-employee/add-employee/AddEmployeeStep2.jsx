@@ -21,7 +21,7 @@ function AddEmployeeStep2() {
                 SSN#
             </SwxTypography>
         ),
-        placeholder: 'xxx-xxx-xxx',
+        placeholder: 'xxx-xx-xxxx',
         type: 'number',
         required: 'Enter ssn',
     };
@@ -32,8 +32,8 @@ function AddEmployeeStep2() {
                 Driver&apos;s License #
             </SwxTypography>
         ),
-        placeholder: 'xxx-xxx-xxx',
-        type: 'number',
+        placeholder: '',
+        type: 'text',
         required: 'Enter driver license number',
     };
 

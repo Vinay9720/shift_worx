@@ -41,7 +41,7 @@ export const Bannercontainer = styled.div`
     padding: 9px 12px;
     border-radius: 10px;
     display: flex;
-    gap: 16px;
+    justify-content: space-between;
     ${({ theme }) => `
         background-color: ${theme.backgroundColor.palePink};
         border: 1.5px solid ${theme.borderColor.white};

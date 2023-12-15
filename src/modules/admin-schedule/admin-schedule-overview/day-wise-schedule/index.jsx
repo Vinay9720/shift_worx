@@ -31,8 +31,9 @@ import {
     StyledTimeSlotMainDiv,
     StyledViewUsersDiv,
 } from './day-wise-schedule.styles';
-import { DailyScheduleBanner } from '@/lib/common/layout';
+import { DailyScheduleBanner, SwxModal, DynamicPromptModal } from '@/lib/common/layout';
 import { convertTo24HourFormat } from '@/lib/util';
+import ShiftForm from '../add-shift/ShiftForm';
 
 const twidth = '1920';
 
@@ -57,7 +58,7 @@ export default function DayWiseSchedule({ scheduleData }) {
 
         return shifts;
     };
-    const shiftsByDate = getShiftsByDate(scheduleData.records, currentTimeValue);
+    const shiftsByDate = getShiftsByDate(scheduleData && scheduleData.records, currentTimeValue);
     const getMarginLeft = start => {
         const startTime = convertTo24HourFormat(start);
         const [startTimeHour, startTimeMinutes] = startTime.split(':');
@@ -218,6 +219,18 @@ export default function DayWiseSchedule({ scheduleData }) {
                     </StyledShiftByDateContainer>
                 </div>
             </StyledGridMainDiv>
+            <DynamicPromptModal
+                modalName='deleteShiftModal'
+                entityName='Shift'
+                // onConfirm={() => denyPto(employeeId)}
+            />
+            <SwxModal modalName='editShiftModal'>
+                <ShiftForm
+                    modalName='editShiftModal'
+                    title='Edit'
+                    // action={addShift}
+                />
+            </SwxModal>
         </StyledMainDiv>
     );
 }

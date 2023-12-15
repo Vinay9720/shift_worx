@@ -17,7 +17,7 @@ export const StyledBorderContainerSecondary = styled.div`
 `;
 export const styles = {
     chooseFileButton: {
-        width: '160px',
+        width: '170px',
         '@media (max-width: 600px)': {
             width: '100%',
         },

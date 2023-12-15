@@ -136,14 +136,10 @@ const NavBar = ({ navLinks }) => {
                         <SwxPopupMenu
                             buttonElement={
                                 <Stack direction='row' spacing={1.5} alignItems='center'>
-                                    <Avatar
-                                        alt='image'
-                                        sx={{ width: 36, height: 36, bgcolor: '#1B6397' }}
-                                        src='/static/images/avatar/5.jpg'
-                                    />
-                                    <StyledLink href='/'>
-                                        {data ? (data.user ? data.user.name : 'User') : ''}
-                                    </StyledLink>
+                                    <Avatar alt='image' sx={{ width: 36, height: 36, bgcolor: '#1B6397' }} src=''>
+                                        TW
+                                    </Avatar>
+                                    <StyledLink href=''>{data ? (data.user ? data.user.name : 'User') : ''}</StyledLink>
                                 </Stack>
                             }
                             options={menuOptions}

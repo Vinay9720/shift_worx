@@ -7,20 +7,27 @@ import { cva } from 'class-variance-authority';
 
 import { SwxChip, SwxPopupMenu, SwxTypography } from '@/lib/common/components';
 import { Icon } from '@/lib/common/icons';
+import { openModal } from '@/lib/store/slices/modal-slice';
 
 import { BannerWrapper, Bannercontainer } from './daily-schedule-banner.styles';
+import { useDispatch } from 'react-redux';
 
 function DailyScheduleBanner({ kind, startTime, endTime, floor, session, style }) {
+    const dispatch = useDispatch();
     const menuOptions = () => {
         return [
             {
-                label: 'Edit',
-                action: () => null,
+                label: 'Edit Shift',
+                action: () => {
+                    dispatch(openModal({ modalName: 'editShiftModal' }));
+                },
                 icon: <Icon styles={{ fill: '#838A91' }} name='pencil' height={14} width={14} />,
             },
             {
-                label: 'Delete',
-                action: () => null,
+                label: 'Delete Shift',
+                action: () => {
+                    dispatch(openModal({ modalName: 'deleteShiftModal' }));
+                },
                 color: 'red',
                 icon: <Icon styles={{ fill: '#F43C02' }} name='trash' height={14} width={14} />,
             },
@@ -42,37 +49,39 @@ function DailyScheduleBanner({ kind, startTime, endTime, floor, session, style }
     return (
         <BannerWrapper kind={kind}>
             <Bannercontainer style={style}>
-                <SwxChip label={kind} color='white' background={getBackGroundColor()} size='smallest' />
-                <Stack direction='column' sx={{ ml: '4px' }}>
-                    <SwxTypography
-                        sx={{ fontFamily: '__Manrope_36d688' }}
-                        color='swxBlack'
-                        size='small'
-                        weight='semiBold'>
-                        {startTime} {'>'} {endTime}
-                    </SwxTypography>
-                    <SwxTypography
-                        color='lightGray'
-                        size='small'
-                        weight='semiBold'
-                        sx={{ fontFamily: '__Manrope_36d688' }}>
-                        {floor || 'Second Floor'}
-                    </SwxTypography>
+                <Stack sx={{ display: 'flex', flexDirection: 'row', gap: '16px' }}>
+                    <SwxChip label={kind} color='white' background={getBackGroundColor()} size='smallest' />
+                    <Stack direction='column' sx={{ ml: '4px' }}>
+                        <SwxTypography
+                            sx={{ fontFamily: '__Manrope_36d688' }}
+                            color='swxBlack'
+                            size='small'
+                            weight='semiBold'>
+                            {startTime} {'>'} {endTime}
+                        </SwxTypography>
+                        <SwxTypography
+                            color='lightGray'
+                            size='small'
+                            weight='semiBold'
+                            sx={{ fontFamily: '__Manrope_36d688' }}>
+                            {floor || 'Second Floor'}
+                        </SwxTypography>
+                    </Stack>
+                    <SwxChip
+                        label={session || 'morning'}
+                        icon={
+                            <Icon
+                                styles={{ fill: '#1DB304', marginRight: '4px' }}
+                                name='activity-status'
+                                height={6}
+                                width={6}
+                            />
+                        }
+                        color='black'
+                        background='white'
+                        size='smallest'
+                    />
                 </Stack>
-                <SwxChip
-                    label={session || 'morning'}
-                    icon={
-                        <Icon
-                            styles={{ fill: '#1DB304', marginRight: '4px' }}
-                            name='activity-status'
-                            height={6}
-                            width={6}
-                        />
-                    }
-                    color='black'
-                    background='white'
-                    size='smallest'
-                />
                 <SwxPopupMenu
                     buttonElement={
                         <IconButton>
