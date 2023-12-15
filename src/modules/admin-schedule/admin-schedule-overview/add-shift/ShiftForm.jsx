@@ -13,7 +13,7 @@ import {
     Form,
     FormSubmitButton,
     TimePickerField,
-    InputField,
+    // InputField,
 } from '@/lib/common/form-components';
 import { useEmployees } from '@/hooks/admin-employee';
 import { useCertificateOptions } from '@/hooks/certificate';
@@ -132,21 +132,21 @@ export default function ShiftForm({ modalName, title, action: addShift }) {
         options: employeeOptions,
         placeholder: 'Select employee',
         width: '100%',
-        required: true,
+        // required: true,
         padding: '8px 8px',
     };
 
-    const employee2Props = {
-        label: (
-            <SwxTypography color='swxSlightlyBlack' size='semiMedium' weight='semiBold' className='Manrope'>
-                Employee 2
-            </SwxTypography>
-        ),
-        options: employeeOptions,
-        placeholder: 'Select employee',
-        width: '100%',
-        padding: '8px 8px',
-    };
+    // const employee2Props = {
+    //     label: (
+    //         <SwxTypography color='swxSlightlyBlack' size='semiMedium' weight='semiBold' className='Manrope'>
+    //             Employee 2
+    //         </SwxTypography>
+    //     ),
+    //     options: employeeOptions,
+    //     placeholder: 'Select employee',
+    //     width: '100%',
+    //     padding: '8px 8px',
+    // };
 
     const startTimeProps = {
         label: (
@@ -181,6 +181,9 @@ export default function ShiftForm({ modalName, title, action: addShift }) {
         placeholder: 'Station',
         // placeholderColor: 'lightGray',
         required: 'Enter station',
+        padding: '8px 8px',
+        width: '100%',
+        options: ['Station 1', 'Station 2', 'Station 3'],
     };
 
     return (
@@ -212,7 +215,8 @@ export default function ShiftForm({ modalName, title, action: addShift }) {
                         </Stack>
                     </Stack>
                     <Stack sx={styles.timePickerStackStyles}>
-                        <InputField name='facility_name' SWXInputProps={stationProps} />
+                        {/* <InputField name='facility_name' SWXInputProps={stationProps} /> */}
+                        <SelectField name='facility_name' SWXInputProps={stationProps} />
                         <SelectField name='role' SWXInputProps={roleProps} />
                     </Stack>
                     <Stack sx={styles.timePickerStackStyles}>
@@ -221,7 +225,7 @@ export default function ShiftForm({ modalName, title, action: addShift }) {
                     </Stack>
                     <Stack sx={styles.timePickerStackStyles}>
                         <SelectField name='employee' SWXInputProps={employeeProps} />
-                        <SelectField name='employee_2' SWXInputProps={employee2Props} />
+                        {/* <SelectField name='employee_2' SWXInputProps={employee2Props} /> */}
                     </Stack>
                     <Stack sx={styles.actionButtons} style={{ marginBottom: '24px', marginTop: '30px' }}>
                         <SwxButton onClick={() => dispatch(closeModal({ modalName }))} variant='text' size='medium'>
