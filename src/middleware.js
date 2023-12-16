@@ -12,7 +12,12 @@ export default withAuth(
         ) {
             return NextResponse.rewrite(new URL('/?message=You Are Not Authorized!', req.url));
         }
-        if (req.nextUrl.pathname.startsWith('/employee') && req.nextauth.token?.role !== 'user') {
+        if (
+            req.nextUrl.pathname.startsWith('/employee') &&
+            req.nextauth.token?.role !== 'Nurse' &&
+            req.nextauth.token?.role !== 'admin' &&
+            req.nextauth.token?.role !== 'super_admin'
+        ) {
             return NextResponse.rewrite(new URL('/?message=You Are Not Authorized!', req.url));
         }
     },
