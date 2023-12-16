@@ -15,6 +15,7 @@ import {
 } from './slices/filter';
 import adminScheduleReducer from './slices/admin-schedule-module';
 import applicationReducer from './slices/application';
+import tabSlice from './slices/tabs-slice';
 
 const rootReducer = combineReducers({
     application: applicationReducer,
@@ -29,6 +30,7 @@ const rootReducer = combineReducers({
     expirationsFilter: expirationsFilterReducer,
     scheduleFilter: scheduleFilterReducer,
     adminScheduleModule: adminScheduleReducer,
+    tabs: tabSlice,
 });
 
 export const store = configureStore({
