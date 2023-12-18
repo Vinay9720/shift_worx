@@ -271,7 +271,7 @@ export default function WeekWiseSchedule({ scheduleData }) {
                                                                             shift.floor || 'First Floor',
                                                                             shift.session_type || 'Morning',
                                                                             shift.cert || 'RN',
-                                                                            shift.id
+                                                                            shift.shift_id
                                                                         )}
                                                                         kind={
                                                                             shift.title === 'RN'
