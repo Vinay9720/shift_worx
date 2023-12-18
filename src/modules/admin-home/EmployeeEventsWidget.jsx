@@ -3,10 +3,9 @@ import { Stack, Avatar } from '@mui/material';
 import { useSearchParams } from 'next/navigation';
 import { EventWrapper, EventsWrapper, EmployeeEventsWidgetWrapper } from './admin-home.styles';
 
-const eventTabs = [
-    { label: 'Anniversaries', step: 'anniversaries' },
-    { label: 'Birthdays', step: 'birthdays' },
-];
+const eventTabs = [{ label: 'Anniversaries', step: 'anniversaries' }];
+
+const initialTab = { currentTab: 'anniversaries' };
 
 export default function EmployeeEventssWidget() {
     const searchParams = useSearchParams();
@@ -17,16 +16,8 @@ export default function EmployeeEventssWidget() {
                 <SwxTypography className='Manrope' size='semiLarge' color='swxSlightlyBlack' weight='semiBold'>
                     Employee Events
                 </SwxTypography>
-                {/* <SwxButton
-                    endIcon={<Icon width={12} height={12} name='right-arrow' styles={{ fill: '#1F6FA9' }} />}
-                    variant='text'
-                    size='small'
-                    label='link'
-                    weight='bold'>
-                    View more
-                </SwxButton> */}
             </Stack>
-            <SwxTabs tabs={eventTabs} currentStep={currentStep} />
+            <SwxTabs tabs={eventTabs} currentStep={currentStep} tabsName='eventTabs' initialState={initialTab} />
             <EventsWrapper sx={{ mt: 2, pr: 1 }} spacing={1}>
                 <EventWrapper>
                     <Stack sx={{ py: '14px', pl: '16px' }} direction='row' spacing={2}>

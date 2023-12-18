@@ -25,11 +25,11 @@ import {
 import { SwxModal, DynamicPromptModal } from '@/lib/common/layout';
 import ShiftForm from '../add-shift/ShiftForm';
 import { openModal } from '@/lib/store/slices/modal-slice';
+import { setCurrentTimeValue, setScheduleType } from '@/lib/store/slices/admin-schedule-module';
 
 export default function MonthWiseSchedule({ scheduleData }) {
     const dispatch = useDispatch();
     const { currentTimeValue } = useSelector(state => state.adminScheduleModule);
-
     const fixedWeekDays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
     const getCurrentMonthDays = () => {
         const month = moment(currentTimeValue, 'MMM YYYY').month();
@@ -157,6 +157,11 @@ export default function MonthWiseSchedule({ scheduleData }) {
         );
     };
 
+    const handleShowMoreButton = date => {
+        dispatch(setScheduleType('daily'));
+        dispatch(setCurrentTimeValue(moment(date, 'DD-MM-YYYY').format('ddd, MMM D, YYYY')));
+    };
+
     return (
         <StyledRootMainContainer>
             <StyledBorderContainer>
@@ -221,9 +226,7 @@ export default function MonthWiseSchedule({ scheduleData }) {
                                 {shiftsToShow}
                                 {noOfShifts > 3 && (
                                     <ShowMoreButtonWrapper>
-                                        <StyledShowMoreButton
-                                        // onClick={() => showShiftsPopup(day.date)}
-                                        >
+                                        <StyledShowMoreButton onClick={() => handleShowMoreButton(day.date)}>
                                             {`View ${noOfShifts - 3}`} More&nbsp;
                                         </StyledShowMoreButton>
                                     </ShowMoreButtonWrapper>

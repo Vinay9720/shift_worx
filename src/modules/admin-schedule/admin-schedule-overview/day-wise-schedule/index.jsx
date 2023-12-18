@@ -32,7 +32,7 @@ import {
     StyledViewUsersDiv,
 } from './day-wise-schedule.styles';
 import { DailyScheduleBanner, SwxModal, DynamicPromptModal } from '@/lib/common/layout';
-import { convertTo24HourFormat } from '@/lib/util';
+import { convertTo24HourFormat, today } from '@/lib/util';
 import ShiftForm from '../add-shift/ShiftForm';
 
 const twidth = '1920';
@@ -143,16 +143,18 @@ export default function DayWiseSchedule({ scheduleData }) {
                         ))}
                     </StyledTimeSlotMainDiv>
                     <StyledShiftByDateContainer>
-                        <>
-                            <h1 className='absolute dot' style={{ left: currentTimePosition }} />
-                            <StyledTimePositionContainer
-                                style={{
-                                    left: currentTimePosition,
-                                    zIndex: '1',
-                                    height: `${!isEmpty(shiftsByDate) ? shiftsByDate.length * 100 : '48'}px`,
-                                }}
-                            />
-                        </>
+                        {today('ddd, MMM D, YYYY') === currentTimeValue && (
+                            <>
+                                <h1 className='absolute dot' style={{ left: currentTimePosition }} />
+                                <StyledTimePositionContainer
+                                    style={{
+                                        left: currentTimePosition,
+                                        zIndex: '1',
+                                        height: `${!isEmpty(shiftsByDate) ? shiftsByDate.length * 100 : '48'}px`,
+                                    }}
+                                />
+                            </>
+                        )}
                         {!isEmpty(shiftsByDate) ? (
                             shiftsByDate.map((emp, i) => {
                                 const sortedShifts = [...emp.shifts].sort((a, b) => {
@@ -171,7 +173,16 @@ export default function DayWiseSchedule({ scheduleData }) {
                                 return (
                                     <div className='relative' key={i}>
                                         <StyledSortedShiftsMainContainer>
-                                            <div style={{ width: leftBgColr, background: '#F7F8F8' }}>&nbsp;</div>
+                                            <div
+                                                style={{
+                                                    width: leftBgColr,
+                                                    background:
+                                                        today('ddd, MMM D, YYYY') === currentTimeValue
+                                                            ? '#F7F8F8'
+                                                            : '#ffffff',
+                                                }}>
+                                                &nbsp;
+                                            </div>
                                             <div className='bg-black-50 bg-opacity-1' style={{ width: rightBgColr }}>
                                                 &nbsp;
                                             </div>

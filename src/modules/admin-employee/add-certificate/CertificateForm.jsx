@@ -113,7 +113,7 @@ function CertificateForm({ defaultValues, onSubmit, onCancel }) {
                         <SwxTypography color='swxSlightlyBlack' size='smallOdd' weight='semiBold' className='Manrope'>
                             Specialties
                         </SwxTypography>
-                        <ListBoxField name='specility_ids' SWXInputProps={specilityProps} />
+                        <ListBoxField name='speciality_ids' SWXInputProps={specilityProps} />
                     </div>
                 </Stack>
                 <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2} sx={{ padding: '0px 24px' }}>
