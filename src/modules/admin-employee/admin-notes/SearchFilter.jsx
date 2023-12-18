@@ -29,7 +29,7 @@ const noteTypeOptions = [
 
 const statusOptions = ['Active', 'Inactive'];
 
-function SearchFilter({ style }) {
+function SearchFilter({ style, addNote }) {
     const { filterApplied, status, startDate, endDate } = useSelector(state => state.notersFilter);
     // const { mutate: readNotes } = useReadNotes();
     const searchInputRef = useRef(null);
@@ -135,6 +135,7 @@ function SearchFilter({ style }) {
                     )}
                 </Stack>
             </Stack>
+            {addNote && addNote}
             {/* <SwxButton
                 onClick={readNotes}
                 startIcon={<Icon width={24} height={24} name='check' styles={{ fill: '#1F6FA9' }} />}

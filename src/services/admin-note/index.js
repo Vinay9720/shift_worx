@@ -1,7 +1,7 @@
 import http from '../../httpCommon';
 
 // &note_type_id=${null}&start_date=${null}&end_date=${null}
-const fetchnotes = (itemsPerPage, page, searchParams, type, status, startDate, endDate) => {
+const fetchnotes = (itemsPerPage, page, searchParams, type, status, startDate, endDate, entityId, entityType) => {
     const queryParams = [];
 
     if (itemsPerPage) queryParams.push(`per_page=${itemsPerPage}`);
@@ -10,6 +10,8 @@ const fetchnotes = (itemsPerPage, page, searchParams, type, status, startDate, e
     if (type) queryParams.push(`note_type_id=${type}`);
     if (startDate) queryParams.push(`start_date=${startDate}`);
     if (endDate) queryParams.push(`end_date=${endDate}`);
+    if (entityId) queryParams.push(`entity_id=${entityId}`);
+    if (entityType) queryParams.push(`entity_type=${entityType}`);
 
     const queryString = queryParams.join('&');
 

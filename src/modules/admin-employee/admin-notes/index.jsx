@@ -16,9 +16,9 @@ import { Icon } from '@/lib/common/icons';
 
 import NoteForm from '../add-note/noteForm';
 
-export default function AdminNotes() {
-    const { data: notesData, isLoading } = useNotes();
+export default function AdminNotes({ employeeNotes, addNote }) {
     const dispatch = useDispatch();
+    const { data: notesData, isLoading } = useNotes({ employeeNotes });
     const { mutate: updateNote } = useUpdateNote();
     const { mutate: deleteNote } = useDeleteNote();
     const { mutate: readNote } = useReadNote();
@@ -90,21 +90,23 @@ export default function AdminNotes() {
 
     return (
         <>
-            <WidgetCardsContainer style={{ marginTop: '1rem' }}>
-                {cardsData.map((card, index) => {
-                    return (
-                        <WidgetCard
-                            key={index}
-                            title={card.title}
-                            iconName={card.iconName}
-                            totalCount={card.totalCount}
-                            percentage={card.percentage}
-                            badgeArrow={card.badgeArrow}
-                        />
-                    );
-                })}
-            </WidgetCardsContainer>
-            <SearchFilter />
+            {!employeeNotes && (
+                <WidgetCardsContainer style={{ marginTop: '1rem' }}>
+                    {cardsData.map((card, index) => {
+                        return (
+                            <WidgetCard
+                                key={index}
+                                title={card.title}
+                                iconName={card.iconName}
+                                totalCount={card.totalCount}
+                                percentage={card.percentage}
+                                badgeArrow={card.badgeArrow}
+                            />
+                        );
+                    })}
+                </WidgetCardsContainer>
+            )}
+            <SearchFilter addNote={addNote} />
             <div style={{ display: 'flex', flex: 1, marginTop: '1.5rem' }}>
                 {!isLoading ? (
                     <Stack direction='column' spacing={3} style={{ width: '100%' }}>
@@ -122,9 +124,13 @@ export default function AdminNotes() {
                                     <NoteCard
                                         key={index}
                                         note={note}
-                                        actions={menuOptions({
-                                            note,
-                                        })}
+                                        actions={
+                                            !employeeNotes
+                                                ? menuOptions({
+                                                      note,
+                                                  })
+                                                : null
+                                        }
                                     />
                                 </>
                             );
