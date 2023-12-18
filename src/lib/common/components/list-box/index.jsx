@@ -12,10 +12,13 @@ import SwxTypography from '../typography';
 const ListBox = ({ label, options, setSelectedOptions, selectedOptions, maxHeight, multiple }) => {
     const [isOpen, setIsOpen] = useState(false);
     const listBoxRef = useRef(null);
+    const titleContainerRef = useRef(null);
 
     const handleClickOutside = event => {
-        if (listBoxRef.current && !listBoxRef.current.contains(event.target)) {
-            setIsOpen(false);
+        if (event.target.parentElement && event.target.parentElement.id !== 'title-container') {
+            if (listBoxRef.current && !listBoxRef.current.contains(event.target)) {
+                setIsOpen(false);
+            }
         }
     };
 
@@ -38,7 +41,12 @@ const ListBox = ({ label, options, setSelectedOptions, selectedOptions, maxHeigh
     return (
         <ListBoxWrapper maxHeight={maxHeight} ref={listBoxRef} onClick={() => setIsOpen(true)}>
             {!isOpen ? (
-                <TitleContainer>
+                <TitleContainer
+                    id='title-container'
+                    ref={titleContainerRef}
+                    onClick={() => {
+                        setIsOpen(true);
+                    }}>
                     {!isEmpty(selectedOptions) ? (
                         <SwxTypography color='swxSlightlyBlack' className='Manrope'>
                             {selectedOptions
@@ -94,7 +102,10 @@ const ListBox = ({ label, options, setSelectedOptions, selectedOptions, maxHeigh
                 <Icon
                     width={14}
                     height={14}
-                    onClick={() => setIsOpen(!isOpen)}
+                    onClick={event => {
+                        event.stopPropagation();
+                        setIsOpen(!isOpen);
+                    }}
                     name='dropdown-arrow'
                     styles={{ marginTop: '3px', marginRight: '5px' }}
                 />
