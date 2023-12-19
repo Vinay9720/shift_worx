@@ -10,7 +10,7 @@ export const useSchedule = () => {
 
     const getDateForSchedule = () => {
         if (scheduleType === 'daily' || scheduleType === 'weekly' || scheduleType === 'list') {
-            return moment(currentTimeValue, 'ddd, MMM D').format('MM-DD-YYYY');
+            return moment(currentTimeValue, 'ddd, MMM D, YYYY').format('MM-DD-YYYY');
         }
         if (scheduleType === 'monthly') {
             return moment(currentTimeValue, 'MMM YYYY').format('MM-DD-YYYY');
