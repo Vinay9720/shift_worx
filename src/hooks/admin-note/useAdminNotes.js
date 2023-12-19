@@ -4,14 +4,12 @@ import { useSelector } from 'react-redux';
 import AdminNoteService from '@/services/admin-note';
 
 import { usePagination } from '../common';
-import { useParams } from 'next/navigation';
 
-export const useNotes = ({ employeeNotes }) => {
+export const useNotes = ({ employeeData }) => {
     const { itemsPerPage, currentPage, setPagination } = usePagination('adminNotesPagination');
     const { search, type, status, startDate, endDate } = useSelector(state => state.notersFilter);
-    const params = useParams();
-    const entityId = params.employeeId || null;
-    const entityType = employeeNotes ? 'Nurse' : null;
+    const entityId = employeeData ? employeeData.profileable_id : null;
+    const entityType = employeeData ? 'Nurse' : null;
     return useQuery(
         ['admin-notes', itemsPerPage, currentPage, search, type, status, startDate, endDate],
         () =>

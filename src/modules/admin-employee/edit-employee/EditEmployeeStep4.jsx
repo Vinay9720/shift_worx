@@ -12,7 +12,10 @@ function EditEmployeeStep4({ employeeData }) {
             <SwxTypography color='swxBlack' size='semiLarge' weight='bold'>
                 Note(s)
             </SwxTypography>
-            <AdminNotes employeeNotes addNote={<AddNote employee={employeeData} sx={styles.addButton} />} />
+            <AdminNotes
+                employeeData={employeeData}
+                addNote={<AddNote employee={employeeData} sx={styles.addButton} />}
+            />
         </>
     );
 }
