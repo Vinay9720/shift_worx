@@ -16,9 +16,9 @@ import { Icon } from '@/lib/common/icons';
 
 import NoteForm from '../add-note/noteForm';
 
-export default function AdminNotes({ employeeNotes, addNote }) {
+export default function AdminNotes({ employeeData, addNote }) {
     const dispatch = useDispatch();
-    const { data: notesData, isLoading } = useNotes({ employeeNotes });
+    const { data: notesData, isLoading } = useNotes({ employeeData });
     const { mutate: updateNote } = useUpdateNote();
     const { mutate: deleteNote } = useDeleteNote();
     const { mutate: readNote } = useReadNote();
@@ -90,7 +90,7 @@ export default function AdminNotes({ employeeNotes, addNote }) {
 
     return (
         <>
-            {!employeeNotes && (
+            {!employeeData && (
                 <WidgetCardsContainer style={{ marginTop: '1rem' }}>
                     {cardsData.map((card, index) => {
                         return (
@@ -125,7 +125,7 @@ export default function AdminNotes({ employeeNotes, addNote }) {
                                         key={index}
                                         note={note}
                                         actions={
-                                            !employeeNotes
+                                            !employeeData
                                                 ? menuOptions({
                                                       note,
                                                   })
