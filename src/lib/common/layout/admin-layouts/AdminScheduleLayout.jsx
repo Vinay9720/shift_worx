@@ -47,7 +47,7 @@ export default function AdminScheduleLayout({ children }) {
         }
 
         if (scheduleType === 'weekly') {
-            const formattedDate = moment(currentTimeValue, 'ddd, MMMM D');
+            const formattedDate = moment(currentTimeValue, 'ddd, MMM D, YYYY');
             let modifiedDate;
             if (operation === 'add') {
                 modifiedDate = formattedDate.add(1, 'week');

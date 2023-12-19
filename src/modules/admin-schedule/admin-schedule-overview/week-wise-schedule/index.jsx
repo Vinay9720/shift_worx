@@ -35,7 +35,7 @@ export default function WeekWiseSchedule({ scheduleData }) {
         const weekdaysWithDates = [];
 
         for (let i = 1; i <= 7; i++) {
-            const currentDate = moment(currentTimeValue, 'ddd, MMM D').isoWeekday(i);
+            const currentDate = moment(currentTimeValue, 'ddd, MMM D, YYYY').isoWeekday(i);
             const weekday = currentDate.format('dddd');
             const date = currentDate.format('DD-MM-YYYY');
 

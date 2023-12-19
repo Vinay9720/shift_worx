@@ -1,66 +1,44 @@
+import { useMemo, useState } from 'react';
 import { SwxTypography, SwxButton, SwxDataGrid, SwxPopupMenu } from '@/lib/common/components';
+import { useDispatch } from 'react-redux';
 import { useRouter } from 'next/navigation';
 import { Stack, IconButton, Avatar } from '@mui/material';
 import { Icon } from '@/lib/common/icons';
 import { EmployeeExpirationsWidgetWrapper } from './admin-home.styles';
+import { useExpirations } from '@/hooks/admin-employee';
+import { openModal } from '@/lib/store/slices/modal-slice';
+import AddNote from '../admin-employee/add-note';
 
 export default function EmployeeExpirationsWidget() {
     const router = useRouter();
-    const rows = [
-        {
-            id: 1,
-            name: 'Jack',
-            item_expiring: "Driver's License",
-            expiration_date: 'Jan 3, 2023',
-        },
-        {
-            id: 2,
-            name: 'John',
-            item_expiring: 'RN License',
-            expiration_date: 'Jan 3, 2023',
-        },
-        {
-            id: 3,
-            name: 'Travis',
-            item_expiring: "Driver's License",
-            expiration_date: 'Jan 3, 2023',
-        },
-        {
-            id: 4,
-            name: 'Mark',
-            item_expiring: 'RN License',
-            expiration_date: 'Jan 3, 2023',
-        },
-        {
-            id: 5,
-            name: 'Steve',
-            item_expiring: 'RN License',
-            expiration_date: 'Jan 3, 2023',
-        },
-        {
-            id: 6,
-            name: 'Larry',
-            item_expiring: "Driver's License",
-            expiration_date: 'Jan 3, 2023',
-        },
-    ];
-    const menuOptions = () => {
+    const { data: expirationsData, isLoading, isSuccess } = useExpirations();
+    const [selectedEmployee, setSelectedEmployee] = useState(null);
+    const dispatch = useDispatch();
+
+    const expirations = useMemo(() => {
+        if (isSuccess) {
+            return expirationsData.expirations;
+        }
+        return [];
+    }, [expirationsData]);
+
+    const menuOptions = ({ id }) => {
         return [
             {
-                label: 'Note',
-                action: () => null,
-                icon: <Icon styles={{ fill: '#838A91' }} name='notes' height={20} width={20} />,
-            },
-            {
                 label: 'Edit',
-                action: () => null,
-                icon: <Icon styles={{ fill: '#838A91' }} name='pencil' height={20} width={20} />,
+                action: () => {
+                    router.push(`/admin/employees/edit-employee/${id}?step=certificates`);
+                },
+                icon: <Icon styles={{ fill: '#838A91' }} name='pencil' height={14} width={14} />,
             },
             {
-                label: 'Delete',
-                action: () => null,
-                color: 'red',
-                icon: <Icon name='trash' height={26} width={26} />,
+                label: 'Note',
+                action: e => {
+                    e.preventDefault();
+                    dispatch(openModal({ modalName: 'addNoteModal' }));
+                    setSelectedEmployee({ employee: { profileable_id: id } });
+                },
+                icon: <Icon styles={{ fill: '#838A91' }} name='paper' height={14} width={14} />,
             },
         ];
     };
@@ -126,7 +104,7 @@ export default function EmployeeExpirationsWidget() {
             minWidth: 120,
         },
         {
-            field: 'id',
+            field: 'nurse_id',
             headerName: '',
             width: 10,
             sortable: false,
@@ -153,28 +131,32 @@ export default function EmployeeExpirationsWidget() {
     ];
 
     return (
-        <EmployeeExpirationsWidgetWrapper direction='column'>
-            <Stack justifyContent='space-between' direction='row'>
-                <SwxTypography className='Manrope' size='semiLarge' color='swxSlightlyBlack' weight='semiBold'>
-                    Employee Expirations
-                </SwxTypography>
-                <SwxButton
-                    endIcon={<Icon width={12} height={12} name='right-arrow' styles={{ fill: '#1F6FA9' }} />}
-                    variant='text'
-                    size='small'
-                    label='link'
-                    onClick={() => router.push('/admin/employees?step=expirations')}
-                    weight='bold'>
-                    View more
-                </SwxButton>
-            </Stack>
-            <SwxDataGrid
-                columns={columns}
-                rows={rows}
-                loading={false}
-                isRowSelectable={false}
-                checkboxSelection={false}
-            />
-        </EmployeeExpirationsWidgetWrapper>
+        <>
+            <AddNote hideButton employee={selectedEmployee} />
+            <EmployeeExpirationsWidgetWrapper direction='column'>
+                <Stack justifyContent='space-between' direction='row'>
+                    <SwxTypography className='Manrope' size='semiLarge' color='swxSlightlyBlack' weight='semiBold'>
+                        Employee Expirations
+                    </SwxTypography>
+                    <SwxButton
+                        endIcon={<Icon width={12} height={12} name='right-arrow' styles={{ fill: '#1F6FA9' }} />}
+                        variant='text'
+                        size='small'
+                        label='link'
+                        onClick={() => router.push('/admin/employees?step=expirations')}
+                        weight='bold'>
+                        View more
+                    </SwxButton>
+                </Stack>
+                <SwxDataGrid
+                    rows={expirations.slice(0, 6).map((row, index) => ({ ...row, id: `${row.nurse_id}_${index}` }))}
+                    columns={columns}
+                    isRowSelectable={false}
+                    checkboxSelection={false}
+                    getRowId={row => row.id}
+                    loading={isLoading}
+                />
+            </EmployeeExpirationsWidgetWrapper>
+        </>
     );
 }
