@@ -16,10 +16,14 @@ const fetchSchedule = (term, date, search, status, roles) => {
 const addShift = shiftData => {
     return http.post(`/shifts`, JSON.stringify(shiftData));
 };
+const deleteShift = id => {
+    return http.delete(`/shifts/${id}`);
+};
 
 const AdminScheduleService = {
     fetchSchedule,
     addShift,
+    deleteShift,
 };
 
 export default AdminScheduleService;

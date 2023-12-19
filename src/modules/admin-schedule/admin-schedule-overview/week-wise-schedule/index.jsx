@@ -27,30 +27,33 @@ import ShiftForm from '../add-shift/ShiftForm';
 import { SwxModal, DynamicPromptModal } from '@/lib/common/layout';
 import { openModal } from '@/lib/store/slices/modal-slice';
 import { setCurrentTimeValue, setScheduleType } from '@/lib/store/slices/admin-schedule-module';
+import { useState } from 'react';
+import { useDeleteShift } from '@/hooks/admin-schedule/useDeleteShift';
 
 export default function WeekWiseSchedule({ scheduleData }) {
     const dispatch = useDispatch();
+    const { mutate: deleteShift } = useDeleteShift();
+    const [employeeId, setEmployeeId] = useState(null);
     const { currentTimeValue } = useSelector(state => state.adminScheduleModule);
     const getCurrentWeekdays = () => {
         const weekdaysWithDates = [];
 
         for (let i = 1; i <= 7; i++) {
-            const currentDate = moment(currentTimeValue, 'ddd, MMM D').isoWeekday(i);
+            const currentDate = moment(currentTimeValue, 'ddd, MMM D, YYYY').isoWeekday(i);
             const weekday = currentDate.format('dddd');
             const date = currentDate.format('DD-MM-YYYY');
-
             weekdaysWithDates.push({ weekday, date });
         }
-
         return weekdaysWithDates;
     };
 
-    const menuOptions = () => {
+    const menuOptions = id => {
         return [
             {
                 label: 'Edit Shift',
                 action: () => {
                     dispatch(openModal({ modalName: 'editShiftModal' }));
+                    setEmployeeId(id);
                 },
                 icon: <Icon styles={{ fill: '#838A91' }} name='pencil' height={14} width={14} />,
             },
@@ -58,6 +61,7 @@ export default function WeekWiseSchedule({ scheduleData }) {
                 label: 'Delete Shift',
                 action: () => {
                     dispatch(openModal({ modalName: 'deleteShiftModal' }));
+                    setEmployeeId(id);
                 },
                 color: 'red',
                 icon: <Icon styles={{ fill: '#F43C02' }} name='trash' height={14} width={14} />,
@@ -67,7 +71,7 @@ export default function WeekWiseSchedule({ scheduleData }) {
 
     const weekdays = getCurrentWeekdays();
 
-    const getScheduleBanner = (start, end, floor, session, cert) => {
+    const getScheduleBanner = (start, end, floor, session, cert, id) => {
         return (
             <div className='columns'>
                 <div className='flex gap-2'>
@@ -106,7 +110,7 @@ export default function WeekWiseSchedule({ scheduleData }) {
                                 />
                             </IconButton>
                         }
-                        options={menuOptions()}
+                        options={menuOptions(id)}
                     />
                 </div>
             </div>
@@ -266,7 +270,8 @@ export default function WeekWiseSchedule({ scheduleData }) {
                                                                             shift.end_time,
                                                                             shift.floor || 'First Floor',
                                                                             shift.session_type || 'Morning',
-                                                                            shift.cert || 'RN'
+                                                                            shift.cert || 'RN',
+                                                                            shift.shift_id
                                                                         )}
                                                                         kind={
                                                                             shift.title === 'RN'
@@ -312,7 +317,7 @@ export default function WeekWiseSchedule({ scheduleData }) {
             <DynamicPromptModal
                 modalName='deleteShiftModal'
                 entityName='Shift'
-                // onConfirm={() => denyPto(employeeId)}
+                onConfirm={() => deleteShift(employeeId)}
             />
             <SwxModal modalName='editShiftModal'>
                 <ShiftForm
