@@ -35,7 +35,7 @@ export default function ScheduleList({ scheduleData, isLoading }) {
                     <Avatar sx={{ width: 32, height: 32, bgcolor: '#1F6FA9' }}>{`${
                         params.row.name.split('')[0].toUpperCase() || 'K'
                     }`}</Avatar>
-                    <SwxTypography color='swxBlack' size='semiMedium' weight='semiBold'>{`${
+                    <SwxTypography color='swxBlack' size='semiMedium' weight='semiBold' className='Manrope'>{`${
                         params.row.name || ''
                     }`}</SwxTypography>
                 </Stack>

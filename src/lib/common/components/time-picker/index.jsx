@@ -61,6 +61,7 @@ export default function SwxTimeComponent({ onChange, time, format, label, width,
                             name='time'
                             onChange={handleInputChange}
                             value={moment(time, 'hh:mma')}
+                            minutesStep={15}
                         />
                     </DemoContainer>
                 </LocalizationProvider>

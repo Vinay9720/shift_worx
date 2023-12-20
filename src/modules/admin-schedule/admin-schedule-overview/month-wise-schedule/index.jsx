@@ -22,12 +22,14 @@ import {
     WeekDayContainer,
     WeekDaysContainer,
 } from './month-wise-schedule.styles';
+import { SwxModal, DynamicPromptModal } from '@/lib/common/layout';
+import ShiftForm from '../add-shift/ShiftForm';
+import { openModal } from '@/lib/store/slices/modal-slice';
 import { setCurrentTimeValue, setScheduleType } from '@/lib/store/slices/admin-schedule-module';
 
 export default function MonthWiseSchedule({ scheduleData }) {
-    const { currentTimeValue } = useSelector(state => state.adminScheduleModule);
     const dispatch = useDispatch();
-
+    const { currentTimeValue } = useSelector(state => state.adminScheduleModule);
     const fixedWeekDays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
     const getCurrentMonthDays = () => {
         const month = moment(currentTimeValue, 'MMM YYYY').month();
@@ -87,13 +89,17 @@ export default function MonthWiseSchedule({ scheduleData }) {
     const menuOptions = () => {
         return [
             {
-                label: 'Edit',
-                action: () => null,
+                label: 'Edit Shift',
+                action: () => {
+                    dispatch(openModal({ modalName: 'editShiftModal' }));
+                },
                 icon: <Icon styles={{ fill: '#838A91' }} name='pencil' height={14} width={14} />,
             },
             {
-                label: 'Delete',
-                action: () => null,
+                label: 'Delete Shift',
+                action: () => {
+                    dispatch(openModal({ modalName: 'deleteShiftModal' }));
+                },
                 color: 'red',
                 icon: <Icon styles={{ fill: '#F43C02' }} name='trash' height={14} width={14} />,
             },
@@ -230,6 +236,18 @@ export default function MonthWiseSchedule({ scheduleData }) {
                     })}
                 </DaysConatiner>
             </StyledBorderContainer>
+            <DynamicPromptModal
+                modalName='deleteShiftModal'
+                entityName='Shift'
+                // onConfirm={() => denyPto(employeeId)}
+            />
+            <SwxModal modalName='editShiftModal'>
+                <ShiftForm
+                    modalName='editShiftModal'
+                    title='Edit'
+                    // action={addShift}
+                />
+            </SwxModal>
         </StyledRootMainContainer>
     );
 }

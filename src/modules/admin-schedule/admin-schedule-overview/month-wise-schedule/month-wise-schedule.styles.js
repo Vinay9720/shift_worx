@@ -36,6 +36,8 @@ export const DayContainer = styled.div`
 `;
 
 export const DateContainer = styled.p`
+    height: 25px;
+    width: 25px;
     margin-left: 1rem;
     margin-top: 0.75rem;
     font-size: 0.875rem;
@@ -49,7 +51,6 @@ export const DateContainer = styled.p`
                 padding-right: 5px;
                 background-color: #027EF4;
                 border-radius: 50%;
-                width: fit-content;
                 color: #FFFFFF;`
         }
         color: ${isFromCurrentMonth ? '#ffffff' : '#B9BDC1'};
@@ -95,7 +96,8 @@ export const TimeContainer = styled.div`
 `;
 
 export const EmployeeNameContainer = styled.div`
-    width: 36px;
+    width: 38px;
+    overflow: ellipsis;
     ${({ theme }) => `
         font-size: ${theme.fontSize.smallest};
         font-weight:${theme.fontWeight.semiBold};

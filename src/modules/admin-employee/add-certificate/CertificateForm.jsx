@@ -87,10 +87,10 @@ function CertificateForm({ defaultValues, onSubmit, onCancel }) {
             </SwxTypography>
         ),
         padding: '12px 12px',
-        placeholder: 'XXXXX',
+        placeholder: '',
         required: true,
         style: { gap: '3px' },
-        type: 'number',
+        type: 'text',
     };
 
     if (isCertificateOptionsLoading || isSpecialityOptionsLoading) {

@@ -24,7 +24,7 @@ export const styles = {
         },
     },
     clearAllButton: {
-        width: '103px',
+        width: '108px',
         display: 'flex',
         gap: '8px',
         marginLeft: 'none',
