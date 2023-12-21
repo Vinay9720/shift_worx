@@ -137,7 +137,7 @@ const NavBar = ({ navLinks }) => {
                             buttonElement={
                                 <Stack direction='row' spacing={1.5} alignItems='center'>
                                     <Avatar alt='image' sx={{ width: 36, height: 36, bgcolor: '#1B6397' }} src=''>
-                                        TW
+                                        {data ? (data.user ? data.user.name : 'User').split('')[0] : ''}
                                     </Avatar>
                                     <StyledLink href=''>{data ? (data.user ? data.user.name : 'User') : ''}</StyledLink>
                                 </Stack>
