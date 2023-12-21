@@ -1,41 +1,40 @@
+import moment from 'moment';
+import { useMemo } from 'react';
 import { SwxTypography, SwxButton, SwxDataGrid, SwxPopupMenu } from '@/lib/common/components';
 import { Stack, IconButton } from '@mui/material';
 import { Icon } from '@/lib/common/icons';
 import { UnfilledShiftsWidgetWrapper } from './admin-home.styles';
+import { useUnfilledShifts } from '@/hooks/admin-home';
 
 export default function UnfilledShiftsWidget() {
-    const rows = [
-        {
-            id: 1,
-            role: 'LPN',
-            time: '7/4 - 8:00 AM - 8:00 PM',
-        },
-        {
-            id: 2,
-            role: 'RN',
-            time: '7/4 - 8:00 AM - 8:00 PM',
-        },
-        {
-            id: 3,
-            role: 'LPN',
-            time: '7/4 - 8:00 AM - 8:00 PM',
-        },
-        {
-            id: 4,
-            role: 'RN',
-            time: '7/4 - 8:00 AM - 8:00 PM',
-        },
-        {
-            id: 5,
-            role: 'LPN',
-            time: '7/4 - 8:00 AM - 8:00 PM',
-        },
-        {
-            id: 6,
-            role: 'LPN',
-            time: '7/4 - 8:00 AM - 8:00 PM',
-        },
-    ];
+    const { data: unfilledShifts, isLoading, isSuccess } = useUnfilledShifts();
+
+    const formattedShifts = useMemo(() => {
+        if (isSuccess) {
+            return (
+                unfilledShifts &&
+                unfilledShifts
+                    .filter(shift => shift.date && shift.time) // Filter out shifts with null date or time
+                    .map((shift, index) => {
+                        const date = moment(shift.date);
+                        const time = shift.time.split('-');
+                        const startTime = moment(time[0], 'hh:mma');
+                        const endTime = moment(time[1], 'hh:mma');
+                        const dateTime = `${date.format('M/D')} - ${startTime.format('h:mm A')} - ${endTime.format(
+                            'h:mm A'
+                        )}`;
+
+                        return {
+                            ...shift,
+                            id: `unfilled-shift-${index}`,
+                            dateTime,
+                        };
+                    })
+            );
+        }
+        return [];
+    }, [unfilledShifts, isSuccess]);
+
     const menuOptions = () => {
         return [
             {
@@ -58,7 +57,7 @@ export default function UnfilledShiftsWidget() {
     };
     const columns = [
         {
-            field: 'role',
+            field: 'certificate',
             headerName: 'Role',
             width: 150,
             renderCell: params => (
@@ -71,7 +70,7 @@ export default function UnfilledShiftsWidget() {
             minWidth: 150,
         },
         {
-            field: 'time',
+            field: 'dateTime',
             headerName: 'Date/Time',
             width: 250,
             flex: 1,
@@ -129,8 +128,8 @@ export default function UnfilledShiftsWidget() {
             </Stack>
             <SwxDataGrid
                 columns={columns}
-                rows={rows}
-                loading={false}
+                rows={formattedShifts.slice(0, 6)}
+                loading={isLoading}
                 isRowSelectable={false}
                 checkboxSelection={false}
             />
