@@ -8,8 +8,8 @@ const fetchTimeOffRequests = id => {
     return http.get(`/facility_users/${id}`);
 };
 
-const fetchUnfilledShifts = id => {
-    return http.get(`/facility_users/${id}`);
+const fetchUnfilledShifts = () => {
+    return http.get(`/unfilled_shifts`);
 };
 
 const fetchEvents = id => {
