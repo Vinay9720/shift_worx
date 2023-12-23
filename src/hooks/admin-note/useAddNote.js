@@ -26,7 +26,7 @@ export const useAddNote = () => {
 
     return useMutation(addNote, {
         onSuccess: async () => {
-            queryClient.invalidateQueries('admin-employee');
+            queryClient.invalidateQueries('admin-notes');
             dispatch(closeModal({ modalName: 'addNoteModal' }));
             showToast('Note Successfully Added!', 'success');
         },

@@ -74,6 +74,10 @@ export default function DayWiseSchedule({ scheduleData }) {
         return `${differenceInMinutes * 1.66}`;
     };
 
+    const currentDay = () => {
+        return today('ddd, MMM D, YYYY');
+    };
+
     return (
         <StyledMainDiv>
             <StyledGridMainDiv>
@@ -142,7 +146,7 @@ export default function DayWiseSchedule({ scheduleData }) {
                         ))}
                     </StyledTimeSlotMainDiv>
                     <StyledShiftByDateContainer>
-                        {today('ddd, MMM D, YYYY') === currentTimeValue && (
+                        {currentDay === currentTimeValue && (
                             <>
                                 <h1 className='absolute dot' style={{ left: currentTimePosition }} />
                                 <StyledTimePositionContainer
@@ -175,10 +179,7 @@ export default function DayWiseSchedule({ scheduleData }) {
                                             <div
                                                 style={{
                                                     width: leftBgColr,
-                                                    background:
-                                                        today('ddd, MMM D, YYYY') === currentTimeValue
-                                                            ? '#F7F8F8'
-                                                            : '#ffffff',
+                                                    background: currentDay === currentTimeValue ? '#F7F8F8' : '#ffffff',
                                                 }}>
                                                 &nbsp;
                                             </div>
