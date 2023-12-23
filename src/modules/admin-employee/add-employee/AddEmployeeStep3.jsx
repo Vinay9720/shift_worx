@@ -13,6 +13,7 @@ import { SwxButton, SwxTypography } from '@/lib/common/components';
 import { CertificationCard } from '@/lib/common/layout';
 
 import { FooterContainer, CertificationsWrapper, CertificationsContainer } from './add-employee.styles';
+import { setCertificateToBeEdited } from '@/lib/store/slices/edit-employee-module';
 
 import AddCerfification from '../add-certificate';
 
@@ -20,6 +21,7 @@ function AddEmployeeStep3() {
     const dispatch = useDispatch();
     const showToast = useToast();
     const queryClient = useQueryClient();
+    const { certificateToBeEdited } = useSelector(state => state.editEmployeeModule);
     const { addingCertificate, certificates } = useSelector(state => state.addEmployeeModule);
 
     const onSubmit = () => {
@@ -52,7 +54,16 @@ function AddEmployeeStep3() {
                         <CertificationsContainer>
                             {!isEmpty(certificates) &&
                                 certificates.map((certification, index) => {
-                                    return <CertificationCard key={index} certification={certification} />;
+                                    return (
+                                        <CertificationCard
+                                            onEdit={() => {
+                                                dispatch(setCertificateToBeEdited(certification));
+                                                dispatch(openAddCertificateForm());
+                                            }}
+                                            key={index}
+                                            certification={certification}
+                                        />
+                                    );
                                 })}
                         </CertificationsContainer>
                         <SwxButton
@@ -66,7 +77,7 @@ function AddEmployeeStep3() {
                     </CertificationsWrapper>
                 </>
             ) : (
-                <AddCerfification />
+                <AddCerfification defaultValues={certificateToBeEdited || null} />
             )}
             <Divider orientation='vertical' flexItem sx={{ borderBottom: '1px solid #E6E8E9' }} />
             <FooterContainer>

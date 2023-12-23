@@ -34,10 +34,10 @@ export default function AdminHomeLayout({
                     {timeOffRequestWidget}
                 </TimeOfRequestWidgetWrapper>
                 <ShiftsAndExpirationsWidgetsWrapper>
-                    <UnfilledShiftsWidgetWrapper style={{ minHeight: '420px', background: '#fff' }}>
+                    <UnfilledShiftsWidgetWrapper style={{ minHeight: '600px', background: '#fff' }}>
                         {unfilledShiftsWidget}
                     </UnfilledShiftsWidgetWrapper>
-                    <EmployeeExpirationsWidgetWrapper style={{ minHeight: '420px', background: '#fff' }}>
+                    <EmployeeExpirationsWidgetWrapper style={{ minHeight: '600px', background: '#fff' }}>
                         {emplyeeExpirationsWidget}
                     </EmployeeExpirationsWidgetWrapper>
                 </ShiftsAndExpirationsWidgetsWrapper>
