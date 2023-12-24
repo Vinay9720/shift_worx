@@ -26,9 +26,13 @@ import { SwxModal, DynamicPromptModal } from '@/lib/common/layout';
 import ShiftForm from '../add-shift/ShiftForm';
 import { openModal } from '@/lib/store/slices/modal-slice';
 import { setCurrentTimeValue, setScheduleType } from '@/lib/store/slices/admin-schedule-module';
+import { useDeleteShift } from '@/hooks/admin-schedule/useDeleteShift';
+import { useState } from 'react';
 
 export default function MonthWiseSchedule({ scheduleData }) {
     const dispatch = useDispatch();
+    const [employeeId, setEmployeeId] = useState(null);
+    const { mutate: deleteShift } = useDeleteShift();
     const { currentTimeValue } = useSelector(state => state.adminScheduleModule);
     const fixedWeekDays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
     const getCurrentMonthDays = () => {
@@ -86,12 +90,13 @@ export default function MonthWiseSchedule({ scheduleData }) {
         return monthDays;
     };
 
-    const menuOptions = () => {
+    const menuOptions = id => {
         return [
             {
                 label: 'Edit Shift',
                 action: () => {
                     dispatch(openModal({ modalName: 'editShiftModal' }));
+                    setEmployeeId(id);
                 },
                 icon: <Icon styles={{ fill: '#838A91' }} name='pencil' height={14} width={14} />,
             },
@@ -99,6 +104,7 @@ export default function MonthWiseSchedule({ scheduleData }) {
                 label: 'Delete Shift',
                 action: () => {
                     dispatch(openModal({ modalName: 'deleteShiftModal' }));
+                    setEmployeeId(id);
                 },
                 color: 'red',
                 icon: <Icon styles={{ fill: '#F43C02' }} name='trash' height={14} width={14} />,
@@ -120,7 +126,7 @@ export default function MonthWiseSchedule({ scheduleData }) {
         }
     };
 
-    const getScheduleBanner = (empName, cert, start, end) => {
+    const getScheduleBanner = (empName, cert, start, end, session, station, id) => {
         const timeStartInput = start;
         const timeEndInput = end;
         const parsedStartTime = moment(timeStartInput, 'h:mma');
@@ -149,7 +155,7 @@ export default function MonthWiseSchedule({ scheduleData }) {
                                 </IconButton>
                             }
                             from='month wise'
-                            options={menuOptions()}
+                            options={menuOptions(id)}
                         />
                     </div>
                 </div>
@@ -202,7 +208,8 @@ export default function MonthWiseSchedule({ scheduleData }) {
                                                                     shift.start_time,
                                                                     shift.end_time,
                                                                     shift.session || 'Morning',
-                                                                    shift.station || 'First Floor'
+                                                                    shift.station || 'First Floor',
+                                                                    shift.id
                                                                 )}
                                                                 kind={
                                                                     shift.title === 'RN'
@@ -239,7 +246,7 @@ export default function MonthWiseSchedule({ scheduleData }) {
             <DynamicPromptModal
                 modalName='deleteShiftModal'
                 entityName='Shift'
-                // onConfirm={() => denyPto(employeeId)}
+                onConfirm={() => deleteShift(employeeId)}
             />
             <SwxModal modalName='editShiftModal'>
                 <ShiftForm

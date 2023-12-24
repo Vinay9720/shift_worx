@@ -12,7 +12,7 @@ import { openModal } from '@/lib/store/slices/modal-slice';
 import { BannerWrapper, Bannercontainer } from './daily-schedule-banner.styles';
 import { useDispatch } from 'react-redux';
 
-function DailyScheduleBanner({ kind, startTime, endTime, floor, session, style }) {
+function DailyScheduleBanner({ kind, startTime, endTime, floor, session, style, id, setEmployeeId }) {
     const dispatch = useDispatch();
     const menuOptions = () => {
         return [
@@ -20,6 +20,7 @@ function DailyScheduleBanner({ kind, startTime, endTime, floor, session, style }
                 label: 'Edit Shift',
                 action: () => {
                     dispatch(openModal({ modalName: 'editShiftModal' }));
+                    setEmployeeId(id);
                 },
                 icon: <Icon styles={{ fill: '#838A91' }} name='pencil' height={14} width={14} />,
             },
@@ -27,6 +28,7 @@ function DailyScheduleBanner({ kind, startTime, endTime, floor, session, style }
                 label: 'Delete Shift',
                 action: () => {
                     dispatch(openModal({ modalName: 'deleteShiftModal' }));
+                    setEmployeeId(id);
                 },
                 color: 'red',
                 icon: <Icon styles={{ fill: '#F43C02' }} name='trash' height={14} width={14} />,
@@ -94,7 +96,7 @@ function DailyScheduleBanner({ kind, startTime, endTime, floor, session, style }
                             />
                         </IconButton>
                     }
-                    options={menuOptions && menuOptions()}
+                    options={menuOptions && menuOptions(id)}
                     from='daily schedule'
                 />
             </Bannercontainer>

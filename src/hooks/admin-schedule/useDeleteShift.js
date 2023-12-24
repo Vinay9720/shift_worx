@@ -20,7 +20,7 @@ export const useDeleteShift = () => {
             showToast('Shift Deleted Successfully !', 'success');
         },
         onError: error => {
-            showToast(error.response.data.errors[0], 'error');
+            showToast(error.response.data.message, 'error');
         },
     });
 };
