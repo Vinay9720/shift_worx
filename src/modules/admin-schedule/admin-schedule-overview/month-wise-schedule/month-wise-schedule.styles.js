@@ -88,16 +88,18 @@ export const ScheduleBannerContainer = styled.div`
 `;
 
 export const TimeContainer = styled.div`
+    min-width: 77px;
     ${({ theme }) => `
         font-size: ${theme.fontSize.smallest};
         color: ${theme.fontColor.swxBlack};
         font-weight:${theme.fontWeight.thin};
-    `}
+    `};
 `;
 
 export const EmployeeNameContainer = styled.div`
-    width: 38px;
-    overflow: ellipsis;
+    width: 34px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
     ${({ theme }) => `
         font-size: ${theme.fontSize.smallest};
         font-weight:${theme.fontWeight.semiBold};
