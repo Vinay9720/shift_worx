@@ -210,9 +210,9 @@ export default function DayWiseSchedule({ scheduleData }) {
                                                         key={index}
                                                         startTime={shift.start_time}
                                                         endTime={shift.end_time}
-                                                        floor={shift.floor || 'First Floor'}
+                                                        floor={shift.station || 'First Floor'}
                                                         session={shift.session_type || 'Morning'}
-                                                        kind={shift.title || 'CNA'}
+                                                        kind={shift.certificate || 'CNA'}
                                                         style={{
                                                             marginLeft: `${getMargin()}px`,
                                                             width: `${shiftDurationAndMargin[index].duration}px`,

@@ -271,15 +271,15 @@ export default function WeekWiseSchedule({ scheduleData }) {
                                                                             shift.end_time,
                                                                             shift.floor || 'First Floor',
                                                                             shift.session_type || 'Morning',
-                                                                            shift.cert || 'RN',
-                                                                            shift.id
+                                                                            shift.certificate || 'RN',
+                                                                            shift.shift_id
                                                                         )}
                                                                         kind={
-                                                                            shift.title === 'RN'
+                                                                            shift.certificate === 'RN'
                                                                                 ? 'scheduleOrange'
-                                                                                : shift.title === 'LPN'
+                                                                                : shift.certificate === 'LPN'
                                                                                 ? 'scheduleCyan'
-                                                                                : shift.title === 'CNA'
+                                                                                : shift.certificate === 'CNA'
                                                                                 ? 'scheduleMistyRose'
                                                                                 : 'scheduleOrange'
                                                                         }
