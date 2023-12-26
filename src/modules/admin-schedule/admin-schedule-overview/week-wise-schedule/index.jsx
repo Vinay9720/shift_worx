@@ -31,6 +31,7 @@ import { useState } from 'react';
 import { useDeleteShift } from '@/hooks/admin-schedule/useDeleteShift';
 
 export default function WeekWiseSchedule({ scheduleData }) {
+    console.log(scheduleData, 'schedule data');
     const dispatch = useDispatch();
     const { mutate: deleteShift } = useDeleteShift();
     const [employeeId, setEmployeeId] = useState(null);
@@ -271,7 +272,7 @@ export default function WeekWiseSchedule({ scheduleData }) {
                                                                             shift.floor || 'First Floor',
                                                                             shift.session_type || 'Morning',
                                                                             shift.cert || 'RN',
-                                                                            shift.shift_id
+                                                                            shift.id
                                                                         )}
                                                                         kind={
                                                                             shift.title === 'RN'
