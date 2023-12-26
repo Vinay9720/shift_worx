@@ -34,10 +34,14 @@ import {
 import { DailyScheduleBanner, SwxModal, DynamicPromptModal } from '@/lib/common/layout';
 import { convertTo24HourFormat, today } from '@/lib/util';
 import ShiftForm from '../add-shift/ShiftForm';
+import { useDeleteShift } from '@/hooks/admin-schedule/useDeleteShift';
+import { useState } from 'react';
 
 const twidth = '1920';
 
 export default function DayWiseSchedule({ scheduleData }) {
+    const { mutate: deleteShift } = useDeleteShift();
+    const [employeeId, setEmployeeId] = useState(null);
     const { currentTimeValue } = useSelector(state => state.adminScheduleModule);
     const currentTime = new Date();
     const currentHour = currentTime.getHours();
@@ -218,6 +222,8 @@ export default function DayWiseSchedule({ scheduleData }) {
                                                             width: `${shiftDurationAndMargin[index].duration}px`,
                                                             flex: `0 0 auto`,
                                                         }}
+                                                        id={shift.id}
+                                                        setEmployeeId={setEmployeeId}
                                                     />
                                                 );
                                             })}
@@ -234,7 +240,7 @@ export default function DayWiseSchedule({ scheduleData }) {
             <DynamicPromptModal
                 modalName='deleteShiftModal'
                 entityName='Shift'
-                // onConfirm={() => denyPto(employeeId)}
+                onConfirm={() => deleteShift(employeeId)}
             />
             <SwxModal modalName='editShiftModal'>
                 <ShiftForm
