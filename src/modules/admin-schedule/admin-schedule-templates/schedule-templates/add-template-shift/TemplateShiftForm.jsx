@@ -7,53 +7,21 @@ import { Stack } from '@mui/material';
 import { closeModal } from '@/lib/store/slices/modal-slice';
 import { Icon } from '@/lib/common/icons';
 import { SwxButton, SwxTypography } from '@/lib/common/components';
-import {
-    DatePickerField,
-    SelectField,
-    Form,
-    FormSubmitButton,
-    TimePickerField,
-    // InputField,
-} from '@/lib/common/form-components';
+import { SelectField, Form, FormSubmitButton, TimePickerField } from '@/lib/common/form-components';
 import { useEmployees } from '@/hooks/admin-employee';
 import { useCertificateOptions } from '@/hooks/certificate';
 import { useSpecialityOptions } from '@/hooks/speciality';
 import { useFacilityOptions } from '@/hooks/facility';
 
-import { ModalContainer, HeaderContainer, EllipseContainer, CloseContainer, styles } from './add-shift.styles';
-import { useToast } from '@/hooks/common';
-import { convertTo24HourFormat, today } from '@/lib/util';
+import { ModalContainer, HeaderContainer, EllipseContainer, CloseContainer, styles } from './add-template-shift.styles';
 
-export default function ShiftForm({ modalName, title, action: addShift }) {
+export default function TemplateShiftForm({ modalName, title }) {
     const { data: employeesData, isSuccess } = useEmployees(true);
     const { data: certificationOptions } = useCertificateOptions();
     const { data: specialityOptions } = useSpecialityOptions();
     const { data: facilityOptions } = useFacilityOptions();
-    const showToast = useToast();
     const dispatch = useDispatch();
 
-    const shiftSubmitHandler = shiftData => {
-        const startTime = convertTo24HourFormat(shiftData.start_time);
-        const endTime = convertTo24HourFormat(shiftData.end_time);
-        const [startTimeHour, startTimeMinutes] = startTime.split(':');
-        const [endTimeHour, endTimeMinutes] = endTime.split(':');
-        const totalMinutes1 = parseInt(startTimeHour, 10) * 60 + parseInt(startTimeMinutes, 10);
-        const totalMinutes2 = parseInt(endTimeHour, 10) * 60 + parseInt(endTimeMinutes, 10);
-        const differenceInMinutes = totalMinutes2 - totalMinutes1;
-        const timeDifference = differenceInMinutes / 60;
-        if (timeDifference < 4 || timeDifference > 12) {
-            showToast(
-                timeDifference < 4
-                    ? 'Shift Should Greater than 4 Hours !'
-                    : timeDifference > 12
-                    ? 'Shift Should Not Be GreaterThan 12 Hours !'
-                    : '',
-                'warning'
-            );
-        } else {
-            addShift({ shiftData });
-        }
-    };
     const employees = useMemo(() => {
         if (isSuccess) {
             return (employeesData.employees || []).map(employee => {
@@ -71,17 +39,17 @@ export default function ShiftForm({ modalName, title, action: addShift }) {
         }),
     ];
 
-    const dateProps = {
+    const dayProps = {
         label: (
             <SwxTypography color='swxSlightlyBlack' size='semiMedium' weight='semiBold' className='Manrope'>
-                Date
+                Day
             </SwxTypography>
         ),
-        multiple: true,
+        options: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
+        placeholder: '',
         width: '100%',
         required: true,
-        range: false,
-        minDate: today(),
+        padding: '8px 8px',
     };
 
     const roleProps = {
@@ -136,17 +104,17 @@ export default function ShiftForm({ modalName, title, action: addShift }) {
         padding: '8px 8px',
     };
 
-    // const employee2Props = {
-    //     label: (
-    //         <SwxTypography color='swxSlightlyBlack' size='semiMedium' weight='semiBold' className='Manrope'>
-    //             Employee 2
-    //         </SwxTypography>
-    //     ),
-    //     options: employeeOptions,
-    //     placeholder: 'Select employee',
-    //     width: '100%',
-    //     padding: '8px 8px',
-    // };
+    const employee2Props = {
+        label: (
+            <SwxTypography color='swxSlightlyBlack' size='semiMedium' weight='semiBold' className='Manrope'>
+                Employee 2
+            </SwxTypography>
+        ),
+        options: employeeOptions,
+        placeholder: 'Select employee',
+        width: '100%',
+        padding: '8px 8px',
+    };
 
     const startTimeProps = {
         label: (
@@ -179,7 +147,6 @@ export default function ShiftForm({ modalName, title, action: addShift }) {
             </SwxTypography>
         ),
         placeholder: 'Station',
-        // placeholderColor: 'lightGray',
         required: 'Enter station',
         padding: '8px 8px',
         width: '100%',
@@ -201,10 +168,10 @@ export default function ShiftForm({ modalName, title, action: addShift }) {
                     </Stack>
                 </EllipseContainer>
             </HeaderContainer>
-            <Form onSubmit={shiftData => shiftSubmitHandler(shiftData)}>
+            <Form onSubmit={templateShiftData => console.log(templateShiftData)}>
                 <Stack direction='column' spacing={2} sx={{ padding: '0px 24px', mt: 1 }}>
                     <Stack direction='row' spacing={2}>
-                        <DatePickerField name='date' SWXInputProps={dateProps} />
+                        <SelectField name='day' SWXInputProps={dayProps} />
                     </Stack>
                     <Stack sx={styles.timePickerStackStyles}>
                         <Stack sx={styles.timePicker}>
@@ -215,7 +182,6 @@ export default function ShiftForm({ modalName, title, action: addShift }) {
                         </Stack>
                     </Stack>
                     <Stack sx={styles.timePickerStackStyles}>
-                        {/* <InputField name='facility_name' SWXInputProps={stationProps} /> */}
                         <SelectField name='facility_name' SWXInputProps={stationProps} />
                         <SelectField name='role' SWXInputProps={roleProps} />
                     </Stack>
@@ -225,7 +191,7 @@ export default function ShiftForm({ modalName, title, action: addShift }) {
                     </Stack>
                     <Stack sx={styles.timePickerStackStyles}>
                         <SelectField name='employee' SWXInputProps={employeeProps} />
-                        {/* <SelectField name='employee_2' SWXInputProps={employee2Props} /> */}
+                        <SelectField name='employee_2' SWXInputProps={employee2Props} />
                     </Stack>
                     <Stack sx={styles.actionButtons} style={{ marginBottom: '24px', marginTop: '30px' }}>
                         <SwxButton onClick={() => dispatch(closeModal({ modalName }))} variant='text' size='medium'>
