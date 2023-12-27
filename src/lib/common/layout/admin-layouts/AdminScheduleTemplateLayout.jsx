@@ -4,13 +4,7 @@ import { Stack } from '@mui/material';
 import { SwxTypography } from '../../components';
 import { ScheduleTemplateTitleContainer } from './admin-layout.styles';
 
-export default function AdminScheduleTemplateLayout({
-    title,
-    filter,
-    weeklyTemplate,
-    footer,
-    //  monthlyTemplate
-}) {
+export default function AdminScheduleTemplateLayout({ title, filter, weeklyTemplate, footer }) {
     return (
         <>
             <ScheduleTemplateTitleContainer>
@@ -22,7 +16,6 @@ export default function AdminScheduleTemplateLayout({
                 {filter}
                 {weeklyTemplate}
                 {footer}
-                {/* {monthlyTemplate} */}
             </Stack>
         </>
     );

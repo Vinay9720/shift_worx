@@ -1,6 +1,5 @@
 import Filter from './Filter';
 import WeeklyTemplate from './WeeklyTemplate';
-import MonthlyTemplate from './MonthlyTemplate';
 import ActionButtons from './ActionButtons';
 import AdminScheduleTemplateLayout from '@/lib/common/layout/admin-layouts/AdminScheduleTemplateLayout';
 
@@ -11,7 +10,6 @@ export default function AdminScheduleTemplate() {
             filter={<Filter />}
             weeklyTemplate={<WeeklyTemplate />}
             footer={<ActionButtons />}
-            monthlyTemplate={<MonthlyTemplate />}
         />
     );
 }
