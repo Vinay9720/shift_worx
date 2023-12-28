@@ -1,10 +1,13 @@
 'use client';
 
 import { Stack } from '@mui/material';
+import { useSelector } from 'react-redux';
+
 import { SwxTypography } from '../../components';
 import { ScheduleTemplateTitleContainer } from './admin-layout.styles';
 
-export default function AdminScheduleTemplateLayout({ title, filter, weeklyTemplate, footer }) {
+export default function AdminScheduleTemplateLayout({ title, filter, weeklyTemplate, footer, monthlyTemplate }) {
+    const { templateType } = useSelector(state => state.adminScheduleTemplatesModule);
     return (
         <>
             <ScheduleTemplateTitleContainer>
@@ -14,7 +17,7 @@ export default function AdminScheduleTemplateLayout({ title, filter, weeklyTempl
             </ScheduleTemplateTitleContainer>
             <Stack direction='column' spacing={3} sx={{ marginTop: '24px' }}>
                 {filter}
-                {weeklyTemplate}
+                {templateType[0] === 'Weekly' ? weeklyTemplate : monthlyTemplate}
                 {footer}
             </Stack>
         </>

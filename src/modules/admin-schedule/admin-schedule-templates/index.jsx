@@ -8,9 +8,11 @@ import { SwxDataGrid, SwxSwitch } from '@/lib/common/components';
 import SearchFilter from './searchFilter';
 
 import { openModal } from '@/lib/store/slices/modal-slice';
+import { useTemplates } from '@/hooks/admin-schedule-templates';
 
 export default function AdminScheduleTemplates() {
     const dispatch = useDispatch();
+    const { data: templatesData, isLoading: templatesLoading } = useTemplates();
 
     const columns = [
         {
@@ -116,18 +118,6 @@ export default function AdminScheduleTemplates() {
             ),
         },
     ];
-    const rows = [
-        { id: 1, employee: 'Katie L', role: 'RN', status: 'Approved', timeOffRequested: '', Description: '' },
-        { id: 2, employee: 'Henry Ford', role: 'LPN', status: 'Declined', timeOffRequested: '', Description: '' },
-        { id: 3, employee: 'Katie L', role: 'CNA', status: 'Pending', timeOffRequested: '', Description: '' },
-        { id: 4, employee: 'Katie L', role: 'CNA', status: 'Pending', timeOffRequested: '', Description: '' },
-        { id: 5, employee: 'Katie L', role: 'CNA', status: 'Pending', timeOffRequested: '', Description: '' },
-        { id: 6, employee: 'Katie L', role: 'CNA', status: 'Pending', timeOffRequested: '', Description: '' },
-        { id: 7, employee: 'Katie L', role: 'CNA', status: 'Pending', timeOffRequested: '', Description: '' },
-        { id: 8, employee: 'Katie L', role: 'CNA', status: 'Pending', timeOffRequested: '', Description: '' },
-        { id: 9, employee: 'Katie L', role: 'CNA', status: 'Pending', timeOffRequested: '', Description: '' },
-        { id: 10, employee: 'Katie L', role: 'CNA', status: 'Pending', timeOffRequested: '', Description: '' },
-    ];
 
     return (
         <>
@@ -136,7 +126,7 @@ export default function AdminScheduleTemplates() {
                 style={{ marginTop: '3.5rem', marginBottom: '1rem' }}
             />
 
-            <SwxDataGrid checkboxSelection columns={columns} rows={rows} />
+            <SwxDataGrid checkboxSelection columns={columns} rows={templatesData || []} loading={templatesLoading} />
             <DynamicPromptModal
                 modalName='deleteScheduleTemplateModal'
                 // actionName='Delete'
