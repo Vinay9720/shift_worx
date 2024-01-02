@@ -52,6 +52,7 @@ export const StyledDateDetailsContainer = styled.div`
     padding-left: 16px;
     display: flex;
     align-self: center;
+    justify-content: center;
     ${({ theme }) => `
         border-left: 1px solid ${theme.borderColor.lightGray};
     `}

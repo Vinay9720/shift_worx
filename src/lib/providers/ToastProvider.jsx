@@ -8,12 +8,12 @@ import Alert from '@mui/material/Alert';
 import { ToastContext } from '@/hooks/common/useToast';
 
 const SuccessAlert = styled(Alert)`
-    background-color: black !important;
+    background-color: #4caf50 !important;
     color: white !important;
 `;
 
 const ErrorAlert = styled(Alert)`
-    background-color: black !important;
+    background-color: #ff5722 !important;
     color: white !important;
 `;
 
@@ -37,9 +37,9 @@ export const ToastProvider = ({ children }) => {
             {children}
             <Snackbar
                 open={open}
-                autoHideDuration={3000}
+                autoHideDuration={5000}
                 onClose={handleClose}
-                anchorOrigin={{ vertical: 'top', horizontal: 'right' }}>
+                anchorOrigin={{ vertical: 'top', horizontal: 'center' }}>
                 {severity === 'success' ? (
                     <SuccessAlert severity={severity} onClose={handleClose}>
                         {message}

@@ -47,3 +47,13 @@ export const DataGridStyles = {
         },
     },
 };
+export const styles = {
+    noData: {
+        marginTop: '2rem',
+        fontWeight: '700',
+        fontSize: '28px',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+};

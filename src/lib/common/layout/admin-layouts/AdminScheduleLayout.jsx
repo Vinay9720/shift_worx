@@ -21,6 +21,8 @@ import {
 
 import { SwxTypography, SwxTabs, SwxButtonGroup, SwxCalenderInput } from '../../components';
 import { Icon } from '../../icons';
+import MultiDatePicker from '../../components/multi-date-picker';
+import { useState } from 'react';
 
 const adminScheduleTabs = [
     { label: 'Overview', step: 'overview' },
@@ -28,6 +30,7 @@ const adminScheduleTabs = [
 ];
 
 export default function AdminScheduleLayout({ children }) {
+    const [value, setValue] = useState([]);
     const searchParams = useSearchParams();
     const dispatch = useDispatch();
     const { scheduleType, currentTimeValue } = useSelector(state => state.adminScheduleModule);
@@ -180,6 +183,9 @@ export default function AdminScheduleLayout({ children }) {
                                 <span>{getDateDetails()}</span>
                             </StyledDateWrapper>
                             <SwxCalenderInput onChange={handleDateCalenderChange} />
+                            {scheduleType === 'list' && (
+                                <MultiDatePicker multiple range={false} onChange={setValue} value={value} />
+                            )}
                         </StyledDateDetailsContainer>
                     ) : null}
                 </Stack>

@@ -11,6 +11,7 @@ import { StyledDateContainer } from './date-picker.styles';
 
 import SwxTypography from '../typography';
 import { SpanContainer } from '../common.styles';
+import { useEffect, useState } from 'react';
 
 export default function SwxDatePicker({
     width,
@@ -27,6 +28,38 @@ export default function SwxDatePicker({
     minDate,
     maxDate,
 }) {
+    const [calendarPosition, setCalendarPosition] = useState('bottom-center');
+    useEffect(() => {
+        const handleResize = () => {
+            const screenWidth = window.innerWidth;
+            const screenHeight = window.innerHeight;
+
+            let newPosition = 'top-right'; // Default position for large screens
+
+            if (screenWidth < 600) {
+                newPosition = 'bottom-center'; // Small screens
+            } else if (screenWidth < 960) {
+                newPosition = 'top-left'; // Medium screens
+            }
+
+            // Adjust position based on screen height breakpoints
+            if (screenHeight < 500) {
+                newPosition = `bottom-${newPosition.split('-')[1]}`; // Move to the bottom for short screens
+            } else if (screenHeight < 800) {
+                newPosition = `top-${newPosition.split('-')[1]}`; // Move to the top for medium-height screens
+            }
+
+            setCalendarPosition(newPosition);
+        };
+
+        window.addEventListener('resize', handleResize);
+        handleResize();
+
+        return () => {
+            window.removeEventListener('resize', handleResize);
+        };
+    }, []);
+
     return (
         <Stack direction='column' spacing={0.5} style={{ width }}>
             {label && (
@@ -82,6 +115,7 @@ export default function SwxDatePicker({
                     }
                 }}
                 range={range || false}
+                calendarPosition={calendarPosition}
                 plugins={multiple ? [<DatePanel position='left' key='plugin-1' removeButton={false} />] : []}
             />
             {error && (
