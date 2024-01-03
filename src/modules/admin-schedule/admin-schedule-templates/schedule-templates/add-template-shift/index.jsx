@@ -9,9 +9,11 @@ import { SwxModal } from '@/lib/common/layout';
 
 import { styles } from './add-template-shift.styles';
 import TemplateShiftForm from './TemplateShiftForm';
+import { useAddTemplateShift } from '@/hooks/admin-schedule-templates/useAddTemplateShift';
 
 export default function AddShift() {
     const dispatch = useDispatch();
+    const { mutate: addShift } = useAddTemplateShift();
 
     return (
         <div className='flex items-center mt-0'>
@@ -29,7 +31,7 @@ export default function AddShift() {
                 Add Shift
             </SwxButton>
             <SwxModal modalName='addTemplateShiftModal'>
-                <TemplateShiftForm modalName='addTemplateShiftModal' />
+                <TemplateShiftForm modalName='addTemplateShiftModal' action={addShift} />
             </SwxModal>
         </div>
     );
