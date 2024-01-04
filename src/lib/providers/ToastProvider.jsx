@@ -8,13 +8,17 @@ import Alert from '@mui/material/Alert';
 import { ToastContext } from '@/hooks/common/useToast';
 
 const SuccessAlert = styled(Alert)`
-    background-color: #4caf50 !important;
-    color: white !important;
+    ${({ theme }) => `
+        color: ${theme.fontColor.white}!important;
+        background-color:  ${theme.backgroundColor.toastGreen}!important;
+    `}
 `;
 
 const ErrorAlert = styled(Alert)`
-    background-color: #ff5722 !important;
-    color: white !important;
+    ${({ theme }) => `
+        color: ${theme.fontColor.white}!important;
+        background-color:  ${theme.backgroundColor.toastRed}!important;
+    `}
 `;
 
 export const ToastProvider = ({ children }) => {
