@@ -117,9 +117,7 @@ export default function DayWiseSchedule({ scheduleData }) {
                                                             width={16}
                                                         />
                                                     </StyledMarginDiv>
-                                                    <StyledTimeDiv>
-                                                        {emp.shifts[0].start_time.slice(0, 5)}
-                                                    </StyledTimeDiv>
+                                                    <StyledTimeDiv>{emp.shifts[0].planned}</StyledTimeDiv>
                                                     <StyledDotDiv />
                                                     <StyledCalenderDiv>
                                                         <Icon
