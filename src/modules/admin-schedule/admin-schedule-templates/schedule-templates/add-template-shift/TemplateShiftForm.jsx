@@ -1,7 +1,7 @@
 'use client';
 
 import { useMemo } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Stack } from '@mui/material';
 
 import { closeModal } from '@/lib/store/slices/modal-slice';
@@ -15,7 +15,8 @@ import { useFacilityOptions } from '@/hooks/facility';
 
 import { ModalContainer, HeaderContainer, EllipseContainer, CloseContainer, styles } from './add-template-shift.styles';
 
-export default function TemplateShiftForm({ modalName, title }) {
+export default function TemplateShiftForm({ modalName, title, action }) {
+    const { templateType } = useSelector(state => state.adminScheduleTemplatesModule);
     const { data: employeesData, isSuccess } = useEmployees(true);
     const { data: certificationOptions } = useCertificateOptions();
     const { data: specialityOptions } = useSpecialityOptions();
@@ -46,6 +47,19 @@ export default function TemplateShiftForm({ modalName, title }) {
             </SwxTypography>
         ),
         options: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
+        placeholder: '',
+        width: '100%',
+        required: true,
+        padding: '8px 8px',
+    };
+
+    const weekProps = {
+        label: (
+            <SwxTypography color='swxSlightlyBlack' size='semiMedium' weight='semiBold' className='Manrope'>
+                Week
+            </SwxTypography>
+        ),
+        options: ['Week 1', 'Week 2', 'Week 3', 'Week 4', 'Week 5'],
         placeholder: '',
         width: '100%',
         required: true,
@@ -153,6 +167,10 @@ export default function TemplateShiftForm({ modalName, title }) {
         options: ['Station 1', 'Station 2', 'Station 3'],
     };
 
+    const onSubmit = shiftData => {
+        action({ shiftData });
+    };
+
     return (
         <ModalContainer>
             <HeaderContainer>
@@ -168,10 +186,15 @@ export default function TemplateShiftForm({ modalName, title }) {
                     </Stack>
                 </EllipseContainer>
             </HeaderContainer>
-            <Form onSubmit={templateShiftData => console.log(templateShiftData)}>
+            <Form onSubmit={onSubmit}>
                 <Stack direction='column' spacing={2} sx={{ padding: '0px 24px', mt: 1 }}>
+                    {templateType[0] === 'Monthly' && (
+                        <Stack direction='row' spacing={2}>
+                            <SelectField name='week' SWXInputProps={weekProps} />
+                        </Stack>
+                    )}
                     <Stack direction='row' spacing={2}>
-                        <SelectField name='day' SWXInputProps={dayProps} />
+                        <SelectField name='days' SWXInputProps={dayProps} />
                     </Stack>
                     <Stack sx={styles.timePickerStackStyles}>
                         <Stack sx={styles.timePicker}>

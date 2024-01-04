@@ -15,7 +15,7 @@ export default function CreateTemplate() {
                 size='small'
                 onClick={e => {
                     e.preventDefault();
-                    router.push('/admin/schedule/create-template');
+                    router.push('/admin/schedule/create-template/new');
                 }}
                 padding='10px 16px'
                 variant='contained'
