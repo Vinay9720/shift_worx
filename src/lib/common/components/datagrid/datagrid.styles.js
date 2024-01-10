@@ -1,5 +1,8 @@
+import styled from 'styled-components';
+
 export const DataGridStyles = {
     width: '100%',
+    '--DataGrid-overlayHeight': '300px',
     '.MuiDataGrid-columnSeparator': {
         display: 'none',
     },
@@ -49,11 +52,33 @@ export const DataGridStyles = {
 };
 export const styles = {
     noData: {
-        marginTop: '2rem',
-        fontWeight: '700',
-        fontSize: '28px',
+        marginTop: '0.5rem',
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
     },
 };
+
+export const StyledGridOverlay = styled('div')({
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: '100%',
+    '& .ant-empty-img-1': {
+        fill: '#aeb8c2',
+    },
+    '& .ant-empty-img-2': {
+        fill: '#f5f5f7',
+    },
+    '& .ant-empty-img-3': {
+        fill: '#dce0e6',
+    },
+    '& .ant-empty-img-4': {
+        fill: '#fff',
+    },
+    '& .ant-empty-img-5': {
+        fillOpacity: '0.8',
+        fill: '#f5f5f5',
+    },
+});
