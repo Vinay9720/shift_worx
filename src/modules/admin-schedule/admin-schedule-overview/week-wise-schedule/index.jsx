@@ -5,13 +5,13 @@
 'use client';
 
 import moment from 'moment';
-import { Avatar, IconButton } from '@mui/material';
+import { Avatar, IconButton, Stack } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { isEmpty } from 'lodash';
 
 import { Badge } from '@/lib/common/layout/daily-schedule-banner';
 import { Icon } from '@/lib/common/icons';
-import { SwxPopupMenu } from '@/lib/common/components';
+import { SwxPopupMenu, SwxTypography } from '@/lib/common/components';
 
 import {
     UsersContainer,
@@ -22,6 +22,18 @@ import {
     StyledRootContainer,
     ShowMoreButtonWrapper,
     StyledShowMoreButton,
+    StyledNoScheduleContainer,
+    StyledDot,
+    StyledNumberContainer,
+    StyledIconContainer,
+    StyledSubWeekDayContainer,
+    StyledDayContainer,
+    StyledCurrentWeekDay,
+    StyledCurrentDayButton,
+    StyledNameContainer,
+    StyledFlexContainer,
+    StyledSessionContainer,
+    StyledGridWeekDayContainer,
 } from './week-wise-schedule.styles';
 import ShiftForm from '../add-shift/ShiftForm';
 import { SwxModal, DynamicPromptModal } from '@/lib/common/layout';
@@ -73,31 +85,35 @@ export default function WeekWiseSchedule({ scheduleData }) {
 
     const getScheduleBanner = (start, end, floor, session, cert, id) => {
         return (
-            <div className='columns'>
-                <div className='flex gap-2'>
-                    <Badge kind='certPink' styles='px-[2px] text-white h-fit' text={cert || 'RN'} />
-                    <div className='text-sm font-bold text-black'>
-                        <div className='flex'>
-                            <div className='text-sm font-semibold'>
+            <Stack direction='column'>
+                <Stack direction='row' spacing={1}>
+                    <Badge kind='certPink' styles='px-[1px] text-white h-fit' text={cert || 'RN'} />
+                    <div>
+                        <Stack direction='row'>
+                            <SwxTypography color='swxBlack' weight='semiBold' size='small' className='Manrope'>
                                 {start} {`>`} {end}{' '}
-                            </div>
-                        </div>
-                        <div className='text-sm font-semibold text-newLightGray'>{floor}</div>
+                            </SwxTypography>
+                        </Stack>
+                        <SwxTypography color='lightGray' weight='semiBold' size='small' className='Manrope'>
+                            {floor}
+                        </SwxTypography>
                     </div>
-                </div>
-                <div className='flex justify-between mt-2'>
-                    <div className='py-[4px] px-2 w-fit flex text-sm font-semibold bg-white rounded'>
-                        <div className='flex self-center mr-1'>
+                </Stack>
+                <StyledFlexContainer>
+                    <StyledSessionContainer>
+                        <StyledIconContainer>
                             <Icon
                                 styles={{ fill: '#1DB304' }}
                                 name='activity-status'
                                 aria-hidden='true'
-                                height={15}
+                                height={12}
                                 width={12}
                             />
-                        </div>
-                        <div className='text-newBlackColor text-[12px]'>{session}</div>
-                    </div>
+                        </StyledIconContainer>
+                        <SwxTypography color='swxBlack' weight='semiBold' size='smallest' className='Manrope'>
+                            {session}
+                        </SwxTypography>
+                    </StyledSessionContainer>
                     <SwxPopupMenu
                         buttonElement={
                             <IconButton>
@@ -112,8 +128,8 @@ export default function WeekWiseSchedule({ scheduleData }) {
                         }
                         options={menuOptions(id)}
                     />
-                </div>
-            </div>
+                </StyledFlexContainer>
+            </Stack>
         );
     };
 
@@ -130,17 +146,15 @@ export default function WeekWiseSchedule({ scheduleData }) {
                     ? scheduleData.records.map((emp, i) => {
                           return (
                               <div style={styles.mainDiv} key={i}>
-                                  <div className='row-span-2'>
-                                      <Avatar sx={{ width: 42, height: 42, bgcolor: '#1F6FA9' }}>{`${
-                                          emp.name.split('')[0].toUpperCase() || 'K'
-                                      }`}</Avatar>
-                                  </div>
+                                  <Avatar sx={{ width: 42, height: 42, bgcolor: '#1F6FA9' }}>{`${
+                                      emp.name.split('')[0].toUpperCase() || 'K'
+                                  }`}</Avatar>
                                   <div>
-                                      <div className='items-center justify-space-evenly col-span-1  font-semibold text-default text-newBlackColor'>
+                                      <StyledNameContainer>
                                           {`${emp.name.slice(0, 7)} ${emp.name.slice(7, 8).toUpperCase()}`}
-                                      </div>
-                                      <div className='flex flex-row '>
-                                          <div className='flex items-center justify-center mr-2'>
+                                      </StyledNameContainer>
+                                      <Stack direction='row'>
+                                          <StyledIconContainer>
                                               <Icon
                                                   styles={{ fill: '#838A91' }}
                                                   name='clock'
@@ -148,12 +162,10 @@ export default function WeekWiseSchedule({ scheduleData }) {
                                                   height={16}
                                                   width={16}
                                               />
-                                          </div>
-                                          <div className='flex items-center justify-center mr-2 text-sm font-medium text-newLightGray'>
-                                              {emp.start_time || '08:00hrs'}
-                                          </div>
-                                          <div className='flex items-center justify-center mt-2 mr-2 gray_dot' />
-                                          <div className='flex items-center justify-center mr-2'>
+                                          </StyledIconContainer>
+                                          <StyledNumberContainer>{emp.start_time || '08:00hrs'}</StyledNumberContainer>
+                                          <StyledDot />
+                                          <StyledIconContainer>
                                               <Icon
                                                   styles={{ fill: '#838A91' }}
                                                   name='calender'
@@ -161,11 +173,9 @@ export default function WeekWiseSchedule({ scheduleData }) {
                                                   height={16}
                                                   width={16}
                                               />
-                                          </div>
-                                          <div className='flex items-center justify-center mr-2 text-sm font-medium text-newLightGray'>
-                                              {emp.schedule_count || 1}
-                                          </div>
-                                      </div>
+                                          </StyledIconContainer>
+                                          <StyledNumberContainer>{emp.schedule_count || 1}</StyledNumberContainer>
+                                      </Stack>
                                   </div>
                               </div>
                           );
@@ -178,66 +188,56 @@ export default function WeekWiseSchedule({ scheduleData }) {
                         <WeekDaysContainer
                             isCurrentDate={parseInt(weekDay.date.split('-')[0]) === new Date().getDate()}
                             key={index}>
-                            <div style={{ display: 'flex' }}>
-                                <div className='mr-3 font-medium text-semi text-newBlackColor'>
+                            <Stack direction='row'>
+                                <StyledCurrentWeekDay>
                                     {parseInt(weekDay.date.split('-')[0]) === new Date().getDate() ? (
-                                        <button className='text-white rounded-full bg-newBorderBlue w-7 h-7 hover:bg-black-500'>
-                                            {weekDay.date.split('-')[0]}
-                                        </button>
+                                        <StyledCurrentDayButton>{weekDay.date.split('-')[0]}</StyledCurrentDayButton>
                                     ) : (
                                         <>
-                                            <button className='font-medium bg-white rounded-full w-7 h-7 text-semi'>
-                                                {weekDay.date.split('-')[0]}
-                                            </button>
+                                            <p>{weekDay.date.split('-')[0]}</p>
                                         </>
                                     )}
-                                </div>
-                                <div className='flex items-center'>
-                                    <p className='font-medium text-semi text-newBlackColor'>{weekDay.weekday}</p>
-                                </div>
-                            </div>
-                            <div className='flex-col text-sm font-normal text-darkGray'>
-                                <div className='flex flex-row mt-2'>
-                                    <div className='flex items-center justify-center mr-1'>
-                                        <Icon
-                                            styles={{ fill: '#838A91' }}
-                                            name='clock'
-                                            aria-hidden='true'
-                                            height={16}
-                                            width={16}
-                                        />
-                                    </div>
-                                    <div className='flex items-center justify-center mr-1 text-sm font-normal text-iconText'>
-                                        0:00
-                                    </div>
-                                    <div className='flex items-center justify-center mt-2 mr-1 gray_dot' />
-                                    <div className='flex items-center justify-center mr-1'>
-                                        <Icon
-                                            styles={{ fill: '#838A91' }}
-                                            name='calender'
-                                            aria-hidden='true'
-                                            height={16}
-                                            width={16}
-                                        />
-                                    </div>
-                                    <div className='flex items-center justify-center mr-1 text-sm font-normal text-iconText'>
-                                        0
-                                    </div>
-                                    <div className='flex items-center justify-center mt-2 mr-1 gray_dot' />
-                                    <div className='flex items-center justify-center mr-1'>
-                                        <Icon
-                                            styles={{ fill: '#838A91' }}
-                                            name='user'
-                                            aria-hidden='true'
-                                            height={16}
-                                            width={16}
-                                        />
-                                    </div>
-                                    <div className='flex items-center justify-center mr-1 text-sm font-normal text-iconText'>
-                                        0
-                                    </div>
-                                </div>
-                            </div>
+                                </StyledCurrentWeekDay>
+                                <StyledDayContainer>
+                                    <SwxTypography size='semiLarge' color='swxBlack' weight='thin' className='Manrope'>
+                                        {weekDay.weekday}
+                                    </SwxTypography>
+                                </StyledDayContainer>
+                            </Stack>
+                            <StyledSubWeekDayContainer>
+                                <StyledIconContainer>
+                                    <Icon
+                                        styles={{ fill: '#838A91' }}
+                                        name='clock'
+                                        aria-hidden='true'
+                                        height={16}
+                                        width={16}
+                                    />
+                                </StyledIconContainer>
+                                <StyledNumberContainer>0:00</StyledNumberContainer>
+                                <StyledDot />
+                                <StyledIconContainer>
+                                    <Icon
+                                        styles={{ fill: '#838A91' }}
+                                        name='calender'
+                                        aria-hidden='true'
+                                        height={16}
+                                        width={16}
+                                    />
+                                </StyledIconContainer>
+                                <StyledNumberContainer>0</StyledNumberContainer>
+                                <StyledDot />
+                                <StyledIconContainer>
+                                    <Icon
+                                        styles={{ fill: '#838A91' }}
+                                        name='user'
+                                        aria-hidden='true'
+                                        height={16}
+                                        width={16}
+                                    />
+                                </StyledIconContainer>
+                                <StyledNumberContainer>0</StyledNumberContainer>
+                            </StyledSubWeekDayContainer>
                         </WeekDaysContainer>
                     ))}
                 </UsersContainer>
@@ -247,12 +247,7 @@ export default function WeekWiseSchedule({ scheduleData }) {
                             <StyledWeekDaysContainer key={i}>
                                 {weekdays.map((weekDay, index) => {
                                     return (
-                                        <div
-                                            className={`flex items-center ${
-                                                parseInt(weekDay.date.split('-')[0]) === new Date().getDate() &&
-                                                'bg-newLighterGray'
-                                            } justify-center min-w-[205px] py-3 border-l border-t border-borderGray text-darkGray text-sm font-medium flex-col gap-2 min-h-[96px]`}
-                                            key={index}>
+                                        <StyledGridWeekDayContainer weekDay={weekDay} key={index}>
                                             <div key={index}>
                                                 {Object.entries(emp.shifts).map(([date, shifts]) => {
                                                     if (
@@ -261,9 +256,7 @@ export default function WeekWiseSchedule({ scheduleData }) {
                                                         const duplicateShifts = [...shifts];
                                                         return duplicateShifts.slice(0, 1).map((shift, key) => (
                                                             <div key={key}>
-                                                                <div
-                                                                    className='flex text-light'
-                                                                    style={{ width: '200px', height: '90px' }}>
+                                                                <div style={{ width: '200px', height: '90px' }}>
                                                                     <Badge
                                                                         text={getScheduleBanner(
                                                                             shift.start_time,
@@ -300,18 +293,14 @@ export default function WeekWiseSchedule({ scheduleData }) {
                                                     return null;
                                                 })}
                                             </div>
-                                        </div>
+                                        </StyledGridWeekDayContainer>
                                     );
                                 })}
                             </StyledWeekDaysContainer>
                         );
                     })
                 ) : (
-                    <div
-                        className='flex flex-row p-3 bg-white border border-b-0 border-r-0 text-default text-darkGray border-borderGray'
-                        style={{ width: '1435px' }}>
-                        No schedules to display.
-                    </div>
+                    <StyledNoScheduleContainer>No schedules to display.</StyledNoScheduleContainer>
                 )}
             </div>
             <DynamicPromptModal
