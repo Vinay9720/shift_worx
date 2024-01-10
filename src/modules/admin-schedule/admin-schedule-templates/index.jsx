@@ -1,6 +1,7 @@
 'use client';
 
 import { IconButton } from '@mui/material';
+import { useMemo } from 'react';
 import { useDispatch } from 'react-redux';
 import { SwxPagination, DynamicPromptModal } from '@/lib/common/layout';
 import { Icon } from '@/lib/common/icons';
@@ -12,7 +13,14 @@ import { useTemplates } from '@/hooks/admin-schedule-templates';
 
 export default function AdminScheduleTemplates() {
     const dispatch = useDispatch();
-    const { data: templatesData, isLoading: templatesLoading } = useTemplates();
+    const { data: templatesData, isLoading: templatesLoading, isSuccess } = useTemplates();
+
+    const templates = useMemo(() => {
+        if (isSuccess) {
+            return templatesData.templates;
+        }
+        return [];
+    }, [templatesData]);
 
     const columns = [
         {
@@ -22,22 +30,18 @@ export default function AdminScheduleTemplates() {
             renderCell: params => params.value || 'Week #1 Schedule',
             align: 'left',
             filterable: false,
-            // flex: 1,
-            // minWidth: 120,
         },
         {
-            field: 'totalShift',
+            field: 'total_shifts',
             headerName: 'Total Shift',
             width: 120,
             align: 'left',
-            // minWidth: 100,
-            // flex: 1,
             sortable: false,
             filterable: false,
             renderCell: params => params.value || 32,
         },
         {
-            field: 'totalUnfilledShift',
+            field: 'unfilled_shifts',
             headerName: 'Total Unfilled Shift',
             width: 160,
             align: 'left',
@@ -48,7 +52,7 @@ export default function AdminScheduleTemplates() {
             renderCell: params => params.value || 8,
         },
         {
-            field: 'templateWeeks',
+            field: 'template_week',
             headerName: 'Template Week(s)',
             width: 160,
             align: 'left',
@@ -59,7 +63,7 @@ export default function AdminScheduleTemplates() {
             // minWidth: 120,
         },
         {
-            field: 'scheduledEmployees',
+            field: 'scheduled_employees',
             headerName: 'Scheduled Employees',
             width: 180,
             align: 'left',
@@ -70,7 +74,7 @@ export default function AdminScheduleTemplates() {
             // minWidth: 120,
         },
         {
-            field: 'schedulableHours',
+            field: 'scheduled_hours',
             headerName: 'Schedulable Hours',
             width: 160,
             align: 'left',
@@ -126,7 +130,7 @@ export default function AdminScheduleTemplates() {
                 style={{ marginTop: '3.5rem', marginBottom: '1rem' }}
             />
 
-            <SwxDataGrid checkboxSelection columns={columns} rows={templatesData || []} loading={templatesLoading} />
+            <SwxDataGrid checkboxSelection columns={columns} rows={templates || []} loading={templatesLoading} />
             <DynamicPromptModal
                 modalName='deleteScheduleTemplateModal'
                 // actionName='Delete'

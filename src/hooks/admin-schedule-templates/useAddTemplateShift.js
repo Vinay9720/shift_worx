@@ -31,7 +31,7 @@ export const useAddTemplateShift = () => {
             },
             shift_template: {
                 template_type: lowerCase(templateType[0]),
-                id: templateId || null,
+                id: templateId !== 'new' ? templateId : null,
             },
         };
         return AdminScheduleTemplatesService.addTemplateShift(payload);
