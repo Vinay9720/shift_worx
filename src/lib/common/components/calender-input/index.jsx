@@ -5,8 +5,10 @@ import { Calendar } from 'react-multi-date-picker';
 import { CalenderContainer } from './calender-input.styles';
 
 import { Icon } from '../../icons';
+import moment from 'moment';
+import { isArray } from 'lodash';
 
-const SwxCalenderInput = ({ onChange }) => {
+const SwxCalenderInput = ({ onChange, range, rangeHover }) => {
     const [calendarOpen, setCalendarOpen] = useState(false);
     const calendarRef = useRef(null);
 
@@ -42,9 +44,24 @@ const SwxCalenderInput = ({ onChange }) => {
                 <>
                     <CalenderContainer>
                         <Calendar
-                            onChange={date => {
-                                setCalendarOpen(false);
-                                onChange(date);
+                            range={range}
+                            rangeHover={rangeHover}
+                            onChange={dates => {
+                                if (isArray(dates)) {
+                                    // When multiple dates are selected
+                                    const formattedDates = dates.map(d => {
+                                        const { day, month, year } = d;
+                                        const date = moment({ month: month.index, day, year });
+                                        return date.format('MM-DD-YYYY');
+                                    });
+                                    if (formattedDates.length === 2) {
+                                        setCalendarOpen(false);
+                                        onChange(formattedDates);
+                                    }
+                                } else {
+                                    setCalendarOpen(false);
+                                    onChange(dates);
+                                }
                             }}
                         />
                     </CalenderContainer>

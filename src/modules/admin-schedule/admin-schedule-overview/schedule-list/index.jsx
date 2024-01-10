@@ -33,10 +33,10 @@ export default function ScheduleList({ scheduleData, isLoading }) {
             renderCell: params => (
                 <Stack direction='row' spacing={1} alignItems='center' style={{ cursor: 'pointer' }}>
                     <Avatar sx={{ width: 32, height: 32, bgcolor: '#1F6FA9' }}>{`${
-                        params.row.name.split('')[0].toUpperCase() || 'K'
+                        params.row.name ? params.row.name.split('')[0].toUpperCase() : 'U'
                     }`}</Avatar>
                     <SwxTypography color='swxBlack' size='semiMedium' weight='semiBold' className='Manrope'>{`${
-                        params.row.name || ''
+                        params.row.name ? params.row.name : 'Un assigned'
                     }`}</SwxTypography>
                 </Stack>
             ),

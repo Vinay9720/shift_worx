@@ -21,8 +21,7 @@ import {
 
 import { SwxTypography, SwxTabs, SwxButtonGroup, SwxCalenderInput } from '../../components';
 import { Icon } from '../../icons';
-import MultiDatePicker from '../../components/multi-date-picker';
-import { useState } from 'react';
+import { isArray } from 'lodash';
 
 const adminScheduleTabs = [
     { label: 'Overview', step: 'overview' },
@@ -30,7 +29,6 @@ const adminScheduleTabs = [
 ];
 
 export default function AdminScheduleLayout({ children }) {
-    const [value, setValue] = useState([]);
     const searchParams = useSearchParams();
     const dispatch = useDispatch();
     const { scheduleType, currentTimeValue } = useSelector(state => state.adminScheduleModule);
@@ -79,9 +77,12 @@ export default function AdminScheduleLayout({ children }) {
     const handleDateCalenderChange = dateObject => {
         const { year, month, day } = dateObject;
         const formattedDate = moment(`${month}-${day}-${year}`, 'MM-DD-YYYY');
-        if (scheduleType === 'daily' || scheduleType === 'weekly' || scheduleType === 'list') {
+        if (scheduleType === 'daily' || scheduleType === 'weekly') {
             dispatch(setCurrentTimeValue(formattedDate.format('ddd, MMM D, YYYY')));
             return null;
+        }
+        if (scheduleType === 'list') {
+            dispatch(setCurrentTimeValue(dateObject));
         }
 
         if (scheduleType === 'monthly') {
@@ -102,7 +103,9 @@ export default function AdminScheduleLayout({ children }) {
                         </IconButton>
                     </Stack>
                 )}
-                <StyledCurrentTime>{currentTimeValue}</StyledCurrentTime>
+                <StyledCurrentTime>
+                    {isArray(currentTimeValue) ? `${currentTimeValue[0]} to  ${currentTimeValue[1]}` : currentTimeValue}
+                </StyledCurrentTime>
             </StyledDateContainer>
         );
     };
@@ -182,10 +185,11 @@ export default function AdminScheduleLayout({ children }) {
                             <StyledDateWrapper>
                                 <span>{getDateDetails()}</span>
                             </StyledDateWrapper>
-                            <SwxCalenderInput onChange={handleDateCalenderChange} />
-                            {scheduleType === 'list' && (
-                                <MultiDatePicker multiple range={false} onChange={setValue} value={value} />
-                            )}
+                            <SwxCalenderInput
+                                onChange={handleDateCalenderChange}
+                                range={scheduleType === 'list' && true}
+                                rangeHover={scheduleType === 'list' && true}
+                            />
                         </StyledDateDetailsContainer>
                     ) : null}
                 </Stack>
