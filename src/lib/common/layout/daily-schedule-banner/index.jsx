@@ -11,14 +11,18 @@ import { openModal } from '@/lib/store/slices/modal-slice';
 
 import { BannerWrapper, Bannercontainer } from './daily-schedule-banner.styles';
 import { useDispatch } from 'react-redux';
+import AdminScheduleService from '@/services/admin-schedule';
 
-function DailyScheduleBanner({ kind, startTime, endTime, floor, session, style, id, setEmployeeId }) {
+function DailyScheduleBanner({ kind, startTime, endTime, floor, session, style, id, setEmployeeId, setShiftData }) {
     const dispatch = useDispatch();
     const menuOptions = () => {
         return [
             {
                 label: 'Edit Shift',
-                action: () => {
+                action: async () => {
+                    const response = await AdminScheduleService.editShift(id);
+                    const data = await response.data;
+                    setShiftData(data);
                     dispatch(openModal({ modalName: 'editShiftModal' }));
                     setEmployeeId(id);
                 },

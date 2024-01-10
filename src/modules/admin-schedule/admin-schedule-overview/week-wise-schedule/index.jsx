@@ -40,12 +40,15 @@ import { SwxModal, DynamicPromptModal } from '@/lib/common/layout';
 import { openModal } from '@/lib/store/slices/modal-slice';
 import { setCurrentTimeValue, setScheduleType } from '@/lib/store/slices/admin-schedule-module';
 import { useState } from 'react';
-import { useDeleteShift } from '@/hooks/admin-schedule/useDeleteShift';
+import { useEditShift, useDeleteShift } from '@/hooks/admin-schedule';
+import AdminScheduleService from '@/services/admin-schedule';
 
 export default function WeekWiseSchedule({ scheduleData }) {
     const dispatch = useDispatch();
     const { mutate: deleteShift } = useDeleteShift();
     const [employeeId, setEmployeeId] = useState(null);
+    const [shiftData, setShiftData] = useState();
+    const { mutate: updateShift } = useEditShift(employeeId, shiftData && shiftData);
     const { currentTimeValue } = useSelector(state => state.adminScheduleModule);
     const getCurrentWeekdays = () => {
         const weekdaysWithDates = [];
@@ -63,7 +66,10 @@ export default function WeekWiseSchedule({ scheduleData }) {
         return [
             {
                 label: 'Edit Shift',
-                action: () => {
+                action: async () => {
+                    const response = await AdminScheduleService.editShift(id);
+                    const data = await response.data;
+                    setShiftData(data);
                     dispatch(openModal({ modalName: 'editShiftModal' }));
                     setEmployeeId(id);
                 },
@@ -147,11 +153,13 @@ export default function WeekWiseSchedule({ scheduleData }) {
                           return (
                               <div style={styles.mainDiv} key={i}>
                                   <Avatar sx={{ width: 42, height: 42, bgcolor: '#1F6FA9' }}>{`${
-                                      emp.name.split('')[0].toUpperCase() || 'K'
+                                      emp.name ? emp.name.split('')[0].toUpperCase() : 'U'
                                   }`}</Avatar>
                                   <div>
                                       <StyledNameContainer>
-                                          {`${emp.name.slice(0, 7)} ${emp.name.slice(7, 8).toUpperCase()}`}
+                                          {`${emp.name ? emp.name.slice(0, 7) : 'Un assigned'} ${
+                                              emp.name ? emp.name.slice(7, 8).toUpperCase() : ''
+                                          }`}
                                       </StyledNameContainer>
                                       <Stack direction='row'>
                                           <StyledIconContainer>
@@ -309,11 +317,7 @@ export default function WeekWiseSchedule({ scheduleData }) {
                 onConfirm={() => deleteShift(employeeId)}
             />
             <SwxModal modalName='editShiftModal'>
-                <ShiftForm
-                    modalName='editShiftModal'
-                    title='Edit'
-                    // action={addShift}
-                />
+                <ShiftForm modalName='editShiftModal' title='Edit' employeeShiftData={shiftData} action={updateShift} />
             </SwxModal>
         </StyledRootContainer>
     );

@@ -26,12 +26,15 @@ import { SwxModal, DynamicPromptModal } from '@/lib/common/layout';
 import ShiftForm from '../add-shift/ShiftForm';
 import { openModal } from '@/lib/store/slices/modal-slice';
 import { setCurrentTimeValue, setScheduleType } from '@/lib/store/slices/admin-schedule-module';
-import { useDeleteShift } from '@/hooks/admin-schedule/useDeleteShift';
 import { useState } from 'react';
+import AdminScheduleService from '@/services/admin-schedule';
+import { useEditShift, useDeleteShift } from '@/hooks/admin-schedule';
 
 export default function MonthWiseSchedule({ scheduleData }) {
     const dispatch = useDispatch();
     const [employeeId, setEmployeeId] = useState(null);
+    const [shiftData, setShiftData] = useState();
+    const { mutate: updateShift } = useEditShift(employeeId, shiftData && shiftData);
     const { mutate: deleteShift } = useDeleteShift();
     const { currentTimeValue } = useSelector(state => state.adminScheduleModule);
     const fixedWeekDays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
@@ -94,7 +97,10 @@ export default function MonthWiseSchedule({ scheduleData }) {
         return [
             {
                 label: 'Edit Shift',
-                action: () => {
+                action: async () => {
+                    const response = await AdminScheduleService.editShift(id);
+                    const data = await response.data;
+                    setShiftData(data);
                     dispatch(openModal({ modalName: 'editShiftModal' }));
                     setEmployeeId(id);
                 },
@@ -249,11 +255,7 @@ export default function MonthWiseSchedule({ scheduleData }) {
                 onConfirm={() => deleteShift(employeeId)}
             />
             <SwxModal modalName='editShiftModal'>
-                <ShiftForm
-                    modalName='editShiftModal'
-                    title='Edit'
-                    // action={addShift}
-                />
+                <ShiftForm modalName='editShiftModal' title='Edit' employeeShiftData={shiftData} action={updateShift} />
             </SwxModal>
         </StyledRootMainContainer>
     );
