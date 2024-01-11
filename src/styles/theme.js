@@ -34,6 +34,8 @@ export const white = {
         palePink: '#FCEBF1',
         lighterGreen: '#02B692',
         switchGreen: '#1BD304',
+        toastGreen: '#4CAF50',
+        toastRed: '#FF5722',
         switchGray: '#C6D2D6',
         paleGreen: '#E6FFFA',
         lightOrange: '#F47602',

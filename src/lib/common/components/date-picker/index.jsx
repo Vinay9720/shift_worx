@@ -11,6 +11,7 @@ import { StyledDateContainer } from './date-picker.styles';
 
 import SwxTypography from '../typography';
 import { SpanContainer } from '../common.styles';
+import { useCalendarPosition } from '@/hooks/common';
 
 export default function SwxDatePicker({
     width,
@@ -27,6 +28,8 @@ export default function SwxDatePicker({
     minDate,
     maxDate,
 }) {
+    const calendarPosition = useCalendarPosition();
+
     return (
         <Stack direction='column' spacing={0.5} style={{ width }}>
             {label && (
@@ -82,6 +85,7 @@ export default function SwxDatePicker({
                     }
                 }}
                 range={range || false}
+                calendarPosition={calendarPosition}
                 plugins={multiple ? [<DatePanel position='left' key='plugin-1' removeButton={false} />] : []}
             />
             {error && (

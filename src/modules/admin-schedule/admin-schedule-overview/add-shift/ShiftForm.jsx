@@ -13,7 +13,7 @@ import {
     Form,
     FormSubmitButton,
     TimePickerField,
-    // InputField,
+    InputField,
 } from '@/lib/common/form-components';
 import { useEmployees } from '@/hooks/admin-employee';
 import { useCertificateOptions } from '@/hooks/certificate';
@@ -48,25 +48,32 @@ export default function ShiftForm({ modalName, title, action: addShift, employee
     const shiftSubmitHandler = shiftData => {
         const startTime = convertTo24HourFormat(shiftData.start_time);
         const endTime = convertTo24HourFormat(shiftData.end_time);
-        const [startTimeHour, startTimeMinutes] = startTime.split(':');
-        const [endTimeHour, endTimeMinutes] = endTime.split(':');
-        const totalMinutes1 = parseInt(startTimeHour, 10) * 60 + parseInt(startTimeMinutes, 10);
-        const totalMinutes2 = parseInt(endTimeHour, 10) * 60 + parseInt(endTimeMinutes, 10);
-        const differenceInMinutes = totalMinutes2 - totalMinutes1;
+
+        const [startHour, startMinute] = startTime.split(':').map(Number);
+        const [endHour, endMinute] = endTime.split(':').map(Number);
+
+        // Convert start and end times to minutes
+        const totalMinutes1 = startHour * 60 + startMinute;
+        const totalMinutes2 = endHour * 60 + endMinute;
+
+        // Handle the case where the shift spans across midnight
+        const differenceInMinutes =
+            totalMinutes2 >= totalMinutes1 ? totalMinutes2 - totalMinutes1 : 24 * 60 - totalMinutes1 + totalMinutes2;
+
         const timeDifference = differenceInMinutes / 60;
+
         if (timeDifference < 4 || timeDifference > 12) {
             showToast(
                 timeDifference < 4
-                    ? 'Shift Should Greater than 4 Hours !'
-                    : timeDifference > 12
-                    ? 'Shift Should Not Be GreaterThan 12 Hours !'
-                    : '',
+                    ? 'Shift duration must be at least 4 hours!'
+                    : 'Shift Should Not Be Greater Than 12 Hours!',
                 'warning'
             );
         } else {
             addShift({ shiftData });
         }
     };
+
     const employees = useMemo(() => {
         if (isSuccess) {
             return (employeesData.employees || []).map(employee => {
@@ -198,6 +205,19 @@ export default function ShiftForm({ modalName, title, action: addShift, employee
         width: '100%',
         options: ['Station 1', 'Station 2', 'Station 3'],
     };
+    const SpecialInstructionsProps = {
+        label: (
+            <SwxTypography color='swxSlightlyBlack' size='semiMedium' weight='semiBold' className='Manrope'>
+                Special Instructions / Notes
+            </SwxTypography>
+        ),
+        placeholder: '',
+        required: 'Write your Instructions',
+        multiline: true,
+        padding: '0px',
+        // rows: 4,
+        style: { gap: '1px' },
+    };
 
     return (
         <ModalContainer>
@@ -239,6 +259,9 @@ export default function ShiftForm({ modalName, title, action: addShift, employee
                     <Stack sx={styles.timePickerStackStyles}>
                         <SelectField name='employee' SWXInputProps={employeeProps} />
                         {/* <SelectField name='employee_2' SWXInputProps={employee2Props} /> */}
+                    </Stack>
+                    <Stack direction={{ xs: 'column', sm: 'row' }}>
+                        <InputField name='description' SWXInputProps={SpecialInstructionsProps} />
                     </Stack>
                     <Stack sx={styles.actionButtons} style={{ marginBottom: '24px', marginTop: '30px' }}>
                         <SwxButton onClick={() => dispatch(closeModal({ modalName }))} variant='text' size='medium'>
