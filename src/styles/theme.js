@@ -7,6 +7,7 @@ export const white = {
         lightGray: '#838A91',
         lighterGray: '#E6E8E9',
         gray: '#CCCCCC',
+        swxGray: '#83838B',
         darkestGray: '#373E40',
         swxBlack: '#030303',
         mediumGreen: '#1DB304',

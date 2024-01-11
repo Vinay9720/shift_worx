@@ -10,6 +10,7 @@ import SwxPagination from './pagination';
 import DynamicPromptModal from './dynamic-prompt-modal';
 import DailyScheduleBanner from './daily-schedule-banner';
 import NoRowsOverlay from './no-rows-overlay';
+import OpenShifts from './open-shifts';
 
 export {
     NavBar,
@@ -24,4 +25,5 @@ export {
     DynamicPromptModal,
     DailyScheduleBanner,
     NoRowsOverlay,
+    OpenShifts,
 };
