@@ -263,7 +263,7 @@ export default function WeekWiseSchedule({ scheduleData }) {
                                                                             shift.end_time,
                                                                             shift.floor || 'First Floor',
                                                                             shift.session_type || 'Morning',
-                                                                            shift.certificate || 'RN',
+                                                                            shift.certificate.abbreviation || 'RN',
                                                                             shift.shift_id
                                                                         )}
                                                                         kind={
