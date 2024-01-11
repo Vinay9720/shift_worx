@@ -204,7 +204,7 @@ export default function MonthWiseSchedule({ scheduleData }) {
                                                             <Badge
                                                                 text={getScheduleBanner(
                                                                     employeeName,
-                                                                    shift.certificate || 'RN',
+                                                                    shift.certificate.abbreviation || 'RN',
                                                                     shift.start_time,
                                                                     shift.end_time,
                                                                     shift.session || 'Morning',
