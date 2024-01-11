@@ -10,6 +10,7 @@ import { StyledSelect, StyledInsideLabel, ValueContainer } from './multi-select.
 
 import SwxTypography from '../typography';
 import { Icon } from '../../icons';
+import { useRef, useState } from 'react';
 
 const ITEM_HEIGHT = 40;
 const ITEM_PADDING_TOP = 8;
@@ -35,6 +36,16 @@ export default function SwxMultiSelect({
     errorText,
     marginleft,
 }) {
+    const [isOpen, setIsOpen] = useState(false);
+    const selectRef = useRef(null);
+
+    const handleIconClick = () => {
+        setIsOpen(!isOpen);
+    };
+
+    const handleSelectClose = () => {
+        setIsOpen(false);
+    };
     return (
         <div style={{ width: width || '100%', ...style }}>
             {OutSideLabel && <OutSideLabel />}
@@ -46,6 +57,10 @@ export default function SwxMultiSelect({
                     {insideLabel}
                 </StyledInsideLabel>
                 <StyledSelect
+                    open={isOpen}
+                    onClose={handleSelectClose}
+                    ref={selectRef}
+                    onClick={handleIconClick}
                     // Icon needs to be updated
                     IconComponent={() => {
                         return (
@@ -53,6 +68,7 @@ export default function SwxMultiSelect({
                                 name='dropdown-arrow'
                                 width='14'
                                 styles={{ margin: '2px 12px 4px 12px', cursor: 'pointer' }}
+                                onClick={handleIconClick}
                             />
                         );
                     }}
