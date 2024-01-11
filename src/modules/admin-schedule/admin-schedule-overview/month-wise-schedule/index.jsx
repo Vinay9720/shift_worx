@@ -27,7 +27,6 @@ import ShiftForm from '../add-shift/ShiftForm';
 import { openModal } from '@/lib/store/slices/modal-slice';
 import { setCurrentTimeValue, setScheduleType } from '@/lib/store/slices/admin-schedule-module';
 import { useState } from 'react';
-import AdminScheduleService from '@/services/admin-schedule';
 import { useEditShift, useDeleteShift } from '@/hooks/admin-schedule';
 
 export default function MonthWiseSchedule({ scheduleData }) {
@@ -93,16 +92,13 @@ export default function MonthWiseSchedule({ scheduleData }) {
         return monthDays;
     };
 
-    const menuOptions = id => {
+    const menuOptions = employeeShiftData => {
         return [
             {
                 label: 'Edit Shift',
-                action: async () => {
-                    const response = await AdminScheduleService.editShift(id);
-                    const data = await response.data;
-                    setShiftData(data);
+                action: () => {
+                    setShiftData(employeeShiftData);
                     dispatch(openModal({ modalName: 'editShiftModal' }));
-                    setEmployeeId(id);
                 },
                 icon: <Icon styles={{ fill: '#838A91' }} name='pencil' height={14} width={14} />,
             },
@@ -110,7 +106,7 @@ export default function MonthWiseSchedule({ scheduleData }) {
                 label: 'Delete Shift',
                 action: () => {
                     dispatch(openModal({ modalName: 'deleteShiftModal' }));
-                    setEmployeeId(id);
+                    setEmployeeId(employeeShiftData.shift_id);
                 },
                 color: 'red',
                 icon: <Icon styles={{ fill: '#F43C02' }} name='trash' height={14} width={14} />,
@@ -132,7 +128,33 @@ export default function MonthWiseSchedule({ scheduleData }) {
         }
     };
 
-    const getScheduleBanner = (empName, cert, start, end, session, station, id) => {
+    const getScheduleBanner = (
+        empName,
+        cert,
+        start,
+        end,
+        session,
+        station,
+        id,
+        shiftId,
+        specialities,
+        facility,
+        startDate,
+        certId
+    ) => {
+        const employeeShiftData = {
+            employee: empName,
+            id,
+            facility_id: facility,
+            shift_id: shiftId,
+            certificate_ids: certId,
+            speciality_ids: specialities,
+            station,
+            start_date: startDate,
+            start_time: start,
+            end_time: end,
+            role: cert,
+        };
         const timeStartInput = start;
         const timeEndInput = end;
         const parsedStartTime = moment(timeStartInput, 'h:mma');
@@ -161,7 +183,7 @@ export default function MonthWiseSchedule({ scheduleData }) {
                                 </IconButton>
                             }
                             from='month wise'
-                            options={menuOptions(id)}
+                            options={menuOptions(employeeShiftData)}
                         />
                     </div>
                 </div>
@@ -215,14 +237,19 @@ export default function MonthWiseSchedule({ scheduleData }) {
                                                                     shift.end_time,
                                                                     shift.session || 'Morning',
                                                                     shift.station || 'First Floor',
-                                                                    shift.id
+                                                                    shift.id,
+                                                                    shift.shift_id,
+                                                                    shift.specialities,
+                                                                    shift.facility,
+                                                                    shift.start_date,
+                                                                    shift.certificate.id
                                                                 )}
                                                                 kind={
-                                                                    shift.title === 'RN'
+                                                                    shift.certificate.abbreviation === 'RN'
                                                                         ? 'scheduleOrange'
-                                                                        : shift.title === 'LPN'
+                                                                        : shift.certificate.abbreviation === 'LPN'
                                                                         ? 'scheduleCyan'
-                                                                        : shift.title === 'CNA'
+                                                                        : shift.certificate.abbreviation === 'CNA'
                                                                         ? 'scheduleMistyRose'
                                                                         : 'scheduleOrange'
                                                                 }

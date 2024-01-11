@@ -22,15 +22,11 @@ const deleteShift = id => {
 const updateShift = (id, shiftData) => {
     return http.patch(`/shifts/${id}`, JSON.stringify(shiftData));
 };
-const editShift = id => {
-    return http.get(`/shifts/${id}`);
-};
 
 const AdminScheduleService = {
     fetchSchedule,
     addShift,
     deleteShift,
-    editShift,
     updateShift,
 };
 

@@ -43,7 +43,7 @@ export default function DayWiseSchedule({ scheduleData }) {
     const { mutate: deleteShift } = useDeleteShift();
     const [employeeId, setEmployeeId] = useState(null);
     const [shiftData, setShiftData] = useState();
-    const { mutate: updateShift } = useEditShift(employeeId, shiftData && shiftData);
+    const { mutate: updateShift } = useEditShift(shiftData && shiftData);
     const { currentTimeValue } = useSelector(state => state.adminScheduleModule);
     const currentTime = new Date();
     const currentHour = currentTime.getHours();
@@ -225,6 +225,12 @@ export default function DayWiseSchedule({ scheduleData }) {
                                                         id={shift.id}
                                                         setEmployeeId={setEmployeeId}
                                                         setShiftData={setShiftData}
+                                                        shiftId={shift.shift_id}
+                                                        specialities={shift.specialities}
+                                                        facility={shift.facility}
+                                                        startDate={shift.start_date}
+                                                        certificateId={shift.certificate.id}
+                                                        empName={emp.name}
                                                     />
                                                 );
                                             })}

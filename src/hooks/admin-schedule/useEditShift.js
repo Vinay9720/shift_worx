@@ -7,23 +7,21 @@ import { closeModal } from '@/lib/store/slices/modal-slice';
 import { useToast } from '../common';
 import { isArray } from 'lodash';
 
-export const useEditShift = (employeeId, employeeShiftData) => {
+export const useEditShift = employeeShiftData => {
     const queryClient = useQueryClient();
     const dispatch = useDispatch();
     const showToast = useToast();
-
     const updateShift = ({ shiftData }) => {
         const payload = {
             shift: {
-                id: employeeId,
-                facility_id: shiftData.facility.value, // current user's
+                id: employeeShiftData.id,
+                facility_id: shiftData.facility.value || employeeShiftData.facility_id.id, // current user's
                 instructions: '',
                 positions: [
                     {
-                        id: employeeShiftData.shift_position_id,
-                        quantity: 1,
-                        certificate_ids: [shiftData.role.value || employeeShiftData.certificates[0].id],
-                        speciality_ids: [shiftData.speciality.value],
+                        id: employeeShiftData.shift_id,
+                        certificate_ids: [shiftData.role.value || employeeShiftData.certificate_ids],
+                        speciality_ids: [shiftData.speciality.value || employeeShiftData.speciality_ids[0].id],
                         nurse_id: shiftData.employee ? shiftData.employee.value : '',
                         additional_nurse_id: shiftData.employee_2 ? shiftData.employee_2.value : '',
                         mandatory_lunch: true,
@@ -37,7 +35,8 @@ export const useEditShift = (employeeId, employeeShiftData) => {
                 end_time: shiftData.end_time,
             },
         };
-        return AdminScheduleService.updateShift(employeeId, payload);
+
+        return AdminScheduleService.updateShift(employeeShiftData.shift_id, payload);
     };
 
     return useMutation(updateShift, {

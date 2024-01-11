@@ -39,7 +39,10 @@ export default function ShiftForm({ modalName, title, action: addShift, employee
                 start_time: employeeShiftData.start_time,
                 end_time: employeeShiftData.end_time,
                 facility_name: employeeShiftData.station,
-                role: employeeShiftData.certificates[0].abbreviation,
+                role: employeeShiftData.role,
+                speciality: employeeShiftData.speciality_ids[0].name,
+                facility: employeeShiftData.facility_id.name,
+                employee: employeeShiftData.employee,
             };
             setFormattedData(formattedShiftData);
         }
