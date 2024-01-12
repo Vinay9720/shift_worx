@@ -8,7 +8,7 @@ import { useToast } from '../common';
 import { lowerCase } from 'lodash';
 import { useRouter, useParams } from 'next/navigation';
 
-export const useAddTemplateShift = () => {
+export const usePublishTemplate = () => {
     const { templateType } = useSelector(state => state.adminScheduleTemplatesModule);
     const { templateId } = useParams();
     const router = useRouter();
@@ -29,7 +29,6 @@ export const useAddTemplateShift = () => {
                     facility_id: 1,
                     nurse_id: shiftData.employee.value,
                     additional_nurse_id: shiftData.employee_2 ? shiftData.employee_2.value : '',
-                    ...(shiftData.week && { week: shiftData.week.value }),
                 },
             }),
             shift_template: {

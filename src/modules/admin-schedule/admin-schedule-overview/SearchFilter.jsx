@@ -11,7 +11,7 @@ import { setSearch, setStatus, setRoles, clearFilters } from '@/lib/store/slices
 
 import AddShift from './add-shift';
 import { styles } from './admin-schedule-overview.styles';
-import AddSaveScheduleTemplate from './save-schedule-template';
+import SaveScheduleTemplate from '../admin-schedule-templates/schedule-templates/save-schedule-template';
 
 const statusOptions = ['Filled', 'Unfilled'];
 
@@ -94,7 +94,7 @@ function SearchFilter({ scheduleType }) {
                 </Stack>
             </Stack>
             <Stack sx={styles.actionButtons}>
-                <AddSaveScheduleTemplate scheduleType={scheduleType} />
+                <SaveScheduleTemplate scheduleType={scheduleType} />
                 <AddShift />
             </Stack>
         </Stack>

@@ -130,43 +130,49 @@ export default function WeekWiseSchedule({ scheduleData }) {
                     ? scheduleData.records.map((emp, i) => {
                           return (
                               <div style={styles.mainDiv} key={i}>
-                                  <div className='row-span-2'>
-                                      <Avatar sx={{ width: 42, height: 42, bgcolor: '#1F6FA9' }}>{`${
-                                          emp.name.split('')[0].toUpperCase() || 'K'
-                                      }`}</Avatar>
-                                  </div>
-                                  <div>
-                                      <div className='items-center justify-space-evenly col-span-1  font-semibold text-default text-newBlackColor'>
-                                          {`${emp.name.slice(0, 7)} ${emp.name.slice(7, 8).toUpperCase()}`}
-                                      </div>
-                                      <div className='flex flex-row '>
-                                          <div className='flex items-center justify-center mr-2'>
-                                              <Icon
-                                                  styles={{ fill: '#838A91' }}
-                                                  name='clock'
-                                                  aria-hidden='true'
-                                                  height={16}
-                                                  width={16}
-                                              />
+                                  {emp.name ? (
+                                      <>
+                                          <div className='row-span-2'>
+                                              <Avatar sx={{ width: 42, height: 42, bgcolor: '#1F6FA9' }}>{`${
+                                                  emp.name.split('')[0].toUpperCase() || 'K'
+                                              }`}</Avatar>
                                           </div>
-                                          <div className='flex items-center justify-center mr-2 text-sm font-medium text-newLightGray'>
-                                              {emp.start_time || '08:00hrs'}
+                                          <div>
+                                              <div className='items-center justify-space-evenly col-span-1  font-semibold text-default text-newBlackColor'>
+                                                  {`${emp.name.slice(0, 7)} ${emp.name.slice(7, 8).toUpperCase()}`}
+                                              </div>
+                                              <div className='flex flex-row '>
+                                                  <div className='flex items-center justify-center mr-2'>
+                                                      <Icon
+                                                          styles={{ fill: '#838A91' }}
+                                                          name='clock'
+                                                          aria-hidden='true'
+                                                          height={16}
+                                                          width={16}
+                                                      />
+                                                  </div>
+                                                  <div className='flex items-center justify-center mr-2 text-sm font-medium text-newLightGray'>
+                                                      {emp.start_time || '08:00hrs'}
+                                                  </div>
+                                                  <div className='flex items-center justify-center mt-2 mr-2 gray_dot' />
+                                                  <div className='flex items-center justify-center mr-2'>
+                                                      <Icon
+                                                          styles={{ fill: '#838A91' }}
+                                                          name='calender'
+                                                          aria-hidden='true'
+                                                          height={16}
+                                                          width={16}
+                                                      />
+                                                  </div>
+                                                  <div className='flex items-center justify-center mr-2 text-sm font-medium text-newLightGray'>
+                                                      {emp.schedule_count || 1}
+                                                  </div>
+                                              </div>
                                           </div>
-                                          <div className='flex items-center justify-center mt-2 mr-2 gray_dot' />
-                                          <div className='flex items-center justify-center mr-2'>
-                                              <Icon
-                                                  styles={{ fill: '#838A91' }}
-                                                  name='calender'
-                                                  aria-hidden='true'
-                                                  height={16}
-                                                  width={16}
-                                              />
-                                          </div>
-                                          <div className='flex items-center justify-center mr-2 text-sm font-medium text-newLightGray'>
-                                              {emp.schedule_count || 1}
-                                          </div>
-                                      </div>
-                                  </div>
+                                      </>
+                                  ) : (
+                                      'Assign user'
+                                  )}
                               </div>
                           );
                       })

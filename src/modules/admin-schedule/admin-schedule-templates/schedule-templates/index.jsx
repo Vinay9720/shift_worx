@@ -6,14 +6,13 @@ import AdminScheduleTemplateLayout from '@/lib/common/layout/admin-layouts/Admin
 import { useScheduleTemplate } from '@/hooks/admin-schedule-templates/useScheduleTemplate';
 
 export default function AdminScheduleTemplate() {
-    const data = useScheduleTemplate();
-    console.log('data===>', data);
+    const { data: templateShifts } = useScheduleTemplate();
     return (
         <AdminScheduleTemplateLayout
             title='Create New Template'
             filter={<Filter />}
-            weeklyTemplate={<WeeklyTemplate />}
-            monthlyTemplate={<MonthlyTemplate />}
+            weeklyTemplate={<WeeklyTemplate templateShifts={templateShifts} />}
+            monthlyTemplate={<MonthlyTemplate templateShifts={templateShifts} />}
             footer={<ActionButtons />}
         />
     );

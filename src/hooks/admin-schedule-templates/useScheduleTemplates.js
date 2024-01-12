@@ -8,7 +8,7 @@ import { usePagination } from '../common';
 export const useTemplates = () => {
     const { itemsPerPage, currentPage, setPagination } = usePagination('adminScheduleTemplatesPagination');
     return useQuery(
-        ['admin-schedule-templates'],
+        ['admin-schedule-templates', itemsPerPage, currentPage],
         () => AdminScheduleTemplatesService.fetchTemplates(itemsPerPage, currentPage),
         {
             select: data => {
