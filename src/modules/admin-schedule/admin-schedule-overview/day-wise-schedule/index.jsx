@@ -214,7 +214,7 @@ export default function DayWiseSchedule({ scheduleData }) {
                                                         endTime={shift.end_time}
                                                         floor={shift.station || 'First Floor'}
                                                         session={shift.session_type || 'Morning'}
-                                                        kind={shift.certificate || 'CNA'}
+                                                        kind={shift.certificate.abbreviation || 'CNA'}
                                                         style={{
                                                             marginLeft: `${getMargin()}px`,
                                                             width: `${shiftDurationAndMargin[index].duration}px`,

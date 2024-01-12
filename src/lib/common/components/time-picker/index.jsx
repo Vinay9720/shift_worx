@@ -70,6 +70,7 @@ export default function SwxTimeComponent({ onChange, time, format, label, width,
                         value={ampm}
                         name='ampm'
                         onChange={handleInputChange}
+                        onClick={handleCustomIconClick}
                         open={open}
                         onClose={() => setOpen(false)}
                         IconComponent={() => (
