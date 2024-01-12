@@ -12,15 +12,44 @@ import { openModal } from '@/lib/store/slices/modal-slice';
 import { BannerWrapper, Bannercontainer } from './daily-schedule-banner.styles';
 import { useDispatch } from 'react-redux';
 
-function DailyScheduleBanner({ kind, startTime, endTime, floor, session, style, id, setEmployeeId }) {
+function DailyScheduleBanner({
+    kind,
+    startTime,
+    endTime,
+    floor,
+    session,
+    style,
+    id,
+    setEmployeeId,
+    setShiftData,
+    shiftId,
+    specialities,
+    facility,
+    startDate,
+    certificateId,
+    empName,
+}) {
     const dispatch = useDispatch();
     const menuOptions = () => {
+        const employeeShiftData = {
+            employee: empName || 'Nurse',
+            id,
+            facility_id: facility,
+            shift_id: shiftId,
+            certificate_ids: certificateId,
+            speciality_ids: specialities,
+            station: floor,
+            start_date: startDate,
+            start_time: startTime,
+            end_time: endTime,
+            role: kind,
+        };
         return [
             {
                 label: 'Edit Shift',
-                action: () => {
+                action: async () => {
+                    setShiftData(employeeShiftData);
                     dispatch(openModal({ modalName: 'editShiftModal' }));
-                    setEmployeeId(id);
                 },
                 icon: <Icon styles={{ fill: '#838A91' }} name='pencil' height={14} width={14} />,
             },
@@ -28,7 +57,7 @@ function DailyScheduleBanner({ kind, startTime, endTime, floor, session, style, 
                 label: 'Delete Shift',
                 action: () => {
                     dispatch(openModal({ modalName: 'deleteShiftModal' }));
-                    setEmployeeId(id);
+                    setEmployeeId(employeeShiftData.shift_id);
                 },
                 color: 'red',
                 icon: <Icon styles={{ fill: '#F43C02' }} name='trash' height={14} width={14} />,

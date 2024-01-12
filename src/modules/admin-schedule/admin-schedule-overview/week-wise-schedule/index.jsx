@@ -40,12 +40,14 @@ import { SwxModal, DynamicPromptModal } from '@/lib/common/layout';
 import { openModal } from '@/lib/store/slices/modal-slice';
 import { setCurrentTimeValue, setScheduleType } from '@/lib/store/slices/admin-schedule-module';
 import { useState } from 'react';
-import { useDeleteShift } from '@/hooks/admin-schedule/useDeleteShift';
+import { useEditShift, useDeleteShift } from '@/hooks/admin-schedule';
 
 export default function WeekWiseSchedule({ scheduleData }) {
     const dispatch = useDispatch();
     const { mutate: deleteShift } = useDeleteShift();
     const [employeeId, setEmployeeId] = useState(null);
+    const [shiftData, setShiftData] = useState();
+    const { mutate: updateShift } = useEditShift(shiftData && shiftData);
     const { currentTimeValue } = useSelector(state => state.adminScheduleModule);
     const getCurrentWeekdays = () => {
         const weekdaysWithDates = [];
@@ -59,13 +61,13 @@ export default function WeekWiseSchedule({ scheduleData }) {
         return weekdaysWithDates;
     };
 
-    const menuOptions = id => {
+    const menuOptions = employeeShiftData => {
         return [
             {
                 label: 'Edit Shift',
-                action: () => {
+                action: async () => {
+                    setShiftData(employeeShiftData);
                     dispatch(openModal({ modalName: 'editShiftModal' }));
-                    setEmployeeId(id);
                 },
                 icon: <Icon styles={{ fill: '#838A91' }} name='pencil' height={14} width={14} />,
             },
@@ -73,7 +75,7 @@ export default function WeekWiseSchedule({ scheduleData }) {
                 label: 'Delete Shift',
                 action: () => {
                     dispatch(openModal({ modalName: 'deleteShiftModal' }));
-                    setEmployeeId(id);
+                    setEmployeeId(employeeShiftData.shift_id);
                 },
                 color: 'red',
                 icon: <Icon styles={{ fill: '#F43C02' }} name='trash' height={14} width={14} />,
@@ -83,7 +85,33 @@ export default function WeekWiseSchedule({ scheduleData }) {
 
     const weekdays = getCurrentWeekdays();
 
-    const getScheduleBanner = (start, end, floor, session, cert, id) => {
+    const getScheduleBanner = (
+        start,
+        end,
+        floor,
+        session,
+        cert,
+        id,
+        shiftId,
+        specialities,
+        facility,
+        startDate,
+        certId,
+        empName
+    ) => {
+        const employeeShiftData = {
+            employee: empName || 'Nurse',
+            id,
+            facility_id: facility,
+            shift_id: shiftId,
+            certificate_ids: certId,
+            speciality_ids: specialities,
+            station: floor,
+            start_date: startDate,
+            start_time: start,
+            end_time: end,
+            role: cert,
+        };
         return (
             <Stack direction='column'>
                 <Stack direction='row' spacing={1}>
@@ -126,7 +154,7 @@ export default function WeekWiseSchedule({ scheduleData }) {
                                 />
                             </IconButton>
                         }
-                        options={menuOptions(id)}
+                        options={menuOptions(employeeShiftData)}
                     />
                 </StyledFlexContainer>
             </Stack>
@@ -147,11 +175,13 @@ export default function WeekWiseSchedule({ scheduleData }) {
                           return (
                               <div style={styles.mainDiv} key={i}>
                                   <Avatar sx={{ width: 42, height: 42, bgcolor: '#1F6FA9' }}>{`${
-                                      emp.name.split('')[0].toUpperCase() || 'K'
+                                      emp.name ? emp.name.split('')[0].toUpperCase() : 'U'
                                   }`}</Avatar>
                                   <div>
                                       <StyledNameContainer>
-                                          {`${emp.name.slice(0, 7)} ${emp.name.slice(7, 8).toUpperCase()}`}
+                                          {`${emp.name ? emp.name.slice(0, 7) : 'Un assigned'} ${
+                                              emp.name ? emp.name.slice(7, 8).toUpperCase() : ''
+                                          }`}
                                       </StyledNameContainer>
                                       <Stack direction='row'>
                                           <StyledIconContainer>
@@ -261,17 +291,25 @@ export default function WeekWiseSchedule({ scheduleData }) {
                                                                         text={getScheduleBanner(
                                                                             shift.start_time,
                                                                             shift.end_time,
-                                                                            shift.floor || 'First Floor',
+                                                                            shift.station || 'First Floor',
                                                                             shift.session_type || 'Morning',
                                                                             shift.certificate.abbreviation || 'RN',
-                                                                            shift.shift_id
+                                                                            shift.id,
+                                                                            shift.shift_id,
+                                                                            shift.specialities,
+                                                                            shift.facility,
+                                                                            shift.start_date,
+                                                                            shift.certificate.id,
+                                                                            emp.name
                                                                         )}
                                                                         kind={
-                                                                            shift.certificate === 'RN'
+                                                                            shift.certificate.abbreviation === 'RN'
                                                                                 ? 'scheduleOrange'
-                                                                                : shift.certificate === 'LPN'
+                                                                                : shift.certificate.abbreviation ===
+                                                                                  'LPN'
                                                                                 ? 'scheduleCyan'
-                                                                                : shift.certificate === 'CNA'
+                                                                                : shift.certificate.abbreviation ===
+                                                                                  'CNA'
                                                                                 ? 'scheduleMistyRose'
                                                                                 : 'scheduleOrange'
                                                                         }
@@ -309,11 +347,7 @@ export default function WeekWiseSchedule({ scheduleData }) {
                 onConfirm={() => deleteShift(employeeId)}
             />
             <SwxModal modalName='editShiftModal'>
-                <ShiftForm
-                    modalName='editShiftModal'
-                    title='Edit'
-                    // action={addShift}
-                />
+                <ShiftForm modalName='editShiftModal' title='Edit' employeeShiftData={shiftData} action={updateShift} />
             </SwxModal>
         </StyledRootContainer>
     );
