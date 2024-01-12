@@ -6,11 +6,11 @@ import { Stack } from '@mui/material';
 import { closeModal } from '@/lib/store/slices/modal-slice';
 // import { useFileUpload } from '@/hooks/common';
 import { Icon } from '@/lib/common/icons';
-import { SwxButton, SwxMultiSelect, SwxTypography } from '@/lib/common/components';
-import { InputField, Form, FormSubmitButton } from '@/lib/common/form-components';
+import { SwxButton, SwxTypography } from '@/lib/common/components';
+import { InputField, Form, FormSubmitButton, SelectField } from '@/lib/common/form-components';
 import { CloseContainer, EllipseContainer, HeaderContainer, ModalContainer } from './save-schedule-template.styles';
 
-export default function SaveScheduleTemplateForm({ modalName }) {
+export default function SaveScheduleTemplateForm({ modalName, action }) {
     const dispatch = useDispatch();
     const templateProps = {
         label: (
@@ -31,6 +31,21 @@ export default function SaveScheduleTemplateForm({ modalName }) {
         required: 'Description required',
     };
 
+    const ignoreAssigneesProps = {
+        label: (
+            <SwxTypography color='swxSlightlyBlack' size='semiMedium' weight='semiBold' className='Manrope'>
+                Ignore Assignees
+            </SwxTypography>
+        ),
+        spacing: 0.1,
+        options: ['Yes', 'No'],
+        placeholder: 'Employee Name',
+        width: '100%',
+        padding: '7px',
+        radius: '5px',
+        required: true,
+    };
+
     return (
         <ModalContainer>
             <HeaderContainer>
@@ -46,7 +61,7 @@ export default function SaveScheduleTemplateForm({ modalName }) {
                     </Stack>
                 </EllipseContainer>
             </HeaderContainer>
-            <Form>
+            <Form onSubmit={shiftData => action({ shiftData, savingTemplate: true })}>
                 <Stack sx={{ padding: '10px 150px 21px 16px', backgroundColor: '#F6FAFD' }}>
                     <SwxTypography>Save shift schedule for the week of Jan 1 to Jan 7</SwxTypography>
                     <SwxTypography>Total Shifts: 32</SwxTypography>
@@ -60,17 +75,7 @@ export default function SaveScheduleTemplateForm({ modalName }) {
                         <InputField name='description' SWXInputProps={noteDescriptionProps} />
                     </Stack>
                     <Stack direction='column' spacing={0.5}>
-                        <SwxTypography color='swxBlack' size='semiMedium' weight='semiBold' className='Manrope'>
-                            Ignore Assignees
-                        </SwxTypography>
-                        <SwxMultiSelect
-                            // insideLabel='Shifts will be  saved as unassigned'
-                            style={{ width: '100%' }}
-                            value={['Yes']}
-                            options={['Yes', 'No']}
-                            padding='16px 12px'
-                            // marginleft={280}
-                        />
+                        <SelectField name='assigned' SWXInputProps={ignoreAssigneesProps} />
                     </Stack>
                     <Stack
                         spacing={3}
