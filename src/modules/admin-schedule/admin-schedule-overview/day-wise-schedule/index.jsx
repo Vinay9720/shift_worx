@@ -34,14 +34,16 @@ import {
 import { DailyScheduleBanner, SwxModal, DynamicPromptModal } from '@/lib/common/layout';
 import { convertTo24HourFormat, today } from '@/lib/util';
 import ShiftForm from '../add-shift/ShiftForm';
-import { useDeleteShift } from '@/hooks/admin-schedule/useDeleteShift';
 import { useState } from 'react';
+import { useEditShift, useDeleteShift } from '@/hooks/admin-schedule';
 
 const twidth = '1920';
 
 export default function DayWiseSchedule({ scheduleData }) {
     const { mutate: deleteShift } = useDeleteShift();
     const [employeeId, setEmployeeId] = useState(null);
+    const [shiftData, setShiftData] = useState();
+    const { mutate: updateShift } = useEditShift(shiftData && shiftData);
     const { currentTimeValue } = useSelector(state => state.adminScheduleModule);
     const currentTime = new Date();
     const currentHour = currentTime.getHours();
@@ -214,7 +216,7 @@ export default function DayWiseSchedule({ scheduleData }) {
                                                         endTime={shift.end_time}
                                                         floor={shift.station || 'First Floor'}
                                                         session={shift.session_type || 'Morning'}
-                                                        kind={shift.certificate || 'CNA'}
+                                                        kind={shift.certificate.abbreviation || 'CNA'}
                                                         style={{
                                                             marginLeft: `${getMargin()}px`,
                                                             width: `${shiftDurationAndMargin[index].duration}px`,
@@ -222,6 +224,13 @@ export default function DayWiseSchedule({ scheduleData }) {
                                                         }}
                                                         id={shift.id}
                                                         setEmployeeId={setEmployeeId}
+                                                        setShiftData={setShiftData}
+                                                        shiftId={shift.shift_id}
+                                                        specialities={shift.specialities}
+                                                        facility={shift.facility}
+                                                        startDate={shift.start_date}
+                                                        certificateId={shift.certificate.id}
+                                                        empName={emp.name}
                                                     />
                                                 );
                                             })}
@@ -241,11 +250,7 @@ export default function DayWiseSchedule({ scheduleData }) {
                 onConfirm={() => deleteShift(employeeId)}
             />
             <SwxModal modalName='editShiftModal'>
-                <ShiftForm
-                    modalName='editShiftModal'
-                    title='Edit'
-                    // action={addShift}
-                />
+                <ShiftForm modalName='editShiftModal' title='Edit' action={updateShift} employeeShiftData={shiftData} />
             </SwxModal>
         </StyledMainDiv>
     );
