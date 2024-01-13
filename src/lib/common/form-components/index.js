@@ -7,6 +7,7 @@ import Form from './Form';
 import ListBoxField from './ListBoxField';
 import TimePickerField from './TimePickerField';
 import FileUploadField from './FileUploadField';
+import FormSwitch from './FormSwitch';
 
 export {
     InputField,
@@ -18,4 +19,5 @@ export {
     ListBoxField,
     TimePickerField,
     FileUploadField,
+    FormSwitch,
 };
