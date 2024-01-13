@@ -13,7 +13,7 @@ const AdminScheduleTemplatesModule = createSlice({
             state.templateType = [action.payload];
         },
         setTemplateTobePublished: (state, action) => {
-            state.templateTobePublished = [action.payload];
+            state.templateTobePublished = action.payload;
         },
     },
 });

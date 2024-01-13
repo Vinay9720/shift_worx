@@ -67,10 +67,8 @@ export default function AdminScheduleTemplates() {
             headerName: 'Total Unfilled Shift',
             width: 150,
             align: 'left',
-            // minWidth: 120,
             sortable: false,
             filterable: false,
-            // flex: 1,
             renderCell: params => {
                 return (
                     <SwxTypography
@@ -88,7 +86,6 @@ export default function AdminScheduleTemplates() {
             headerName: 'Template Week(s)',
             width: 150,
             align: 'left',
-            // flex: 1,
             sortable: false,
             renderCell: params => {
                 return (
@@ -102,14 +99,12 @@ export default function AdminScheduleTemplates() {
                 );
             },
             filterable: false,
-            // minWidth: 120,
         },
         {
             field: 'scheduled_employees',
             headerName: 'Scheduled Employees',
             width: 170,
             align: 'left',
-            // flex: 1,
             sortable: false,
             renderCell: params => {
                 return (
@@ -123,7 +118,6 @@ export default function AdminScheduleTemplates() {
                 );
             },
             filterable: false,
-            // minWidth: 120,
         },
         {
             field: 'scheduled_hours',
@@ -144,7 +138,6 @@ export default function AdminScheduleTemplates() {
                 );
             },
             filterable: false,
-            // minWidth: 120,
         },
         {
             field: 'publish',
@@ -158,7 +151,7 @@ export default function AdminScheduleTemplates() {
                     <SwxSwitch
                         onChange={event => {
                             if (event.target.checked) {
-                                setTemplateTobePublished(params.row);
+                                dispatch(setTemplateTobePublished(params.row));
                                 dispatch(openModal({ modalName: 'publishScheduleTemplateModal' }));
                             }
                         }}
@@ -190,7 +183,6 @@ export default function AdminScheduleTemplates() {
             field: 'edit',
             headerName: '',
             width: 15,
-            // flex: 1,
             sortable: false,
             filterable: false,
             renderCell: () => (
@@ -219,11 +211,8 @@ export default function AdminScheduleTemplates() {
 
     return (
         <>
-            <SearchFilter
-                //  actionButton={AddRequest}
-                style={{ marginTop: '3.5rem', marginBottom: '1rem' }}
-            />
-            <PublishScheduleTemplate />
+            <SearchFilter style={{ marginTop: '3.5rem', marginBottom: '1rem' }} />
+            <PublishScheduleTemplate action='publish' />
             <SwxDataGrid checkboxSelection columns={columns} rows={templates || []} loading={templatesLoading} />
             <DynamicPromptModal
                 modalName='deleteScheduleTemplateModal'
