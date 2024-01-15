@@ -31,7 +31,7 @@ import {
     StyledTimeSlotMainDiv,
     StyledViewUsersDiv,
 } from './day-wise-schedule.styles';
-import { DailyScheduleBanner, SwxModal, DynamicPromptModal } from '@/lib/common/layout';
+import { DailyScheduleBanner, SwxModal, DynamicPromptModal, OpenShifts } from '@/lib/common/layout';
 import { convertTo24HourFormat, today } from '@/lib/util';
 import ShiftForm from '../add-shift/ShiftForm';
 import { useState } from 'react';
@@ -65,6 +65,10 @@ export default function DayWiseSchedule({ scheduleData }) {
         return shifts;
     };
     const shiftsByDate = getShiftsByDate(scheduleData && scheduleData.records, currentTimeValue);
+    const sortedShiftsByDate = shiftsByDate.reduce((acc, cur) => {
+        const dat = cur.name ? [...acc, cur] : [cur, ...acc];
+        return dat;
+    }, []);
     const getMarginLeft = start => {
         const startTime = convertTo24HourFormat(start);
         const [startTimeHour, startTimeMinutes] = startTime.split(':');
@@ -91,49 +95,56 @@ export default function DayWiseSchedule({ scheduleData }) {
                 <div>
                     <StyledViewUsersDiv style={{ flex: `0 0 auto` }}>View by Users</StyledViewUsersDiv>
                     <StyledGridSubDiv>
-                        {shiftsByDate.map((emp, i) => {
+                        {sortedShiftsByDate.map((emp, i) => {
                             return (
-                                <StyledFlexDiv style={{ flex: `0 0 auto` }} key={i}>
+                                <StyledFlexDiv style={{ flex: `0 0 auto` }} key={i} employeeName={emp.name}>
                                     <StyledSubFlexDiv style={{ flex: `0 0 auto` }}>
                                         <StyledAvatarGridContainer>
-                                            <div className='row-span-2'>
-                                                <Avatar sx={{ width: 32, height: 32 }}>{`${
-                                                    (emp.name || 'Nurse').split('')[0]
-                                                }`}</Avatar>
-                                            </div>
+                                            {emp.name ? (
+                                                <div className='row-span-2'>
+                                                    <Avatar
+                                                        sx={{ width: 42, height: 42, bgcolor: '#1F6FA9' }}>{`${emp.name
+                                                        .split('')[0]
+                                                        .toUpperCase()}`}</Avatar>
+                                                </div>
+                                            ) : null}
                                             <StyledNameFlexContainer>
-                                                <StyledEmployeeName>
-                                                    {emp.name
-                                                        ? `${emp.name.slice(0, 7)} ${emp.name
-                                                              .slice(7, 8)
-                                                              .toUpperCase()}`
-                                                        : 'Nurse'}
-                                                </StyledEmployeeName>
-                                                <StyledFlexRow>
-                                                    <StyledMarginDiv>
-                                                        <Icon
-                                                            styles={{ fill: '#838A91' }}
-                                                            name='clock'
-                                                            aria-hidden='true'
-                                                            height={16}
-                                                            width={16}
-                                                        />
-                                                    </StyledMarginDiv>
-                                                    <StyledTimeDiv>{emp.shifts[0].planned}</StyledTimeDiv>
-                                                    <StyledDotDiv />
-                                                    <StyledCalenderDiv>
-                                                        <Icon
-                                                            styles={{ fill: '#838A91' }}
-                                                            name='calender'
-                                                            aria-hidden='true'
-                                                            height={16}
-                                                            width={16}
-                                                        />
-                                                    </StyledCalenderDiv>
-                                                    <StyledShiftLengthDiv>
-                                                        {emp.shifts.length || 1}
-                                                    </StyledShiftLengthDiv>
-                                                </StyledFlexRow>
+                                                {emp.name ? (
+                                                    <StyledEmployeeName>
+                                                        {`${emp.name.slice(0, 7)} ${emp.name
+                                                            .slice(7, 8)
+                                                            .toUpperCase()}`}
+                                                    </StyledEmployeeName>
+                                                ) : (
+                                                    <OpenShifts modalName='editShiftModal' />
+                                                )}
+                                                {emp.name ? (
+                                                    <StyledFlexRow>
+                                                        <StyledMarginDiv>
+                                                            <Icon
+                                                                styles={{ fill: '#838A91' }}
+                                                                name='clock'
+                                                                aria-hidden='true'
+                                                                height={16}
+                                                                width={16}
+                                                            />
+                                                        </StyledMarginDiv>
+                                                        <StyledTimeDiv>{emp.shifts[0].planned}</StyledTimeDiv>
+                                                        <StyledDotDiv />
+                                                        <StyledCalenderDiv>
+                                                            <Icon
+                                                                styles={{ fill: '#838A91' }}
+                                                                name='calender'
+                                                                aria-hidden='true'
+                                                                height={16}
+                                                                width={16}
+                                                            />
+                                                        </StyledCalenderDiv>
+                                                        <StyledShiftLengthDiv>
+                                                            {emp.shifts.length || 1}
+                                                        </StyledShiftLengthDiv>
+                                                    </StyledFlexRow>
+                                                ) : null}
                                             </StyledNameFlexContainer>
                                         </StyledAvatarGridContainer>
                                     </StyledSubFlexDiv>
@@ -164,7 +175,7 @@ export default function DayWiseSchedule({ scheduleData }) {
                             </>
                         )}
                         {!isEmpty(shiftsByDate) ? (
-                            shiftsByDate.map((emp, i) => {
+                            sortedShiftsByDate.map((emp, i) => {
                                 const sortedShifts = [...emp.shifts].sort((a, b) => {
                                     const timeA = moment(a.start_time, 'hh:mma');
                                     const timeB = moment(b.start_time, 'hh:mma');
@@ -193,7 +204,7 @@ export default function DayWiseSchedule({ scheduleData }) {
                                             </div>
                                         </StyledSortedShiftsMainContainer>
 
-                                        <StyledSortedShiftsContainer key={i}>
+                                        <StyledSortedShiftsContainer key={i} employeeName={emp.name}>
                                             <div style={{ display: 'flex' }}>
                                                 {timeSlots.map((time, index) => {
                                                     return <StyledBoderBoxSlotDiv key={index} />;

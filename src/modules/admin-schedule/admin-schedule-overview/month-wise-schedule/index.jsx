@@ -162,11 +162,11 @@ export default function MonthWiseSchedule({ scheduleData }) {
         const outputStartTime = parsedStartTime.format('hha');
         const outputEndTime = parsedEndTime.format('hha');
         return (
-            <ScheduleBannerContainer>
+            <ScheduleBannerContainer empName>
                 <TimeContainer>
                     {outputStartTime} {`>`} {outputEndTime}
                 </TimeContainer>
-                <EmployeeNameContainer>{empName.substring(0, 6)}</EmployeeNameContainer>
+                <EmployeeNameContainer>{empName ? empName.substring(0, 6) : 'Open'}</EmployeeNameContainer>
                 <div>
                     <SwxChip label={cert} color='white' background={getBackGroundColor(cert)} size='smallest' />
                     <div>
@@ -221,7 +221,7 @@ export default function MonthWiseSchedule({ scheduleData }) {
                                     {formattedDate}
                                 </DateContainer>
                                 {(scheduleData.records || []).map(data => {
-                                    const employeeName = data.name || 'Nurse';
+                                    const employeeName = data.name;
                                     return Object.entries(data.shifts).map(([date, shifts]) => {
                                         if (moment(date, 'MM-DD-YYYY').format('DD-MM-YYYY') === day.date) {
                                             shifts.forEach((shift, key) => {
@@ -253,7 +253,14 @@ export default function MonthWiseSchedule({ scheduleData }) {
                                                                         ? 'scheduleMistyRose'
                                                                         : 'scheduleOrange'
                                                                 }
-                                                                styles='p-[3px] w-full'
+                                                                styles={{
+                                                                    padding: '6px',
+                                                                    width: '100%',
+                                                                    backgroundColor: !employeeName ? '#E9E9EC' : null,
+                                                                    border: !employeeName
+                                                                        ? '1.5px solid #F47602'
+                                                                        : null,
+                                                                }}
                                                             />
                                                         </ScheduleBannerWrapper>
                                                     );

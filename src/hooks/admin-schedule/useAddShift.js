@@ -21,7 +21,7 @@ export const useAddShift = () => {
                         quantity: 1,
                         certificate_ids: [shiftData.role.value],
                         speciality_ids: [shiftData.speciality.value],
-                        nurse_id: shiftData.employee.value,
+                        nurse_id: shiftData.employee ? shiftData.employee.value : '',
                         additional_nurse_id: shiftData.employee_2 ? shiftData.employee_2.value : '',
                         mandatory_lunch: true,
                     },

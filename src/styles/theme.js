@@ -40,6 +40,8 @@ export const white = {
         switchGray: '#C6D2D6',
         paleGreen: '#E6FFFA',
         lightOrange: '#F47602',
+        paleOrange: '#FFEAD7',
+        darkGray: '#E9E9EC',
     },
     borderColor: {
         blue: '#027EF4',

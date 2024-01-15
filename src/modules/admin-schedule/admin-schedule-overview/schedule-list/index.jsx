@@ -6,6 +6,7 @@ import { Icon } from '@/lib/common/icons';
 import { roleBackground, filledCircleBackground, filledChipBackground } from '@/lib/util';
 import SwxPagination from '@/lib/common/layout/pagination';
 import moment from 'moment';
+import { OpenShifts } from '@/lib/common/layout';
 
 export default function ScheduleList({ scheduleData, isLoading }) {
     const menuOptions = () => {
@@ -30,16 +31,23 @@ export default function ScheduleList({ scheduleData, isLoading }) {
             field: 'fullName',
             headerName: 'Employee',
             width: 250,
-            renderCell: params => (
-                <Stack direction='row' spacing={1} alignItems='center' style={{ cursor: 'pointer' }}>
-                    <Avatar sx={{ width: 32, height: 32, bgcolor: '#1F6FA9' }}>{`${
-                        params.row.name ? params.row.name.split('')[0].toUpperCase() : 'U'
-                    }`}</Avatar>
-                    <SwxTypography color='swxBlack' size='semiMedium' weight='semiBold' className='Manrope'>{`${
-                        params.row.name ? params.row.name : 'Un assigned'
-                    }`}</SwxTypography>
-                </Stack>
-            ),
+            renderCell: params => {
+                const unAssigned = params.row.name === null || params.row.status === 'UnFilled';
+                return unAssigned ? (
+                    <OpenShifts />
+                ) : (
+                    <Stack direction='row' spacing={1} alignItems='center' style={{ cursor: 'pointer' }}>
+                        <Avatar sx={{ width: 32, height: 32, bgcolor: '#1F6FA9' }}>{`${params.row.name
+                            .split('')[0]
+                            .toUpperCase()}`}</Avatar>
+                        <SwxTypography
+                            color='swxBlack'
+                            size='semiMedium'
+                            weight='semiBold'
+                            className='Manrope'>{`${params.row.name}`}</SwxTypography>
+                    </Stack>
+                );
+            },
             align: 'left',
             filterable: false,
             // flex: 1,
