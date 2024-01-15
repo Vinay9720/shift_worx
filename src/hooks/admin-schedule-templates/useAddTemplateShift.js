@@ -50,8 +50,13 @@ export const useAddTemplateShift = () => {
             const id = res && res.template.id;
             queryClient.invalidateQueries('admin-schedule-template');
             dispatch(closeModal({ modalName: 'addTemplateShiftModal' }));
-            showToast('Shift Successfully Added!', 'success');
-            router.push(`/admin/schedule/create-template/${id}`);
+            dispatch(closeModal({ modalName: 'saveScheduleTemplateModal' }));
+            showToast(!res.template_shift ? 'Template Successfully added!' : 'Shift Successfully Added!', 'success');
+            if (!res.template_shift) {
+                router.push('/admin/schedule?step=templates');
+            } else {
+                router.push(`/admin/schedule/create-template/${id}`);
+            }
         },
         onError: error => {
             showToast(error.response.data.message, 'error');

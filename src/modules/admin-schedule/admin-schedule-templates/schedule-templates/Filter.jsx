@@ -6,15 +6,14 @@ import { Stack } from '@mui/material';
 import { useSelector, useDispatch } from 'react-redux';
 import { setTemplateType } from '@/lib/store/slices/admin-schedule-templates-module';
 import AddShift from './add-template-shift';
-import { openModal } from '@/lib/store/slices/modal-slice';
+import { closeModal, openModal } from '@/lib/store/slices/modal-slice';
 import { DynamicPromptModal } from '@/lib/common/layout';
-import { useParams } from 'next/navigation';
-// import { useRouter } from 'next/router';
+import { useParams, useRouter } from 'next/navigation';
 
 function Filter() {
     const dispatch = useDispatch();
     const { templateId } = useParams();
-    // const router = useRouter();
+    const router = useRouter();
     const [selectedTemplateType, setSelecteTemplateType] = useState(null);
     const { templateType } = useSelector(state => state.adminScheduleTemplatesModule);
 
@@ -32,12 +31,13 @@ function Filter() {
         <Stack direction='row' justifyContent='space-between'>
             <DynamicPromptModal
                 modalName='confirmScheduleTypeChange'
-                entityName='type'
-                iconName='approve-check'
-                actionName='Yes'
+                title='Are you sure?'
+                iconName='alert'
+                description='Current template will be saved as a draft template.'
                 onConfirm={() => {
                     dispatch(setTemplateType(selectedTemplateType));
-                    // router.push('/admin/schedule/create-template/new');
+                    dispatch(closeModal({ modalName: 'confirmScheduleTypeChange' }));
+                    router.push('/admin/schedule/create-template/new');
                 }}
             />
             <Stack direction='row' sx={{ width: '270px' }}>
