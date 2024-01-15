@@ -10,12 +10,14 @@ import SearchFilter from './searchFilter';
 
 import { openModal } from '@/lib/store/slices/modal-slice';
 import { useTemplates } from '@/hooks/admin-schedule-templates';
-import { setTemplateTobePublished } from '@/lib/store/slices/admin-schedule-templates-module';
+import { setTemplateTobePublished, setTemplateTobeDeleted } from '@/lib/store/slices/admin-schedule-templates-module';
 import PublishScheduleTemplate from './schedule-templates/publish-schedule-template';
+import { useDeleteTemplate } from '@/hooks/admin-schedule-templates/useDeleteTemplate';
 
 export default function AdminScheduleTemplates() {
     const dispatch = useDispatch();
     const { data: templatesData, isLoading: templatesLoading, isSuccess } = useTemplates();
+    const { mutate: deleteTemplate } = useDeleteTemplate();
 
     const templates = useMemo(() => {
         if (isSuccess) {
@@ -198,10 +200,11 @@ export default function AdminScheduleTemplates() {
             flex: 1,
             sortable: false,
             filterable: false,
-            renderCell: () => (
+            renderCell: params => (
                 <IconButton
                     onClick={() => {
                         dispatch(openModal({ modalName: 'deleteScheduleTemplateModal' }));
+                        dispatch(setTemplateTobeDeleted(params.row));
                     }}>
                     <Icon styles={{ fill: '#838A91' }} name='trash' height={16} width={16} />
                 </IconButton>
@@ -216,10 +219,9 @@ export default function AdminScheduleTemplates() {
             <SwxDataGrid checkboxSelection columns={columns} rows={templates || []} loading={templatesLoading} />
             <DynamicPromptModal
                 modalName='deleteScheduleTemplateModal'
-                // actionName='Delete'
+                actionName='Delete'
                 entityName='template'
-
-                // onConfirm={() => denyPto(employeeId)}
+                onConfirm={() => deleteTemplate()}
             />
             <SwxPagination
                 paginationName='adminScheduleTemplatesPagination'

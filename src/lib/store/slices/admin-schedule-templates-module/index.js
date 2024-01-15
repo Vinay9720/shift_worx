@@ -3,6 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 const initialState = {
     templateType: ['Weekly'],
     templateTobePublished: {},
+    templateTobeDeleted: {},
 };
 
 const AdminScheduleTemplatesModule = createSlice({
@@ -15,8 +16,12 @@ const AdminScheduleTemplatesModule = createSlice({
         setTemplateTobePublished: (state, action) => {
             state.templateTobePublished = action.payload;
         },
+        setTemplateTobeDeleted: (state, action) => {
+            state.templateTobeDeleted = action.payload;
+        },
     },
 });
 
-export const { setTemplateType, setTemplateTobePublished } = AdminScheduleTemplatesModule.actions;
+export const { setTemplateType, setTemplateTobePublished, setTemplateTobeDeleted } =
+    AdminScheduleTemplatesModule.actions;
 export default AdminScheduleTemplatesModule.reducer;

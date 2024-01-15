@@ -23,11 +23,16 @@ const fetchTemplate = id => {
     return http.get(`/shift_templates/${id}`);
 };
 
+const deleteTemplate = id => {
+    return http.delete(`/shift_templates/${id}`);
+};
+
 const AdminScheduleTemplatesService = {
     fetchTemplates,
     addTemplateShift,
     fetchTemplate,
     publishTemplate,
+    deleteTemplate,
 };
 
 export default AdminScheduleTemplatesService;
