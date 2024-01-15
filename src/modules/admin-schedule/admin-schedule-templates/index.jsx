@@ -28,7 +28,7 @@ export default function AdminScheduleTemplates() {
 
     const columns = [
         {
-            field: 'templateName',
+            field: 'name',
             headerName: 'Template Name',
             width: 180,
             renderCell: params => {
@@ -59,7 +59,7 @@ export default function AdminScheduleTemplates() {
                         size='semiMedium'
                         weight='extraThin'
                         className='Manrope'>
-                        {params.value || 32}
+                        {params.value}
                     </SwxTypography>
                 );
             },
@@ -78,7 +78,7 @@ export default function AdminScheduleTemplates() {
                         size='semiMedium'
                         weight='extraThin'
                         className='Manrope'>
-                        {params.value || 8}
+                        {params.value}
                     </SwxTypography>
                 );
             },
@@ -115,7 +115,7 @@ export default function AdminScheduleTemplates() {
                         size='semiMedium'
                         weight='extraThin'
                         className='Manrope'>
-                        {params.value || 32}
+                        {params.value}
                     </SwxTypography>
                 );
             },
@@ -135,7 +135,7 @@ export default function AdminScheduleTemplates() {
                         size='semiMedium'
                         weight='extraThin'
                         className='Manrope'>
-                        {params.value || '32hrs'}
+                        {params.value}
                     </SwxTypography>
                 );
             },
@@ -219,7 +219,6 @@ export default function AdminScheduleTemplates() {
             <SwxDataGrid checkboxSelection columns={columns} rows={templates || []} loading={templatesLoading} />
             <DynamicPromptModal
                 modalName='deleteScheduleTemplateModal'
-                actionName='Delete'
                 entityName='template'
                 onConfirm={() => deleteTemplate()}
             />

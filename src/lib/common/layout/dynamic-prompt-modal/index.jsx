@@ -9,7 +9,15 @@ import { SwxModal } from '..';
 import { Icon } from '../../icons';
 import { SwxTypography, SwxButton } from '../../components';
 
-export default function DynamicPromptModal({ modalName, entityName, onConfirm, actionName, iconName }) {
+export default function DynamicPromptModal({
+    modalName,
+    title,
+    description,
+    entityName,
+    onConfirm,
+    actionName,
+    iconName,
+}) {
     const dispatch = useDispatch();
     return (
         <SwxModal modalName={modalName}>
@@ -28,10 +36,10 @@ export default function DynamicPromptModal({ modalName, entityName, onConfirm, a
                     />
                     <Stack alignItems='center'>
                         <SwxTypography color='swxBlack' weight='bold' size='semiLarge' className='Manrope'>
-                            {actionName || 'Delete'} {entityName}
+                            {title || actionName || 'Delete'} {!title && entityName}
                         </SwxTypography>
                         <SwxTypography color='lightGray' weight='thin' size='small' className='Manrope'>
-                            Are you sure you want to {actionName || 'Delete'} this {entityName} ?
+                            {description || `Are you sure you want to ${actionName || 'Delete'} this ${entityName} ?`}
                         </SwxTypography>
                     </Stack>
                 </Stack>
