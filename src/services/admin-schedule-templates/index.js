@@ -15,14 +15,24 @@ const addTemplateShift = shiftData => {
     return http.post(`/shift_templates`, JSON.stringify(shiftData));
 };
 
+const publishTemplate = templateData => {
+    return http.post(`/shift_templates`, JSON.stringify(templateData));
+};
+
 const fetchTemplate = id => {
     return http.get(`/shift_templates/${id}`);
+};
+
+const deleteTemplate = id => {
+    return http.delete(`/shift_templates/${id}`);
 };
 
 const AdminScheduleTemplatesService = {
     fetchTemplates,
     addTemplateShift,
     fetchTemplate,
+    publishTemplate,
+    deleteTemplate,
 };
 
 export default AdminScheduleTemplatesService;

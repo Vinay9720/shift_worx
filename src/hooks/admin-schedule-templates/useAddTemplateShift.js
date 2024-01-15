@@ -16,22 +16,29 @@ export const useAddTemplateShift = () => {
     const dispatch = useDispatch();
     const showToast = useToast();
 
-    const addTemplateShift = ({ shiftData }) => {
+    const addTemplateShift = ({ shiftData, savingTemplate }) => {
         const payload = {
-            template_shift: {
-                days: [shiftData.days],
-                start_time: shiftData.start_time,
-                end_time: shiftData.end_time,
-                station: shiftData.facility_name,
-                role: [shiftData.role.value],
-                speciality_id: [shiftData.speciality.value],
-                facility_id: 1,
-                employee1: shiftData.employee.value,
-                employee2: shiftData.employee_2 ? shiftData.employee_2.value : '',
-            },
+            ...(!savingTemplate && {
+                template_shift: {
+                    days: [shiftData.days],
+                    start_time: shiftData.start_time,
+                    end_time: shiftData.end_time,
+                    station: shiftData.facility_name,
+                    role: shiftData.role.value,
+                    speciality_id: shiftData.speciality.value,
+                    facility_id: 1,
+                    nurse_id: shiftData.employee.value,
+                    additional_nurse_id: shiftData.employee_2 ? shiftData.employee_2.value : '',
+                    ...(shiftData.week && { week: shiftData.week.value }),
+                },
+            }),
             shift_template: {
                 template_type: lowerCase(templateType[0]),
                 id: templateId !== 'new' ? templateId : null,
+                template_name: shiftData.template_name || null,
+                description: shiftData.description || null,
+                assigned: shiftData.assigned || null,
+                status: savingTemplate ? 'ready' : 'draft',
             },
         };
         return AdminScheduleTemplatesService.addTemplateShift(payload);
@@ -41,10 +48,15 @@ export const useAddTemplateShift = () => {
         onSuccess: async data => {
             const res = data.data;
             const id = res && res.template.id;
-            queryClient.invalidateQueries('admin-schedule');
+            queryClient.invalidateQueries('admin-schedule-template');
             dispatch(closeModal({ modalName: 'addTemplateShiftModal' }));
-            showToast('Shift Successfully Added!', 'success');
-            router.push(`/admin/schedule/create-template/${id}`);
+            dispatch(closeModal({ modalName: 'saveScheduleTemplateModal' }));
+            showToast(!res.template_shift ? 'Template Successfully added!' : 'Shift Successfully Added!', 'success');
+            if (!res.template_shift) {
+                router.push('/admin/schedule?step=templates');
+            } else {
+                router.push(`/admin/schedule/create-template/${id}`);
+            }
         },
         onError: error => {
             showToast(error.response.data.message, 'error');

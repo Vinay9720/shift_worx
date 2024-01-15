@@ -59,7 +59,13 @@ export default function TemplateShiftForm({ modalName, title, action }) {
                 Week
             </SwxTypography>
         ),
-        options: ['Week 1', 'Week 2', 'Week 3', 'Week 4', 'Week 5'],
+        options: [
+            { label: 'Week 1', value: 1 },
+            { label: 'Week 2', value: 2 },
+            { label: 'Week 3', value: 3 },
+            { label: 'Week 4', value: 4 },
+            { label: 'Week 5', value: 5 },
+        ],
         placeholder: '',
         width: '100%',
         required: true,
@@ -168,7 +174,7 @@ export default function TemplateShiftForm({ modalName, title, action }) {
     };
 
     const onSubmit = shiftData => {
-        action({ shiftData });
+        action({ shiftData, saveTemplate: false });
     };
 
     return (

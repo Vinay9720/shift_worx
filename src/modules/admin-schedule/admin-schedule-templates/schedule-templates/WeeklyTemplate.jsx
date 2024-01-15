@@ -18,126 +18,7 @@ import {
     StyledShowMoreButton,
 } from './schedule-templates.styles';
 
-export default function WeeklyTemplate() {
-    const scheduleData = [
-        {
-            name: 'Gagan1234 nurse',
-            shifts: {
-                Monday: [
-                    {
-                        id: 441,
-                        station: 'First floor',
-                        status: 'Filled',
-                        start_time: '01:00am',
-                        end_time: '05:00am',
-                        planned: '4:0',
-                        created_at: '11-21-2023',
-                    },
-                    {
-                        id: 442,
-                        station: 'fist floor',
-                        status: 'Filled',
-                        start_time: '06:00am',
-                        end_time: '01:00pm',
-                        planned: '7:0',
-                        created_at: '11-23-2023',
-                    },
-                ],
-                Sunday: [
-                    {
-                        id: 446,
-                        station: 'OR',
-                        status: 'Filled',
-                        start_time: '04:00pm',
-                        end_time: '08:00pm',
-                        planned: '4:0',
-                        created_at: '11-27-2023',
-                    },
-                ],
-            },
-        },
-        {
-            name: 'Yyyuuu tttt',
-            shifts: {
-                Saturday: [
-                    {
-                        id: 447,
-                        station: 'aaa',
-                        status: 'Filled',
-                        start_time: '06:00am',
-                        end_time: '02:00pm',
-                        planned: '8:0',
-                        created_at: '11-28-2023',
-                    },
-                ],
-            },
-        },
-        {
-            name: 'Kjl ljlj',
-            shifts: {
-                Friday: [
-                    {
-                        id: 448,
-                        station: 'aaa',
-                        status: 'Filled',
-                        start_time: '08:00am',
-                        end_time: '11:00am',
-                        planned: '3:0',
-                        created_at: '11-28-2023',
-                    },
-                ],
-            },
-        },
-        {
-            name: 'Ojlkjlk kjlkjlkj',
-            shifts: {
-                Wednesday: [
-                    {
-                        id: 449,
-                        station: 'ccc',
-                        status: 'Filled',
-                        start_time: '07:00am',
-                        end_time: '03:00pm',
-                        planned: '8:0',
-                        created_at: '11-28-2023',
-                    },
-                ],
-            },
-        },
-        {
-            name: 'Gaga tests',
-            shifts: {
-                Monday: [
-                    {
-                        id: 450,
-                        station: 'vvv',
-                        status: 'Filled',
-                        start_time: '06:00am',
-                        end_time: '02:00pm',
-                        planned: '8:0',
-                        created_at: '11-28-2023',
-                    },
-                ],
-            },
-        },
-        {
-            name: 'Khkh vgj',
-            shifts: {
-                Thursday: [
-                    {
-                        id: 451,
-                        station: 'new',
-                        status: 'Filled',
-                        start_time: '12:05am',
-                        end_time: '06:00am',
-                        planned: '5:55',
-                        created_at: '11-30-2023',
-                    },
-                ],
-            },
-        },
-    ];
-
+export default function WeeklyTemplate({ templateShifts }) {
     const menuOptions = () => {
         return [
             {
@@ -206,8 +87,8 @@ export default function WeeklyTemplate() {
         <StyledRootContainer>
             <div style={{ minWidth: '256px' }}>
                 <ViewByUsersContainer>View by Users</ViewByUsersContainer>
-                {!isEmpty(scheduleData)
-                    ? scheduleData.map((emp, i) => {
+                {!isEmpty(templateShifts)
+                    ? templateShifts.map((emp, i) => {
                           return (
                               <div style={styles.mainDiv} key={i}>
                                   <div className='row-span-2'>
@@ -306,8 +187,8 @@ export default function WeeklyTemplate() {
                         </WeekDaysContainer>
                     ))}
                 </UsersContainer>
-                {!isEmpty(scheduleData) ? (
-                    scheduleData.map((emp, i) => {
+                {!isEmpty(templateShifts) ? (
+                    templateShifts.map((emp, i) => {
                         return (
                             <StyledWeekDaysContainer key={i}>
                                 {weekdays.map((weekDay, index) => {
