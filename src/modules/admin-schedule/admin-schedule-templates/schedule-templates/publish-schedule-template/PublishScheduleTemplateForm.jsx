@@ -24,7 +24,7 @@ export default function PublishScheduleTemplateForm({ modalName, action }) {
                 Template Name
             </SwxTypography>
         ),
-        placeholder: '',
+        placeholder: 'Enter Name',
         required: 'Template Name required',
     };
     const descriptionProps = {

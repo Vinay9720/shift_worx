@@ -47,7 +47,7 @@ export default function TemplateShiftForm({ modalName, title, action }) {
             </SwxTypography>
         ),
         options: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
-        placeholder: '',
+        placeholder: 'Select Day',
         width: '100%',
         required: true,
         padding: '8px 8px',
@@ -66,7 +66,7 @@ export default function TemplateShiftForm({ modalName, title, action }) {
             { label: 'Week 4', value: 4 },
             { label: 'Week 5', value: 5 },
         ],
-        placeholder: '',
+        placeholder: 'Select Week',
         width: '100%',
         required: true,
         padding: '8px 8px',
@@ -120,21 +120,21 @@ export default function TemplateShiftForm({ modalName, title, action }) {
         options: employeeOptions,
         placeholder: 'Select employee',
         width: '100%',
-        // required: true,
+        required: true,
         padding: '8px 8px',
     };
 
-    const employee2Props = {
-        label: (
-            <SwxTypography color='swxSlightlyBlack' size='semiMedium' weight='semiBold' className='Manrope'>
-                Employee 2
-            </SwxTypography>
-        ),
-        options: employeeOptions,
-        placeholder: 'Select employee',
-        width: '100%',
-        padding: '8px 8px',
-    };
+    // const employee2Props = {
+    //     label: (
+    //         <SwxTypography color='swxSlightlyBlack' size='semiMedium' weight='semiBold' className='Manrope'>
+    //             Employee 2
+    //         </SwxTypography>
+    //     ),
+    //     options: employeeOptions,
+    //     placeholder: 'Select employee',
+    //     width: '100%',
+    //     padding: '8px 8px',
+    // };
 
     const startTimeProps = {
         label: (
@@ -220,7 +220,7 @@ export default function TemplateShiftForm({ modalName, title, action }) {
                     </Stack>
                     <Stack sx={styles.timePickerStackStyles}>
                         <SelectField name='employee' SWXInputProps={employeeProps} />
-                        <SelectField name='employee_2' SWXInputProps={employee2Props} />
+                        {/* <SelectField name='employee_2' SWXInputProps={employee2Props} /> */}
                     </Stack>
                     <Stack sx={styles.actionButtons} style={{ marginBottom: '24px', marginTop: '30px' }}>
                         <SwxButton onClick={() => dispatch(closeModal({ modalName }))} variant='text' size='medium'>
