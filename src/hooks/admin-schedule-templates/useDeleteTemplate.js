@@ -12,11 +12,11 @@ export const useDeleteTemplate = () => {
     const { templateTobeDeleted } = useSelector(state => state.adminScheduleTemplatesModule);
     const showToast = useToast();
 
-    const deleteEmployee = () => {
+    const deleteTemplate = () => {
         return AdminScheduleTemplatesService.deleteTemplate(templateTobeDeleted.id);
     };
 
-    return useMutation(deleteEmployee, {
+    return useMutation(deleteTemplate, {
         onSuccess: async () => {
             queryClient.invalidateQueries('admin-schedule-templates');
             dispatch(closeModal({ modalName: 'deleteScheduleTemplateModal' }));

@@ -13,9 +13,11 @@ import { useTemplates } from '@/hooks/admin-schedule-templates';
 import { setTemplateTobePublished, setTemplateTobeDeleted } from '@/lib/store/slices/admin-schedule-templates-module';
 import PublishScheduleTemplate from './schedule-templates/publish-schedule-template';
 import { useDeleteTemplate } from '@/hooks/admin-schedule-templates/useDeleteTemplate';
+import { useRouter } from 'next/navigation';
 
 export default function AdminScheduleTemplates() {
     const dispatch = useDispatch();
+    const router = useRouter();
     const { data: templatesData, isLoading: templatesLoading, isSuccess } = useTemplates();
     const { mutate: deleteTemplate } = useDeleteTemplate();
 
@@ -47,7 +49,7 @@ export default function AdminScheduleTemplates() {
         },
         {
             field: 'total_shifts',
-            headerName: 'Total Shift',
+            headerName: 'Total Shifts',
             width: 100,
             align: 'left',
             sortable: false,
@@ -66,7 +68,7 @@ export default function AdminScheduleTemplates() {
         },
         {
             field: 'unfilled_shifts',
-            headerName: 'Total Unfilled Shift',
+            headerName: 'Total Unfilled Shifts',
             width: 150,
             align: 'left',
             sortable: false,
@@ -85,7 +87,7 @@ export default function AdminScheduleTemplates() {
         },
         {
             field: 'template_week',
-            headerName: 'Template Week(s)',
+            headerName: 'Template Type',
             width: 150,
             align: 'left',
             sortable: false,
@@ -187,8 +189,8 @@ export default function AdminScheduleTemplates() {
             width: 15,
             sortable: false,
             filterable: false,
-            renderCell: () => (
-                <IconButton>
+            renderCell: params => (
+                <IconButton onClick={() => router.push(`/admin/schedule/edit-template/${params.row.id}`)}>
                     <Icon styles={{ fill: '#838A91' }} name='pencil' height={16} width={16} />
                 </IconButton>
             ),
