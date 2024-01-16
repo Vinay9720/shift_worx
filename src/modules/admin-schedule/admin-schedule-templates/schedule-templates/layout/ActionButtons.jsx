@@ -4,7 +4,7 @@ import { SwxButton } from '@/lib/common/components';
 import { FooterContainer } from './schedule-templates.styles';
 import { useDispatch } from 'react-redux';
 import { openModal } from '@/lib/store/slices/modal-slice';
-import SaveScheduleTemplate from './save-schedule-template';
+import SaveScheduleTemplate from '../save-schedule-template';
 import { useParams } from 'next/navigation';
 import { useAddTemplateShift } from '@/hooks/admin-schedule-templates/useAddTemplateShift';
 

@@ -17,9 +17,16 @@ import {
     ShowMoreButtonWrapper,
     StyledShowMoreButton,
 } from './schedule-templates.styles';
+import { DynamicPromptModal } from '@/lib/common/layout';
+import { useDispatch } from 'react-redux';
+import { openModal } from '@/lib/store/slices/modal-slice';
+import { setTemplateShiftTobeDeleted } from '@/lib/store/slices/admin-schedule-templates-module';
+import { useDeleteTemplateShift } from '@/hooks/admin-schedule-templates/useDeleteTemplateShift';
 
 export default function WeeklyTemplate({ templateShifts }) {
-    const menuOptions = () => {
+    const dispatch = useDispatch();
+    const { mutate: deleteShift } = useDeleteTemplateShift();
+    const menuOptions = shiftData => {
         return [
             {
                 label: 'Edit',
@@ -28,7 +35,10 @@ export default function WeeklyTemplate({ templateShifts }) {
             },
             {
                 label: 'Delete',
-                action: () => null,
+                action: () => {
+                    dispatch(setTemplateShiftTobeDeleted(shiftData));
+                    dispatch(openModal({ modalName: 'deleteTemplateShiftModal' }));
+                },
                 color: 'red',
                 icon: <Icon styles={{ fill: '#F43C02' }} name='trash' height={14} width={14} />,
             },
@@ -37,7 +47,19 @@ export default function WeeklyTemplate({ templateShifts }) {
 
     const weekdays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
-    const getScheduleBanner = (start, end, floor, session, cert) => {
+    const getScheduleBanner = (start, end, floor, session, cert, shiftId, facility, empName) => {
+        const shiftData = {
+            employee: empName || 'Nurse',
+            // id,
+            facility_id: facility,
+            shift_id: shiftId,
+            // certificate_ids: certId,
+            // speciality_ids: specialities,
+            station: floor,
+            start_time: start,
+            end_time: end,
+            role: cert,
+        };
         return (
             <div className='columns'>
                 <div className='flex gap-2'>
@@ -76,7 +98,7 @@ export default function WeeklyTemplate({ templateShifts }) {
                                 />
                             </IconButton>
                         }
-                        options={menuOptions()}
+                        options={menuOptions(shiftData)}
                     />
                 </div>
             </div>
@@ -211,7 +233,10 @@ export default function WeeklyTemplate({ templateShifts }) {
                                                                             shift.end_time,
                                                                             shift.floor || 'First Floor',
                                                                             shift.session_type || 'Morning',
-                                                                            shift.cert || 'RN'
+                                                                            shift.cert || 'RN',
+                                                                            shift.id,
+                                                                            shift.facility,
+                                                                            emp.name
                                                                         )}
                                                                         kind={
                                                                             shift.title === 'RN'
@@ -255,6 +280,14 @@ export default function WeeklyTemplate({ templateShifts }) {
                     </div>
                 )}
             </div>
+            <DynamicPromptModal
+                modalName='deleteTemplateShiftModal'
+                entityName='Shift'
+                onConfirm={() => deleteShift()}
+            />
+            {/* <SwxModal modalName='editShiftModal'>
+                <ShiftForm modalName='editShiftModal' title='Edit' employeeShiftData={shiftData} action={updateShift} />
+            </SwxModal> */}
         </StyledRootContainer>
     );
 }
