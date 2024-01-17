@@ -191,6 +191,9 @@ export const StyledGridWeekDayContainer = styled.div`
 `}
     border-bottom: ${({ employeeName }) => (!employeeName ? '2px solid #F47602' : null)};
     border-top: ${({ employeeName }) => (!employeeName ? '2px solid #F47602' : '1px solid #e6e8e9')};
+    border-right: ${({ day, employeeName }) => {
+        return day && !employeeName ? '2px solid #F47602' : 'initial';
+    }};
     flex-direction: column;
     gap: 0.5rem;
     min-height: 96px;

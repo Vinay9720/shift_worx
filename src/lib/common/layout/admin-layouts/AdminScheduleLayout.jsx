@@ -7,7 +7,12 @@ import { useSelector, useDispatch } from 'react-redux';
 import { IconButton, Stack } from '@mui/material';
 import moment from 'moment';
 
-import { setScheduleType, setCurrentTimeValue, setInitialTimeValue } from '@/lib/store/slices/admin-schedule-module';
+import {
+    setScheduleType,
+    setCurrentTimeValue,
+    setInitialTimeValue,
+    setListCurrentTimeValue,
+} from '@/lib/store/slices/admin-schedule-module';
 
 import {
     StyledIconComponent,
@@ -21,7 +26,6 @@ import {
 
 import { SwxTypography, SwxTabs, SwxButtonGroup, SwxCalenderInput } from '../../components';
 import { Icon } from '../../icons';
-import { isArray } from 'lodash';
 
 const adminScheduleTabs = [
     { label: 'Overview', step: 'overview' },
@@ -31,7 +35,7 @@ const adminScheduleTabs = [
 export default function AdminScheduleLayout({ children }) {
     const searchParams = useSearchParams();
     const dispatch = useDispatch();
-    const { scheduleType, currentTimeValue } = useSelector(state => state.adminScheduleModule);
+    const { scheduleType, currentTimeValue, currentListTimeValue } = useSelector(state => state.adminScheduleModule);
     const currentStep = searchParams.get('step');
 
     const handleDateChange = operation => {
@@ -82,7 +86,7 @@ export default function AdminScheduleLayout({ children }) {
             return null;
         }
         if (scheduleType === 'list') {
-            dispatch(setCurrentTimeValue(dateObject));
+            dispatch(setListCurrentTimeValue(dateObject));
         }
 
         if (scheduleType === 'monthly') {
@@ -104,7 +108,9 @@ export default function AdminScheduleLayout({ children }) {
                     </Stack>
                 )}
                 <StyledCurrentTime>
-                    {isArray(currentTimeValue) ? `${currentTimeValue[0]} to  ${currentTimeValue[1]}` : currentTimeValue}
+                    {scheduleType === 'list'
+                        ? `${currentListTimeValue[0]} to  ${currentListTimeValue[1]}`
+                        : currentTimeValue}
                 </StyledCurrentTime>
             </StyledDateContainer>
         );

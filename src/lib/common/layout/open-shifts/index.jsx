@@ -1,12 +1,9 @@
 import { Stack } from '@mui/material';
-import { SwxButton, SwxTypography } from '../../components';
+import { SwxTypography } from '../../components';
 import { Icon } from '../../icons';
 import { styles } from './open-shifts.styles';
-import { openModal } from '@/lib/store/slices/modal-slice';
-import { useDispatch } from 'react-redux';
 
 function OpenShifts({ modalName }) {
-    const dispatch = useDispatch();
     return (
         <Stack
             sx={{
@@ -21,7 +18,7 @@ function OpenShifts({ modalName }) {
                     Open Shift
                 </SwxTypography>
             </Stack>
-            {modalName && (
+            {/* {modalName && (
                 <SwxButton
                     startIcon={<Icon width={17} height={12} name='addition' styles={{ fill: '#1F6FA9' }} />}
                     size='small'
@@ -34,7 +31,7 @@ function OpenShifts({ modalName }) {
                     weight='semiBold'>
                     Assign
                 </SwxButton>
-            )}
+            )} */}
         </Stack>
     );
 }

@@ -5,24 +5,32 @@ import { useSelector } from 'react-redux';
 import AdminScheduleService from '@/services/admin-schedule';
 
 export const useSchedule = () => {
-    const { scheduleType, currentTimeValue } = useSelector(state => state.adminScheduleModule);
+    const { scheduleType, currentTimeValue, currentListTimeValue } = useSelector(state => state.adminScheduleModule);
     const { search, status, roles } = useSelector(state => state.employeesFilter);
-
     const getDateForSchedule = () => {
-        if (scheduleType === 'daily' || scheduleType === 'weekly' || scheduleType === 'list') {
+        if (scheduleType === 'daily' || scheduleType === 'weekly') {
             return moment(currentTimeValue, 'ddd, MMM D, YYYY').format('MM-DD-YYYY');
         }
         if (scheduleType === 'monthly') {
             return moment(currentTimeValue, 'MMM YYYY').format('MM-DD-YYYY');
         }
-        // if (scheduleType === 'list') {
-        //     // return moment(currentTimeValue.split('-')[0].replace(/\s/g, ''), 'ddd, MMM DD').format('MM-DD-YYYY');
-        //     return '06-01-2023';
-        // }
+    };
+    const scheduleListDates = () => {
+        if (scheduleType === 'list') {
+            return currentListTimeValue;
+        }
     };
     return useQuery(
-        ['admin-schedule', scheduleType, currentTimeValue, search, status, roles],
-        () => AdminScheduleService.fetchSchedule(scheduleType, getDateForSchedule(), search, status, roles),
+        ['admin-schedule', scheduleType, currentTimeValue, currentListTimeValue, search, status, roles],
+        () =>
+            AdminScheduleService.fetchSchedule(
+                scheduleType,
+                getDateForSchedule(),
+                scheduleListDates(),
+                search,
+                status,
+                roles
+            ),
         {
             select: data => {
                 const res = data.data;

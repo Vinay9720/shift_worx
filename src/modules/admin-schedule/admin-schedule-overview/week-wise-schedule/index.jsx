@@ -296,6 +296,7 @@ export default function WeekWiseSchedule({ scheduleData }) {
                                         <StyledGridWeekDayContainer
                                             weekDays={weekDay}
                                             key={index}
+                                            day={weekDay.weekday === 'Sunday'}
                                             employeeName={emp.name}>
                                             <div key={index}>
                                                 {Object.entries(emp.shifts).map(([date, shifts]) => {

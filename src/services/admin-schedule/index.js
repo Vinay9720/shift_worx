@@ -1,10 +1,12 @@
 import http from '../../httpCommon';
 
-const fetchSchedule = (term, date, search, status, roles) => {
+const fetchSchedule = (term, date, dates, search, status, roles) => {
     const queryParams = [];
 
     if (term) queryParams.push(`term=${term}`);
     if (date) queryParams.push(`shift_start_range=${date}`);
+    if (dates) queryParams.push(`shift_start_range=${dates[0]}`);
+    if (dates) queryParams.push(`shift_end_range=${dates[1]}`);
     if (search) queryParams.push(`search=${search}`);
     if (roles) queryParams.push(`certificate_id=${roles}`);
     if (status) queryParams.push(`status=${status}`);
