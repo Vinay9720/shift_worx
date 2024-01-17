@@ -39,7 +39,7 @@ export default function SaveScheduleTemplateForm({ modalName, action }) {
         ),
         spacing: 0.1,
         options: ['Yes', 'No'],
-        placeholder: 'Employee Name',
+        placeholder: 'Yes/No',
         width: '100%',
         padding: '7px',
         radius: '5px',

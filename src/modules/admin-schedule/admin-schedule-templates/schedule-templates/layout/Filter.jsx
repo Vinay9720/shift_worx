@@ -5,7 +5,7 @@ import { SwxMultiSelect } from '@/lib/common/components';
 import { Stack } from '@mui/material';
 import { useSelector, useDispatch } from 'react-redux';
 import { setTemplateType } from '@/lib/store/slices/admin-schedule-templates-module';
-import AddShift from './add-template-shift';
+import AddShift from '../add-template-shift';
 import { closeModal, openModal } from '@/lib/store/slices/modal-slice';
 import { DynamicPromptModal } from '@/lib/common/layout';
 import { useParams, useRouter } from 'next/navigation';

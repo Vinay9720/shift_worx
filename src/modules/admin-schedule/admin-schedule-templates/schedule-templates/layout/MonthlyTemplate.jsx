@@ -22,7 +22,7 @@ import {
     MonthlyWeekDaysContainer,
 } from './schedule-templates.styles';
 import { SwxModal, DynamicPromptModal } from '@/lib/common/layout';
-import ShiftForm from '../../admin-schedule-overview/add-shift/ShiftForm';
+import ShiftForm from '../../../admin-schedule-overview/add-shift/ShiftForm';
 import { openModal } from '@/lib/store/slices/modal-slice';
 import { useDeleteShift } from '@/hooks/admin-schedule/useDeleteShift';
 import { useState } from 'react';
