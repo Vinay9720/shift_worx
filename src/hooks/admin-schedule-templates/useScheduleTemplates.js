@@ -8,11 +8,11 @@ import { useSelector } from 'react-redux';
 
 export const useTemplates = () => {
     const { itemsPerPage, currentPage, setPagination } = usePagination('adminScheduleTemplatesPagination');
-    const { roles, search } = useSelector(state => state.scheduleTemplateFilter);
+    const { publishStatus, search } = useSelector(state => state.scheduleTemplateFilter);
 
     return useQuery(
-        ['admin-schedule-templates', itemsPerPage, currentPage, roles, search],
-        () => AdminScheduleTemplatesService.fetchTemplates(itemsPerPage, currentPage, roles, search),
+        ['admin-schedule-templates', itemsPerPage, currentPage, publishStatus, search],
+        () => AdminScheduleTemplatesService.fetchTemplates(itemsPerPage, currentPage, publishStatus, search),
         {
             select: data => {
                 const res = data.data;

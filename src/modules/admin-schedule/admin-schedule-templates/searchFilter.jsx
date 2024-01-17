@@ -13,7 +13,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setRoles, setSearch, clearFilters } from '@/lib/store/slices/filter/ScheduleTemplateFilterSlice';
 
 function SearchFilter() {
-    const { publishedRoles, filterApplied } = useSelector(state => state.scheduleTemplateFilter);
+    const { roles, filterApplied } = useSelector(state => state.scheduleTemplateFilter);
 
     const searchInputRef = useRef(null);
     const dispatch = useDispatch();
@@ -24,7 +24,7 @@ function SearchFilter() {
         };
         debounce(setParams, 1000)();
     };
-    const onRoleChange = event => {
+    const onPublishStatusChange = event => {
         dispatch(setRoles(event.target.value));
     };
     const clearSearch = () => {
@@ -53,29 +53,29 @@ function SearchFilter() {
                         <SwxMultiSelect
                             insideLabel='Publish Status'
                             style={{ width: '100%' }}
-                            value={publishedRoles}
+                            value={roles}
                             options={['All', 'Published', 'Not Published']}
                             padding='12px 12px'
                             marginleft={120}
-                            onChange={onRoleChange}
+                            onChange={onPublishStatusChange}
                         />
                     </Stack>
+                    {filterApplied && (
+                        <SwxButton
+                            size='semiMedium'
+                            weight='thin'
+                            onClick={() => {
+                                dispatch(clearFilters());
+                                clearSearch();
+                            }}
+                            themecolor='swxBlack'
+                            sx={styles.clearAllButton}
+                            variant='text'>
+                            <span>Clear all</span>
+                            <Icon width={17} height={12} name='close' styles={{ fill: '#030303' }} />
+                        </SwxButton>
+                    )}
                 </Stack>
-                {filterApplied && (
-                    <SwxButton
-                        size='semiMedium'
-                        weight='thin'
-                        onClick={() => {
-                            dispatch(clearFilters());
-                            clearSearch();
-                        }}
-                        themecolor='swxBlack'
-                        sx={styles.clearAllButton}
-                        variant='text'>
-                        <span>Clear all</span>
-                        <Icon width={17} height={12} name='close' styles={{ fill: '#030303' }} />
-                    </SwxButton>
-                )}
             </Stack>
             <CreateTemplate />
         </Stack>

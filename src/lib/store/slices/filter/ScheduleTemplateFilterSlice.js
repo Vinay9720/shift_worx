@@ -2,9 +2,8 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialFilterState = {
     search: '',
-    status: '',
     roles: [],
-    publishedRoles: [],
+    publishStatus: [],
     filterApplied: false,
 };
 
@@ -30,8 +29,8 @@ const scheduleTemplateFilterSlice = createSlice({
                         return 'All';
                 }
             };
-            state.roles = publishStatus();
-            state.publishedRoles = action.payload;
+            state.publishStatus = publishStatus();
+            state.roles = action.payload;
             state.filterApplied = true;
         },
         clearFilters: state => {
