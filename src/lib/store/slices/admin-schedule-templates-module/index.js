@@ -5,6 +5,7 @@ const initialState = {
     templateTobePublished: {},
     templateTobeDeleted: {},
     templateShiftTobeDeleted: {},
+    templateShiftTobeEdited: {},
 };
 
 const AdminScheduleTemplatesModule = createSlice({
@@ -23,10 +24,14 @@ const AdminScheduleTemplatesModule = createSlice({
         setTemplateShiftTobeDeleted: (state, action) => {
             state.templateShiftTobeDeleted = action.payload;
         },
+        setTemplateShiftTobeEdited: (state, action) => {
+            state.templateShiftTobeEdited = action.payload;
+        },
         clearState: state => {
             state.templateTobePublished = {};
             state.templateTobeDeleted = {};
-            state.templateShiftTobeDelete = {};
+            state.templateShiftTobeDeleted = {};
+            state.templateShiftTobeEdited = {};
         },
     },
 });
@@ -37,5 +42,6 @@ export const {
     setTemplateTobeDeleted,
     setTemplateShiftTobeDeleted,
     clearState,
+    setTemplateShiftTobeEdited,
 } = AdminScheduleTemplatesModule.actions;
 export default AdminScheduleTemplatesModule.reducer;

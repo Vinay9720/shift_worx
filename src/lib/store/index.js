@@ -12,6 +12,7 @@ import {
     ptoFilterSlice,
     scheduleFilterReducer,
     expirationsFilterReducer,
+    scheduleTemplateFilterSlice,
 } from './slices/filter';
 import adminScheduleReducer from './slices/admin-schedule-module';
 import applicationReducer from './slices/application';
@@ -33,6 +34,7 @@ const rootReducer = combineReducers({
     adminScheduleModule: adminScheduleReducer,
     adminScheduleTemplatesModule: adminScheduleTemplatesReducer,
     tabs: tabSlice,
+    scheduleTemplateFilter: scheduleTemplateFilterSlice,
 });
 
 export const store = configureStore({

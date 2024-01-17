@@ -1,10 +1,12 @@
 import http from '../../httpCommon';
 
-const fetchTemplates = (itemsPerPage, page) => {
+const fetchTemplates = (itemsPerPage, page, roles, search) => {
     const queryParams = [];
 
     if (itemsPerPage) queryParams.push(`per_page=${itemsPerPage}`);
     if (page) queryParams.push(`page=${page}`);
+    if (search) queryParams.push(`name=${search}`);
+    if (roles) queryParams.push(`publish=${roles}`);
 
     const queryString = queryParams.join('&');
 
