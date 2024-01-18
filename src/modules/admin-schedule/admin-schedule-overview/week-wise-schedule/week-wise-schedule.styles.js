@@ -19,9 +19,13 @@ export const StyledMainDiv = styled.div`
     justify-content: center;
     gap: 1rem;
     align-items: center;
-    border-top: ${({ employeeName }) => (!employeeName ? '2px solid #F47602' : '1px solid #e6e8e9')};
-    border-left: ${({ employeeName }) => (!employeeName ? '2px solid #F47602' : null)};
-    border-bottom: ${({ employeeName }) => (!employeeName ? '2px solid #F47602' : null)};
+    ${({ theme, employeeName }) => `
+    border-top:  ${
+        !employeeName ? `2px solid ${theme.backgroundColor.lightOrange}` : `1px solid ${theme.borderColor.lightGray}`
+    };
+    border-left: 2px solid ${!employeeName ? theme.backgroundColor.lightOrange : null};
+    border-bottom: 2px solid ${!employeeName ? theme.backgroundColor.lightOrange : null};
+`};
 `;
 export const StyledRootContainer = styled.div`
     display: flex;

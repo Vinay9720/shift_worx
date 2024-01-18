@@ -41,6 +41,7 @@ import { openModal } from '@/lib/store/slices/modal-slice';
 import { setCurrentTimeValue, setScheduleType } from '@/lib/store/slices/admin-schedule-module';
 import { useState } from 'react';
 import { useEditShift, useDeleteShift } from '@/hooks/admin-schedule';
+import { sortedShiftsByName } from '@/lib/util';
 
 export default function WeekWiseSchedule({ scheduleData }) {
     const dispatch = useDispatch();
@@ -60,10 +61,7 @@ export default function WeekWiseSchedule({ scheduleData }) {
         }
         return weekdaysWithDates;
     };
-    const sortedShiftsByDate = scheduleData.records.reduce((acc, cur) => {
-        const dat = cur.name ? [...acc, cur] : [cur, ...acc];
-        return dat;
-    }, []);
+    const sortedShiftsByDate = sortedShiftsByName(scheduleData.records);
 
     const menuOptions = employeeShiftData => {
         return [

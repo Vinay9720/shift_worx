@@ -31,11 +31,15 @@ export const StyledViewUsersDiv = styled.div`
 `;
 export const StyledFlexDiv = styled.div`
     display: flex;
-    border-top: ${({ employeeName }) => (!employeeName ? '2px solid #F47602' : '1px solid #e6e8e9')};
-    border-left: ${({ employeeName }) => (!employeeName ? '2px solid #F47602' : null)};
-    border-bottom: ${({ employeeName }) => (!employeeName ? '2px solid #F47602' : null)};
-    border-right: 0;
     min-height: 74px;
+    ${({ theme, employeeName }) => `
+    border-top:  ${
+        !employeeName ? `2px solid ${theme.backgroundColor.lightOrange}` : `1px solid ${theme.borderColor.lightGray}`
+    };
+    border-left: 2px solid ${!employeeName ? theme.backgroundColor.lightOrange : null};
+    border-bottom: 2px solid ${!employeeName ? theme.backgroundColor.lightOrange : null};
+    border-right: 0;
+`};
 `;
 export const StyledSubFlexDiv = styled.div`
     display: flex;
@@ -153,8 +157,10 @@ export const StyledSortedShiftsContainer = styled.div`
     min-height: 74px;
     position: absolute;
     top: 0;
-    border: ${({ employeeName }) => (!employeeName ? '2px solid #F47602' : null)};
+    ${({ theme, employeeName }) => `
+    border: 2px solid ${!employeeName ? theme.backgroundColor.lightOrange : null};
     border-left: none;
+`};
 `;
 export const StyledNoSchedulesContainer = styled.div`
     padding: 12px;

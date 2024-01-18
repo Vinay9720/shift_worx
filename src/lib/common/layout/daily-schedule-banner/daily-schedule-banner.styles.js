@@ -1,17 +1,5 @@
+import { scheduleBannerBackgroundColor } from '@/lib/util';
 import styled from 'styled-components';
-
-export const getBackgroundColor = kind => {
-    switch (kind) {
-        case 'LPN':
-            return 'lightBlue';
-        case 'RN':
-            return 'palePink';
-        case 'CNA':
-            return 'paleOrange';
-        default:
-            return 'palePink';
-    }
-};
 
 export const BannerWrapper = styled.div`
     height: 74px;
@@ -28,7 +16,7 @@ export const Bannercontainer = styled.div`
     ${({ theme, kind, employeeName }) => `
     border: 1.5px solid ${theme.borderColor.white};
     background-color: ${
-        !employeeName ? theme.backgroundColor.darkGray : theme.backgroundColor[getBackgroundColor(kind)]
+        !employeeName ? theme.backgroundColor.darkGray : theme.backgroundColor[scheduleBannerBackgroundColor(kind)]
     };
 `};
 `;

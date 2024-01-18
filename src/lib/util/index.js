@@ -13,6 +13,8 @@ import { formatExpirations } from './formatExpirationsArray';
 import { userStatusChipBackground, userStatusCircleBackground } from './dynamicUserStatusChip';
 import { today } from './getToday';
 import { convertTo24HourFormat } from './convertTo24HourFormat';
+import { scheduleBannerBackgroundColor } from './scheduleBannerBackground';
+import { sortedShiftsByName } from './sortedShiftsByName';
 
 export {
     redirectUser,
@@ -29,4 +31,6 @@ export {
     filledChipBackground,
     today,
     convertTo24HourFormat,
+    scheduleBannerBackgroundColor,
+    sortedShiftsByName,
 };

@@ -32,7 +32,7 @@ import {
     StyledViewUsersDiv,
 } from './day-wise-schedule.styles';
 import { DailyScheduleBanner, SwxModal, DynamicPromptModal, OpenShifts } from '@/lib/common/layout';
-import { convertTo24HourFormat, today } from '@/lib/util';
+import { convertTo24HourFormat, sortedShiftsByName, today } from '@/lib/util';
 import ShiftForm from '../add-shift/ShiftForm';
 import { useState } from 'react';
 import { useEditShift, useDeleteShift } from '@/hooks/admin-schedule';
@@ -65,10 +65,7 @@ export default function DayWiseSchedule({ scheduleData }) {
         return shifts;
     };
     const shiftsByDate = getShiftsByDate(scheduleData && scheduleData.records, currentTimeValue);
-    const sortedShiftsByDate = shiftsByDate.reduce((acc, cur) => {
-        const dat = cur.name ? [...acc, cur] : [cur, ...acc];
-        return dat;
-    }, []);
+    const sortedShiftsByDate = sortedShiftsByName(shiftsByDate);
     const getMarginLeft = start => {
         const startTime = convertTo24HourFormat(start);
         const [startTimeHour, startTimeMinutes] = startTime.split(':');
