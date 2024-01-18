@@ -1,26 +1,69 @@
 import { Stack, Avatar, IconButton } from '@mui/material';
 import { capitalize } from 'lodash';
+import { useState } from 'react';
+import { useEditShift, useDeleteShift } from '@/hooks/admin-schedule';
 
 import { SwxDataGrid, SwxChip, SwxTypography, SwxPopupMenu } from '@/lib/common/components';
 import { Icon } from '@/lib/common/icons';
 import { roleBackground, filledCircleBackground, filledChipBackground } from '@/lib/util';
 import SwxPagination from '@/lib/common/layout/pagination';
 import moment from 'moment';
+import { DynamicPromptModal, OpenShifts, SwxModal } from '@/lib/common/layout';
+import ShiftForm from '../add-shift/ShiftForm';
+import { openModal } from '@/lib/store/slices/modal-slice';
+import { useDispatch } from 'react-redux';
 
 export default function ScheduleList({ scheduleData, isLoading }) {
-    const menuOptions = () => {
+    const { mutate: deleteShift } = useDeleteShift();
+    const [employeeId, setEmployeeId] = useState(null);
+    const [shiftData, setShiftData] = useState();
+    const { mutate: updateShift } = useEditShift(shiftData && shiftData);
+    const dispatch = useDispatch();
+    const menuOptions = ({
+        start,
+        end,
+        floor,
+        cert,
+        id,
+        shiftId,
+        specialities,
+        facility,
+        startDate,
+        certId,
+        empName,
+    }) => {
+        const employeeShiftData = {
+            employee: empName,
+            id,
+            facility_id: facility,
+            shift_id: shiftId,
+            certificate_ids: certId,
+            speciality_ids: specialities,
+            station: floor,
+            start_date: startDate,
+            start_time: start,
+            end_time: end,
+            role: cert,
+        };
         return [
             {
-                label: 'Edit',
-                action: () => {
-                    // console.log('send message clicked', id);
+                label: 'Edit Shift',
+                action: async e => {
+                    e.preventDefault();
+                    setShiftData(employeeShiftData);
+                    dispatch(openModal({ modalName: 'editShiftModal' }));
                 },
+                icon: <Icon styles={{ fill: '#838A91' }} name='pencil' height={14} width={14} />,
             },
             {
-                label: 'Delete',
-                action: () => {
-                    // console.log('send message clicked', id);
+                label: 'Delete Shift',
+                action: async e => {
+                    e.preventDefault();
+                    dispatch(openModal({ modalName: 'deleteShiftModal' }));
+                    setEmployeeId(shiftId);
                 },
+                color: 'red',
+                icon: <Icon styles={{ fill: '#F43C02' }} name='trash' height={14} width={14} />,
             },
         ];
     };
@@ -30,16 +73,23 @@ export default function ScheduleList({ scheduleData, isLoading }) {
             field: 'fullName',
             headerName: 'Employee',
             width: 250,
-            renderCell: params => (
-                <Stack direction='row' spacing={1} alignItems='center' style={{ cursor: 'pointer' }}>
-                    <Avatar sx={{ width: 32, height: 32, bgcolor: '#1F6FA9' }}>{`${
-                        params.row.name ? params.row.name.split('')[0].toUpperCase() : 'U'
-                    }`}</Avatar>
-                    <SwxTypography color='swxBlack' size='semiMedium' weight='semiBold' className='Manrope'>{`${
-                        params.row.name ? params.row.name : 'Un assigned'
-                    }`}</SwxTypography>
-                </Stack>
-            ),
+            renderCell: params => {
+                const unAssigned = params.row.name === null;
+                return unAssigned ? (
+                    <OpenShifts />
+                ) : (
+                    <Stack direction='row' spacing={1} alignItems='center' style={{ cursor: 'pointer' }}>
+                        <Avatar sx={{ width: 32, height: 32, bgcolor: '#1F6FA9' }}>{`${params.row.name
+                            .split('')[0]
+                            .toUpperCase()}`}</Avatar>
+                        <SwxTypography
+                            color='swxBlack'
+                            size='semiMedium'
+                            weight='semiBold'
+                            className='Manrope'>{`${params.row.name}`}</SwxTypography>
+                    </Stack>
+                );
+            },
             align: 'left',
             filterable: false,
             // flex: 1,
@@ -54,8 +104,15 @@ export default function ScheduleList({ scheduleData, isLoading }) {
             sortable: false,
             filterable: false,
             renderCell: params => {
-                const background = roleBackground(params.value);
-                return <SwxChip label={params.value || 'RN'} color='white' background={background} size='semiMedium' />;
+                const background = roleBackground(params.row.certificate.abbreviation);
+                return (
+                    <SwxChip
+                        label={params.row.certificate.abbreviation || 'RN'}
+                        color='white'
+                        background={background}
+                        size='semiMedium'
+                    />
+                );
             },
         },
         {
@@ -139,7 +196,7 @@ export default function ScheduleList({ scheduleData, isLoading }) {
             align: 'left',
             // flex: 1,
             sortable: false,
-            valueGetter: params => `${params.value}hrs` || '08hrs',
+            valueGetter: params => `${params.value}hrs`,
             filterable: false,
             minWidth: 80,
         },
@@ -149,30 +206,53 @@ export default function ScheduleList({ scheduleData, isLoading }) {
             width: 10,
             sortable: false,
             filterable: false,
-            renderCell: params => (
-                <SwxPopupMenu
-                    buttonElement={
-                        <IconButton>
-                            <Icon
-                                styles={{ fill: '#838A91' }}
-                                name='vertical-menu'
-                                aria-hidden='true'
-                                height={15}
-                                width={10}
-                            />
-                        </IconButton>
-                    }
-                    options={menuOptions({
-                        id: params.value,
-                    })}
-                />
-            ),
+            renderCell: params => {
+                const [startTime, endTime] = params.row.time.split(' - ');
+                const parsedStartTime = moment(startTime, 'hh:mma').format('hh:mma');
+                const parsedEndTime = moment(endTime, 'hh:mma').format('hh:mma');
+                return (
+                    <SwxPopupMenu
+                        buttonElement={
+                            <IconButton>
+                                <Icon
+                                    styles={{ fill: '#838A91' }}
+                                    name='vertical-menu'
+                                    aria-hidden='true'
+                                    height={15}
+                                    width={10}
+                                />
+                            </IconButton>
+                        }
+                        options={menuOptions({
+                            empName: params.row.name,
+                            id: params.id,
+                            facility: params.row.facility,
+                            shiftId: params.row.shift_id,
+                            certId: params.row.certificate.id,
+                            specialities: params.row.specialities,
+                            floor: params.row.station,
+                            startDate: params.row.date,
+                            start: parsedStartTime,
+                            end: parsedEndTime,
+                            cert: params.row.certificate.abbreviation,
+                        })}
+                    />
+                );
+            },
         },
     ];
 
     return (
         <>
-            <SwxDataGrid checkboxSelection loading={isLoading} rows={scheduleData?.records} columns={columns} />
+            <SwxDataGrid checkboxSelection loading={isLoading} rows={scheduleData.records} columns={columns} />
+            <DynamicPromptModal
+                modalName='deleteShiftModal'
+                entityName='Shift'
+                onConfirm={() => deleteShift(employeeId)}
+            />
+            <SwxModal modalName='editShiftModal'>
+                <ShiftForm modalName='editShiftModal' title='Edit' employeeShiftData={shiftData} action={updateShift} />
+            </SwxModal>
             <SwxPagination
                 itemsPerPageOptions={['5', '10', '15']}
                 paginationName='adminScheduleListPagination'

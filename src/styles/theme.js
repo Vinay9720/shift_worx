@@ -7,6 +7,7 @@ export const white = {
         lightGray: '#838A91',
         lighterGray: '#E6E8E9',
         gray: '#CCCCCC',
+        swxGray: '#83838B',
         darkestGray: '#373E40',
         swxBlack: '#030303',
         mediumGreen: '#1DB304',
@@ -39,6 +40,8 @@ export const white = {
         switchGray: '#C6D2D6',
         paleGreen: '#E6FFFA',
         lightOrange: '#F47602',
+        paleOrange: '#FFEAD7',
+        darkGray: '#E9E9EC',
     },
     borderColor: {
         blue: '#027EF4',

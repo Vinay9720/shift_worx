@@ -12,6 +12,21 @@ export const styles = {
         borderTop: '1px solid #E6E8E9',
     },
 };
+export const StyledMainDiv = styled.div`
+    height: 120px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+    align-items: center;
+    ${({ theme, employeeName }) => `
+    border-top:  ${
+        !employeeName ? `2px solid ${theme.backgroundColor.lightOrange}` : `1px solid ${theme.borderColor.lightGray}`
+    };
+    border-left: 2px solid ${!employeeName ? theme.backgroundColor.lightOrange : null};
+    border-bottom: 2px solid ${!employeeName ? theme.backgroundColor.lightOrange : null};
+`};
+`;
 export const StyledRootContainer = styled.div`
     display: flex;
     ${({ theme }) => `
@@ -155,6 +170,7 @@ export const StyledFlexContainer = styled.div`
     margin-top: 2px;
 `;
 export const StyledSessionContainer = styled.div`
+    height: fit-content;
     padding: 2px;
     display: flex;
     justify-content: center;
@@ -176,14 +192,18 @@ export const StyledGridWeekDayContainer = styled.div`
     font-size: ${theme.fontSize.small};
     font-weight: ${theme.fontWeight.thin};
     border-left: 1px solid ${theme.borderColor.lightGray};
-    border-top: 1px solid ${theme.borderColor.lightGray};
 `}
+    border-bottom: ${({ employeeName }) => (!employeeName ? '2px solid #F47602' : null)};
+    border-top: ${({ employeeName }) => (!employeeName ? '2px solid #F47602' : '1px solid #e6e8e9')};
+    border-right: ${({ day, employeeName }) => {
+        return day && !employeeName ? '2px solid #F47602' : 'initial';
+    }};
     flex-direction: column;
     gap: 0.5rem;
     min-height: 96px;
 
     ${props =>
-        parseInt(props.weekDay.date.split('-')[0]) === new Date().getDate() &&
+        parseInt(props.weekDays.date.split('-')[0]) === new Date().getDate() &&
         css`
             background-color: #f7f7f8;
         `}

@@ -8,6 +8,7 @@ const date2 = moment(time, 'ddd, MMM D').add(1, 'month').format('ddd, MMM D');
 const initialState = {
     scheduleType: 'daily',
     currentTimeValue: time,
+    currentListTimeValue: [moment().format('MM-DD-YYYY'), moment().add(2, 'days').format('MM-DD-YYYY')],
 };
 
 const AdminScheduleModule = createSlice({
@@ -33,6 +34,9 @@ const AdminScheduleModule = createSlice({
         setCurrentTimeValue: (state, action) => {
             state.currentTimeValue = action.payload;
         },
+        setListCurrentTimeValue: (state, action) => {
+            state.currentListTimeValue = action.payload;
+        },
         setInitialTimeValue: state => {
             if (state.scheduleType === 'daily' || state.scheduleType === 'weekly') {
                 state.currentTimeValue = time;
@@ -50,5 +54,6 @@ const AdminScheduleModule = createSlice({
     },
 });
 
-export const { setCurrentTimeValue, setScheduleType, setInitialTimeValue } = AdminScheduleModule.actions;
+export const { setCurrentTimeValue, setScheduleType, setListCurrentTimeValue, setInitialTimeValue } =
+    AdminScheduleModule.actions;
 export default AdminScheduleModule.reducer;

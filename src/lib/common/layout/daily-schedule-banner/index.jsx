@@ -32,7 +32,7 @@ function DailyScheduleBanner({
     const dispatch = useDispatch();
     const menuOptions = () => {
         const employeeShiftData = {
-            employee: empName || 'Nurse',
+            employee: empName,
             id,
             facility_id: facility,
             shift_id: shiftId,
@@ -78,8 +78,8 @@ function DailyScheduleBanner({
         }
     };
     return (
-        <BannerWrapper kind={kind}>
-            <Bannercontainer style={style}>
+        <BannerWrapper>
+            <Bannercontainer style={style} kind={kind} employeeName={empName}>
                 <Stack sx={{ display: 'flex', flexDirection: 'row', gap: '16px' }}>
                     <SwxChip label={kind} color='white' background={getBackGroundColor()} size='smallest' />
                     <Stack direction='column' sx={{ ml: '4px' }}>
@@ -160,12 +160,10 @@ const badgleStyles = cva('text-sm font-medium rounded w-fit flex', {
 
 export const Badge = ({ text, kind, styles, icon }) => {
     return (
-        <div className={`${badgleStyles({ kind })} ${styles}`}>
-            <div className={`${styles}`}>
+        <div className={`${badgleStyles({ kind })}`} style={styles}>
+            <div>
                 {icon} {text}{' '}
             </div>
         </div>
     );
 };
-
-// export default Badge;

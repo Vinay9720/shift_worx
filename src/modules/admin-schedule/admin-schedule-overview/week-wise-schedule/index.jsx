@@ -15,7 +15,6 @@ import { SwxPopupMenu, SwxTypography } from '@/lib/common/components';
 
 import {
     UsersContainer,
-    styles,
     ViewByUsersContainer,
     WeekDaysContainer,
     StyledWeekDaysContainer,
@@ -34,13 +33,15 @@ import {
     StyledFlexContainer,
     StyledSessionContainer,
     StyledGridWeekDayContainer,
+    StyledMainDiv,
 } from './week-wise-schedule.styles';
 import ShiftForm from '../add-shift/ShiftForm';
-import { SwxModal, DynamicPromptModal } from '@/lib/common/layout';
+import { SwxModal, DynamicPromptModal, OpenShifts } from '@/lib/common/layout';
 import { openModal } from '@/lib/store/slices/modal-slice';
 import { setCurrentTimeValue, setScheduleType } from '@/lib/store/slices/admin-schedule-module';
 import { useState } from 'react';
 import { useEditShift, useDeleteShift } from '@/hooks/admin-schedule';
+import { sortedShiftsByName } from '@/lib/util';
 
 export default function WeekWiseSchedule({ scheduleData }) {
     const dispatch = useDispatch();
@@ -60,6 +61,7 @@ export default function WeekWiseSchedule({ scheduleData }) {
         }
         return weekdaysWithDates;
     };
+    const sortedShiftsByDate = sortedShiftsByName(scheduleData.records);
 
     const menuOptions = employeeShiftData => {
         return [
@@ -100,7 +102,7 @@ export default function WeekWiseSchedule({ scheduleData }) {
         empName
     ) => {
         const employeeShiftData = {
-            employee: empName || 'Nurse',
+            employee: empName,
             id,
             facility_id: facility,
             shift_id: shiftId,
@@ -115,7 +117,11 @@ export default function WeekWiseSchedule({ scheduleData }) {
         return (
             <Stack direction='column'>
                 <Stack direction='row' spacing={1}>
-                    <Badge kind='certPink' styles='px-[1px] text-white h-fit' text={cert || 'RN'} />
+                    <Badge
+                        kind='certPink'
+                        styles={{ padding: '0px 2px', color: 'white', height: 'fit-content' }}
+                        text={cert || 'RN'}
+                    />
                     <div>
                         <Stack direction='row'>
                             <SwxTypography color='swxBlack' weight='semiBold' size='small' className='Manrope'>
@@ -171,43 +177,51 @@ export default function WeekWiseSchedule({ scheduleData }) {
             <div style={{ minWidth: '256px' }}>
                 <ViewByUsersContainer>View by Users</ViewByUsersContainer>
                 {!isEmpty(scheduleData.records)
-                    ? scheduleData.records.map((emp, i) => {
+                    ? sortedShiftsByDate.map((emp, i) => {
                           return (
-                              <div style={styles.mainDiv} key={i}>
-                                  <Avatar sx={{ width: 42, height: 42, bgcolor: '#1F6FA9' }}>{`${
-                                      emp.name ? emp.name.split('')[0].toUpperCase() : 'U'
-                                  }`}</Avatar>
+                              <StyledMainDiv employeeName={emp.name} key={i}>
+                                  {emp.name ? (
+                                      <Avatar sx={{ width: 42, height: 42, bgcolor: '#1F6FA9' }}>{`${emp.name
+                                          .split('')[0]
+                                          .toUpperCase()}`}</Avatar>
+                                  ) : null}
                                   <div>
-                                      <StyledNameContainer>
-                                          {`${emp.name ? emp.name.slice(0, 7) : 'Un assigned'} ${
-                                              emp.name ? emp.name.slice(7, 8).toUpperCase() : ''
-                                          }`}
-                                      </StyledNameContainer>
-                                      <Stack direction='row'>
-                                          <StyledIconContainer>
-                                              <Icon
-                                                  styles={{ fill: '#838A91' }}
-                                                  name='clock'
-                                                  aria-hidden='true'
-                                                  height={16}
-                                                  width={16}
-                                              />
-                                          </StyledIconContainer>
-                                          <StyledNumberContainer>{emp.start_time || '08:00hrs'}</StyledNumberContainer>
-                                          <StyledDot />
-                                          <StyledIconContainer>
-                                              <Icon
-                                                  styles={{ fill: '#838A91' }}
-                                                  name='calender'
-                                                  aria-hidden='true'
-                                                  height={16}
-                                                  width={16}
-                                              />
-                                          </StyledIconContainer>
-                                          <StyledNumberContainer>{emp.schedule_count || 1}</StyledNumberContainer>
-                                      </Stack>
+                                      {emp.name ? (
+                                          <StyledNameContainer>
+                                              {`${emp.name.slice(0, 7)} ${emp.name.slice(7, 8).toUpperCase()}`}
+                                          </StyledNameContainer>
+                                      ) : (
+                                          <OpenShifts modalName='editShiftModal' />
+                                      )}
+                                      {emp.name ? (
+                                          <Stack direction='row'>
+                                              <StyledIconContainer>
+                                                  <Icon
+                                                      styles={{ fill: '#838A91' }}
+                                                      name='clock'
+                                                      aria-hidden='true'
+                                                      height={16}
+                                                      width={16}
+                                                  />
+                                              </StyledIconContainer>
+                                              <StyledNumberContainer>
+                                                  {emp.start_time || '08:00hrs'}
+                                              </StyledNumberContainer>
+                                              <StyledDot />
+                                              <StyledIconContainer>
+                                                  <Icon
+                                                      styles={{ fill: '#838A91' }}
+                                                      name='calender'
+                                                      aria-hidden='true'
+                                                      height={16}
+                                                      width={16}
+                                                  />
+                                              </StyledIconContainer>
+                                              <StyledNumberContainer>{emp.schedule_count || 1}</StyledNumberContainer>
+                                          </Stack>
+                                      ) : null}
                                   </div>
-                              </div>
+                              </StyledMainDiv>
                           );
                       })
                     : null}
@@ -272,12 +286,16 @@ export default function WeekWiseSchedule({ scheduleData }) {
                     ))}
                 </UsersContainer>
                 {!isEmpty(scheduleData.records) ? (
-                    scheduleData.records.map((emp, i) => {
+                    sortedShiftsByDate.map((emp, i) => {
                         return (
                             <StyledWeekDaysContainer key={i}>
                                 {weekdays.map((weekDay, index) => {
                                     return (
-                                        <StyledGridWeekDayContainer weekDay={weekDay} key={index}>
+                                        <StyledGridWeekDayContainer
+                                            weekDays={weekDay}
+                                            key={index}
+                                            day={weekDay.weekday === 'Sunday'}
+                                            employeeName={emp.name}>
                                             <div key={index}>
                                                 {Object.entries(emp.shifts).map(([date, shifts]) => {
                                                     if (
@@ -313,7 +331,13 @@ export default function WeekWiseSchedule({ scheduleData }) {
                                                                                 ? 'scheduleMistyRose'
                                                                                 : 'scheduleOrange'
                                                                         }
-                                                                        styles='p-1 w-full'
+                                                                        styles={{
+                                                                            width: '100%',
+                                                                            padding: '8px',
+                                                                            backgroundColor: !emp.name
+                                                                                ? '#E9E9EC'
+                                                                                : null,
+                                                                        }}
                                                                     />
                                                                 </div>
                                                                 {shifts.length > 1 && (

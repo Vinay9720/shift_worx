@@ -62,6 +62,7 @@ import CalenderWeek from './CalenderWeek';
 import CalenderMonth from './CalenderMonth';
 import Radio from './Radio';
 import SaveScheduleTemplate from './SaveScheduleTemplate';
+import ShiftAssignedStatus from './ShiftAssignedStatus';
 
 export const Icon = ({ name, width, height, fill, styles, ...rest }) => {
     switch (name) {
@@ -191,6 +192,8 @@ export const Icon = ({ name, width, height, fill, styles, ...rest }) => {
             return <Radio width={width} height={height} fill={fill} styles={styles} {...rest} />;
         case 'save-schedule-template':
             return <SaveScheduleTemplate width={width} height={height} fill={fill} styles={styles} {...rest} />;
+        case 'shift-unAssigned':
+            return <ShiftAssignedStatus width={width} height={height} fill={fill} styles={styles} {...rest} />;
         default:
             return <div>Icon</div>;
     }

@@ -63,7 +63,7 @@ export const ScheduleBannerWrapper = styled.div`
     margin-bottom: 0.5rem;
     display: flex;
     justify-content: center;
-    margin: 2px;
+    margin: 1px;
 `;
 
 export const ShowMoreButtonWrapper = styled.div`
