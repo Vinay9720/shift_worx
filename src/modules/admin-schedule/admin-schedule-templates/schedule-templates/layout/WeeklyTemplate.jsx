@@ -59,6 +59,7 @@ export default function WeeklyTemplate({ templateShifts }) {
 
     const weekdays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
+    // eslint-disable-next-line no-unused-vars
     const getScheduleBanner = (start, end, floor, session, cert, shiftId, facility, empName) => {
         const shiftData = {
             employee: empName || 'Nurse',
@@ -249,7 +250,7 @@ export default function WeeklyTemplate({ templateShifts }) {
                                                                     <div
                                                                         className='flex text-light'
                                                                         style={{ width: '200px', height: '90px' }}>
-                                                                        <Badge
+                                                                        {/* <Badge
                                                                             text={getScheduleBanner(
                                                                                 shift.start_time,
                                                                                 shift.end_time,
@@ -270,7 +271,7 @@ export default function WeeklyTemplate({ templateShifts }) {
                                                                                     : 'scheduleOrange'
                                                                             }
                                                                             styles='p-1 w-full'
-                                                                        />
+                                                                        /> */}
                                                                     </div>
                                                                     {shifts.length > 1 && (
                                                                         <ShowMoreButtonWrapper>
