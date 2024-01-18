@@ -45,6 +45,7 @@ function Filter() {
                     insideLabel='Template Type'
                     style={{ width: '100%' }}
                     value={templateType}
+                    disabled
                     onChange={handleTemplateTypeChange}
                     options={['Weekly', 'Monthly']}
                     padding='12px 12px'
