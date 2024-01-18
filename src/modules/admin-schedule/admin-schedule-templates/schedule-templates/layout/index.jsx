@@ -10,7 +10,7 @@ export default function AdminScheduleTemplate({ editingTemplate }) {
     return (
         <AdminScheduleTemplateLayout
             title={editingTemplate ? 'Edit a Template' : 'Create New Template'}
-            filter={<Filter />}
+            filter={<Filter editingTemplate={editingTemplate} />}
             weeklyTemplate={<WeeklyTemplate templateShifts={templateShifts} />}
             monthlyTemplate={<MonthlyTemplate templateShifts={templateShifts} />}
             footer={<ActionButtons />}
