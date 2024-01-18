@@ -10,7 +10,7 @@ import { closeModal, openModal } from '@/lib/store/slices/modal-slice';
 import { DynamicPromptModal } from '@/lib/common/layout';
 import { useParams, useRouter } from 'next/navigation';
 
-function Filter() {
+function Filter({ editingTemplate }) {
     const dispatch = useDispatch();
     const { templateId } = useParams();
     const router = useRouter();
@@ -45,7 +45,7 @@ function Filter() {
                     insideLabel='Template Type'
                     style={{ width: '100%' }}
                     value={templateType}
-                    disabled
+                    disabled={!!editingTemplate}
                     onChange={handleTemplateTypeChange}
                     options={['Weekly', 'Monthly']}
                     padding='12px 12px'
