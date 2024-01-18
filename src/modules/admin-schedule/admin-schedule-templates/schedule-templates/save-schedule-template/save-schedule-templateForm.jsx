@@ -1,6 +1,6 @@
 'use client';
 
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Stack } from '@mui/material';
 
 import { closeModal } from '@/lib/store/slices/modal-slice';
@@ -12,6 +12,7 @@ import { CloseContainer, EllipseContainer, HeaderContainer, ModalContainer } fro
 
 export default function SaveScheduleTemplateForm({ modalName, action }) {
     const dispatch = useDispatch();
+    const { templateDetails } = useSelector(state => state.adminScheduleTemplatesModule);
     const templateProps = {
         label: (
             <SwxTypography color='swxSlightlyBlack' size='semiMedium' weight='semiBold' className='Manrope'>
@@ -63,9 +64,9 @@ export default function SaveScheduleTemplateForm({ modalName, action }) {
             </HeaderContainer>
             <Form onSubmit={shiftData => action({ shiftData, savingTemplate: true })}>
                 <Stack sx={{ padding: '10px 150px 21px 16px', backgroundColor: '#F6FAFD' }}>
-                    <SwxTypography>Save shift schedule for the week of Jan 1 to Jan 7</SwxTypography>
-                    <SwxTypography>Total Shifts: 32</SwxTypography>
-                    <SwxTypography>Total Hours: 500</SwxTypography>
+                    {/* <SwxTypography>Save shift schedule for the week of Jan 1 to Jan 7</SwxTypography> */}
+                    <SwxTypography>Total Shifts: {templateDetails.total_shifts}</SwxTypography>
+                    <SwxTypography>Total Hours: {templateDetails.total_hours}</SwxTypography>
                 </Stack>
                 <Stack direction='column' spacing={2} sx={{ padding: '10px 34px 0px 14px' }}>
                     <Stack direction={{ xs: 'column', sm: 'row' }}>
