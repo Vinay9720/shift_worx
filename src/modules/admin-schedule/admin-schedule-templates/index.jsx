@@ -10,10 +10,15 @@ import SearchFilter from './searchFilter';
 
 import { openModal } from '@/lib/store/slices/modal-slice';
 import { useTemplates } from '@/hooks/admin-schedule-templates';
-import { setTemplateTobePublished, setTemplateTobeDeleted } from '@/lib/store/slices/admin-schedule-templates-module';
+import {
+    setTemplateTobePublished,
+    setTemplateTobeDeleted,
+    setTemplateType,
+} from '@/lib/store/slices/admin-schedule-templates-module';
 import PublishScheduleTemplate from './schedule-templates/publish-schedule-template';
 import { useDeleteTemplate } from '@/hooks/admin-schedule-templates/useDeleteTemplate';
 import { useRouter } from 'next/navigation';
+import { capitalize } from 'lodash';
 
 export default function AdminScheduleTemplates() {
     const dispatch = useDispatch();
@@ -190,7 +195,11 @@ export default function AdminScheduleTemplates() {
             sortable: false,
             filterable: false,
             renderCell: params => (
-                <IconButton onClick={() => router.push(`/admin/schedule/edit-template/${params.row.id}`)}>
+                <IconButton
+                    onClick={() => {
+                        router.push(`/admin/schedule/edit-template/${params.row.id}`);
+                        dispatch(setTemplateType(capitalize(params.row.template_week) || 'Weekly'));
+                    }}>
                     <Icon styles={{ fill: '#838A91' }} name='pencil' height={16} width={16} />
                 </IconButton>
             ),

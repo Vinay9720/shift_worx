@@ -35,6 +35,7 @@ export default function SwxMultiSelect({
     padding,
     errorText,
     marginleft,
+    disabled,
 }) {
     const [isOpen, setIsOpen] = useState(false);
     const selectRef = useRef(null);
@@ -63,18 +64,21 @@ export default function SwxMultiSelect({
                     onClick={handleIconClick}
                     // Icon needs to be updated
                     IconComponent={() => {
-                        return (
-                            <Icon
-                                name='dropdown-arrow'
-                                width='14'
-                                styles={{ margin: '2px 12px 4px 12px', cursor: 'pointer' }}
-                                onClick={handleIconClick}
-                            />
-                        );
+                        if (!disabled) {
+                            return (
+                                <Icon
+                                    name='dropdown-arrow'
+                                    width='14'
+                                    styles={{ margin: '2px 12px 4px 12px', cursor: 'pointer' }}
+                                    onClick={handleIconClick}
+                                />
+                            );
+                        }
                     }}
                     multiple={multiple}
                     padding={padding}
                     value={value}
+                    disabled={disabled}
                     onChange={onChange}
                     renderValue={selected => {
                         return (
