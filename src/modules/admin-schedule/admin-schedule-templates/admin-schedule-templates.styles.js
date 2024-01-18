@@ -35,4 +35,17 @@ export const styles = {
             width: '100%',
         },
     },
+    clearAllButton: {
+        minWidth: '108px',
+        display: 'flex',
+        gap: '8px',
+        marginLeft: 'none',
+        '@media(max-width:600px)': {
+            span: {
+                display: 'none',
+            },
+            border: '1px solid #e6e8e9',
+            borderRadius: '8px',
+        },
+    },
 };

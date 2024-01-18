@@ -177,3 +177,26 @@ export const StyledBorderContainer = styled.div`
         border-radius: ${theme.borderRadius.small};
     `}
 `;
+export const StyledFlexContainer = styled.div`
+    display: flex;
+    justify-content: space-between;
+    margin-top: 2px;
+`;
+export const StyledSessionContainer = styled.div`
+    padding: 2px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    ${({ theme }) => `
+    font-size: ${theme.fontSize.smallest};
+    font-weight: ${theme.fontWeight.thin};
+    background-color: ${theme.backgroundColor.white};
+`}
+    border-radius: 4px;
+`;
+export const StyledIconContainer = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 4px;
+`;

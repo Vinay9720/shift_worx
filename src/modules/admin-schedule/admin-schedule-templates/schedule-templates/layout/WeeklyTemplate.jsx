@@ -1,11 +1,11 @@
 'use client';
 
-import { IconButton, Avatar } from '@mui/material';
+import { IconButton, Avatar, Stack } from '@mui/material';
 import { isEmpty } from 'lodash';
 
 import { Badge } from '@/lib/common/layout/daily-schedule-banner';
 import { Icon } from '@/lib/common/icons';
-import { SwxPopupMenu } from '@/lib/common/components';
+import { SwxPopupMenu, SwxTypography } from '@/lib/common/components';
 
 import {
     UsersContainer,
@@ -16,21 +16,33 @@ import {
     StyledRootContainer,
     ShowMoreButtonWrapper,
     StyledShowMoreButton,
+    StyledFlexContainer,
+    StyledSessionContainer,
+    StyledIconContainer,
 } from './schedule-templates.styles';
-import { DynamicPromptModal } from '@/lib/common/layout';
+import { DynamicPromptModal, SwxModal } from '@/lib/common/layout';
 import { useDispatch } from 'react-redux';
 import { openModal } from '@/lib/store/slices/modal-slice';
 import { setTemplateShiftTobeDeleted } from '@/lib/store/slices/admin-schedule-templates-module';
 import { useDeleteTemplateShift } from '@/hooks/admin-schedule-templates/useDeleteTemplateShift';
+import { useEditTemplateShift } from '@/hooks/admin-schedule-templates/useEditTemplateShift';
+import TemplateShiftForm from '../add-template-shift/TemplateShiftForm';
+import { useState } from 'react';
 
 export default function WeeklyTemplate({ templateShifts }) {
+    const [employeeShiftId, setEmployeeShiftId] = useState();
     const dispatch = useDispatch();
     const { mutate: deleteShift } = useDeleteTemplateShift();
+    const { mutate: updateShift } = useEditTemplateShift(employeeShiftId && employeeShiftId);
+
     const menuOptions = shiftData => {
         return [
             {
                 label: 'Edit',
-                action: () => null,
+                action: () => {
+                    setEmployeeShiftId(shiftData.shift_id);
+                    dispatch(openModal({ modalName: 'editTemplateShiftModal' }));
+                },
                 icon: <Icon styles={{ fill: '#838A91' }} name='pencil' height={14} width={14} />,
             },
             {
@@ -61,31 +73,40 @@ export default function WeeklyTemplate({ templateShifts }) {
             role: cert,
         };
         return (
-            <div className='columns'>
-                <div className='flex gap-2'>
-                    <Badge kind='certPink' styles='px-[2px] text-white h-fit' text={cert || 'RN'} />
-                    <div className='text-sm font-bold text-black'>
-                        <div className='flex'>
-                            <div className='text-sm font-semibold'>
+            <Stack direction='column'>
+                <Stack direction='row' spacing={1}>
+                    {/* <Badge
+                        kind='certPink'
+                        styles={{ padding: '0px 2px', color: 'white', height: 'fit-content' }}
+                        text={cert || 'RN'}
+                    /> */}
+                    <Badge kind='certPink' styles='px-[1px] text-white h-fit' text={cert || 'RN'} />
+                    <div>
+                        <Stack direction='row'>
+                            <SwxTypography color='swxBlack' weight='semiBold' size='small' className='Manrope'>
                                 {start} {`>`} {end}{' '}
-                            </div>
-                        </div>
-                        <div className='text-sm font-semibold text-newLightGray'>{floor}</div>
+                            </SwxTypography>
+                        </Stack>
+                        <SwxTypography color='lightGray' weight='semiBold' size='small' className='Manrope'>
+                            {floor}
+                        </SwxTypography>
                     </div>
-                </div>
-                <div className='flex justify-between mt-2'>
-                    <div className='py-[4px] px-2 w-fit flex text-sm font-semibold bg-white rounded'>
-                        <div className='flex self-center mr-1'>
+                </Stack>
+                <StyledFlexContainer>
+                    <StyledSessionContainer>
+                        <StyledIconContainer>
                             <Icon
                                 styles={{ fill: '#1DB304' }}
                                 name='activity-status'
                                 aria-hidden='true'
-                                height={15}
+                                height={12}
                                 width={12}
                             />
-                        </div>
-                        <div className='text-newBlackColor text-[12px]'>{session}</div>
-                    </div>
+                        </StyledIconContainer>
+                        <SwxTypography color='swxBlack' weight='semiBold' size='smallest' className='Manrope'>
+                            {session}
+                        </SwxTypography>
+                    </StyledSessionContainer>
                     <SwxPopupMenu
                         buttonElement={
                             <IconButton>
@@ -100,8 +121,8 @@ export default function WeeklyTemplate({ templateShifts }) {
                         }
                         options={menuOptions(shiftData)}
                     />
-                </div>
-            </div>
+                </StyledFlexContainer>
+            </Stack>
         );
     };
 
@@ -222,46 +243,48 @@ export default function WeeklyTemplate({ templateShifts }) {
                                                 {Object.entries(emp.shifts).map(([day, shifts]) => {
                                                     if (day === weekDay) {
                                                         const duplicateShifts = [...shifts];
-                                                        return duplicateShifts.slice(0, 1).map((shift, key) => (
-                                                            <div key={key}>
-                                                                <div
-                                                                    className='flex text-light'
-                                                                    style={{ width: '200px', height: '90px' }}>
-                                                                    <Badge
-                                                                        text={getScheduleBanner(
-                                                                            shift.start_time,
-                                                                            shift.end_time,
-                                                                            shift.floor || 'First Floor',
-                                                                            shift.session_type || 'Morning',
-                                                                            shift.cert || 'RN',
-                                                                            shift.id,
-                                                                            shift.facility,
-                                                                            emp.name
-                                                                        )}
-                                                                        kind={
-                                                                            shift.title === 'RN'
-                                                                                ? 'scheduleOrange'
-                                                                                : shift.title === 'LPN'
-                                                                                ? 'scheduleCyan'
-                                                                                : shift.title === 'CNA'
-                                                                                ? 'scheduleMistyRose'
-                                                                                : 'scheduleOrange'
-                                                                        }
-                                                                        styles='p-1 w-full'
-                                                                    />
+                                                        return duplicateShifts.slice(0, 1).map((shift, key) => {
+                                                            return (
+                                                                <div key={key}>
+                                                                    <div
+                                                                        className='flex text-light'
+                                                                        style={{ width: '200px', height: '90px' }}>
+                                                                        <Badge
+                                                                            text={getScheduleBanner(
+                                                                                shift.start_time,
+                                                                                shift.end_time,
+                                                                                shift.floor || 'First Floor',
+                                                                                shift.session_type || 'Morning',
+                                                                                shift.cert || 'RN',
+                                                                                shift.id,
+                                                                                shift.facility,
+                                                                                emp.name
+                                                                            )}
+                                                                            kind={
+                                                                                shift.title === 'RN'
+                                                                                    ? 'scheduleOrange'
+                                                                                    : shift.title === 'LPN'
+                                                                                    ? 'scheduleCyan'
+                                                                                    : shift.title === 'CNA'
+                                                                                    ? 'scheduleMistyRose'
+                                                                                    : 'scheduleOrange'
+                                                                            }
+                                                                            styles='p-1 w-full'
+                                                                        />
+                                                                    </div>
+                                                                    {shifts.length > 1 && (
+                                                                        <ShowMoreButtonWrapper>
+                                                                            <StyledShowMoreButton
+                                                                            // onClick={() => showShiftsPopup(day.date)}
+                                                                            >
+                                                                                {`View ${shifts.slice(1, 4).length} `}
+                                                                                More&nbsp;
+                                                                            </StyledShowMoreButton>
+                                                                        </ShowMoreButtonWrapper>
+                                                                    )}
                                                                 </div>
-                                                                {shifts.length > 1 && (
-                                                                    <ShowMoreButtonWrapper>
-                                                                        <StyledShowMoreButton
-                                                                        // onClick={() => showShiftsPopup(day.date)}
-                                                                        >
-                                                                            {`View ${shifts.slice(1, 4).length} `}
-                                                                            More&nbsp;
-                                                                        </StyledShowMoreButton>
-                                                                    </ShowMoreButtonWrapper>
-                                                                )}
-                                                            </div>
-                                                        ));
+                                                            );
+                                                        });
                                                     }
                                                     return null;
                                                 })}
@@ -285,9 +308,14 @@ export default function WeeklyTemplate({ templateShifts }) {
                 entityName='Shift'
                 onConfirm={() => deleteShift()}
             />
-            {/* <SwxModal modalName='editShiftModal'>
-                <ShiftForm modalName='editShiftModal' title='Edit' employeeShiftData={shiftData} action={updateShift} />
-            </SwxModal> */}
+            <SwxModal modalName='editTemplateShiftModal'>
+                <TemplateShiftForm
+                    modalName='editTemplateShiftModal'
+                    title='Edit'
+                    // employeeShiftData={shiftData}
+                    action={updateShift}
+                />
+            </SwxModal>
         </StyledRootContainer>
     );
 }
