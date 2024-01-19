@@ -65,8 +65,8 @@ export default function SaveScheduleTemplateForm({ modalName, action }) {
             <Form onSubmit={shiftData => action({ shiftData, savingTemplate: true })}>
                 <Stack sx={{ padding: '10px 150px 21px 16px', backgroundColor: '#F6FAFD' }}>
                     {/* <SwxTypography>Save shift schedule for the week of Jan 1 to Jan 7</SwxTypography> */}
-                    <SwxTypography>Total Shifts: {templateDetails.total_shifts}</SwxTypography>
-                    <SwxTypography>Total Hours: {templateDetails.total_hours}</SwxTypography>
+                    <SwxTypography>Total Shifts: {templateDetails.total_shifts || 0}</SwxTypography>
+                    <SwxTypography>Total Hours: {templateDetails.total_hours || 0}</SwxTypography>
                 </Stack>
                 <Stack direction='column' spacing={2} sx={{ padding: '10px 34px 0px 14px' }}>
                     <Stack direction={{ xs: 'column', sm: 'row' }}>
