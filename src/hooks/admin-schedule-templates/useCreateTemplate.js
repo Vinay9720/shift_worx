@@ -33,7 +33,7 @@ export const useCreateTemplate = () => {
                 ids: scheduleData ? getShiftIds(scheduleData.records) : [],
             },
             shift_template: {
-                template_name: shiftData.template_name || null,
+                name: shiftData.template_name || null,
                 description: shiftData.description || null,
                 assigned: shiftData.assigned || null,
                 template_type: scheduleType,
