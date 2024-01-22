@@ -55,7 +55,7 @@ function SearchFilter() {
                             style={{ width: '100%' }}
                             value={roles}
                             options={['All', 'Published', 'Not Published']}
-                            padding='12px 12px'
+                            padding='12px 6px'
                             marginleft={120}
                             onChange={onPublishStatusChange}
                         />

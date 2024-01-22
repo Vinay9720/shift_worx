@@ -9,7 +9,6 @@ import { SwxPopupMenu, SwxTypography } from '@/lib/common/components';
 
 import {
     UsersContainer,
-    styles,
     ViewByUsersContainer,
     WeekDaysContainer,
     StyledWeekDaysContainer,
@@ -19,8 +18,15 @@ import {
     StyledFlexContainer,
     StyledSessionContainer,
     StyledIconContainer,
+    StyledNameContainer,
+    StyledNumberContainer,
+    StyledDot,
+    StyledMainDiv,
+    StyledDayContainer,
+    StyledNoScheduleContainer,
+    StyledGridWeekDayContainer,
 } from './schedule-templates.styles';
-import { DynamicPromptModal, SwxModal } from '@/lib/common/layout';
+import { DynamicPromptModal, OpenShifts, SwxModal } from '@/lib/common/layout';
 import { useDispatch } from 'react-redux';
 import { openModal } from '@/lib/store/slices/modal-slice';
 import { setTemplateShiftTobeDeleted } from '@/lib/store/slices/admin-schedule-templates-module';
@@ -76,12 +82,11 @@ export default function WeeklyTemplate({ templateShifts }) {
         return (
             <Stack direction='column'>
                 <Stack direction='row' spacing={1}>
-                    {/* <Badge
+                    <Badge
                         kind='certPink'
                         styles={{ padding: '0px 2px', color: 'white', height: 'fit-content' }}
                         text={cert || 'RN'}
-                    /> */}
-                    <Badge kind='certPink' styles='px-[1px] text-white h-fit' text={cert || 'RN'} />
+                    />
                     <div>
                         <Stack direction='row'>
                             <SwxTypography color='swxBlack' weight='semiBold' size='small' className='Manrope'>
@@ -134,45 +139,49 @@ export default function WeeklyTemplate({ templateShifts }) {
                 {!isEmpty(templateShifts)
                     ? templateShifts.map((emp, i) => {
                           return (
-                              <div style={styles.mainDiv} key={i}>
-                                  <div className='row-span-2'>
-                                      <Avatar sx={{ width: 50, height: 50, bgcolor: '#1F6FA9' }}>{`${
-                                          emp.name.split('')[0].toUpperCase() || ''
-                                      }`}</Avatar>
-                                  </div>
+                              <StyledMainDiv key={i} employeeName={emp.name}>
+                                  {emp.name ? (
+                                      <Avatar sx={{ width: 42, height: 42, bgcolor: '#1F6FA9' }}>{`${emp.name
+                                          .split('')[0]
+                                          .toUpperCase()}`}</Avatar>
+                                  ) : null}
                                   <div>
-                                      <div className='items-center justify-space-evenly col-span-1  font-semibold text-default text-newBlackColor'>
-                                          {`${emp.name.slice(0, 7)} ${emp.name.slice(7, 8).toUpperCase()}`}
-                                      </div>
-                                      <div className='flex flex-row '>
-                                          <div className='flex items-center justify-center mr-2'>
-                                              <Icon
-                                                  styles={{ fill: '#838A91' }}
-                                                  name='clock'
-                                                  aria-hidden='true'
-                                                  height={16}
-                                                  width={16}
-                                              />
-                                          </div>
-                                          <div className='flex items-center justify-center mr-2 text-sm font-medium text-newLightGray'>
-                                              {emp.start_time || '08:00hrs'}
-                                          </div>
-                                          <div className='flex items-center justify-center mt-2 mr-2 gray_dot' />
-                                          <div className='flex items-center justify-center mr-2'>
-                                              <Icon
-                                                  styles={{ fill: '#838A91' }}
-                                                  name='calender'
-                                                  aria-hidden='true'
-                                                  height={16}
-                                                  width={16}
-                                              />
-                                          </div>
-                                          <div className='flex items-center justify-center mr-2 text-sm font-medium text-newLightGray'>
-                                              {emp.schedule_count || 1}
-                                          </div>
-                                      </div>
+                                      {emp.name ? (
+                                          <StyledNameContainer>
+                                              {`${emp.name.slice(0, 7)} ${emp.name.slice(7, 8).toUpperCase()}`}
+                                          </StyledNameContainer>
+                                      ) : (
+                                          <OpenShifts modalName='editTemplateShiftModal' />
+                                      )}
+                                      {emp.name ? (
+                                          <Stack direction='row'>
+                                              <StyledIconContainer>
+                                                  <Icon
+                                                      styles={{ fill: '#838A91' }}
+                                                      name='clock'
+                                                      aria-hidden='true'
+                                                      height={16}
+                                                      width={16}
+                                                  />
+                                              </StyledIconContainer>
+                                              <StyledNumberContainer>
+                                                  {emp.start_time || '08:00hrs'}
+                                              </StyledNumberContainer>
+                                              <StyledDot />
+                                              <StyledIconContainer>
+                                                  <Icon
+                                                      styles={{ fill: '#838A91' }}
+                                                      name='calender'
+                                                      aria-hidden='true'
+                                                      height={16}
+                                                      width={16}
+                                                  />
+                                              </StyledIconContainer>
+                                              <StyledNumberContainer>{emp.schedule_count || 1}</StyledNumberContainer>
+                                          </Stack>
+                                      ) : null}
                                   </div>
-                              </div>
+                              </StyledMainDiv>
                           );
                       })
                     : null}
@@ -181,14 +190,16 @@ export default function WeeklyTemplate({ templateShifts }) {
                 <UsersContainer>
                     {weekdays.map((weekDay, index) => (
                         <WeekDaysContainer key={index}>
-                            <div style={{ display: 'flex' }}>
-                                <div className='flex items-center'>
-                                    <p className='font-medium text-semi text-newBlackColor'>{weekDay}</p>
-                                </div>
-                            </div>
+                            <Stack direction='row'>
+                                <StyledDayContainer>
+                                    <SwxTypography size='semiLarge' color='swxBlack' weight='thin' className='Manrope'>
+                                        {weekDay}
+                                    </SwxTypography>
+                                </StyledDayContainer>
+                            </Stack>
                             <div className='flex-col text-sm font-normal text-darkGray'>
                                 <div className='flex flex-row mt-2'>
-                                    <div className='flex items-center justify-center mr-1'>
+                                    <StyledIconContainer>
                                         <Icon
                                             styles={{ fill: '#838A91' }}
                                             name='clock'
@@ -196,12 +207,10 @@ export default function WeeklyTemplate({ templateShifts }) {
                                             height={16}
                                             width={16}
                                         />
-                                    </div>
-                                    <div className='flex items-center justify-center mr-1 text-sm font-normal text-iconText'>
-                                        0:00
-                                    </div>
-                                    <div className='flex items-center justify-center mt-2 mr-1 gray_dot' />
-                                    <div className='flex items-center justify-center mr-1'>
+                                    </StyledIconContainer>
+                                    <StyledNumberContainer>0:00</StyledNumberContainer>
+                                    <StyledDot />
+                                    <StyledIconContainer>
                                         <Icon
                                             styles={{ fill: '#838A91' }}
                                             name='calender'
@@ -209,12 +218,10 @@ export default function WeeklyTemplate({ templateShifts }) {
                                             height={16}
                                             width={16}
                                         />
-                                    </div>
-                                    <div className='flex items-center justify-center mr-1 text-sm font-normal text-iconText'>
-                                        0
-                                    </div>
-                                    <div className='flex items-center justify-center mt-2 mr-1 gray_dot' />
-                                    <div className='flex items-center justify-center mr-1'>
+                                    </StyledIconContainer>
+                                    <StyledNumberContainer>0</StyledNumberContainer>
+                                    <StyledDot />
+                                    <StyledIconContainer>
                                         <Icon
                                             styles={{ fill: '#838A91' }}
                                             name='user'
@@ -222,10 +229,8 @@ export default function WeeklyTemplate({ templateShifts }) {
                                             height={16}
                                             width={16}
                                         />
-                                    </div>
-                                    <div className='flex items-center justify-center mr-1 text-sm font-normal text-iconText'>
-                                        0
-                                    </div>
+                                    </StyledIconContainer>
+                                    <StyledNumberContainer>0</StyledNumberContainer>
                                 </div>
                             </div>
                         </WeekDaysContainer>
@@ -237,8 +242,9 @@ export default function WeeklyTemplate({ templateShifts }) {
                             <StyledWeekDaysContainer key={i}>
                                 {weekdays.map((weekDay, index) => {
                                     return (
-                                        <div
-                                            className='flex items-center justify-center min-w-[205px] py-3 border-l border-t border-borderGray text-darkGray text-sm font-medium flex-col gap-2 min-h-[96px]'
+                                        <StyledGridWeekDayContainer
+                                            day={weekDay === 'Saturday'}
+                                            employeeName={emp.name}
                                             key={index}>
                                             <div key={index}>
                                                 {Object.entries(emp.shifts).map(([day, shifts]) => {
@@ -247,10 +253,8 @@ export default function WeeklyTemplate({ templateShifts }) {
                                                         return duplicateShifts.slice(0, 1).map((shift, key) => {
                                                             return (
                                                                 <div key={key}>
-                                                                    <div
-                                                                        className='flex text-light'
-                                                                        style={{ width: '200px', height: '90px' }}>
-                                                                        {/* <Badge
+                                                                    <div style={{ width: '200px', height: '90px' }}>
+                                                                        <Badge
                                                                             text={getScheduleBanner(
                                                                                 shift.start_time,
                                                                                 shift.end_time,
@@ -270,8 +274,14 @@ export default function WeeklyTemplate({ templateShifts }) {
                                                                                     ? 'scheduleMistyRose'
                                                                                     : 'scheduleOrange'
                                                                             }
-                                                                            styles='p-1 w-full'
-                                                                        /> */}
+                                                                            styles={{
+                                                                                width: '100%',
+                                                                                padding: '8px',
+                                                                                backgroundColor: !emp.name
+                                                                                    ? '#E9E9EC'
+                                                                                    : null,
+                                                                            }}
+                                                                        />
                                                                     </div>
                                                                     {shifts.length > 1 && (
                                                                         <ShowMoreButtonWrapper>
@@ -290,18 +300,14 @@ export default function WeeklyTemplate({ templateShifts }) {
                                                     return null;
                                                 })}
                                             </div>
-                                        </div>
+                                        </StyledGridWeekDayContainer>
                                     );
                                 })}
                             </StyledWeekDaysContainer>
                         );
                     })
                 ) : (
-                    <div
-                        className='flex flex-row p-3 bg-white border border-b-0 border-r-0 text-default text-darkGray border-borderGray'
-                        style={{ width: '1435px' }}>
-                        No schedules to display.
-                    </div>
+                    <StyledNoScheduleContainer>No schedules to display.</StyledNoScheduleContainer>
                 )}
             </div>
             <DynamicPromptModal

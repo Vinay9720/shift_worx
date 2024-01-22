@@ -6,17 +6,6 @@ export const FooterContainer = styled.div`
     padding-bottom: 24px;
     justify-content: end;
 `;
-
-export const styles = {
-    mainDiv: {
-        height: '120px',
-        display: 'flex',
-        flexWrap: 'wrap',
-        justifyContent: 'space-evenly',
-        alignItems: 'center',
-        borderTop: '1px solid #E6E8E9',
-    },
-};
 export const StyledRootContainer = styled.div`
     display: flex;
     border: 1px solid #e6e8e9;
@@ -199,4 +188,89 @@ export const StyledIconContainer = styled.div`
     align-items: center;
     justify-content: center;
     margin-right: 4px;
+`;
+export const StyledNameContainer = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    ${({ theme }) => `
+    font-weight: ${theme.fontWeight.thin}; 
+    color: ${theme.fontColor.swxBlack};
+`}
+`;
+export const StyledNumberContainer = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 1px;
+    ${({ theme }) => `
+    font-size: ${theme.fontSize.small};
+    color: ${theme.fontColor.lightGray};
+`}
+`;
+export const StyledDot = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 8px;
+    margin-right: 3px;
+    margin-left: 3px;
+    ${({ theme }) => `
+    background-color: ${theme.backgroundColor.paleGray};
+`}
+    width: 3px;
+    height: 3px;
+    border-radius: 50%;
+`;
+export const StyledMainDiv = styled.div`
+    height: 120px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+    align-items: center;
+    ${({ theme, employeeName }) => `
+    border-top:  ${
+        !employeeName ? `2px solid ${theme.backgroundColor.lightOrange}` : `1px solid ${theme.borderColor.lightGray}`
+    };
+    border-left: 2px solid ${!employeeName ? theme.backgroundColor.lightOrange : null};
+    border-bottom: 2px solid ${!employeeName ? theme.backgroundColor.lightOrange : null};
+`};
+`;
+export const StyledDayContainer = styled.div`
+    display: flex;
+    align-items: center;
+`;
+export const StyledGridWeekDayContainer = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 205px;
+    padding: 0.75rem;
+    ${({ theme }) => `
+    font-size: ${theme.fontSize.small};
+    font-weight: ${theme.fontWeight.thin};
+    border-left: 1px solid ${theme.borderColor.lightGray};
+`}
+    border-bottom: ${({ employeeName }) => (!employeeName ? '2px solid #F47602' : null)};
+    border-top: ${({ employeeName }) => (!employeeName ? '2px solid #F47602' : '1px solid #e6e8e9')};
+    border-right: ${({ day, employeeName }) => {
+        return day && !employeeName ? '2px solid #F47602' : 'initial';
+    }};
+    flex-direction: column;
+    gap: 0.5rem;
+    min-height: 96px;
+`;
+export const StyledNoScheduleContainer = styled.div`
+    display: flex;
+    flex-direction: row;
+    padding: 12px;
+    ${({ theme }) => `
+    background-color: ${theme.backgroundColor.white};
+    border: 1px solid ${theme.borderColor.lightGray};
+    color: ${theme.fontColor.swxBlack};
+`}
+    border-bottom: 0;
+    border-right: 0;
+    width: 1435px;
 `;
