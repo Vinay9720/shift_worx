@@ -17,6 +17,10 @@ const addTemplateShift = shiftData => {
     return http.post(`/shift_templates`, JSON.stringify(shiftData));
 };
 
+const createTemplate = templateData => {
+    return http.post(`/shift_templates/create_with_template_shifts`, JSON.stringify(templateData));
+};
+
 const publishTemplate = templateData => {
     return http.post(`/shift_templates`, JSON.stringify(templateData));
 };
@@ -45,6 +49,7 @@ const AdminScheduleTemplatesService = {
     deleteTemplate,
     deleteTemplateShift,
     updateTemplateShift,
+    createTemplate,
 };
 
 export default AdminScheduleTemplatesService;
