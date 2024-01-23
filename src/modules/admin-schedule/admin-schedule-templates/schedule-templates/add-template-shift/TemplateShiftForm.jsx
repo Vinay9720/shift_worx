@@ -120,7 +120,7 @@ export default function TemplateShiftForm({ modalName, title, action }) {
         options: employeeOptions,
         placeholder: 'Select employee',
         width: '100%',
-        required: true,
+        // required: true,
         padding: '8px 8px',
     };
 

@@ -28,7 +28,7 @@ export const useAddTemplateShift = () => {
                     role: shiftData.role.value,
                     speciality_id: shiftData.speciality.value,
                     facility_id: 1,
-                    nurse_id: shiftData.employee.value,
+                    nurse_id: shiftData.employee ? shiftData.employee.value : null,
                     additional_nurse_id: shiftData.employee_2 ? shiftData.employee_2.value : '',
                     ...(shiftData.week && { week: shiftData.week.value }),
                 },

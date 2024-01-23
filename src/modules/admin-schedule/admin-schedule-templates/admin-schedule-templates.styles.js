@@ -30,7 +30,7 @@ export const styles = {
         },
     },
     statusSelectField: {
-        width: '196px',
+        width: '274px',
         '@media(max-width:700px)': {
             width: '100%',
         },

@@ -33,7 +33,7 @@ export default function MonthWiseSchedule({ scheduleData }) {
     const dispatch = useDispatch();
     const [employeeId, setEmployeeId] = useState(null);
     const [shiftData, setShiftData] = useState();
-    const { mutate: updateShift } = useEditShift(employeeId, shiftData && shiftData);
+    const { mutate: updateShift } = useEditShift(shiftData && shiftData);
     const { mutate: deleteShift } = useDeleteShift();
     const { currentTimeValue } = useSelector(state => state.adminScheduleModule);
     const fixedWeekDays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
