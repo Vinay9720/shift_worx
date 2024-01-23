@@ -4,12 +4,12 @@ import AdminHomeService from '@/services/admin-home';
 
 import { useToast } from '../common';
 
-export const useEvents = employeeId => {
+export const useBirthdays = () => {
     const showToast = useToast();
-    return useQuery([], () => AdminHomeService.fetchEvents(employeeId), {
+    return useQuery([], () => AdminHomeService.fetchBirthdays(), {
         select: data => {
-            const eventsData = data.data;
-            return eventsData;
+            const birthdays = data.data;
+            return birthdays;
         },
         onError: error => {
             showToast(error.response.data.message, 'error');
