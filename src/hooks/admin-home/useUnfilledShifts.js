@@ -6,7 +6,7 @@ import { useToast } from '../common';
 
 export const useUnfilledShifts = employeeId => {
     const showToast = useToast();
-    return useQuery([], () => AdminHomeService.fetchUnfilledShifts(employeeId), {
+    return useQuery(['widget-unfilled-shifts'], () => AdminHomeService.fetchUnfilledShifts(employeeId), {
         select: data => {
             const unfilledshiftsData = data.data;
             return unfilledshiftsData;

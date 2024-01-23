@@ -6,7 +6,7 @@ import { useToast } from '../common';
 
 export const useExpirations = employeeId => {
     const showToast = useToast();
-    return useQuery([], () => AdminHomeService.fetchExpirations(employeeId), {
+    return useQuery(['widget-expirations'], () => AdminHomeService.fetchExpirations(employeeId), {
         select: data => {
             const expirationsData = data.data;
             return expirationsData;

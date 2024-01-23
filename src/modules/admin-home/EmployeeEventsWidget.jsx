@@ -4,6 +4,7 @@ import { Stack, Avatar } from '@mui/material';
 import { useSearchParams } from 'next/navigation';
 import { EventWrapper, EventsWrapper, EmployeeEventsWidgetWrapper } from './admin-home.styles';
 import { useBirthdays } from '@/hooks/admin-home';
+import { formatDate } from '@/lib/util';
 
 const eventTabs = [{ label: 'Birthdays', step: 'birthdays' }];
 
@@ -12,16 +13,14 @@ const initialTab = { currentTab: 'birthdays' };
 export default function EmployeeEventssWidget() {
     const searchParams = useSearchParams();
     const currentStep = searchParams.get('step');
-    const { data: birthdaysData, isSuccess } = useBirthdays();
+    const { data: usersData, isSuccess } = useBirthdays();
 
-    const birthdays = useMemo(() => {
+    const users = useMemo(() => {
         if (isSuccess) {
-            return birthdaysData;
+            return usersData;
         }
         return [];
-    }, [birthdaysData]);
-
-    console.log('birthdays', birthdays);
+    }, [usersData]);
 
     return (
         <EmployeeEventsWidgetWrapper direction='column'>
@@ -32,84 +31,23 @@ export default function EmployeeEventssWidget() {
             </Stack>
             <SwxTabs tabs={eventTabs} currentStep={currentStep} tabsName='eventTabs' initialState={initialTab} />
             <EventsWrapper sx={{ mt: 2, pr: 1 }} spacing={1}>
-                <EventWrapper>
-                    <Stack sx={{ py: '14px', pl: '16px' }} direction='row' spacing={2}>
-                        <Avatar sx={{ width: 40, height: 40, bgcolor: '#1F6FA9' }}>{`${'J'}`}</Avatar>
-                        <Stack>
-                            <SwxTypography className='Manrope' color='swxBlack' size='medium' weight='semiBold'>
-                                John Thomas
-                            </SwxTypography>
-                            <SwxTypography className='Manrope' color='lightGray' size='smallest' weight='thin'>
-                                Jan 3, 2023
-                            </SwxTypography>
-                        </Stack>
-                    </Stack>
-                </EventWrapper>
-                <EventWrapper>
-                    <Stack sx={{ py: '14px', pl: '16px' }} direction='row' spacing={2}>
-                        <Avatar sx={{ width: 40, height: 40, bgcolor: '#1F6FA9' }}>{`${'J'}`}</Avatar>
-                        <Stack>
-                            <SwxTypography className='Manrope' color='swxBlack' size='medium' weight='semiBold'>
-                                John Thomas
-                            </SwxTypography>
-                            <SwxTypography className='Manrope' color='lightGray' size='smallest' weight='thin'>
-                                Jan 3, 2023
-                            </SwxTypography>
-                        </Stack>
-                    </Stack>
-                </EventWrapper>
-                <EventWrapper>
-                    <Stack sx={{ py: '14px', pl: '16px' }} direction='row' spacing={2}>
-                        <Avatar sx={{ width: 40, height: 40, bgcolor: '#1F6FA9' }}>{`${'J'}`}</Avatar>
-                        <Stack>
-                            <SwxTypography className='Manrope' color='swxBlack' size='medium' weight='semiBold'>
-                                John Thomas
-                            </SwxTypography>
-                            <SwxTypography className='Manrope' color='lightGray' size='smallest' weight='thin'>
-                                Jan 3, 2023
-                            </SwxTypography>
-                        </Stack>
-                    </Stack>
-                </EventWrapper>
-                <EventWrapper>
-                    <Stack sx={{ py: '14px', pl: '16px' }} direction='row' spacing={2}>
-                        <Avatar sx={{ width: 40, height: 40, bgcolor: '#1F6FA9' }}>{`${'J'}`}</Avatar>
-                        <Stack>
-                            <SwxTypography className='Manrope' color='swxBlack' size='medium' weight='semiBold'>
-                                John Thomas
-                            </SwxTypography>
-                            <SwxTypography className='Manrope' color='lightGray' size='smallest' weight='thin'>
-                                Jan 3, 2023
-                            </SwxTypography>
-                        </Stack>
-                    </Stack>
-                </EventWrapper>
-                <EventWrapper>
-                    <Stack sx={{ py: '14px', pl: '16px' }} direction='row' spacing={2}>
-                        <Avatar sx={{ width: 40, height: 40, bgcolor: '#1F6FA9' }}>{`${'J'}`}</Avatar>
-                        <Stack>
-                            <SwxTypography className='Manrope' color='swxBlack' size='medium' weight='semiBold'>
-                                John Thomas
-                            </SwxTypography>
-                            <SwxTypography className='Manrope' color='lightGray' size='smallest' weight='thin'>
-                                Jan 3, 2023
-                            </SwxTypography>
-                        </Stack>
-                    </Stack>
-                </EventWrapper>
-                <EventWrapper>
-                    <Stack sx={{ py: '14px', pl: '16px' }} direction='row' spacing={2}>
-                        <Avatar sx={{ width: 40, height: 40, bgcolor: '#1F6FA9' }}>{`${'J'}`}</Avatar>
-                        <Stack>
-                            <SwxTypography className='Manrope' color='swxBlack' size='medium' weight='semiBold'>
-                                John Thomas
-                            </SwxTypography>
-                            <SwxTypography className='Manrope' color='lightGray' size='smallest' weight='thin'>
-                                Jan 3, 2023
-                            </SwxTypography>
-                        </Stack>
-                    </Stack>
-                </EventWrapper>
+                {users.map((user, key) => {
+                    return (
+                        <EventWrapper key={key}>
+                            <Stack sx={{ py: '14px', pl: '16px' }} direction='row' spacing={2}>
+                                <Avatar sx={{ width: 40, height: 40, bgcolor: '#1F6FA9' }}>{`${'J'}`}</Avatar>
+                                <Stack>
+                                    <SwxTypography className='Manrope' color='swxBlack' size='medium' weight='semiBold'>
+                                        {user.full_name}
+                                    </SwxTypography>
+                                    <SwxTypography className='Manrope' color='lightGray' size='smallest' weight='thin'>
+                                        {formatDate(user.date_of_birth)}
+                                    </SwxTypography>
+                                </Stack>
+                            </Stack>
+                        </EventWrapper>
+                    );
+                })}
             </EventsWrapper>
         </EmployeeEventsWidgetWrapper>
     );
