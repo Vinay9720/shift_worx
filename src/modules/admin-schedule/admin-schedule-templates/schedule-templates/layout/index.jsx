@@ -13,7 +13,7 @@ export default function AdminScheduleTemplate({ editingTemplate }) {
             filter={<Filter editingTemplate={editingTemplate} />}
             weeklyTemplate={<WeeklyTemplate templateShifts={templateShifts} />}
             monthlyTemplate={<MonthlyTemplate templateShifts={templateShifts} />}
-            footer={<ActionButtons />}
+            footer={<ActionButtons editingTemplate={editingTemplate} />}
         />
     );
 }

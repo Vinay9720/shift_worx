@@ -6,10 +6,10 @@ import { useToast } from '../common';
 
 export const useBirthdays = () => {
     const showToast = useToast();
-    return useQuery([], () => AdminHomeService.fetchBirthdays(), {
+    return useQuery(['widget-birthdays'], () => AdminHomeService.fetchBirthdays(), {
         select: data => {
-            const birthdays = data.data;
-            return birthdays;
+            const usersData = data.data;
+            return usersData.users;
         },
         onError: error => {
             showToast(error.response.data.message, 'error');

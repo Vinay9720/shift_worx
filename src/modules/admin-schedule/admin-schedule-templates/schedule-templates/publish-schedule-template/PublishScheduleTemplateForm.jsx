@@ -1,6 +1,6 @@
 'use client';
 
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Stack } from '@mui/material';
 
 import { closeModal } from '@/lib/store/slices/modal-slice';
@@ -17,6 +17,7 @@ import {
 import { today } from '@/lib/util';
 
 export default function PublishScheduleTemplateForm({ modalName, action }) {
+    const { templateTobePublished } = useSelector(state => state.adminScheduleTemplatesModule);
     const dispatch = useDispatch();
     const TemplateNameProps = {
         label: (
@@ -86,7 +87,7 @@ export default function PublishScheduleTemplateForm({ modalName, action }) {
                     </Stack>
                 </EllipseContainer>
             </HeaderContainer>
-            <Form onSubmit={templateData => action({ templateData })}>
+            <Form onSubmit={templateData => action({ templateData })} defaultValues={templateTobePublished}>
                 <Stack direction='column' spacing={2} sx={{ padding: '0px 24px', mt: 1 }}>
                     <Stack
                         sx={{
@@ -102,7 +103,7 @@ export default function PublishScheduleTemplateForm({ modalName, action }) {
                                 Total Shift
                             </SwxTypography>
                             <SwxTypography color='swxSlightlyBlack' size='semiLarge' weight='bold' className='Manrope'>
-                                32
+                                {templateTobePublished.total_shifts || 0}
                             </SwxTypography>
                         </Stack>
                         <Stack>
@@ -110,7 +111,7 @@ export default function PublishScheduleTemplateForm({ modalName, action }) {
                                 Total Hours
                             </SwxTypography>
                             <SwxTypography color='swxSlightlyBlack' size='semiLarge' weight='bold' className='Manrope'>
-                                80
+                                {templateTobePublished.scheduled_hours || 0}
                             </SwxTypography>
                         </Stack>
                         <Stack>

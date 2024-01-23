@@ -4,8 +4,9 @@ import { useRouter, useParams } from 'next/navigation';
 import AdminScheduleTemplatesService from '@/services/admin-schedule-templates';
 
 import { useToast } from '../common';
-import { setTemplateDetails } from '@/lib/store/slices/admin-schedule-templates-module';
+import { setTemplateDetails, setTemplateType } from '@/lib/store/slices/admin-schedule-templates-module';
 import { useDispatch } from 'react-redux';
+import { capitalize } from 'lodash';
 
 export const useScheduleTemplate = () => {
     const { templateId } = useParams();
@@ -25,6 +26,7 @@ export const useScheduleTemplate = () => {
                 const templateData = data.data;
                 const templateShifts = templateData.records;
                 dispatch(setTemplateDetails(templateData.template_schedule));
+                dispatch(setTemplateType(capitalize(templateData.template_schedule.template_type)));
                 return templateShifts;
             },
             onError: error => {

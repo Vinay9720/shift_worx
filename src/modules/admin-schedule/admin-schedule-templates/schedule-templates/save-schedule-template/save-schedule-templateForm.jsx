@@ -10,7 +10,7 @@ import { SwxButton, SwxTypography } from '@/lib/common/components';
 import { InputField, Form, FormSubmitButton, SelectField } from '@/lib/common/form-components';
 import { CloseContainer, EllipseContainer, HeaderContainer, ModalContainer } from './save-schedule-template.styles';
 
-export default function SaveScheduleTemplateForm({ modalName, action }) {
+export default function SaveScheduleTemplateForm({ modalName, action, title, isEditing }) {
     const dispatch = useDispatch();
     const { templateDetails } = useSelector(state => state.adminScheduleTemplatesModule);
     const templateProps = {
@@ -51,7 +51,7 @@ export default function SaveScheduleTemplateForm({ modalName, action }) {
         <ModalContainer>
             <HeaderContainer>
                 <SwxTypography color='swxBlack' size='large' weight='bold' className='Manrope'>
-                    Save Schedule Template
+                    {title || 'Save Schedule Template'}
                 </SwxTypography>
                 <EllipseContainer onClick={() => dispatch(closeModal({ modalName }))}>
                     <CloseContainer>
@@ -62,7 +62,7 @@ export default function SaveScheduleTemplateForm({ modalName, action }) {
                     </Stack>
                 </EllipseContainer>
             </HeaderContainer>
-            <Form onSubmit={shiftData => action({ shiftData, savingTemplate: true })}>
+            <Form onSubmit={shiftData => action({ shiftData, savingTemplate: !isEditing })}>
                 <Stack sx={{ padding: '10px 150px 21px 16px', backgroundColor: '#F6FAFD' }}>
                     {/* <SwxTypography>Save shift schedule for the week of Jan 1 to Jan 7</SwxTypography> */}
                     <SwxTypography>Total Shifts: {templateDetails.total_shifts || 0}</SwxTypography>
