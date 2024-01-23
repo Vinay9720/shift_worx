@@ -1,15 +1,28 @@
 import { SwxTypography, SwxTabs } from '@/lib/common/components';
+import { useMemo } from 'react';
 import { Stack, Avatar } from '@mui/material';
 import { useSearchParams } from 'next/navigation';
 import { EventWrapper, EventsWrapper, EmployeeEventsWidgetWrapper } from './admin-home.styles';
+import { useBirthdays } from '@/hooks/admin-home';
 
-const eventTabs = [{ label: 'Anniversaries', step: 'anniversaries' }];
+const eventTabs = [{ label: 'Birthdays', step: 'birthdays' }];
 
-const initialTab = { currentTab: 'anniversaries' };
+const initialTab = { currentTab: 'birthdays' };
 
 export default function EmployeeEventssWidget() {
     const searchParams = useSearchParams();
     const currentStep = searchParams.get('step');
+    const { data: birthdaysData, isSuccess } = useBirthdays();
+
+    const birthdays = useMemo(() => {
+        if (isSuccess) {
+            return birthdaysData;
+        }
+        return [];
+    }, [birthdaysData]);
+
+    console.log('birthdays', birthdays);
+
     return (
         <EmployeeEventsWidgetWrapper direction='column'>
             <Stack justifyContent='space-between' direction='row' sx={{ mb: 4 }}>

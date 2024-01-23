@@ -42,6 +42,7 @@ export default function EmployeeExpirationsWidget() {
             },
         ];
     };
+
     const columns = [
         {
             field: 'name',

@@ -12,8 +12,8 @@ const fetchUnfilledShifts = () => {
     return http.get(`/unfilled_shifts`);
 };
 
-const fetchEvents = id => {
-    return http.get(`/facility_users/${id}`);
+const fetchBirthdays = () => {
+    return http.get(`/facility_users/current_month_birthdays`);
 };
 
 const fetchExpirations = id => {
@@ -28,7 +28,7 @@ const AdminHomeService = {
     fetchKPIs,
     fetchTimeOffRequests,
     fetchUnfilledShifts,
-    fetchEvents,
+    fetchBirthdays,
     fetchExpirations,
     fetchActivities,
 };
