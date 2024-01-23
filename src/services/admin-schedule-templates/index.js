@@ -38,7 +38,7 @@ const deleteTemplateShift = id => {
 };
 
 const updateTemplateShift = (id, shiftData) => {
-    return http.patch(`/shift_templates/${id}`, JSON.stringify(shiftData));
+    return http.put(`/shift_templates/${id}`, JSON.stringify(shiftData));
 };
 
 const AdminScheduleTemplatesService = {
