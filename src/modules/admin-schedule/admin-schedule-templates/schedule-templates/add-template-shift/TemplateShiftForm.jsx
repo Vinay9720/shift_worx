@@ -1,6 +1,6 @@
 'use client';
 
-import { useMemo } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Stack } from '@mui/material';
 
@@ -16,12 +16,30 @@ import { useFacilityOptions } from '@/hooks/facility';
 import { ModalContainer, HeaderContainer, EllipseContainer, CloseContainer, styles } from './add-template-shift.styles';
 
 export default function TemplateShiftForm({ modalName, title, action }) {
+    const [formattedData, setFormattedData] = useState({});
     const { templateType } = useSelector(state => state.adminScheduleTemplatesModule);
+    const { templateShiftTobeEdited } = useSelector(state => state.adminScheduleTemplatesModule);
     const { data: employeesData, isSuccess } = useEmployees(true);
     const { data: certificationOptions } = useCertificateOptions();
     const { data: specialityOptions } = useSpecialityOptions();
     const { data: facilityOptions } = useFacilityOptions();
     const dispatch = useDispatch();
+
+    useEffect(() => {
+        if (templateShiftTobeEdited) {
+            const formattedShiftData = {
+                days: templateShiftTobeEdited.day,
+                start_time: templateShiftTobeEdited.start_time,
+                end_time: templateShiftTobeEdited.end_time,
+                facility_name: templateShiftTobeEdited.station,
+                role: templateShiftTobeEdited.role,
+                speciality: templateShiftTobeEdited.speciality_ids.name,
+                facility: templateShiftTobeEdited.facility_id.name,
+                employee: templateShiftTobeEdited.employee,
+            };
+            setFormattedData(formattedShiftData);
+        }
+    }, [templateShiftTobeEdited]);
 
     const employees = useMemo(() => {
         if (isSuccess) {
@@ -192,7 +210,7 @@ export default function TemplateShiftForm({ modalName, title, action }) {
                     </Stack>
                 </EllipseContainer>
             </HeaderContainer>
-            <Form onSubmit={onSubmit}>
+            <Form onSubmit={onSubmit} defaultValues={formattedData}>
                 <Stack direction='column' spacing={2} sx={{ padding: '0px 24px', mt: 1 }}>
                     {templateType[0] === 'Monthly' && (
                         <Stack direction='row' spacing={2}>

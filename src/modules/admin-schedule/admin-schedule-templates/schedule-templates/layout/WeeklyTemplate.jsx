@@ -29,30 +29,31 @@ import {
 import { DynamicPromptModal, OpenShifts, SwxModal } from '@/lib/common/layout';
 import { useDispatch } from 'react-redux';
 import { openModal } from '@/lib/store/slices/modal-slice';
-import { setTemplateShiftTobeDeleted } from '@/lib/store/slices/admin-schedule-templates-module';
+import {
+    setTemplateShiftTobeDeleted,
+    setTemplateShiftTobeEdited,
+} from '@/lib/store/slices/admin-schedule-templates-module';
 import { useDeleteTemplateShift } from '@/hooks/admin-schedule-templates/useDeleteTemplateShift';
 import { useEditTemplateShift } from '@/hooks/admin-schedule-templates/useEditTemplateShift';
 import TemplateShiftForm from '../add-template-shift/TemplateShiftForm';
-import { useState } from 'react';
 
 export default function WeeklyTemplate({ templateShifts }) {
-    const [employeeShiftId, setEmployeeShiftId] = useState();
     const dispatch = useDispatch();
     const { mutate: deleteShift } = useDeleteTemplateShift();
-    const { mutate: updateShift } = useEditTemplateShift(employeeShiftId && employeeShiftId);
+    const { mutate: updateShift } = useEditTemplateShift();
 
     const menuOptions = shiftData => {
         return [
             {
-                label: 'Edit',
+                label: 'Edit Shift',
                 action: () => {
-                    setEmployeeShiftId(shiftData.shift_id);
+                    dispatch(setTemplateShiftTobeEdited(shiftData));
                     dispatch(openModal({ modalName: 'editTemplateShiftModal' }));
                 },
                 icon: <Icon styles={{ fill: '#838A91' }} name='pencil' height={14} width={14} />,
             },
             {
-                label: 'Delete',
+                label: 'Delete Shift',
                 action: () => {
                     dispatch(setTemplateShiftTobeDeleted(shiftData));
                     dispatch(openModal({ modalName: 'deleteTemplateShiftModal' }));
@@ -66,18 +67,33 @@ export default function WeeklyTemplate({ templateShifts }) {
     const weekdays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
     // eslint-disable-next-line no-unused-vars
-    const getScheduleBanner = (start, end, floor, session, cert, shiftId, facility, empName) => {
+    const getScheduleBanner = (
+        start,
+        end,
+        floor,
+        session,
+        cert,
+        shiftId,
+        facility,
+        empName,
+        speciality,
+        day,
+        certId,
+        nurseId
+    ) => {
         const shiftData = {
-            employee: empName || 'Nurse',
-            // id,
+            employee: empName,
             facility_id: facility,
             shift_id: shiftId,
-            // certificate_ids: certId,
-            // speciality_ids: specialities,
+            certificate_ids: certId,
+            speciality_ids: speciality,
             station: floor,
             start_time: start,
             end_time: end,
             role: cert,
+            day,
+            template_type: 'weekly',
+            nurseId,
         };
         return (
             <Stack direction='column'>
@@ -188,53 +204,59 @@ export default function WeeklyTemplate({ templateShifts }) {
             </div>
             <div style={{ overflowX: 'auto' }}>
                 <UsersContainer>
-                    {weekdays.map((weekDay, index) => (
-                        <WeekDaysContainer key={index}>
-                            <Stack direction='row'>
-                                <StyledDayContainer>
-                                    <SwxTypography size='semiLarge' color='swxBlack' weight='thin' className='Manrope'>
-                                        {weekDay}
-                                    </SwxTypography>
-                                </StyledDayContainer>
-                            </Stack>
-                            <div className='flex-col text-sm font-normal text-darkGray'>
-                                <div className='flex flex-row mt-2'>
-                                    <StyledIconContainer>
-                                        <Icon
-                                            styles={{ fill: '#838A91' }}
-                                            name='clock'
-                                            aria-hidden='true'
-                                            height={16}
-                                            width={16}
-                                        />
-                                    </StyledIconContainer>
-                                    <StyledNumberContainer>0:00</StyledNumberContainer>
-                                    <StyledDot />
-                                    <StyledIconContainer>
-                                        <Icon
-                                            styles={{ fill: '#838A91' }}
-                                            name='calender'
-                                            aria-hidden='true'
-                                            height={16}
-                                            width={16}
-                                        />
-                                    </StyledIconContainer>
-                                    <StyledNumberContainer>0</StyledNumberContainer>
-                                    <StyledDot />
-                                    <StyledIconContainer>
-                                        <Icon
-                                            styles={{ fill: '#838A91' }}
-                                            name='user'
-                                            aria-hidden='true'
-                                            height={16}
-                                            width={16}
-                                        />
-                                    </StyledIconContainer>
-                                    <StyledNumberContainer>0</StyledNumberContainer>
+                    {weekdays.map((weekDay, index) => {
+                        return (
+                            <WeekDaysContainer key={index}>
+                                <Stack direction='row'>
+                                    <StyledDayContainer>
+                                        <SwxTypography
+                                            size='semiLarge'
+                                            color='swxBlack'
+                                            weight='thin'
+                                            className='Manrope'>
+                                            {weekDay}
+                                        </SwxTypography>
+                                    </StyledDayContainer>
+                                </Stack>
+                                <div className='flex-col text-sm font-normal text-darkGray'>
+                                    <div className='flex flex-row mt-2'>
+                                        <StyledIconContainer>
+                                            <Icon
+                                                styles={{ fill: '#838A91' }}
+                                                name='clock'
+                                                aria-hidden='true'
+                                                height={16}
+                                                width={16}
+                                            />
+                                        </StyledIconContainer>
+                                        <StyledNumberContainer>0:00</StyledNumberContainer>
+                                        <StyledDot />
+                                        <StyledIconContainer>
+                                            <Icon
+                                                styles={{ fill: '#838A91' }}
+                                                name='calender'
+                                                aria-hidden='true'
+                                                height={16}
+                                                width={16}
+                                            />
+                                        </StyledIconContainer>
+                                        <StyledNumberContainer>0</StyledNumberContainer>
+                                        <StyledDot />
+                                        <StyledIconContainer>
+                                            <Icon
+                                                styles={{ fill: '#838A91' }}
+                                                name='user'
+                                                aria-hidden='true'
+                                                height={16}
+                                                width={16}
+                                            />
+                                        </StyledIconContainer>
+                                        <StyledNumberContainer>0</StyledNumberContainer>
+                                    </div>
                                 </div>
-                            </div>
-                        </WeekDaysContainer>
-                    ))}
+                            </WeekDaysContainer>
+                        );
+                    })}
                 </UsersContainer>
                 {!isEmpty(templateShifts) ? (
                     templateShifts.map((emp, i) => {
@@ -258,19 +280,25 @@ export default function WeeklyTemplate({ templateShifts }) {
                                                                             text={getScheduleBanner(
                                                                                 shift.start_time,
                                                                                 shift.end_time,
-                                                                                shift.floor || 'First Floor',
+                                                                                shift.location || 'First Floor',
                                                                                 shift.session_type || 'Morning',
-                                                                                shift.cert || 'RN',
+                                                                                shift.certificate.abbreviation || 'RN',
                                                                                 shift.id,
                                                                                 shift.facility,
-                                                                                emp.name
+                                                                                emp.name,
+                                                                                shift.speciality,
+                                                                                shift.day,
+                                                                                shift.certificate.id,
+                                                                                shift.nurse_id
                                                                             )}
                                                                             kind={
-                                                                                shift.title === 'RN'
+                                                                                shift.certificate.abbreviation === 'RN'
                                                                                     ? 'scheduleOrange'
-                                                                                    : shift.title === 'LPN'
+                                                                                    : shift.certificate.abbreviation ===
+                                                                                      'LPN'
                                                                                     ? 'scheduleCyan'
-                                                                                    : shift.title === 'CNA'
+                                                                                    : shift.certificate.abbreviation ===
+                                                                                      'CNA'
                                                                                     ? 'scheduleMistyRose'
                                                                                     : 'scheduleOrange'
                                                                             }
@@ -316,12 +344,7 @@ export default function WeeklyTemplate({ templateShifts }) {
                 onConfirm={() => deleteShift()}
             />
             <SwxModal modalName='editTemplateShiftModal'>
-                <TemplateShiftForm
-                    modalName='editTemplateShiftModal'
-                    title='Edit'
-                    // employeeShiftData={shiftData}
-                    action={updateShift}
-                />
+                <TemplateShiftForm modalName='editTemplateShiftModal' title='Edit' action={updateShift} />
             </SwxModal>
         </StyledRootContainer>
     );

@@ -22,10 +22,10 @@ import {
     MonthlyWeekDaysContainer,
 } from './schedule-templates.styles';
 import { SwxModal, DynamicPromptModal } from '@/lib/common/layout';
-import ShiftForm from '../../../admin-schedule-overview/add-shift/ShiftForm';
 import { openModal } from '@/lib/store/slices/modal-slice';
 import { useDeleteShift } from '@/hooks/admin-schedule/useDeleteShift';
 import { useState } from 'react';
+import TemplateShiftForm from '../add-template-shift/TemplateShiftForm';
 
 export default function MonthlyTemplate({ templateShifts = [] }) {
     const dispatch = useDispatch();
@@ -73,7 +73,7 @@ export default function MonthlyTemplate({ templateShifts = [] }) {
             {
                 label: 'Edit Shift',
                 action: () => {
-                    dispatch(openModal({ modalName: 'editShiftModal' }));
+                    dispatch(openModal({ modalName: 'editTemplateShiftModal' }));
                     setEmployeeId(id);
                 },
                 icon: <Icon styles={{ fill: '#838A91' }} name='pencil' height={14} width={14} />,
@@ -81,7 +81,7 @@ export default function MonthlyTemplate({ templateShifts = [] }) {
             {
                 label: 'Delete Shift',
                 action: () => {
-                    dispatch(openModal({ modalName: 'deleteShiftModal' }));
+                    dispatch(openModal({ modalName: 'deleteTemplateShiftModal' }));
                     setEmployeeId(id);
                 },
                 color: 'red',
@@ -115,7 +115,8 @@ export default function MonthlyTemplate({ templateShifts = [] }) {
                 <TimeContainer>
                     {outputStartTime} {`>`} {outputEndTime}
                 </TimeContainer>
-                <EmployeeNameContainer>{empName.substring(0, 6)}</EmployeeNameContainer>
+                <EmployeeNameContainer>{empName ? empName.substring(0, 6) : 'Open'}</EmployeeNameContainer>
+                {/* <EmployeeNameContainer>{empName.substring(0, 6)}</EmployeeNameContainer> */}
                 <div>
                     <SwxChip label={cert} color='white' background={getBackGroundColor(cert)} size='smallest' />
                     <div>
@@ -168,8 +169,8 @@ export default function MonthlyTemplate({ templateShifts = [] }) {
                                                 <ScheduleBannerWrapper key={key}>
                                                     <Badge
                                                         text={getScheduleBanner(
-                                                            shift.name,
-                                                            shift.certificate || 'RN',
+                                                            shift.nurse_name,
+                                                            shift.certificate.abbreviation || 'RN',
                                                             shift.start_time,
                                                             shift.end_time,
                                                             shift.session || 'Morning',
@@ -177,15 +178,20 @@ export default function MonthlyTemplate({ templateShifts = [] }) {
                                                             shift.id
                                                         )}
                                                         kind={
-                                                            shift.title === 'RN'
+                                                            shift.certificate.abbreviation === 'RN'
                                                                 ? 'scheduleOrange'
-                                                                : shift.title === 'LPN'
+                                                                : shift.certificate.abbreviation === 'LPN'
                                                                 ? 'scheduleCyan'
-                                                                : shift.title === 'CNA'
+                                                                : shift.certificate.abbreviation === 'CNA'
                                                                 ? 'scheduleMistyRose'
                                                                 : 'scheduleOrange'
                                                         }
-                                                        styles='p-[3px] w-full'
+                                                        styles={{
+                                                            padding: '6px',
+                                                            width: '100%',
+                                                            backgroundColor: !shift.nurse_name ? '#E9E9EC' : null,
+                                                            border: !shift.nurse_name ? '1.5px solid #F47602' : null,
+                                                        }}
                                                     />
                                                 </ScheduleBannerWrapper>
                                             );
@@ -207,13 +213,13 @@ export default function MonthlyTemplate({ templateShifts = [] }) {
                 </DaysConatiner>
             </StyledBorderContainer>
             <DynamicPromptModal
-                modalName='deleteShiftModal'
+                modalName='deleteTemplateShiftModal'
                 entityName='Shift'
                 onConfirm={() => deleteShift(employeeId)}
             />
-            <SwxModal modalName='editShiftModal'>
-                <ShiftForm
-                    modalName='editShiftModal'
+            <SwxModal modalName='editTemplateShiftModal'>
+                <TemplateShiftForm
+                    modalName='editTemplateShiftModal'
                     title='Edit'
                     // action={addShift}
                 />
