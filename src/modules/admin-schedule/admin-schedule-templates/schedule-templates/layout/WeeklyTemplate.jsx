@@ -36,12 +36,21 @@ import {
 import { useDeleteTemplateShift } from '@/hooks/admin-schedule-templates/useDeleteTemplateShift';
 import { useEditTemplateShift } from '@/hooks/admin-schedule-templates/useEditTemplateShift';
 import TemplateShiftForm from '../add-template-shift/TemplateShiftForm';
+import { useMemo } from 'react';
 
 export default function WeeklyTemplate({ templateShifts }) {
     const dispatch = useDispatch();
     const { mutate: deleteShift } = useDeleteTemplateShift();
     const { mutate: updateShift } = useEditTemplateShift();
-
+    const sortedShifts = useMemo(() => {
+        if (templateShifts) {
+            return templateShifts.reduce((acc, cur) => {
+                const dat = cur.name ? [...acc, cur] : [cur, ...acc];
+                return dat;
+            }, []);
+        }
+        return [];
+    }, [templateShifts]);
     const menuOptions = shiftData => {
         return [
             {
@@ -84,7 +93,7 @@ export default function WeeklyTemplate({ templateShifts }) {
         const shiftData = {
             employee: empName,
             facility_id: facility,
-            shift_id: shiftId,
+            id: shiftId,
             certificate_ids: certId,
             speciality_ids: speciality,
             station: floor,
@@ -152,8 +161,8 @@ export default function WeeklyTemplate({ templateShifts }) {
         <StyledRootContainer>
             <div style={{ minWidth: '256px' }}>
                 <ViewByUsersContainer>View by Users</ViewByUsersContainer>
-                {!isEmpty(templateShifts)
-                    ? templateShifts.map((emp, i) => {
+                {!isEmpty(sortedShifts)
+                    ? sortedShifts.map((emp, i) => {
                           return (
                               <StyledMainDiv key={i} employeeName={emp.name}>
                                   {emp.name ? (
@@ -258,8 +267,8 @@ export default function WeeklyTemplate({ templateShifts }) {
                         );
                     })}
                 </UsersContainer>
-                {!isEmpty(templateShifts) ? (
-                    templateShifts.map((emp, i) => {
+                {!isEmpty(sortedShifts) ? (
+                    sortedShifts.map((emp, i) => {
                         return (
                             <StyledWeekDaysContainer key={i}>
                                 {weekdays.map((weekDay, index) => {
@@ -269,64 +278,69 @@ export default function WeeklyTemplate({ templateShifts }) {
                                             employeeName={emp.name}
                                             key={index}>
                                             <div key={index}>
-                                                {Object.entries(emp.shifts).map(([day, shifts]) => {
-                                                    if (day === weekDay) {
-                                                        const duplicateShifts = [...shifts];
-                                                        return duplicateShifts.slice(0, 1).map((shift, key) => {
-                                                            return (
-                                                                <div key={key}>
-                                                                    <div style={{ width: '200px', height: '90px' }}>
-                                                                        <Badge
-                                                                            text={getScheduleBanner(
-                                                                                shift.start_time,
-                                                                                shift.end_time,
-                                                                                shift.location || 'First Floor',
-                                                                                shift.session_type || 'Morning',
-                                                                                shift.certificate.abbreviation || 'RN',
-                                                                                shift.id,
-                                                                                shift.facility,
-                                                                                emp.name,
-                                                                                shift.speciality,
-                                                                                shift.day,
-                                                                                shift.certificate.id,
-                                                                                shift.nurse_id
-                                                                            )}
-                                                                            kind={
-                                                                                shift.certificate.abbreviation === 'RN'
-                                                                                    ? 'scheduleOrange'
-                                                                                    : shift.certificate.abbreviation ===
-                                                                                      'LPN'
-                                                                                    ? 'scheduleCyan'
-                                                                                    : shift.certificate.abbreviation ===
-                                                                                      'CNA'
-                                                                                    ? 'scheduleMistyRose'
-                                                                                    : 'scheduleOrange'
-                                                                            }
-                                                                            styles={{
-                                                                                width: '100%',
-                                                                                padding: '8px',
-                                                                                backgroundColor: !emp.name
-                                                                                    ? '#E9E9EC'
-                                                                                    : null,
-                                                                            }}
-                                                                        />
+                                                {emp.shifts &&
+                                                    Object.entries(emp.shifts).map(([day, shifts]) => {
+                                                        if (day === weekDay) {
+                                                            const duplicateShifts = [...shifts];
+                                                            return duplicateShifts.slice(0, 1).map((shift, key) => {
+                                                                return (
+                                                                    <div key={key}>
+                                                                        <div style={{ width: '200px', height: '90px' }}>
+                                                                            <Badge
+                                                                                text={getScheduleBanner(
+                                                                                    shift.start_time,
+                                                                                    shift.end_time,
+                                                                                    shift.location || 'First Floor',
+                                                                                    shift.session_type || 'Morning',
+                                                                                    shift.certificate.abbreviation ||
+                                                                                        'RN',
+                                                                                    shift.id,
+                                                                                    shift.facility,
+                                                                                    emp.name,
+                                                                                    shift.speciality,
+                                                                                    shift.day,
+                                                                                    shift.certificate.id,
+                                                                                    shift.nurse_id
+                                                                                )}
+                                                                                kind={
+                                                                                    shift.certificate.abbreviation ===
+                                                                                    'RN'
+                                                                                        ? 'scheduleOrange'
+                                                                                        : shift.certificate
+                                                                                              .abbreviation === 'LPN'
+                                                                                        ? 'scheduleCyan'
+                                                                                        : shift.certificate
+                                                                                              .abbreviation === 'CNA'
+                                                                                        ? 'scheduleMistyRose'
+                                                                                        : 'scheduleOrange'
+                                                                                }
+                                                                                styles={{
+                                                                                    width: '100%',
+                                                                                    padding: '8px',
+                                                                                    backgroundColor: !emp.name
+                                                                                        ? '#E9E9EC'
+                                                                                        : null,
+                                                                                }}
+                                                                            />
+                                                                        </div>
+                                                                        {shifts.length > 1 && (
+                                                                            <ShowMoreButtonWrapper>
+                                                                                <StyledShowMoreButton
+                                                                                // onClick={() => showShiftsPopup(day.date)}
+                                                                                >
+                                                                                    {`View ${
+                                                                                        shifts.slice(1, 4).length
+                                                                                    } `}
+                                                                                    More&nbsp;
+                                                                                </StyledShowMoreButton>
+                                                                            </ShowMoreButtonWrapper>
+                                                                        )}
                                                                     </div>
-                                                                    {shifts.length > 1 && (
-                                                                        <ShowMoreButtonWrapper>
-                                                                            <StyledShowMoreButton
-                                                                            // onClick={() => showShiftsPopup(day.date)}
-                                                                            >
-                                                                                {`View ${shifts.slice(1, 4).length} `}
-                                                                                More&nbsp;
-                                                                            </StyledShowMoreButton>
-                                                                        </ShowMoreButtonWrapper>
-                                                                    )}
-                                                                </div>
-                                                            );
-                                                        });
-                                                    }
-                                                    return null;
-                                                })}
+                                                                );
+                                                            });
+                                                        }
+                                                        return null;
+                                                    })}
                                             </div>
                                         </StyledGridWeekDayContainer>
                                     );

@@ -21,7 +21,7 @@ export const useUpdateTemplate = () => {
                 assigned: shiftData.assigned,
             },
         };
-        return AdminScheduleTemplatesService.updateTemplateShift(templateId, payload);
+        return AdminScheduleTemplatesService.updateTemplate(templateId, payload);
     };
 
     return useMutation(updateTemplate, {

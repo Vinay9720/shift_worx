@@ -26,11 +26,14 @@ import { openModal } from '@/lib/store/slices/modal-slice';
 import { useDeleteShift } from '@/hooks/admin-schedule/useDeleteShift';
 import { useState } from 'react';
 import TemplateShiftForm from '../add-template-shift/TemplateShiftForm';
+import { setTemplateShiftTobeEdited } from '@/lib/store/slices/admin-schedule-templates-module';
+import { useEditTemplateShift } from '@/hooks/admin-schedule-templates';
 
 export default function MonthlyTemplate({ templateShifts = [] }) {
     const dispatch = useDispatch();
     const [employeeId, setEmployeeId] = useState(null);
     const { mutate: deleteShift } = useDeleteShift();
+    const { mutate: updateShift } = useEditTemplateShift();
     const fixedWeekDays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
     const getMonthDays = () => {
         const monthDays = [];
@@ -68,13 +71,13 @@ export default function MonthlyTemplate({ templateShifts = [] }) {
 
     const monthDays = getMonthDays();
 
-    const menuOptions = id => {
+    const menuOptions = shiftData => {
         return [
             {
                 label: 'Edit Shift',
                 action: () => {
+                    dispatch(setTemplateShiftTobeEdited(shiftData));
                     dispatch(openModal({ modalName: 'editTemplateShiftModal' }));
-                    setEmployeeId(id);
                 },
                 icon: <Icon styles={{ fill: '#838A91' }} name='pencil' height={14} width={14} />,
             },
@@ -82,7 +85,7 @@ export default function MonthlyTemplate({ templateShifts = [] }) {
                 label: 'Delete Shift',
                 action: () => {
                     dispatch(openModal({ modalName: 'deleteTemplateShiftModal' }));
-                    setEmployeeId(id);
+                    setEmployeeId(shiftData.id);
                 },
                 color: 'red',
                 icon: <Icon styles={{ fill: '#F43C02' }} name='trash' height={14} width={14} />,
@@ -103,20 +106,48 @@ export default function MonthlyTemplate({ templateShifts = [] }) {
         }
     };
 
-    const getScheduleBanner = (empName, cert, start, end, session, station, id) => {
+    const getScheduleBanner = (
+        empName,
+        cert,
+        start,
+        end,
+        session,
+        station,
+        id,
+        nurseId,
+        day,
+        certId,
+        speciality,
+        facility,
+        week
+    ) => {
         const timeStartInput = start;
         const timeEndInput = end;
         const parsedStartTime = moment(timeStartInput, 'h:mma');
         const parsedEndTime = moment(timeEndInput, 'h:mma');
         const outputStartTime = parsedStartTime.format('hha');
         const outputEndTime = parsedEndTime.format('hha');
+        const shiftData = {
+            week,
+            employee: empName,
+            facility_id: facility,
+            id,
+            certificate_ids: certId,
+            speciality_ids: speciality,
+            station,
+            start_time: start,
+            end_time: end,
+            role: cert,
+            day,
+            template_type: 'monthly',
+            nurseId,
+        };
         return (
             <ScheduleBannerContainer>
                 <TimeContainer>
                     {outputStartTime} {`>`} {outputEndTime}
                 </TimeContainer>
                 <EmployeeNameContainer>{empName ? empName.substring(0, 6) : 'Open'}</EmployeeNameContainer>
-                {/* <EmployeeNameContainer>{empName.substring(0, 6)}</EmployeeNameContainer> */}
                 <div>
                     <SwxChip label={cert} color='white' background={getBackGroundColor(cert)} size='smallest' />
                     <div>
@@ -133,7 +164,7 @@ export default function MonthlyTemplate({ templateShifts = [] }) {
                                 </IconButton>
                             }
                             from='month wise'
-                            options={menuOptions(id)}
+                            options={menuOptions(shiftData)}
                         />
                     </div>
                 </div>
@@ -174,8 +205,14 @@ export default function MonthlyTemplate({ templateShifts = [] }) {
                                                             shift.start_time,
                                                             shift.end_time,
                                                             shift.session || 'Morning',
-                                                            shift.station || 'First Floor',
-                                                            shift.id
+                                                            shift.location || 'First Floor',
+                                                            shift.id,
+                                                            shift.nurse_id,
+                                                            shift.day,
+                                                            shift.certificate.id,
+                                                            shift.speciality,
+                                                            shift.facility,
+                                                            shift.week
                                                         )}
                                                         kind={
                                                             shift.certificate.abbreviation === 'RN'
@@ -218,11 +255,7 @@ export default function MonthlyTemplate({ templateShifts = [] }) {
                 onConfirm={() => deleteShift(employeeId)}
             />
             <SwxModal modalName='editTemplateShiftModal'>
-                <TemplateShiftForm
-                    modalName='editTemplateShiftModal'
-                    title='Edit'
-                    // action={addShift}
-                />
+                <TemplateShiftForm modalName='editTemplateShiftModal' title='Edit' action={updateShift} />
             </SwxModal>
         </StyledRootMainContainer>
     );
