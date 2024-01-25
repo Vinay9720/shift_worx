@@ -17,24 +17,23 @@ import { ModalContainer, HeaderContainer, EllipseContainer, CloseContainer, styl
 
 export default function TemplateShiftForm({ modalName, title, action }) {
     const [formattedData, setFormattedData] = useState({});
-    const { templateType } = useSelector(state => state.adminScheduleTemplatesModule);
-    const { templateShiftTobeEdited } = useSelector(state => state.adminScheduleTemplatesModule);
+    const { templateType, templateShiftTobeEdited } = useSelector(state => state.adminScheduleTemplatesModule);
     const { data: employeesData, isSuccess } = useEmployees(true);
     const { data: certificationOptions } = useCertificateOptions();
     const { data: specialityOptions } = useSpecialityOptions();
     const { data: facilityOptions } = useFacilityOptions();
     const dispatch = useDispatch();
-
     useEffect(() => {
         if (templateShiftTobeEdited) {
             const formattedShiftData = {
+                week: templateShiftTobeEdited.week ? templateShiftTobeEdited.week : null,
                 days: templateShiftTobeEdited.day,
                 start_time: templateShiftTobeEdited.start_time,
                 end_time: templateShiftTobeEdited.end_time,
                 facility_name: templateShiftTobeEdited.station,
                 role: templateShiftTobeEdited.role,
-                speciality: templateShiftTobeEdited.speciality_ids.name,
-                facility: templateShiftTobeEdited.facility_id.name,
+                speciality: templateShiftTobeEdited.speciality_ids?.name || templateShiftTobeEdited.speciality_ids,
+                facility: templateShiftTobeEdited.facility_id?.name || templateShiftTobeEdited.facility_id,
                 employee: templateShiftTobeEdited.employee,
             };
             setFormattedData(formattedShiftData);

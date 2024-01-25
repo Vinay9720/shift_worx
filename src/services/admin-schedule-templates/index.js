@@ -40,6 +40,9 @@ const deleteTemplateShift = id => {
 const updateTemplateShift = (id, shiftData) => {
     return http.put(`/shift_templates/${id}/update_shift_template`, JSON.stringify(shiftData));
 };
+const updateTemplate = (id, shiftData) => {
+    return http.put(`/shift_templates/${id}`, JSON.stringify(shiftData));
+};
 
 const AdminScheduleTemplatesService = {
     fetchTemplates,
@@ -50,6 +53,7 @@ const AdminScheduleTemplatesService = {
     deleteTemplateShift,
     updateTemplateShift,
     createTemplate,
+    updateTemplate,
 };
 
 export default AdminScheduleTemplatesService;

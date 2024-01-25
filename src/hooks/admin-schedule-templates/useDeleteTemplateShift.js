@@ -14,7 +14,7 @@ export const useDeleteTemplateShift = () => {
     const showToast = useToast();
 
     const deleteTemplateShift = () => {
-        return AdminScheduleTemplatesService.deleteTemplateShift(templateShiftTobeDeleted.shift_id);
+        return AdminScheduleTemplatesService.deleteTemplateShift(templateShiftTobeDeleted.id);
     };
 
     return useMutation(deleteTemplateShift, {
