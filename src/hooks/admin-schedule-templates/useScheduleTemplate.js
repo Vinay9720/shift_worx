@@ -25,8 +25,10 @@ export const useScheduleTemplate = () => {
             select: data => {
                 const templateData = data.data;
                 const templateShifts = templateData.records;
-                dispatch(setTemplateDetails(templateData.template_schedule));
-                dispatch(setTemplateType(capitalize(templateData.template_schedule.template_type)));
+                if (templateId !== 'new') {
+                    dispatch(setTemplateDetails(templateData.template_schedule));
+                    dispatch(setTemplateType(capitalize(templateData.template_schedule.template_type)));
+                }
                 return templateShifts;
             },
             onError: error => {
