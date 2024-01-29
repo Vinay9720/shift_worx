@@ -5,7 +5,7 @@ import { useMemo } from 'react';
 import { useDispatch } from 'react-redux';
 import { SwxPagination, DynamicPromptModal } from '@/lib/common/layout';
 import { Icon } from '@/lib/common/icons';
-import { SwxDataGrid, SwxSwitch, SwxTypography } from '@/lib/common/components';
+import { SwxDataGrid, SwxSwitch, SwxTypography, SwxChip } from '@/lib/common/components';
 import SearchFilter from './searchFilter';
 
 import { openModal } from '@/lib/store/slices/modal-slice';
@@ -19,6 +19,7 @@ import PublishScheduleTemplate from './schedule-templates/publish-schedule-templ
 import { useDeleteTemplate } from '@/hooks/admin-schedule-templates/useDeleteTemplate';
 import { useRouter } from 'next/navigation';
 import { capitalize } from 'lodash';
+import { templateStatusBackground } from '@/lib/util/dynamicChipColor';
 
 export default function AdminScheduleTemplates() {
     const dispatch = useDispatch();
@@ -51,6 +52,35 @@ export default function AdminScheduleTemplates() {
             },
             align: 'left',
             filterable: false,
+        },
+        {
+            field: 'status',
+            headerName: 'Status',
+            width: 100,
+            sortable: false,
+            filterable: false,
+            // renderCell: params => {
+            //     return (
+            //         <SwxTypography
+            //             color={params.row.status !== 'draft' ? 'swxBlack' : 'blue'}
+            //             size='semiMedium'
+            //             weight='extraThin'
+            //             className='Manrope'>
+            //             {params.value === 'draft' ? 'Yes' : 'No'}
+            //         </SwxTypography>
+            //     );
+            // },
+            renderCell: params => {
+                const background = templateStatusBackground(params.value);
+                return (
+                    <SwxChip
+                        label={capitalize(params.value) || 'Draft'}
+                        color={params.value !== 'draft' ? 'white' : 'black'}
+                        background={background}
+                        size='small'
+                    />
+                );
+            },
         },
         {
             field: 'total_shifts',
@@ -93,7 +123,7 @@ export default function AdminScheduleTemplates() {
         {
             field: 'template_week',
             headerName: 'Template Type',
-            width: 150,
+            width: 130,
             align: 'left',
             sortable: false,
             renderCell: params => {
@@ -167,24 +197,6 @@ export default function AdminScheduleTemplates() {
                         checked={params.row.publish}
                         disabled={params.row.status === 'draft'}
                     />
-                );
-            },
-        },
-        {
-            field: 'status',
-            headerName: 'Draft',
-            width: 70,
-            sortable: false,
-            filterable: false,
-            renderCell: params => {
-                return (
-                    <SwxTypography
-                        color={params.row.status !== 'draft' ? 'swxBlack' : 'blue'}
-                        size='semiMedium'
-                        weight='extraThin'
-                        className='Manrope'>
-                        {params.value === 'draft' ? 'Yes' : 'No'}
-                    </SwxTypography>
                 );
             },
         },
