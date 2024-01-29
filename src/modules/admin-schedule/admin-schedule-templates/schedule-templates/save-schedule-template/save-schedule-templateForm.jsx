@@ -12,7 +12,7 @@ import { CloseContainer, EllipseContainer, HeaderContainer, ModalContainer } fro
 
 export default function SaveScheduleTemplateForm({ modalName, action, title, isEditing }) {
     const dispatch = useDispatch();
-    const { templateDetails } = useSelector(state => state.adminScheduleTemplatesModule);
+    const { templateDetails, scheduleTemplateModalData } = useSelector(state => state.adminScheduleTemplatesModule);
     const templateProps = {
         label: (
             <SwxTypography color='swxSlightlyBlack' size='semiMedium' weight='semiBold' className='Manrope'>
@@ -62,7 +62,9 @@ export default function SaveScheduleTemplateForm({ modalName, action, title, isE
                     </Stack>
                 </EllipseContainer>
             </HeaderContainer>
-            <Form onSubmit={shiftData => action({ shiftData, savingTemplate: !isEditing })}>
+            <Form
+                onSubmit={shiftData => action({ shiftData, savingTemplate: !isEditing })}
+                defaultValues={scheduleTemplateModalData}>
                 <Stack sx={{ padding: '10px 150px 21px 16px', backgroundColor: '#F6FAFD' }}>
                     {/* <SwxTypography>Save shift schedule for the week of Jan 1 to Jan 7</SwxTypography> */}
                     <SwxTypography>Total Shifts: {templateDetails.total_shifts || 0}</SwxTypography>

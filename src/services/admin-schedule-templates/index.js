@@ -22,7 +22,7 @@ const createTemplate = templateData => {
 };
 
 const publishTemplate = templateData => {
-    return http.post(`/shift_templates`, JSON.stringify(templateData));
+    return http.post(`/shift_templates/publish`, JSON.stringify(templateData));
 };
 
 const fetchTemplate = id => {
