@@ -54,3 +54,14 @@ export const filledChipBackground = status => {
             return 'dullGray';
     }
 };
+
+export const templateStatusBackground = status => {
+    switch (status) {
+        case 'ready':
+            return 'darkBlue';
+        case 'published':
+            return 'switchGreen';
+        default:
+            return 'lightGray';
+    }
+};
