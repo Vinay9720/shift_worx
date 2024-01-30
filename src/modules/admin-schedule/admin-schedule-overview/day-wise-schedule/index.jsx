@@ -42,8 +42,7 @@ const twidth = '1920';
 export default function DayWiseSchedule({ scheduleData }) {
     const { mutate: deleteShift } = useDeleteShift();
     const [employeeId, setEmployeeId] = useState(null);
-    const [shiftData, setShiftData] = useState();
-    const { mutate: updateShift } = useEditShift(shiftData && shiftData);
+    const { mutate: updateShift } = useEditShift();
     const { currentTimeValue } = useSelector(state => state.adminScheduleModule);
     const currentTime = new Date();
     const currentHour = currentTime.getHours();
@@ -232,7 +231,6 @@ export default function DayWiseSchedule({ scheduleData }) {
                                                         }}
                                                         id={shift.id}
                                                         setEmployeeId={setEmployeeId}
-                                                        setShiftData={setShiftData}
                                                         shiftId={shift.shift_id}
                                                         specialities={shift.specialities}
                                                         facility={shift.facility}
@@ -258,7 +256,7 @@ export default function DayWiseSchedule({ scheduleData }) {
                 onConfirm={() => deleteShift(employeeId)}
             />
             <SwxModal modalName='editShiftModal'>
-                <ShiftForm modalName='editShiftModal' title='Edit' action={updateShift} employeeShiftData={shiftData} />
+                <ShiftForm modalName='editShiftModal' title='Edit' action={updateShift} />
             </SwxModal>
         </StyledMainDiv>
     );

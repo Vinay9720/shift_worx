@@ -1,7 +1,7 @@
 'use client';
 
 import { useMemo } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Stack } from '@mui/material';
 
 import { closeModal } from '@/lib/store/slices/modal-slice';
@@ -25,28 +25,13 @@ import { useToast } from '@/hooks/common';
 import { convertTo24HourFormat, today } from '@/lib/util';
 
 export default function ShiftForm({ modalName, title, action: addShift }) {
-    // const [formattedData, setFormattedData] = useState({});
     const { data: employeesData, isSuccess } = useEmployees(true);
     const { data: certificationOptions } = useCertificateOptions();
     const { data: specialityOptions } = useSpecialityOptions();
     const { data: facilityOptions } = useFacilityOptions();
+    const { shiftEditModalData } = useSelector(state => state.adminScheduleModule);
     const showToast = useToast();
     const dispatch = useDispatch();
-    // useEffect(() => {
-    //     if (employeeShiftData) {
-    //         const formattedShiftData = {
-    //             date: employeeShiftData.start_date,
-    //             start_time: employeeShiftData.start_time,
-    //             end_time: employeeShiftData.end_time,
-    //             facility_name: employeeShiftData.station,
-    //             role: employeeShiftData.role,
-    //             speciality: employeeShiftData.speciality_ids[0].name,
-    //             facility: employeeShiftData.facility_id.name,
-    //             employee: employeeShiftData.employee,
-    //         };
-    //         setFormattedData(formattedShiftData);
-    //     }
-    // }, [employeeShiftData]);
 
     const shiftSubmitHandler = shiftData => {
         const startTime = convertTo24HourFormat(shiftData.start_time);
@@ -237,7 +222,7 @@ export default function ShiftForm({ modalName, title, action: addShift }) {
                     </Stack>
                 </EllipseContainer>
             </HeaderContainer>
-            <Form onSubmit={shiftData => shiftSubmitHandler(shiftData)}>
+            <Form onSubmit={shiftData => shiftSubmitHandler(shiftData)} defaultValues={shiftEditModalData}>
                 <Stack direction='column' spacing={2} sx={{ padding: '0px 24px', mt: 1 }}>
                     <Stack direction='row' spacing={2}>
                         <DatePickerField name='date' SWXInputProps={dateProps} />
