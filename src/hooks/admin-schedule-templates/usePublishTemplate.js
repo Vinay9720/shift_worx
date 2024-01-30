@@ -5,7 +5,7 @@ import AdminScheduleTemplatesService from '@/services/admin-schedule-templates';
 import { closeModal } from '@/lib/store/slices/modal-slice';
 
 import { useToast } from '../common';
-import moment from 'moment';
+import { formatDate } from '@/lib/util';
 
 export const usePublishTemplate = () => {
     const { templateTobePublished } = useSelector(state => state.adminScheduleTemplatesModule);
@@ -21,7 +21,7 @@ export const usePublishTemplate = () => {
                 name: templateData.name,
                 description: templateData.description,
                 assigned: templateData.assigned,
-                start_date: moment(templateData.start_date).format('MM/DD/YYYY'),
+                start_date: formatDate(templateData.start_date, 'MM/DD/YYYY'),
                 publish: templateData.publish,
                 template_type: templateData.template_week,
             },

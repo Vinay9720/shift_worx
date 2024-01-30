@@ -25,15 +25,14 @@ import {
 import { SwxModal, DynamicPromptModal } from '@/lib/common/layout';
 import ShiftForm from '../add-shift/ShiftForm';
 import { openModal } from '@/lib/store/slices/modal-slice';
-import { setCurrentTimeValue, setScheduleType } from '@/lib/store/slices/admin-schedule-module';
+import { setCurrentTimeValue, setScheduleType, setShiftData } from '@/lib/store/slices/admin-schedule-module';
 import { useState } from 'react';
 import { useEditShift, useDeleteShift } from '@/hooks/admin-schedule';
 
 export default function MonthWiseSchedule({ scheduleData }) {
     const dispatch = useDispatch();
     const [employeeId, setEmployeeId] = useState(null);
-    const [shiftData, setShiftData] = useState();
-    const { mutate: updateShift } = useEditShift(shiftData && shiftData);
+    const { mutate: updateShift } = useEditShift();
     const { mutate: deleteShift } = useDeleteShift();
     const { currentTimeValue } = useSelector(state => state.adminScheduleModule);
     const fixedWeekDays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
@@ -97,7 +96,7 @@ export default function MonthWiseSchedule({ scheduleData }) {
             {
                 label: 'Edit Shift',
                 action: () => {
-                    setShiftData(employeeShiftData);
+                    dispatch(setShiftData(employeeShiftData));
                     dispatch(openModal({ modalName: 'editShiftModal' }));
                 },
                 icon: <Icon styles={{ fill: '#838A91' }} name='pencil' height={14} width={14} />,
@@ -289,7 +288,7 @@ export default function MonthWiseSchedule({ scheduleData }) {
                 onConfirm={() => deleteShift(employeeId)}
             />
             <SwxModal modalName='editShiftModal'>
-                <ShiftForm modalName='editShiftModal' title='Edit' employeeShiftData={shiftData} action={updateShift} />
+                <ShiftForm modalName='editShiftModal' title='Edit' action={updateShift} />
             </SwxModal>
         </StyledRootMainContainer>
     );

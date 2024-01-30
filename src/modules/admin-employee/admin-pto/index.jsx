@@ -78,11 +78,9 @@ export default function AdminPto() {
                 ptoData.recordData.map(user => {
                     const starttime = user.start_time;
                     const endtime = user.end_time;
-                    const startTime = moment(starttime);
-                    const endTime = moment(endtime);
-                    const formattedOutput = `${startTime.format('M/D')} - ${startTime.format(
-                        'h:mm A'
-                    )} - ${endTime.format('h:mm A')}`;
+                    const startTime = moment(starttime.slice(11, 16), 'HH:mm').format('hh:mm A');
+                    const endTime = moment(endtime.slice(11, 16), 'HH:mm').format('hh:mm A');
+                    const formattedOutput = `${moment(starttime).format('M/D')} - ${startTime} - ${endTime}`;
                     return {
                         id: user.id,
                         employee: user.name || 'Temporary Employee',
@@ -103,9 +101,6 @@ export default function AdminPto() {
             width: 300,
             renderCell: params => (
                 <Stack direction='row' spacing={1} alignItems='center' style={{ cursor: 'pointer' }}>
-                    {/* onClick={() =>
-                        router.push(`/admin/employees/edit-employee/${params.row.id}?step=profile_information`)
-                     } */}
                     <Avatar sx={{ width: 32, height: 32, bgcolor: '#1F6FA9' }}>{`${
                         params.row.employee.split('')[0].toUpperCase() || 'K'
                     }`}</Avatar>

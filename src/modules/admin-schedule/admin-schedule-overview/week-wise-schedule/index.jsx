@@ -38,7 +38,7 @@ import {
 import ShiftForm from '../add-shift/ShiftForm';
 import { SwxModal, DynamicPromptModal, OpenShifts } from '@/lib/common/layout';
 import { openModal } from '@/lib/store/slices/modal-slice';
-import { setCurrentTimeValue, setScheduleType } from '@/lib/store/slices/admin-schedule-module';
+import { setCurrentTimeValue, setScheduleType, setShiftData } from '@/lib/store/slices/admin-schedule-module';
 import { useState } from 'react';
 import { useEditShift, useDeleteShift } from '@/hooks/admin-schedule';
 import { sortedShiftsByName } from '@/lib/util';
@@ -47,8 +47,7 @@ export default function WeekWiseSchedule({ scheduleData }) {
     const dispatch = useDispatch();
     const { mutate: deleteShift } = useDeleteShift();
     const [employeeId, setEmployeeId] = useState(null);
-    const [shiftData, setShiftData] = useState();
-    const { mutate: updateShift } = useEditShift(shiftData && shiftData);
+    const { mutate: updateShift } = useEditShift();
     const { currentTimeValue } = useSelector(state => state.adminScheduleModule);
     const getCurrentWeekdays = () => {
         const weekdaysWithDates = [];
@@ -68,7 +67,7 @@ export default function WeekWiseSchedule({ scheduleData }) {
             {
                 label: 'Edit Shift',
                 action: async () => {
-                    setShiftData(employeeShiftData);
+                    dispatch(setShiftData(employeeShiftData));
                     dispatch(openModal({ modalName: 'editShiftModal' }));
                 },
                 icon: <Icon styles={{ fill: '#838A91' }} name='pencil' height={14} width={14} />,
@@ -371,7 +370,7 @@ export default function WeekWiseSchedule({ scheduleData }) {
                 onConfirm={() => deleteShift(employeeId)}
             />
             <SwxModal modalName='editShiftModal'>
-                <ShiftForm modalName='editShiftModal' title='Edit' employeeShiftData={shiftData} action={updateShift} />
+                <ShiftForm modalName='editShiftModal' title='Edit' action={updateShift} />
             </SwxModal>
         </StyledRootContainer>
     );

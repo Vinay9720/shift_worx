@@ -11,6 +11,7 @@ import { openModal } from '@/lib/store/slices/modal-slice';
 
 import { BannerWrapper, Bannercontainer } from './daily-schedule-banner.styles';
 import { useDispatch } from 'react-redux';
+import { setShiftData } from '@/lib/store/slices/admin-schedule-module';
 
 function DailyScheduleBanner({
     kind,
@@ -21,7 +22,6 @@ function DailyScheduleBanner({
     style,
     id,
     setEmployeeId,
-    setShiftData,
     shiftId,
     specialities,
     facility,
@@ -48,7 +48,7 @@ function DailyScheduleBanner({
             {
                 label: 'Edit Shift',
                 action: async () => {
-                    setShiftData(employeeShiftData);
+                    dispatch(setShiftData(employeeShiftData));
                     dispatch(openModal({ modalName: 'editShiftModal' }));
                 },
                 icon: <Icon styles={{ fill: '#838A91' }} name='pencil' height={14} width={14} />,
