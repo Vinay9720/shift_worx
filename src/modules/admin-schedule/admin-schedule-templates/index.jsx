@@ -59,17 +59,6 @@ export default function AdminScheduleTemplates() {
             width: 100,
             sortable: false,
             filterable: false,
-            // renderCell: params => {
-            //     return (
-            //         <SwxTypography
-            //             color={params.row.status !== 'draft' ? 'swxBlack' : 'blue'}
-            //             size='semiMedium'
-            //             weight='extraThin'
-            //             className='Manrope'>
-            //             {params.value === 'draft' ? 'Yes' : 'No'}
-            //         </SwxTypography>
-            //     );
-            // },
             renderCell: params => {
                 const background = templateStatusBackground(params.value);
                 return (
