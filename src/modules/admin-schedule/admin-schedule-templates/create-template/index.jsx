@@ -5,9 +5,12 @@ import { SwxButton } from '@/lib/common/components';
 
 import { styles } from './create-template.styles';
 import { useRouter } from 'next/navigation';
+import { setLoading } from '@/lib/store/slices/loading-slice';
+import { useDispatch } from 'react-redux';
 
 export default function CreateTemplate() {
     const router = useRouter();
+    const dispatch = useDispatch();
     return (
         <div className='flex items-center mt-0'>
             <SwxButton
@@ -15,7 +18,9 @@ export default function CreateTemplate() {
                 size='small'
                 onClick={e => {
                     e.preventDefault();
+                    dispatch(setLoading(true));
                     router.push('/admin/schedule/create-template/new');
+                    dispatch(setLoading(false));
                 }}
                 padding='10px 16px'
                 variant='contained'

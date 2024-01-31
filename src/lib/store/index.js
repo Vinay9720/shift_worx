@@ -18,6 +18,7 @@ import adminScheduleReducer from './slices/admin-schedule-module';
 import applicationReducer from './slices/application';
 import tabSlice from './slices/tabs-slice';
 import adminScheduleTemplatesReducer from './slices/admin-schedule-templates-module';
+import loadingSlice from './slices/loading-slice';
 
 const rootReducer = combineReducers({
     application: applicationReducer,
@@ -35,6 +36,7 @@ const rootReducer = combineReducers({
     adminScheduleTemplatesModule: adminScheduleTemplatesReducer,
     tabs: tabSlice,
     scheduleTemplateFilter: scheduleTemplateFilterSlice,
+    loading: loadingSlice,
 });
 
 export const store = configureStore({
