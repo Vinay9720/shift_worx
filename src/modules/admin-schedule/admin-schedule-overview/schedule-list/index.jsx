@@ -12,12 +12,12 @@ import { DynamicPromptModal, OpenShifts, SwxModal } from '@/lib/common/layout';
 import ShiftForm from '../add-shift/ShiftForm';
 import { openModal } from '@/lib/store/slices/modal-slice';
 import { useDispatch } from 'react-redux';
+import { setShiftData } from '@/lib/store/slices/admin-schedule-module';
 
 export default function ScheduleList({ scheduleData, isLoading }) {
     const { mutate: deleteShift } = useDeleteShift();
     const [employeeId, setEmployeeId] = useState(null);
-    const [shiftData, setShiftData] = useState();
-    const { mutate: updateShift } = useEditShift(shiftData && shiftData);
+    const { mutate: updateShift } = useEditShift();
     const dispatch = useDispatch();
     const menuOptions = ({
         start,
@@ -50,7 +50,7 @@ export default function ScheduleList({ scheduleData, isLoading }) {
                 label: 'Edit Shift',
                 action: async e => {
                     e.preventDefault();
-                    setShiftData(employeeShiftData);
+                    dispatch(setShiftData(employeeShiftData));
                     dispatch(openModal({ modalName: 'editShiftModal' }));
                 },
                 icon: <Icon styles={{ fill: '#838A91' }} name='pencil' height={14} width={14} />,
@@ -137,7 +137,7 @@ export default function ScheduleList({ scheduleData, isLoading }) {
             align: 'left',
             // flex: 1,
             sortable: false,
-            valueGetter: params => params.value.toUpperCase() || 'Some station',
+            valueGetter: params => params.value?.toUpperCase() || 'Some station',
             filterable: false,
             minWidth: 120,
         },
@@ -251,7 +251,7 @@ export default function ScheduleList({ scheduleData, isLoading }) {
                 onConfirm={() => deleteShift(employeeId)}
             />
             <SwxModal modalName='editShiftModal'>
-                <ShiftForm modalName='editShiftModal' title='Edit' employeeShiftData={shiftData} action={updateShift} />
+                <ShiftForm modalName='editShiftModal' title='Edit' action={updateShift} />
             </SwxModal>
             <SwxPagination
                 itemsPerPageOptions={['5', '10', '15']}

@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient } from 'react-query';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import AdminScheduleService from '@/services/admin-schedule';
 import { closeModal } from '@/lib/store/slices/modal-slice';
@@ -7,7 +7,8 @@ import { closeModal } from '@/lib/store/slices/modal-slice';
 import { useToast } from '../common';
 import { isArray } from 'lodash';
 
-export const useEditShift = employeeShiftData => {
+export const useEditShift = () => {
+    const { shiftData: employeeShiftData } = useSelector(state => state.adminScheduleModule);
     const queryClient = useQueryClient();
     const dispatch = useDispatch();
     const showToast = useToast();

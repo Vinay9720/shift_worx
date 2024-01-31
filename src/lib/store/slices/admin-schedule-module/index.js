@@ -9,6 +9,8 @@ const initialState = {
     scheduleType: 'daily',
     currentTimeValue: time,
     currentListTimeValue: [moment().format('MM-DD-YYYY'), moment().add(2, 'days').format('MM-DD-YYYY')],
+    shiftData: {},
+    shiftEditModalData: {},
 };
 
 const AdminScheduleModule = createSlice({
@@ -51,9 +53,25 @@ const AdminScheduleModule = createSlice({
                 state.currentTimeValue = `${date1} - ${date2}`;
             }
         },
+        setShiftData: (state, action) => {
+            const { payload } = action;
+            const formattedShiftData = {
+                date: payload.start_date,
+                start_time: payload.start_time,
+                end_time: payload.end_time,
+                facility_name: payload.station,
+                role: payload.role,
+                speciality: payload.speciality_ids[0].name,
+                facility: payload.facility_id.name,
+                employee: payload.employee,
+                description: payload.description ? payload.description : 'test',
+            };
+            state.shiftEditModalData = formattedShiftData;
+            state.shiftData = action.payload;
+        },
     },
 });
 
-export const { setCurrentTimeValue, setScheduleType, setListCurrentTimeValue, setInitialTimeValue } =
+export const { setCurrentTimeValue, setScheduleType, setListCurrentTimeValue, setInitialTimeValue, setShiftData } =
     AdminScheduleModule.actions;
 export default AdminScheduleModule.reducer;

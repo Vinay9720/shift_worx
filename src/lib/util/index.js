@@ -15,6 +15,7 @@ import { today } from './getToday';
 import { convertTo24HourFormat } from './convertTo24HourFormat';
 import { scheduleBannerBackgroundColor } from './scheduleBannerBackground';
 import { sortedShiftsByName } from './sortedShiftsByName';
+import { getWeek } from './getWeek';
 
 export {
     redirectUser,
@@ -33,4 +34,5 @@ export {
     convertTo24HourFormat,
     scheduleBannerBackgroundColor,
     sortedShiftsByName,
+    getWeek,
 };

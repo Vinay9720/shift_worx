@@ -1,3 +1,4 @@
+import { getWeek } from '@/lib/util';
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
@@ -8,6 +9,8 @@ const initialState = {
     templateShiftTobeEdited: {},
     templateDetails: {},
     templateIdsTobePublished: [],
+    shiftModalData: {},
+    scheduleTemplateModalData: {},
 };
 
 const AdminScheduleTemplatesModule = createSlice({
@@ -31,7 +34,7 @@ const AdminScheduleTemplatesModule = createSlice({
             let shiftData;
             if (payload) {
                 shiftData = {
-                    // week: payload.week ? getWeek(payload.week) : null,
+                    week: payload.week ? getWeek(payload.week) : null,
                     days: payload.day,
                     start_time: payload.start_time,
                     end_time: payload.end_time,
@@ -46,7 +49,13 @@ const AdminScheduleTemplatesModule = createSlice({
             state.templateShiftTobeEdited = action.payload;
         },
         setTemplateDetails: (state, action) => {
+            const { payload } = action;
+            const data = {
+                template_name: payload.name,
+                description: payload.description,
+            };
             state.templateDetails = action.payload;
+            state.scheduleTemplateModalData = data;
         },
         setTemplateIdsTobePublished: (state, action) => {
             state.templateIdsTobePublished = action.payload;
