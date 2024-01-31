@@ -15,7 +15,7 @@ import { useFacilityOptions } from '@/hooks/facility';
 
 import { ModalContainer, HeaderContainer, EllipseContainer, CloseContainer, styles } from './add-template-shift.styles';
 
-export default function TemplateShiftForm({ modalName, title, action }) {
+export default function TemplateShiftForm({ modalName, title, action, onCancel }) {
     const { templateType } = useSelector(state => state.adminScheduleTemplatesModule);
     const { shiftModalData } = useSelector(state => state.adminScheduleTemplatesModule);
     const { data: employeesData, isSuccess } = useEmployees(true);
@@ -224,7 +224,15 @@ export default function TemplateShiftForm({ modalName, title, action }) {
                         {/* <SelectField name='employee_2' SWXInputProps={employee2Props} /> */}
                     </Stack>
                     <Stack sx={styles.actionButtons} style={{ marginBottom: '24px', marginTop: '30px' }}>
-                        <SwxButton onClick={() => dispatch(closeModal({ modalName }))} variant='text' size='medium'>
+                        <SwxButton
+                            onClick={() => {
+                                dispatch(closeModal({ modalName }));
+                                if (onCancel) {
+                                    onCancel();
+                                }
+                            }}
+                            variant='text'
+                            size='medium'>
                             Cancel
                         </SwxButton>
                         <FormSubmitButton variant='contained' buttonName='Submit' />

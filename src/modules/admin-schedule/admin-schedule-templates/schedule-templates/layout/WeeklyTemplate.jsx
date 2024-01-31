@@ -358,7 +358,12 @@ export default function WeeklyTemplate({ templateShifts }) {
                 onConfirm={() => deleteShift()}
             />
             <SwxModal modalName='editTemplateShiftModal'>
-                <TemplateShiftForm modalName='editTemplateShiftModal' title='Edit' action={updateShift} />
+                <TemplateShiftForm
+                    modalName='editTemplateShiftModal'
+                    onCancel={() => dispatch(setTemplateShiftTobeEdited(null))}
+                    title='Edit'
+                    action={updateShift}
+                />
             </SwxModal>
         </StyledRootContainer>
     );

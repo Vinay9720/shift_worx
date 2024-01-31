@@ -5,12 +5,13 @@ import { FooterContainer } from './schedule-templates.styles';
 import { useDispatch } from 'react-redux';
 import { openModal } from '@/lib/store/slices/modal-slice';
 import SaveScheduleTemplate from '../save-schedule-template';
-import { useParams } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 import { useAddTemplateShift } from '@/hooks/admin-schedule-templates/useAddTemplateShift';
 import UpdateScheduleTemplate from '../update-schedule-template';
 
 function ActionButtons({ editingTemplate }) {
     const dispatch = useDispatch();
+    const router = useRouter();
     const { mutate: saveTemplate } = useAddTemplateShift();
     const { templateId } = useParams();
     return (
@@ -18,7 +19,7 @@ function ActionButtons({ editingTemplate }) {
             <SaveScheduleTemplate hideButton action={saveTemplate} />
             <UpdateScheduleTemplate />
             <FooterContainer>
-                <SwxButton onClick={() => null} variant='text' size='medium'>
+                <SwxButton onClick={() => router.push('/admin/schedule?step=templates')} variant='text' size='medium'>
                     Cancel
                 </SwxButton>
                 <SwxButton
