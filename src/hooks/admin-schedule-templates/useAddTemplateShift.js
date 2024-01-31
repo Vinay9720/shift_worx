@@ -7,7 +7,7 @@ import { closeModal } from '@/lib/store/slices/modal-slice';
 import { useToast } from '../common';
 import { lowerCase } from 'lodash';
 import { useRouter, useParams, usePathname } from 'next/navigation';
-import { clearState } from '@/lib/store/slices/admin-schedule-templates-module';
+import { clearState, setTemplateShiftTobeEdited } from '@/lib/store/slices/admin-schedule-templates-module';
 
 export const useAddTemplateShift = () => {
     const { templateType } = useSelector(state => state.adminScheduleTemplatesModule);
@@ -53,6 +53,7 @@ export const useAddTemplateShift = () => {
             queryClient.invalidateQueries('admin-schedule-template');
             dispatch(closeModal({ modalName: 'addTemplateShiftModal' }));
             dispatch(closeModal({ modalName: 'saveScheduleTemplateModal' }));
+            dispatch(setTemplateShiftTobeEdited(null));
             dispatch(clearState());
             showToast(res.template ? 'Template Successfully added!' : 'Shift Successfully Added!', 'success');
             if (!res.template_shift) {

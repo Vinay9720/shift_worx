@@ -27,6 +27,22 @@ const AdminScheduleTemplatesModule = createSlice({
             state.templateShiftTobeDeleted = action.payload;
         },
         setTemplateShiftTobeEdited: (state, action) => {
+            const { payload } = action;
+            let shiftData;
+            if (payload) {
+                shiftData = {
+                    // week: payload.week ? getWeek(payload.week) : null,
+                    days: payload.day,
+                    start_time: payload.start_time,
+                    end_time: payload.end_time,
+                    facility_name: payload.station,
+                    role: payload.role,
+                    speciality: payload.speciality_ids.name,
+                    facility: payload.facility_id.name,
+                    employee: payload.employee,
+                };
+            }
+            state.shiftModalData = shiftData;
             state.templateShiftTobeEdited = action.payload;
         },
         setTemplateDetails: (state, action) => {
