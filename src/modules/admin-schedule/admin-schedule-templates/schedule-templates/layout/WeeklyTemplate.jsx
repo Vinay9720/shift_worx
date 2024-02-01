@@ -5,7 +5,7 @@ import { isEmpty } from 'lodash';
 
 import { Badge } from '@/lib/common/layout/daily-schedule-banner';
 import { Icon } from '@/lib/common/icons';
-import { SwxPopupMenu, SwxTypography, SwxChip } from '@/lib/common/components';
+import { SwxChip, SwxPopupMenu, SwxTypography } from '@/lib/common/components';
 
 import {
     UsersContainer,
@@ -107,7 +107,7 @@ export default function WeeklyTemplate({ templateShifts }) {
         };
         return (
             <Stack direction='column'>
-                <Stack direction='row' spacing={1}>
+                <Stack direction='row' spacing={0.7}>
                     <SwxChip label={cert} color='white' background={certificateBackground(cert)} size='smallest' />
                     <div>
                         <Stack direction='row'>

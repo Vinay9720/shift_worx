@@ -12,6 +12,7 @@ import {
     DayContainer,
     DaysConatiner,
     EmployeeNameContainer,
+    MenuContainer,
     ScheduleBannerContainer,
     ScheduleBannerWrapper,
     ShowMoreButtonWrapper,
@@ -28,7 +29,6 @@ import { openModal } from '@/lib/store/slices/modal-slice';
 import { setCurrentTimeValue, setScheduleType, setShiftData } from '@/lib/store/slices/admin-schedule-module';
 import { useState } from 'react';
 import { useEditShift, useDeleteShift } from '@/hooks/admin-schedule';
-import { certificateBackground } from '@/lib/util/dynamicChipColor';
 
 export default function MonthWiseSchedule({ scheduleData }) {
     const dispatch = useDispatch();
@@ -115,6 +115,18 @@ export default function MonthWiseSchedule({ scheduleData }) {
     };
 
     const monthDays = getCurrentMonthDays();
+    const getBackGroundColor = kind => {
+        switch (kind) {
+            case 'LPN':
+                return 'swxBlue';
+            case 'RN':
+                return 'pink';
+            case 'CNA':
+                return 'lightOrange';
+            default:
+                return 'pink';
+        }
+    };
 
     const getScheduleBanner = (
         empName,
@@ -150,19 +162,19 @@ export default function MonthWiseSchedule({ scheduleData }) {
         const outputStartTime = parsedStartTime.format('hha');
         const outputEndTime = parsedEndTime.format('hha');
         return (
-            <ScheduleBannerContainer empName>
+            <ScheduleBannerContainer>
                 <TimeContainer>
                     {outputStartTime} {`>`} {outputEndTime}
                 </TimeContainer>
-                <EmployeeNameContainer>{empName ? empName.substring(0, 6) : 'Open'}</EmployeeNameContainer>
-                <div>
-                    <SwxChip label={cert} color='white' background={certificateBackground(cert)} size='smallest' />
+                <EmployeeNameContainer>{empName ? empName.substring(0, 5) : 'Open'}</EmployeeNameContainer>
+                <MenuContainer>
+                    <SwxChip label={cert} color='white' background={getBackGroundColor(cert)} size='smallest' />
                     <div>
                         <SwxPopupMenu
                             buttonElement={
                                 <IconButton sx={{ height: '10px' }}>
                                     <Icon
-                                        styles={{ fill: '#838A91', transform: 'rotate(90deg)' }}
+                                        styles={{ fill: '#838A91' }}
                                         name='vertical-menu'
                                         aria-hidden='true'
                                         height={10}
@@ -174,7 +186,7 @@ export default function MonthWiseSchedule({ scheduleData }) {
                             options={menuOptions(employeeShiftData)}
                         />
                     </div>
-                </div>
+                </MenuContainer>
             </ScheduleBannerContainer>
         );
     };
@@ -242,8 +254,10 @@ export default function MonthWiseSchedule({ scheduleData }) {
                                                                         : 'scheduleOrange'
                                                                 }
                                                                 styles={{
-                                                                    padding: '6px',
+                                                                    padding: '4px',
                                                                     width: '100%',
+                                                                    display: 'flex',
+                                                                    alignItems: 'center',
                                                                     backgroundColor: !employeeName ? '#E9E9EC' : null,
                                                                     border: !employeeName
                                                                         ? '1.5px solid #F47602'
