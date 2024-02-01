@@ -12,6 +12,7 @@ import {
     DayContainer,
     DaysConatiner,
     EmployeeNameContainer,
+    MenuContainer,
     ScheduleBannerContainer,
     ScheduleBannerWrapper,
     ShowMoreButtonWrapper,
@@ -117,13 +118,13 @@ export default function MonthWiseSchedule({ scheduleData }) {
     const getBackGroundColor = kind => {
         switch (kind) {
             case 'LPN':
-                return 'blue';
+                return 'swxBlue';
             case 'RN':
                 return 'pink';
             case 'CNA':
                 return 'lightOrange';
             default:
-                return 'black';
+                return 'pink';
         }
     };
 
@@ -161,19 +162,19 @@ export default function MonthWiseSchedule({ scheduleData }) {
         const outputStartTime = parsedStartTime.format('hha');
         const outputEndTime = parsedEndTime.format('hha');
         return (
-            <ScheduleBannerContainer empName>
+            <ScheduleBannerContainer>
                 <TimeContainer>
                     {outputStartTime} {`>`} {outputEndTime}
                 </TimeContainer>
-                <EmployeeNameContainer>{empName ? empName.substring(0, 6) : 'Open'}</EmployeeNameContainer>
-                <div>
+                <EmployeeNameContainer>{empName ? empName.substring(0, 5) : 'Open'}</EmployeeNameContainer>
+                <MenuContainer>
                     <SwxChip label={cert} color='white' background={getBackGroundColor(cert)} size='smallest' />
                     <div>
                         <SwxPopupMenu
                             buttonElement={
                                 <IconButton sx={{ height: '10px' }}>
                                     <Icon
-                                        styles={{ fill: '#838A91', transform: 'rotate(90deg)' }}
+                                        styles={{ fill: '#838A91' }}
                                         name='vertical-menu'
                                         aria-hidden='true'
                                         height={10}
@@ -185,7 +186,7 @@ export default function MonthWiseSchedule({ scheduleData }) {
                             options={menuOptions(employeeShiftData)}
                         />
                     </div>
-                </div>
+                </MenuContainer>
             </ScheduleBannerContainer>
         );
     };
@@ -253,8 +254,10 @@ export default function MonthWiseSchedule({ scheduleData }) {
                                                                         : 'scheduleOrange'
                                                                 }
                                                                 styles={{
-                                                                    padding: '6px',
+                                                                    padding: '4px',
                                                                     width: '100%',
+                                                                    display: 'flex',
+                                                                    alignItems: 'center',
                                                                     backgroundColor: !employeeName ? '#E9E9EC' : null,
                                                                     border: !employeeName
                                                                         ? '1.5px solid #F47602'

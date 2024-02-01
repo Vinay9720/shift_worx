@@ -5,7 +5,7 @@ import { isEmpty } from 'lodash';
 
 import { Badge } from '@/lib/common/layout/daily-schedule-banner';
 import { Icon } from '@/lib/common/icons';
-import { SwxPopupMenu, SwxTypography } from '@/lib/common/components';
+import { SwxChip, SwxPopupMenu, SwxTypography } from '@/lib/common/components';
 
 import {
     UsersContainer,
@@ -37,6 +37,7 @@ import { useDeleteTemplateShift } from '@/hooks/admin-schedule-templates/useDele
 import { useEditTemplateShift } from '@/hooks/admin-schedule-templates/useEditTemplateShift';
 import TemplateShiftForm from '../add-template-shift/TemplateShiftForm';
 import { useMemo } from 'react';
+import { roleBackground } from '@/lib/util';
 
 export default function WeeklyTemplate({ templateShifts }) {
     const dispatch = useDispatch();
@@ -106,12 +107,8 @@ export default function WeeklyTemplate({ templateShifts }) {
         };
         return (
             <Stack direction='column'>
-                <Stack direction='row' spacing={1}>
-                    <Badge
-                        kind='certPink'
-                        styles={{ padding: '0px 2px', color: 'white', height: 'fit-content' }}
-                        text={cert || 'RN'}
-                    />
+                <Stack direction='row' spacing={0.7}>
+                    <SwxChip label={cert} color='white' background={roleBackground(cert)} size='smallest' />
                     <div>
                         <Stack direction='row'>
                             <SwxTypography color='swxBlack' weight='semiBold' size='small' className='Manrope'>

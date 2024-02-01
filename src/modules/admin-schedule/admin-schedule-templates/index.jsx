@@ -19,7 +19,6 @@ import PublishScheduleTemplate from './schedule-templates/publish-schedule-templ
 import { useDeleteTemplate } from '@/hooks/admin-schedule-templates/useDeleteTemplate';
 import { useRouter } from 'next/navigation';
 import { capitalize } from 'lodash';
-import { setLoading } from '@/lib/store/slices/loading-slice';
 
 export default function AdminScheduleTemplates() {
     const dispatch = useDispatch();
@@ -198,9 +197,7 @@ export default function AdminScheduleTemplates() {
             renderCell: params => (
                 <IconButton
                     onClick={() => {
-                        dispatch(setLoading(true));
                         router.push(`/admin/schedule/edit-template/${params.row.id}`);
-                        dispatch(setLoading(false));
                         dispatch(setTemplateType(capitalize(params.row.template_week) || 'Weekly'));
                     }}>
                     <Icon styles={{ fill: '#838A91' }} name='pencil' height={16} width={16} />

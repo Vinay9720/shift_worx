@@ -11,7 +11,7 @@ import { isEmpty } from 'lodash';
 
 import { Badge } from '@/lib/common/layout/daily-schedule-banner';
 import { Icon } from '@/lib/common/icons';
-import { SwxPopupMenu, SwxTypography } from '@/lib/common/components';
+import { SwxChip, SwxPopupMenu, SwxTypography } from '@/lib/common/components';
 
 import {
     UsersContainer,
@@ -41,7 +41,7 @@ import { openModal } from '@/lib/store/slices/modal-slice';
 import { setCurrentTimeValue, setScheduleType, setShiftData } from '@/lib/store/slices/admin-schedule-module';
 import { useState } from 'react';
 import { useEditShift, useDeleteShift } from '@/hooks/admin-schedule';
-import { sortedShiftsByName } from '@/lib/util';
+import { roleBackground, sortedShiftsByName } from '@/lib/util';
 
 export default function WeekWiseSchedule({ scheduleData }) {
     const dispatch = useDispatch();
@@ -115,12 +115,8 @@ export default function WeekWiseSchedule({ scheduleData }) {
         };
         return (
             <Stack direction='column'>
-                <Stack direction='row' spacing={1}>
-                    <Badge
-                        kind='certPink'
-                        styles={{ padding: '0px 2px', color: 'white', height: 'fit-content' }}
-                        text={cert || 'RN'}
-                    />
+                <Stack direction='row' spacing={0.7}>
+                    <SwxChip label={cert} color='white' background={roleBackground(cert)} size='smallest' />
                     <div>
                         <Stack direction='row'>
                             <SwxTypography color='swxBlack' weight='semiBold' size='small' className='Manrope'>

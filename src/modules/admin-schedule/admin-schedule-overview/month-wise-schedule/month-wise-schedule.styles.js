@@ -24,9 +24,12 @@ export const DaysConatiner = styled.div`
     display: grid;
     grid-template-columns: repeat(7, 1fr);
 `;
-
+export const MenuContainer = styled.div`
+    display: flex;
+    margin-left: 3px;
+`;
 export const DayContainer = styled.div`
-    min-width: 100%;
+    min-width: 178px;
     height: 206px;
     background-color: ${({ isToday }) => (isToday ? '#f7f7f8' : '#ffffff')};
     ${({ theme }) => `
@@ -59,7 +62,7 @@ export const DateContainer = styled.p`
 `;
 
 export const ScheduleBannerWrapper = styled.div`
-    height: 52px;
+    height: 50px;
     margin-bottom: 0.5rem;
     display: flex;
     justify-content: center;
@@ -82,9 +85,7 @@ export const StyledShowMoreButton = styled.button`
 
 export const ScheduleBannerContainer = styled.div`
     display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    gap: 0.5rem;
+    align-items: center;
 `;
 
 export const TimeContainer = styled.div`
@@ -97,7 +98,8 @@ export const TimeContainer = styled.div`
 `;
 
 export const EmployeeNameContainer = styled.div`
-    width: 34px;
+    width: 29px;
+    margin: 0px 3px;
     white-space: nowrap;
     text-overflow: ellipsis;
     ${({ theme }) => `

@@ -20,6 +20,7 @@ import {
     TimeContainer,
     WeekDayContainer,
     MonthlyWeekDaysContainer,
+    MenuContainer,
 } from './schedule-templates.styles';
 import { SwxModal, DynamicPromptModal } from '@/lib/common/layout';
 import { openModal } from '@/lib/store/slices/modal-slice';
@@ -96,13 +97,13 @@ export default function MonthlyTemplate({ templateShifts = [] }) {
     const getBackGroundColor = kind => {
         switch (kind) {
             case 'LPN':
-                return 'blue';
+                return 'swxBlue';
             case 'RN':
                 return 'pink';
             case 'CNA':
                 return 'lightOrange';
             default:
-                return 'black';
+                return 'pink';
         }
     };
 
@@ -147,15 +148,15 @@ export default function MonthlyTemplate({ templateShifts = [] }) {
                 <TimeContainer>
                     {outputStartTime} {`>`} {outputEndTime}
                 </TimeContainer>
-                <EmployeeNameContainer>{empName ? empName.substring(0, 6) : 'Open'}</EmployeeNameContainer>
-                <div>
+                <EmployeeNameContainer>{empName ? empName.substring(0, 5) : 'Open'}</EmployeeNameContainer>
+                <MenuContainer>
                     <SwxChip label={cert} color='white' background={getBackGroundColor(cert)} size='smallest' />
                     <div>
                         <SwxPopupMenu
                             buttonElement={
                                 <IconButton sx={{ height: '10px' }}>
                                     <Icon
-                                        styles={{ fill: '#838A91', transform: 'rotate(90deg)' }}
+                                        styles={{ fill: '#838A91' }}
                                         name='vertical-menu'
                                         aria-hidden='true'
                                         height={10}
@@ -167,7 +168,7 @@ export default function MonthlyTemplate({ templateShifts = [] }) {
                             options={menuOptions(shiftData)}
                         />
                     </div>
-                </div>
+                </MenuContainer>
             </ScheduleBannerContainer>
         );
     };
@@ -195,7 +196,7 @@ export default function MonthlyTemplate({ templateShifts = [] }) {
                                 {templateShifts.map((shift, key) => {
                                     if (shift.day === day.dayName && shift.week === day.week) {
                                         noOfShifts += 1;
-                                        if (noOfShifts <= 2) {
+                                        if (noOfShifts <= 3) {
                                             shiftsToShow.push(
                                                 <ScheduleBannerWrapper key={key}>
                                                     <Badge
@@ -224,8 +225,10 @@ export default function MonthlyTemplate({ templateShifts = [] }) {
                                                                 : 'scheduleOrange'
                                                         }
                                                         styles={{
-                                                            padding: '6px',
+                                                            padding: '4px',
                                                             width: '100%',
+                                                            display: 'flex',
+                                                            alignItems: 'center',
                                                             backgroundColor: !shift.nurse_name ? '#E9E9EC' : null,
                                                             border: !shift.nurse_name ? '1.5px solid #F47602' : null,
                                                         }}

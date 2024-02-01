@@ -3,10 +3,17 @@
 import { Stack } from '@mui/material';
 import { useSelector } from 'react-redux';
 
-import { SwxTypography } from '../../components';
+import { SwxLoader, SwxTypography } from '../../components';
 import { ScheduleTemplateTitleContainer } from './admin-layout.styles';
 
-export default function AdminScheduleTemplateLayout({ title, filter, weeklyTemplate, footer, monthlyTemplate }) {
+export default function AdminScheduleTemplateLayout({
+    title,
+    filter,
+    weeklyTemplate,
+    footer,
+    monthlyTemplate,
+    loading,
+}) {
     const { templateType } = useSelector(state => state.adminScheduleTemplatesModule);
     return (
         <>
@@ -15,11 +22,15 @@ export default function AdminScheduleTemplateLayout({ title, filter, weeklyTempl
                     {title}
                 </SwxTypography>
             </ScheduleTemplateTitleContainer>
-            <Stack direction='column' spacing={3} sx={{ marginTop: '24px' }}>
-                {filter}
-                {templateType[0] === 'Weekly' ? weeklyTemplate : monthlyTemplate}
-                {footer}
-            </Stack>
+            {loading ? (
+                <SwxLoader loading={loading} />
+            ) : (
+                <Stack direction='column' spacing={3} sx={{ marginTop: '24px' }}>
+                    {filter}
+                    {templateType[0] === 'Weekly' ? weeklyTemplate : monthlyTemplate}
+                    {footer}
+                </Stack>
+            )}
         </>
     );
 }
