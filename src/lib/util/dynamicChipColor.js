@@ -65,3 +65,16 @@ export const templateStatusBackground = status => {
             return 'lightGray';
     }
 };
+
+export const certificateBackground = kind => {
+    switch (kind) {
+        case 'LPN':
+            return 'blue';
+        case 'RN':
+            return 'pink';
+        case 'CNA':
+            return 'lightOrange';
+        default:
+            return 'black';
+    }
+};

@@ -28,6 +28,7 @@ import { useState } from 'react';
 import TemplateShiftForm from '../add-template-shift/TemplateShiftForm';
 import { setTemplateShiftTobeEdited } from '@/lib/store/slices/admin-schedule-templates-module';
 import { useEditTemplateShift } from '@/hooks/admin-schedule-templates';
+import { certificateBackground } from '@/lib/util/dynamicChipColor';
 
 export default function MonthlyTemplate({ templateShifts = [] }) {
     const dispatch = useDispatch();
@@ -93,19 +94,6 @@ export default function MonthlyTemplate({ templateShifts = [] }) {
         ];
     };
 
-    const getBackGroundColor = kind => {
-        switch (kind) {
-            case 'LPN':
-                return 'blue';
-            case 'RN':
-                return 'pink';
-            case 'CNA':
-                return 'lightOrange';
-            default:
-                return 'black';
-        }
-    };
-
     const getScheduleBanner = (
         empName,
         cert,
@@ -149,7 +137,7 @@ export default function MonthlyTemplate({ templateShifts = [] }) {
                 </TimeContainer>
                 <EmployeeNameContainer>{empName ? empName.substring(0, 6) : 'Open'}</EmployeeNameContainer>
                 <div>
-                    <SwxChip label={cert} color='white' background={getBackGroundColor(cert)} size='smallest' />
+                    <SwxChip label={cert} color='white' background={certificateBackground(cert)} size='smallest' />
                     <div>
                         <SwxPopupMenu
                             buttonElement={
