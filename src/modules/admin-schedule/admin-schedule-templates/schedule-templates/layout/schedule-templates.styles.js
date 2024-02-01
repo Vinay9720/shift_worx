@@ -265,6 +265,7 @@ export const StyledGridWeekDayContainer = styled.div`
 export const StyledNoScheduleContainer = styled.div`
     display: flex;
     flex-direction: row;
+    min-height: 75px;
     padding: 12px;
     ${({ theme }) => `
     background-color: ${theme.backgroundColor.white};

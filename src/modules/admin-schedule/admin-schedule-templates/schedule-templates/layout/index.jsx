@@ -6,13 +6,17 @@ import AdminScheduleTemplateLayout from '@/lib/common/layout/admin-layouts/Admin
 import { useScheduleTemplate } from '@/hooks/admin-schedule-templates/useScheduleTemplate';
 
 export default function AdminScheduleTemplate({ editingTemplate }) {
-    const { data: templateShifts, isLoading } = useScheduleTemplate();
+    const { data: templateData, isSuccess, isLoading } = useScheduleTemplate();
     return (
         <AdminScheduleTemplateLayout
-            title={editingTemplate ? 'Edit a Template' : 'Create New Template'}
+            title={
+                editingTemplate
+                    ? (isSuccess && templateData.template_schedule.name) || 'Edit a Template'
+                    : 'Create New Template'
+            }
             filter={<Filter editingTemplate={editingTemplate} />}
-            weeklyTemplate={<WeeklyTemplate templateShifts={templateShifts} />}
-            monthlyTemplate={<MonthlyTemplate templateShifts={templateShifts} />}
+            weeklyTemplate={<WeeklyTemplate templateShifts={isSuccess ? templateData.records : []} />}
+            monthlyTemplate={<MonthlyTemplate templateShifts={isSuccess ? templateData.records : []} />}
             footer={<ActionButtons editingTemplate={editingTemplate} />}
             loading={isLoading}
         />

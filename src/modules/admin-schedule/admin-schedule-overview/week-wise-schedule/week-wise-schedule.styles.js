@@ -91,6 +91,7 @@ export const StyledNoScheduleContainer = styled.div`
     display: flex;
     flex-direction: row;
     padding: 3px;
+    min-height: 75px;
     ${({ theme }) => `
     background-color: ${theme.backgroundColor.white};
     border: 1px solid ${theme.borderColor.lightGray};

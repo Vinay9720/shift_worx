@@ -41,7 +41,8 @@ import { openModal } from '@/lib/store/slices/modal-slice';
 import { setCurrentTimeValue, setScheduleType, setShiftData } from '@/lib/store/slices/admin-schedule-module';
 import { useState } from 'react';
 import { useEditShift, useDeleteShift } from '@/hooks/admin-schedule';
-import { roleBackground, sortedShiftsByName } from '@/lib/util';
+import { sortedShiftsByName } from '@/lib/util';
+import { certificateBackground } from '@/lib/util/dynamicChipColor';
 
 export default function WeekWiseSchedule({ scheduleData }) {
     const dispatch = useDispatch();
@@ -115,8 +116,8 @@ export default function WeekWiseSchedule({ scheduleData }) {
         };
         return (
             <Stack direction='column'>
-                <Stack direction='row' spacing={0.7}>
-                    <SwxChip label={cert} color='white' background={roleBackground(cert)} size='smallest' />
+                <Stack direction='row' spacing={1}>
+                    <SwxChip label={cert} color='white' background={certificateBackground(cert)} size='smallest' />
                     <div>
                         <Stack direction='row'>
                             <SwxTypography color='swxBlack' weight='semiBold' size='small' className='Manrope'>

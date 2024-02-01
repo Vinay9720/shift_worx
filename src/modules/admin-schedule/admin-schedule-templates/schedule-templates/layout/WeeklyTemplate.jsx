@@ -37,7 +37,7 @@ import { useDeleteTemplateShift } from '@/hooks/admin-schedule-templates/useDele
 import { useEditTemplateShift } from '@/hooks/admin-schedule-templates/useEditTemplateShift';
 import TemplateShiftForm from '../add-template-shift/TemplateShiftForm';
 import { useMemo } from 'react';
-import { roleBackground } from '@/lib/util';
+import { certificateBackground } from '@/lib/util/dynamicChipColor';
 
 export default function WeeklyTemplate({ templateShifts }) {
     const dispatch = useDispatch();
@@ -107,8 +107,8 @@ export default function WeeklyTemplate({ templateShifts }) {
         };
         return (
             <Stack direction='column'>
-                <Stack direction='row' spacing={0.7}>
-                    <SwxChip label={cert} color='white' background={roleBackground(cert)} size='smallest' />
+                <Stack direction='row' spacing={1}>
+                    <SwxChip label={cert} color='white' background={certificateBackground(cert)} size='smallest' />
                     <div>
                         <Stack direction='row'>
                             <SwxTypography color='swxBlack' weight='semiBold' size='small' className='Manrope'>
@@ -355,7 +355,12 @@ export default function WeeklyTemplate({ templateShifts }) {
                 onConfirm={() => deleteShift()}
             />
             <SwxModal modalName='editTemplateShiftModal'>
-                <TemplateShiftForm modalName='editTemplateShiftModal' title='Edit' action={updateShift} />
+                <TemplateShiftForm
+                    modalName='editTemplateShiftModal'
+                    onCancel={() => dispatch(setTemplateShiftTobeEdited(null))}
+                    title='Edit'
+                    action={updateShift}
+                />
             </SwxModal>
         </StyledRootContainer>
     );

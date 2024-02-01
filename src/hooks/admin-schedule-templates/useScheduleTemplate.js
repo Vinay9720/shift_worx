@@ -24,12 +24,12 @@ export const useScheduleTemplate = () => {
         {
             select: data => {
                 const templateData = data.data;
-                const templateShifts = templateData.records;
+                // const templateShifts = templateData.records;
                 if (templateId !== 'new') {
                     dispatch(setTemplateDetails(templateData.template_schedule));
                     dispatch(setTemplateType(capitalize(templateData.template_schedule.template_type)));
                 }
-                return templateShifts;
+                return templateData;
             },
             onError: error => {
                 showToast(error.response.data.message, 'error');

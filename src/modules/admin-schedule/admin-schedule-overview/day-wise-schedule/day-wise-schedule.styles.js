@@ -164,6 +164,7 @@ export const StyledSortedShiftsContainer = styled.div`
 `;
 export const StyledNoSchedulesContainer = styled.div`
     padding: 12px;
+    min-height: 80px;
     ${({ theme }) => `
         color: ${theme.fontColor.swxBlack};
         border-left: 1px solid ${theme.borderColor.lightGray};
