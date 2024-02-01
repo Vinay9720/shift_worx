@@ -107,7 +107,7 @@ export default function WeeklyTemplate({ templateShifts }) {
         };
         return (
             <Stack direction='column'>
-                <Stack direction='row' spacing={1}>
+                <Stack direction='row' spacing={0.7}>
                     <SwxChip label={cert} color='white' background={certificateBackground(cert)} size='smallest' />
                     <div>
                         <Stack direction='row'>
