@@ -29,6 +29,9 @@ export default function SaveScheduleTemplateForm({ modalName, action, title, isE
             </SwxTypography>
         ),
         placeholder: 'Description',
+        multiline: true,
+        padding: '0px',
+        rows: 4,
         required: 'Description required',
     };
 

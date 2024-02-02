@@ -1,6 +1,7 @@
 'use client';
 
 import { Stack } from '@mui/material';
+import { useEffect } from 'react';
 
 import { usePagination } from '@/hooks/common';
 import { createNumberArray } from '@/lib/util';
@@ -10,8 +11,22 @@ import { Icon } from '../../icons';
 import { styles } from './pagination.styles';
 
 export default function SwxPagination({ itemsPerPageOptions, paginationName, ...rest }) {
-    const { currentPage, totalPages, itemsPerPage, setItemsPerPage, previousPage, nextPage, goToPage } =
-        usePagination(paginationName);
+    const {
+        currentPage,
+        totalPages,
+        itemsPerPage,
+        setItemsPerPage,
+        previousPage,
+        nextPage,
+        goToPage,
+        clearPagination,
+    } = usePagination(paginationName);
+
+    useEffect(() => {
+        return () => {
+            clearPagination();
+        };
+    }, []);
 
     return (
         <Stack {...rest} sx={styles.mainContainer}>

@@ -36,6 +36,9 @@ export default function PublishScheduleTemplateForm({ modalName, action }) {
         ),
         placeholder: 'Add Description',
         required: 'Description required',
+        multiline: true,
+        padding: '0px',
+        rows: 4,
     };
 
     // const weekProps = {

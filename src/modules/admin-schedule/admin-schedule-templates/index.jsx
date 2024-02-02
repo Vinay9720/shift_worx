@@ -41,11 +41,7 @@ export default function AdminScheduleTemplates() {
             width: 180,
             renderCell: params => {
                 return (
-                    <SwxTypography
-                        color={params.row.status !== 'draft' ? 'swxBlack' : 'blue'}
-                        size='semiMedium'
-                        weight='extraThin'
-                        className='Manrope'>
+                    <SwxTypography color='swxBlack' size='semiMedium' weight='extraThin' className='Manrope'>
                         {params.value || 'Week #1 Schedule'}
                     </SwxTypography>
                 );
@@ -64,7 +60,7 @@ export default function AdminScheduleTemplates() {
                 return (
                     <SwxChip
                         label={capitalize(params.value) || 'Draft'}
-                        color={params.value !== 'draft' ? 'white' : 'black'}
+                        color={params.value === 'ready' ? 'white' : 'black'}
                         background={background}
                         size='small'
                     />
@@ -80,11 +76,7 @@ export default function AdminScheduleTemplates() {
             filterable: false,
             renderCell: params => {
                 return (
-                    <SwxTypography
-                        color={params.row.status !== 'draft' ? 'swxBlack' : 'blue'}
-                        size='semiMedium'
-                        weight='extraThin'
-                        className='Manrope'>
+                    <SwxTypography color='swxBlack' size='semiMedium' weight='extraThin' className='Manrope'>
                         {params.value}
                     </SwxTypography>
                 );
@@ -99,11 +91,7 @@ export default function AdminScheduleTemplates() {
             filterable: false,
             renderCell: params => {
                 return (
-                    <SwxTypography
-                        color={params.row.status !== 'draft' ? 'swxBlack' : 'blue'}
-                        size='semiMedium'
-                        weight='extraThin'
-                        className='Manrope'>
+                    <SwxTypography color='swxBlack' size='semiMedium' weight='extraThin' className='Manrope'>
                         {params.value}
                     </SwxTypography>
                 );
@@ -117,12 +105,8 @@ export default function AdminScheduleTemplates() {
             sortable: false,
             renderCell: params => {
                 return (
-                    <SwxTypography
-                        color={params.row.status !== 'draft' ? 'swxBlack' : 'blue'}
-                        size='semiMedium'
-                        weight='extraThin'
-                        className='Manrope'>
-                        {params.value || '1 Week'}
+                    <SwxTypography color='swxBlack' size='semiMedium' weight='extraThin' className='Manrope'>
+                        {capitalize(params.value) || '1 Week'}
                     </SwxTypography>
                 );
             },
@@ -136,11 +120,7 @@ export default function AdminScheduleTemplates() {
             sortable: false,
             renderCell: params => {
                 return (
-                    <SwxTypography
-                        color={params.row.status !== 'draft' ? 'swxBlack' : 'blue'}
-                        size='semiMedium'
-                        weight='extraThin'
-                        className='Manrope'>
+                    <SwxTypography color='swxBlack' size='semiMedium' weight='extraThin' className='Manrope'>
                         {params.value}
                     </SwxTypography>
                 );
@@ -156,11 +136,7 @@ export default function AdminScheduleTemplates() {
             sortable: false,
             renderCell: params => {
                 return (
-                    <SwxTypography
-                        color={params.row.status !== 'draft' ? 'swxBlack' : 'blue'}
-                        size='semiMedium'
-                        weight='extraThin'
-                        className='Manrope'>
+                    <SwxTypography color='swxBlack' size='semiMedium' weight='extraThin' className='Manrope'>
                         {params.value}
                     </SwxTypography>
                 );

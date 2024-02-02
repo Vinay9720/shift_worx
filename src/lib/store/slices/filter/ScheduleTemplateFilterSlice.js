@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialFilterState = {
     search: '',
-    roles: [],
+    roles: ['All'],
     publishStatus: [],
     filterApplied: false,
 };
