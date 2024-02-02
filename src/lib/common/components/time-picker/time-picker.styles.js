@@ -1,8 +1,8 @@
-import { TimeField } from '@mui/x-date-pickers';
+import { TimePicker } from '@mui/x-date-pickers';
 import { Select } from '@mui/material';
 import styled from 'styled-components';
 
-export const StyledTimeField = styled(TimeField)`
+export const StyledTimeField = styled(TimePicker)`
     & .MuiOutlinedInput-input {
         padding: 17px 14px;
         font-family: __Manrope_36d688;
