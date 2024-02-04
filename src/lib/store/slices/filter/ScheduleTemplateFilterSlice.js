@@ -2,20 +2,24 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialFilterState = {
     search: '',
-    roles: ['All'],
-    publishStatus: [],
+    searchLabel: '',
+    publishStatus: ['All'],
     filterApplied: false,
+    publishLabel: 'All',
 };
 
 const scheduleTemplateFilterSlice = createSlice({
-    name: 'filter',
+    name: 'schedule_template_filter',
     initialState: initialFilterState,
     reducers: {
         setSearch: (state, action) => {
             state.search = action.payload;
             state.filterApplied = true;
         },
-        setRoles: (state, action) => {
+        setSearchLabel: (state, action) => {
+            state.searchLabel = action.payload;
+        },
+        setPublishStatus: (state, action) => {
             const { payload } = action;
             const publishStatus = () => {
                 switch (payload) {
@@ -30,7 +34,7 @@ const scheduleTemplateFilterSlice = createSlice({
                 }
             };
             state.publishStatus = publishStatus();
-            state.roles = action.payload;
+            state.publishLabel = payload;
             state.filterApplied = true;
         },
         clearFilters: state => {
@@ -39,5 +43,5 @@ const scheduleTemplateFilterSlice = createSlice({
     },
 });
 
-export const { setSearch, setRoles, clearFilters } = scheduleTemplateFilterSlice.actions;
+export const { setSearch, setPublishStatus, clearFilters, setSearchLabel } = scheduleTemplateFilterSlice.actions;
 export default scheduleTemplateFilterSlice.reducer;

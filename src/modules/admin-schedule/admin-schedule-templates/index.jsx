@@ -42,7 +42,7 @@ export default function AdminScheduleTemplates() {
             renderCell: params => {
                 return (
                     <SwxTypography color='swxBlack' size='semiMedium' weight='extraThin' className='Manrope'>
-                        {params.value || 'Week #1 Schedule'}
+                        {params.value || 'Draft Template'}
                     </SwxTypography>
                 );
             },
