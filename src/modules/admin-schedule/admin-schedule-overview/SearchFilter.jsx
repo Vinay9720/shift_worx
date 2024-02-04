@@ -7,7 +7,13 @@ import { debounce } from 'lodash';
 
 import { SwxInput, SwxSelect, SwxMultiSelect, SwxButton } from '@/lib/common/components';
 import { Icon } from '@/lib/common/icons';
-import { setSearch, setStatus, setRoles, clearFilters } from '@/lib/store/slices/filter/scheduleFilterSlice';
+import {
+    setSearch,
+    setStatus,
+    setRoles,
+    clearFilters,
+    setSearchLabel,
+} from '@/lib/store/slices/filter/scheduleFilterSlice';
 
 import AddShift from './add-shift';
 import { styles } from './admin-schedule-overview.styles';
@@ -17,7 +23,7 @@ import { useCreateTemplate } from '@/hooks/admin-schedule-templates/useCreateTem
 const statusOptions = ['Filled', 'Unfilled'];
 
 function SearchFilter({ scheduleType }) {
-    const { roles, filterApplied, status } = useSelector(state => state.scheduleFilter);
+    const { roles, filterApplied, status, searchLabel } = useSelector(state => state.scheduleFilter);
     const { mutate: createTemplate } = useCreateTemplate();
     const searchInputRef = useRef(null);
     const dispatch = useDispatch();
@@ -36,6 +42,7 @@ function SearchFilter({ scheduleType }) {
         const setParams = () => {
             dispatch(setSearch(e.target.value));
         };
+        dispatch(setSearchLabel(e.target.value));
         debounce(setParams, 1000)();
     };
 
@@ -47,6 +54,7 @@ function SearchFilter({ scheduleType }) {
                     type='text'
                     sx={styles.inputField}
                     ref={searchInputRef}
+                    value={searchLabel}
                     onChange={onSearch}
                     padding='0.75rem 0.85rem'
                     placeholder='Search name, email, phone...'

@@ -10,10 +10,15 @@ import { Icon } from '@/lib/common/icons';
 import CreateTemplate from './create-template';
 import { styles } from './admin-schedule-templates.styles';
 import { useDispatch, useSelector } from 'react-redux';
-import { setRoles, setSearch, clearFilters } from '@/lib/store/slices/filter/ScheduleTemplateFilterSlice';
+import {
+    setPublishStatus,
+    setSearch,
+    clearFilters,
+    setSearchLabel,
+} from '@/lib/store/slices/filter/ScheduleTemplateFilterSlice';
 
 function SearchFilter() {
-    const { roles, filterApplied } = useSelector(state => state.scheduleTemplateFilter);
+    const { publishLabel, filterApplied, searchLabel } = useSelector(state => state.scheduleTemplateFilter);
 
     const searchInputRef = useRef(null);
     const dispatch = useDispatch();
@@ -22,10 +27,11 @@ function SearchFilter() {
         const setParams = () => {
             dispatch(setSearch(e.target.value));
         };
+        dispatch(setSearchLabel(e.target.value));
         debounce(setParams, 1000)();
     };
     const onPublishStatusChange = event => {
-        dispatch(setRoles(event.target.value));
+        dispatch(setPublishStatus(event.target.value));
     };
     const clearSearch = () => {
         if (searchInputRef.current) {
@@ -41,6 +47,7 @@ function SearchFilter() {
                     type='text'
                     sx={styles.inputField}
                     ref={searchInputRef}
+                    value={searchLabel}
                     onChange={onSearch}
                     padding='0.75rem 0.85rem'
                     placeholder='Search Template Name...'
@@ -51,12 +58,12 @@ function SearchFilter() {
                 <Stack sx={styles.filtersContainer}>
                     <Stack sx={styles.statusSelectField}>
                         <SwxMultiSelect
-                            insideLabel='Publish Status'
+                            insideLabel='Status'
                             style={{ width: '100%' }}
-                            value={roles}
+                            value={publishLabel}
                             options={['All', 'Published', 'Not Published']}
-                            padding='12px 6px'
-                            marginleft={120}
+                            padding='12px 2px'
+                            marginleft={75}
                             onChange={onPublishStatusChange}
                         />
                     </Stack>

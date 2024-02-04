@@ -42,7 +42,8 @@ const twidth = '1920';
 export default function DayWiseSchedule({ scheduleData }) {
     const { mutate: deleteShift } = useDeleteShift();
     const [employeeId, setEmployeeId] = useState(null);
-    const { mutate: updateShift } = useEditShift();
+    const [shiftData, setShiftData] = useState();
+    const { mutate: updateShift } = useEditShift(shiftData && shiftData);
     const { currentTimeValue } = useSelector(state => state.adminScheduleModule);
     const currentTime = new Date();
     const currentHour = currentTime.getHours();
@@ -158,14 +159,14 @@ export default function DayWiseSchedule({ scheduleData }) {
                         ))}
                     </StyledTimeSlotMainDiv>
                     <StyledShiftByDateContainer>
-                        {currentDay === currentTimeValue && (
+                        {currentDay() === currentTimeValue && (
                             <>
                                 <h1 className='absolute dot' style={{ left: currentTimePosition }} />
                                 <StyledTimePositionContainer
                                     style={{
                                         left: currentTimePosition,
                                         zIndex: '1',
-                                        height: `${!isEmpty(shiftsByDate) ? shiftsByDate.length * 100 : '48'}px`,
+                                        height: `${!isEmpty(shiftsByDate) ? shiftsByDate.length * 100 : '88'}px`,
                                     }}
                                 />
                             </>
@@ -231,6 +232,7 @@ export default function DayWiseSchedule({ scheduleData }) {
                                                         }}
                                                         id={shift.id}
                                                         setEmployeeId={setEmployeeId}
+                                                        setShiftData={setShiftData}
                                                         shiftId={shift.shift_id}
                                                         specialities={shift.specialities}
                                                         facility={shift.facility}
@@ -256,7 +258,7 @@ export default function DayWiseSchedule({ scheduleData }) {
                 onConfirm={() => deleteShift(employeeId)}
             />
             <SwxModal modalName='editShiftModal'>
-                <ShiftForm modalName='editShiftModal' title='Edit' action={updateShift} />
+                <ShiftForm modalName='editShiftModal' title='Edit' action={updateShift} employeeShiftData={shiftData} />
             </SwxModal>
         </StyledMainDiv>
     );
