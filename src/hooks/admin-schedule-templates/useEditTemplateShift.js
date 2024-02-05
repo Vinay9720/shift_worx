@@ -5,7 +5,7 @@ import { closeModal } from '@/lib/store/slices/modal-slice';
 
 import { useToast } from '../common';
 import AdminScheduleTemplatesService from '@/services/admin-schedule-templates';
-import { clearState } from '@/lib/store/slices/admin-schedule-templates-module';
+import { clearState, setTemplateShiftTobeEdited } from '@/lib/store/slices/admin-schedule-templates-module';
 
 export const useEditTemplateShift = () => {
     const { templateShiftTobeEdited } = useSelector(state => state.adminScheduleTemplatesModule);
@@ -39,6 +39,7 @@ export const useEditTemplateShift = () => {
             queryClient.invalidateQueries('admin-schedule-template');
             dispatch(closeModal({ modalName: 'editTemplateShiftModal' }));
             dispatch(clearState());
+            dispatch(setTemplateShiftTobeEdited(null));
             showToast('Shift Successfully Updated!', 'success');
         },
         onError: error => {
