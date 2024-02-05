@@ -68,13 +68,13 @@ function DailyScheduleBanner({
     const getBackGroundColor = () => {
         switch (kind) {
             case 'LPN':
-                return 'blue';
+                return 'swxBlue';
             case 'RN':
                 return 'pink';
             case 'CNA':
                 return 'lightOrange';
             default:
-                return 'black';
+                return 'pink';
         }
     };
     return (
