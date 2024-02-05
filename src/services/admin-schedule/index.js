@@ -18,7 +18,7 @@ const fetchSchedule = (term, date, dates, search, status, roles) => {
     // if (roles) queryParams.push(`certificate_id=${roles}`);
     if (roles && roles.length > 0) {
         roles.forEach(role => {
-            queryParams.push(`certificate_id=${encodeURIComponent(roleIdMap[role])}`);
+            queryParams.push(`certificate_id[]=${encodeURIComponent(roleIdMap[role])}`);
         });
     }
     if (status) queryParams.push(`status=${status}`);
