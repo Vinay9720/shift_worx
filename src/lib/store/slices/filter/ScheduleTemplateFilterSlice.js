@@ -3,7 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 const initialFilterState = {
     search: '',
     searchLabel: '',
-    publishStatus: ['All'],
+    publishStatus: ['all'],
     filterApplied: false,
     publishLabel: 'All',
 };
@@ -24,7 +24,7 @@ const scheduleTemplateFilterSlice = createSlice({
             const publishStatus = () => {
                 switch (payload) {
                     case 'All':
-                        return 'All';
+                        return 'all';
                     case 'Published':
                         return 'true';
                     case 'Not Published':

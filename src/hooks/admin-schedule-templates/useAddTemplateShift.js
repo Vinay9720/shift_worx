@@ -51,9 +51,9 @@ export const useAddTemplateShift = () => {
             const res = data.data;
             const id = res && res.template.id;
             queryClient.invalidateQueries('admin-schedule-template');
+            dispatch(setTemplateShiftTobeEdited(null));
             dispatch(closeModal({ modalName: 'addTemplateShiftModal' }));
             dispatch(closeModal({ modalName: 'saveScheduleTemplateModal' }));
-            dispatch(setTemplateShiftTobeEdited(null));
             dispatch(clearState());
             showToast(res.template ? 'Template Successfully added!' : 'Shift Successfully Added!', 'success');
             if (!res.template_shift) {
@@ -65,6 +65,7 @@ export const useAddTemplateShift = () => {
             }
         },
         onError: error => {
+            dispatch(setTemplateShiftTobeEdited(null));
             showToast(error.response.data.message, 'error');
         },
     });
