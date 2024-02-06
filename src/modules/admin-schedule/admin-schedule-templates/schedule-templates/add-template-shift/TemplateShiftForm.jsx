@@ -184,7 +184,13 @@ export default function TemplateShiftForm({ modalName, title, action, onCancel }
                 <SwxTypography color='swxBlack' size='large' weight='bold'>
                     {title || 'Add'} Shift
                 </SwxTypography>
-                <EllipseContainer onClick={() => dispatch(closeModal({ modalName }))}>
+                <EllipseContainer
+                    onClick={() => {
+                        dispatch(closeModal({ modalName }));
+                        if (onCancel) {
+                            onCancel();
+                        }
+                    }}>
                     <CloseContainer>
                         <Icon name='ellipse' fill='#F7F8F8' height={30} width={30} />
                     </CloseContainer>
