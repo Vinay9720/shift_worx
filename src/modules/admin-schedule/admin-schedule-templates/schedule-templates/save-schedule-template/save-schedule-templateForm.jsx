@@ -7,7 +7,7 @@ import { closeModal } from '@/lib/store/slices/modal-slice';
 // import { useFileUpload } from '@/hooks/common';
 import { Icon } from '@/lib/common/icons';
 import { SwxButton, SwxTypography } from '@/lib/common/components';
-import { InputField, Form, FormSubmitButton, SelectField } from '@/lib/common/form-components';
+import { InputField, Form, FormSubmitButton, FormSwitch } from '@/lib/common/form-components';
 import { CloseContainer, EllipseContainer, HeaderContainer, ModalContainer } from './save-schedule-template.styles';
 
 export default function SaveScheduleTemplateForm({ modalName, action, title, isEditing }) {
@@ -35,19 +35,13 @@ export default function SaveScheduleTemplateForm({ modalName, action, title, isE
         required: 'Description required',
     };
 
-    const ignoreAssigneesProps = {
+    const assginedProps = {
         label: (
             <SwxTypography color='swxSlightlyBlack' size='semiMedium' weight='semiBold' className='Manrope'>
                 Ignore Assignees
             </SwxTypography>
         ),
-        spacing: 0.1,
-        options: ['Yes', 'No'],
-        placeholder: 'Yes/No',
-        width: '100%',
-        padding: '7px',
-        radius: '5px',
-        required: true,
+        required: false,
     };
 
     return (
@@ -80,8 +74,8 @@ export default function SaveScheduleTemplateForm({ modalName, action, title, isE
                     <Stack direction={{ xs: 'column', sm: 'row' }}>
                         <InputField name='description' SWXInputProps={noteDescriptionProps} />
                     </Stack>
-                    <Stack direction='column' spacing={0.5}>
-                        <SelectField name='assigned' SWXInputProps={ignoreAssigneesProps} />
+                    <Stack direction='row'>
+                        <FormSwitch name='assigned' SWXInputProps={assginedProps} />
                     </Stack>
                     <Stack
                         spacing={3}
