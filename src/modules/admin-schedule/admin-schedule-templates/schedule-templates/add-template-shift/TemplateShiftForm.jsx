@@ -2,7 +2,7 @@
 
 import { useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Stack } from '@mui/material';
+import { Stack, CircularProgress } from '@mui/material';
 
 import { closeModal } from '@/lib/store/slices/modal-slice';
 import { Icon } from '@/lib/common/icons';
@@ -15,7 +15,7 @@ import { useFacilityOptions } from '@/hooks/facility';
 
 import { ModalContainer, HeaderContainer, EllipseContainer, CloseContainer, styles } from './add-template-shift.styles';
 
-export default function TemplateShiftForm({ modalName, title, action, onCancel }) {
+export default function TemplateShiftForm({ modalName, title, action, onCancel, loading = false }) {
     const { templateType } = useSelector(state => state.adminScheduleTemplatesModule);
     const { shiftModalData } = useSelector(state => state.adminScheduleTemplatesModule);
     const { data: employeesData, isSuccess } = useEmployees(true);
@@ -241,7 +241,11 @@ export default function TemplateShiftForm({ modalName, title, action, onCancel }
                             size='medium'>
                             Cancel
                         </SwxButton>
-                        <FormSubmitButton variant='contained' buttonName='Submit' />
+                        {loading ? (
+                            <CircularProgress color='primary' />
+                        ) : (
+                            <FormSubmitButton variant='contained' buttonName='Submit' />
+                        )}
                     </Stack>
                 </Stack>
             </Form>

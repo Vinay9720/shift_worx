@@ -42,7 +42,7 @@ import { certificateBackground } from '@/lib/util/dynamicChipColor';
 export default function WeeklyTemplate({ templateShifts }) {
     const dispatch = useDispatch();
     const { mutate: deleteShift } = useDeleteTemplateShift();
-    const { mutate: updateShift } = useEditTemplateShift();
+    const { mutate: updateShift, isLoading } = useEditTemplateShift();
     const sortedShifts = useMemo(() => {
         if (templateShifts) {
             return templateShifts.reduce((acc, cur) => {
@@ -359,6 +359,7 @@ export default function WeeklyTemplate({ templateShifts }) {
                     modalName='editTemplateShiftModal'
                     onCancel={() => dispatch(setTemplateShiftTobeEdited(null))}
                     title='Edit'
+                    loading={isLoading}
                     action={updateShift}
                 />
             </SwxModal>

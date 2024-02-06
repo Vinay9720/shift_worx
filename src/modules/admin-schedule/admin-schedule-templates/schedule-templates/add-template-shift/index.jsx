@@ -14,7 +14,7 @@ import { setTemplateShiftTobeEdited } from '@/lib/store/slices/admin-schedule-te
 
 export default function AddShift() {
     const dispatch = useDispatch();
-    const { mutate: addShift } = useAddTemplateShift();
+    const { mutate: addShift, isLoading } = useAddTemplateShift();
 
     return (
         <div className='flex items-center mt-0'>
@@ -32,7 +32,7 @@ export default function AddShift() {
                 Add Shift
             </SwxButton>
             <SwxModal modalName='addTemplateShiftModal' onCancel={() => dispatch(setTemplateShiftTobeEdited(null))}>
-                <TemplateShiftForm modalName='addTemplateShiftModal' action={addShift} />
+                <TemplateShiftForm modalName='addTemplateShiftModal' loading={isLoading} action={addShift} />
             </SwxModal>
         </div>
     );
