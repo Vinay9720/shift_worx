@@ -69,12 +69,12 @@ export const templateStatusBackground = status => {
 export const certificateBackground = kind => {
     switch (kind) {
         case 'LPN':
-            return 'blue';
+            return 'swxBlue';
         case 'RN':
             return 'pink';
         case 'CNA':
             return 'lightOrange';
         default:
-            return 'black';
+            return 'pink';
     }
 };
