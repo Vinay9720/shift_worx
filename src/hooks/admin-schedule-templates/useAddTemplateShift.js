@@ -37,8 +37,8 @@ export const useAddTemplateShift = () => {
             shift_template: {
                 template_type: lowerCase(templateType[0]),
                 id: templateId !== 'new' ? templateId : null,
-                name: shiftData.template_name || null,
-                description: shiftData.description || null,
+                ...(shiftData.template_name !== undefined && { name: shiftData.template_name }),
+                ...(shiftData.description !== undefined && { description: shiftData.description }),
                 assigned: shiftData.assigned || null,
                 status: savingTemplate ? 'ready' : 'draft',
             },
