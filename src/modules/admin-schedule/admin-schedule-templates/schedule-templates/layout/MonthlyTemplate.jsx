@@ -24,16 +24,17 @@ import {
 } from './schedule-templates.styles';
 import { SwxModal, DynamicPromptModal } from '@/lib/common/layout';
 import { openModal } from '@/lib/store/slices/modal-slice';
-import { useDeleteShift } from '@/hooks/admin-schedule/useDeleteShift';
-import { useState } from 'react';
 import TemplateShiftForm from '../add-template-shift/TemplateShiftForm';
-import { setTemplateShiftTobeEdited } from '@/lib/store/slices/admin-schedule-templates-module';
-import { useEditTemplateShift } from '@/hooks/admin-schedule-templates';
+import { useDeleteTemplateShift } from '@/hooks/admin-schedule-templates/useDeleteTemplateShift';
+import {
+    setTemplateShiftTobeDeleted,
+    setTemplateShiftTobeEdited,
+} from '@/lib/store/slices/admin-schedule-templates-module';
+import { useEditTemplateShift } from '@/hooks/admin-schedule-templates/useEditTemplateShift';
 
 export default function MonthlyTemplate({ templateShifts = [] }) {
     const dispatch = useDispatch();
-    const [employeeId, setEmployeeId] = useState(null);
-    const { mutate: deleteShift } = useDeleteShift();
+    const { mutate: deleteShift } = useDeleteTemplateShift();
     const { mutate: updateShift } = useEditTemplateShift();
     const fixedWeekDays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
     const getMonthDays = () => {
@@ -85,8 +86,8 @@ export default function MonthlyTemplate({ templateShifts = [] }) {
             {
                 label: 'Delete Shift',
                 action: () => {
+                    dispatch(setTemplateShiftTobeDeleted(shiftData));
                     dispatch(openModal({ modalName: 'deleteTemplateShiftModal' }));
-                    setEmployeeId(shiftData.id);
                 },
                 color: 'red',
                 icon: <Icon styles={{ fill: '#F43C02' }} name='trash' height={14} width={14} />,
@@ -255,7 +256,7 @@ export default function MonthlyTemplate({ templateShifts = [] }) {
             <DynamicPromptModal
                 modalName='deleteTemplateShiftModal'
                 entityName='Shift'
-                onConfirm={() => deleteShift(employeeId)}
+                onConfirm={() => deleteShift()}
             />
             <SwxModal modalName='editTemplateShiftModal'>
                 <TemplateShiftForm
