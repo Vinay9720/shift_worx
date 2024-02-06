@@ -35,7 +35,7 @@ import { useEditTemplateShift } from '@/hooks/admin-schedule-templates/useEditTe
 export default function MonthlyTemplate({ templateShifts = [] }) {
     const dispatch = useDispatch();
     const { mutate: deleteShift } = useDeleteTemplateShift();
-    const { mutate: updateShift } = useEditTemplateShift();
+    const { mutate: updateShift, isLoading } = useEditTemplateShift();
     const fixedWeekDays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
     const getMonthDays = () => {
         const monthDays = [];
@@ -263,6 +263,7 @@ export default function MonthlyTemplate({ templateShifts = [] }) {
                     onCancel={() => dispatch(setTemplateShiftTobeEdited(null))}
                     modalName='editTemplateShiftModal'
                     title='Edit'
+                    loading={isLoading}
                     action={updateShift}
                 />
             </SwxModal>
