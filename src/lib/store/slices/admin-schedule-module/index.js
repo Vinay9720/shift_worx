@@ -65,13 +65,24 @@ const AdminScheduleModule = createSlice({
                 facility: payload.facility_id.name,
                 employee: payload.employee,
                 description: payload.description ? payload.description : 'test',
+                nurseId: payload.nurseId,
             };
             state.shiftEditModalData = formattedShiftData;
             state.shiftData = action.payload;
         },
+        clearState: state => {
+            state.shiftData = {};
+            state.shiftEditModalData = {};
+        },
     },
 });
 
-export const { setCurrentTimeValue, setScheduleType, setListCurrentTimeValue, setInitialTimeValue, setShiftData } =
-    AdminScheduleModule.actions;
+export const {
+    setCurrentTimeValue,
+    setScheduleType,
+    setListCurrentTimeValue,
+    setInitialTimeValue,
+    setShiftData,
+    clearState,
+} = AdminScheduleModule.actions;
 export default AdminScheduleModule.reducer;

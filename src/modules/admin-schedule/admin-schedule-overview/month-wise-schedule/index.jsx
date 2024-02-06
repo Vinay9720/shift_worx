@@ -140,7 +140,8 @@ export default function MonthWiseSchedule({ scheduleData }) {
         specialities,
         facility,
         startDate,
-        certId
+        certId,
+        nurseId
     ) => {
         const employeeShiftData = {
             employee: empName,
@@ -154,6 +155,7 @@ export default function MonthWiseSchedule({ scheduleData }) {
             start_time: start,
             end_time: end,
             role: cert,
+            nurseId,
         };
         const timeStartInput = start;
         const timeEndInput = end;
@@ -242,7 +244,8 @@ export default function MonthWiseSchedule({ scheduleData }) {
                                                                     shift.specialities,
                                                                     shift.facility,
                                                                     shift.start_date,
-                                                                    shift.certificate.id
+                                                                    shift.certificate.id,
+                                                                    shift.nurse_id
                                                                 )}
                                                                 kind={
                                                                     shift.certificate.abbreviation === 'RN'

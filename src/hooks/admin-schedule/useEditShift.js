@@ -6,6 +6,7 @@ import { closeModal } from '@/lib/store/slices/modal-slice';
 
 import { useToast } from '../common';
 import { isArray } from 'lodash';
+import { clearState } from '@/lib/store/slices/admin-schedule-module';
 
 export const useEditShift = () => {
     const { shiftData: employeeShiftData } = useSelector(state => state.adminScheduleModule);
@@ -23,7 +24,7 @@ export const useEditShift = () => {
                         id: employeeShiftData.shift_id,
                         certificate_ids: [shiftData.role.value || employeeShiftData.certificate_ids],
                         speciality_ids: [shiftData.speciality.value || employeeShiftData.speciality_ids[0].id],
-                        nurse_id: shiftData.employee ? shiftData.employee.value : '',
+                        nurse_id: shiftData.employee ? shiftData.employee.value : employeeShiftData.nurseId,
                         additional_nurse_id: shiftData.employee_2 ? shiftData.employee_2.value : '',
                         mandatory_lunch: true,
                     },
@@ -44,6 +45,7 @@ export const useEditShift = () => {
         onSuccess: async () => {
             queryClient.invalidateQueries('admin-schedule');
             dispatch(closeModal({ modalName: 'editShiftModal' }));
+            dispatch(clearState());
             showToast('Shift Successfully Updated!', 'success');
         },
         onError: error => {

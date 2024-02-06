@@ -56,6 +56,8 @@ export const white = {
         aboveMedium: '12px',
     },
     fontSize: {
+        verySmall: '0.5rem', // 8px
+        smaller: '0.625rem', // 10px
         smallest: '0.75rem', // 12px
         small: '0.875rem', // 14px
         smallOdd: '0.938rem', // 15px

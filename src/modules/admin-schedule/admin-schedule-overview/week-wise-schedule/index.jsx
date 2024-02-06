@@ -99,7 +99,8 @@ export default function WeekWiseSchedule({ scheduleData }) {
         facility,
         startDate,
         certId,
-        empName
+        empName,
+        nurseId
     ) => {
         const employeeShiftData = {
             employee: empName,
@@ -113,10 +114,11 @@ export default function WeekWiseSchedule({ scheduleData }) {
             start_time: start,
             end_time: end,
             role: cert,
+            nurseId,
         };
         return (
             <Stack direction='column'>
-                <Stack direction='row' spacing={0.7}>
+                <Stack direction='row' spacing={0.5}>
                     <SwxChip label={cert} color='white' background={certificateBackground(cert)} size='smallest' />
                     <div>
                         <Stack direction='row'>
@@ -314,7 +316,8 @@ export default function WeekWiseSchedule({ scheduleData }) {
                                                                             shift.facility,
                                                                             shift.start_date,
                                                                             shift.certificate.id,
-                                                                            emp.name
+                                                                            emp.name,
+                                                                            shift.nurse_Id
                                                                         )}
                                                                         kind={
                                                                             shift.certificate.abbreviation === 'RN'

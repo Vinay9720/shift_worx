@@ -21,8 +21,7 @@ import { useSpecialityOptions } from '@/hooks/speciality';
 import { useFacilityOptions } from '@/hooks/facility';
 
 import { ModalContainer, HeaderContainer, EllipseContainer, CloseContainer, styles } from './add-shift.styles';
-import { useToast } from '@/hooks/common';
-import { convertTo24HourFormat, today } from '@/lib/util';
+import { today } from '@/lib/util';
 
 export default function ShiftForm({ modalName, title, action: addShift }) {
     const { data: employeesData, isSuccess } = useEmployees(true);
@@ -30,37 +29,7 @@ export default function ShiftForm({ modalName, title, action: addShift }) {
     const { data: specialityOptions } = useSpecialityOptions();
     const { data: facilityOptions } = useFacilityOptions();
     const { shiftEditModalData } = useSelector(state => state.adminScheduleModule);
-    const showToast = useToast();
     const dispatch = useDispatch();
-
-    const shiftSubmitHandler = shiftData => {
-        const startTime = convertTo24HourFormat(shiftData.start_time);
-        const endTime = convertTo24HourFormat(shiftData.end_time);
-
-        const [startHour, startMinute] = startTime.split(':').map(Number);
-        const [endHour, endMinute] = endTime.split(':').map(Number);
-
-        // Convert start and end times to minutes
-        const totalMinutes1 = startHour * 60 + startMinute;
-        const totalMinutes2 = endHour * 60 + endMinute;
-
-        // Handle the case where the shift spans across midnight
-        const differenceInMinutes =
-            totalMinutes2 >= totalMinutes1 ? totalMinutes2 - totalMinutes1 : 24 * 60 - totalMinutes1 + totalMinutes2;
-
-        const timeDifference = differenceInMinutes / 60;
-
-        if (timeDifference < 4 || timeDifference > 12) {
-            showToast(
-                timeDifference < 4
-                    ? 'Shift duration must be at least 4 hours!'
-                    : 'Shift Should Not Be Greater Than 12 Hours!',
-                'warning'
-            );
-        } else {
-            addShift({ shiftData });
-        }
-    };
 
     const employees = useMemo(() => {
         if (isSuccess) {
@@ -222,7 +191,7 @@ export default function ShiftForm({ modalName, title, action: addShift }) {
                     </Stack>
                 </EllipseContainer>
             </HeaderContainer>
-            <Form onSubmit={shiftData => shiftSubmitHandler(shiftData)} defaultValues={shiftEditModalData}>
+            <Form onSubmit={shiftData => addShift({ shiftData })} defaultValues={shiftEditModalData}>
                 <Stack direction='column' spacing={2} sx={{ padding: '0px 24px', mt: 1 }}>
                     <Stack direction='row' spacing={2}>
                         <DatePickerField name='date' SWXInputProps={dateProps} />

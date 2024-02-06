@@ -239,6 +239,7 @@ export default function DayWiseSchedule({ scheduleData }) {
                                                         startDate={shift.start_date}
                                                         certificateId={shift.certificate.id}
                                                         empName={emp.name}
+                                                        nurseId={shift.nurse_id}
                                                     />
                                                 );
                                             })}
