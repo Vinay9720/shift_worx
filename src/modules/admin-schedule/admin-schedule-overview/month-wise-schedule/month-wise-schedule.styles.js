@@ -89,7 +89,7 @@ export const ScheduleBannerContainer = styled.div`
 `;
 
 export const TimeContainer = styled.div`
-    min-width: 77px;
+    min-width: 78px;
     ${({ theme }) => `
         font-size: ${theme.fontSize.smallest};
         color: ${theme.fontColor.swxBlack};

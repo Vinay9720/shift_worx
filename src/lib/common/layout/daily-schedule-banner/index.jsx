@@ -1,5 +1,6 @@
 'use client';
 
+/* eslint-disable camelcase */
 // NEEDS TO CHANGE THIS COMPONENT WITH STYLED WHICH IS COMMENTED FOR NOW
 
 import { IconButton, Stack } from '@mui/material';
@@ -12,6 +13,7 @@ import { openModal } from '@/lib/store/slices/modal-slice';
 import { BannerWrapper, Bannercontainer } from './daily-schedule-banner.styles';
 import { useDispatch } from 'react-redux';
 import { setShiftData } from '@/lib/store/slices/admin-schedule-module';
+import { convertTo24HourFormat } from '@/lib/util';
 
 function DailyScheduleBanner({
     kind,
@@ -28,8 +30,25 @@ function DailyScheduleBanner({
     startDate,
     certificateId,
     empName,
+    nurseId,
 }) {
     const dispatch = useDispatch();
+    const start_Time = convertTo24HourFormat(startTime);
+    const end_Time = convertTo24HourFormat(endTime);
+
+    const [startHour, startMinute] = start_Time.split(':').map(Number);
+    const [endHour, endMinute] = end_Time.split(':').map(Number);
+
+    // Convert start and end times to minutes
+    const totalMinutes1 = startHour * 60 + startMinute;
+    const totalMinutes2 = endHour * 60 + endMinute;
+
+    // Handle the case where the shift spans across midnight
+    const differenceInMinutes =
+        totalMinutes2 >= totalMinutes1 ? totalMinutes2 - totalMinutes1 : 24 * 60 - totalMinutes1 + totalMinutes2;
+
+    const timeDifference = differenceInMinutes / 60;
+
     const menuOptions = () => {
         const employeeShiftData = {
             employee: empName,
@@ -43,6 +62,7 @@ function DailyScheduleBanner({
             start_time: startTime,
             end_time: endTime,
             role: kind,
+            nurseId,
         };
         return [
             {
@@ -80,19 +100,25 @@ function DailyScheduleBanner({
     return (
         <BannerWrapper>
             <Bannercontainer style={style} kind={kind} employeeName={empName}>
-                <Stack sx={{ display: 'flex', flexDirection: 'row', gap: '16px' }}>
+                <Stack
+                    sx={{
+                        display: 'flex',
+                        flexDirection: 'row',
+                        gap: timeDifference && timeDifference <= 2 ? '12px' : '16px',
+                    }}>
                     <SwxChip label={kind} color='white' background={getBackGroundColor()} size='smallest' />
                     <Stack direction='column' sx={{ ml: '4px' }}>
                         <SwxTypography
                             sx={{ fontFamily: '__Manrope_36d688' }}
                             color='swxBlack'
-                            size='small'
+                            size={timeDifference && timeDifference <= 3 ? 'smaller' : 'small'}
+                            lineHeight={timeDifference && timeDifference <= 2 ? 1 : null}
                             weight='semiBold'>
                             {startTime} {'>'} {endTime}
                         </SwxTypography>
                         <SwxTypography
                             color='lightGray'
-                            size='small'
+                            size={timeDifference && timeDifference <= 2 ? 'verySmall' : 'small'}
                             weight='semiBold'
                             sx={{ fontFamily: '__Manrope_36d688' }}>
                             {floor || 'Second Floor'}
@@ -110,7 +136,7 @@ function DailyScheduleBanner({
                         }
                         color='black'
                         background='white'
-                        size='smallest'
+                        size={timeDifference && timeDifference <= 2 ? 'verySmall' : 'smallest'}
                     />
                 </Stack>
                 <SwxPopupMenu
