@@ -258,7 +258,7 @@ export default function MonthlyTemplate({ templateShifts = [] }) {
                 entityName='Shift'
                 onConfirm={() => deleteShift()}
             />
-            <SwxModal modalName='editTemplateShiftModal'>
+            <SwxModal modalName='editTemplateShiftModal' onCancel={() => dispatch(setTemplateShiftTobeEdited(null))}>
                 <TemplateShiftForm
                     onCancel={() => dispatch(setTemplateShiftTobeEdited(null))}
                     modalName='editTemplateShiftModal'

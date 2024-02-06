@@ -10,6 +10,7 @@ import { SwxModal } from '@/lib/common/layout';
 import { styles } from './add-template-shift.styles';
 import TemplateShiftForm from './TemplateShiftForm';
 import { useAddTemplateShift } from '@/hooks/admin-schedule-templates/useAddTemplateShift';
+import { setTemplateShiftTobeEdited } from '@/lib/store/slices/admin-schedule-templates-module';
 
 export default function AddShift() {
     const dispatch = useDispatch();
@@ -30,7 +31,7 @@ export default function AddShift() {
                 weight='semiBold'>
                 Add Shift
             </SwxButton>
-            <SwxModal modalName='addTemplateShiftModal'>
+            <SwxModal modalName='addTemplateShiftModal' onCancel={() => dispatch(setTemplateShiftTobeEdited(null))}>
                 <TemplateShiftForm modalName='addTemplateShiftModal' action={addShift} />
             </SwxModal>
         </div>

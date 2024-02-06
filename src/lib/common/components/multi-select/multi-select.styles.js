@@ -30,7 +30,7 @@ export const StyledSelect = styled(Select)`
 
 export const StyledInsideLabel = styled(InputLabel)`
     &.Mui-focused {
-        color: ${({ theme }) => theme.fontColor.lightGray};
+        color: ${({ theme }) => theme.fontColor.lightGray} !important;
     }
 `;
 
