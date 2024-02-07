@@ -17,7 +17,7 @@ export const ModalContainer = styled.div`
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    max-width: 700px;
+    width: 700px;
     max-height: 80vh;
     overflow-y: auto;
     box-shadow: 24;
@@ -105,7 +105,7 @@ export const EllipseContainer = styled.div`
     margin-top: -15px;
 `;
 export const StyledWrapperContainer = styled.div`
-    padding: 31px 151px 30px 32px;
+    padding: 31px 32px 30px 32px;
     ${({ theme }) => `        
         border-bottom: 2px solid ${theme.borderColor.lightGray};
   `}
@@ -115,13 +115,12 @@ export const StyledWrapperContainer = styled.div`
 `;
 export const styles = {
     stack1: {
-        paddingRight: '96px',
         '@media (max-width: 800px)': {
             paddingRight: '0px',
         },
     },
     timePicker: {
-        width: '188px',
+        width: '100%',
         '@media (max-width: 800px)': {
             width: '100%',
         },

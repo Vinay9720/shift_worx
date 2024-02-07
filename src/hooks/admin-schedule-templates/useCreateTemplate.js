@@ -35,7 +35,7 @@ export const useCreateTemplate = () => {
             shift_template: {
                 name: shiftData.template_name || null,
                 description: shiftData.description || null,
-                assigned: shiftData.assigned || null,
+                assigned: shiftData.assigned === false ? 'No' : 'Yes' || null,
                 template_type: scheduleType,
             },
         };

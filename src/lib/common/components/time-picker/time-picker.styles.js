@@ -1,12 +1,12 @@
-import { TimeField } from '@mui/x-date-pickers';
-import { Select } from '@mui/material';
+import { TimePicker } from '@mui/x-date-pickers';
 import styled from 'styled-components';
 
-export const StyledTimeField = styled(TimeField)`
+export const StyledTimeField = styled(TimePicker)`
+    width: 100%;
     & .MuiOutlinedInput-input {
-        padding: 17px 14px;
         font-family: __Manrope_36d688;
-        ${({ theme }) => `
+        ${({ theme, padding }) => `
+            padding:${padding || '17px 14px'} ;
             color: ${theme.fontColor.swxSlightlyBlack};
         `}
     }
@@ -25,30 +25,12 @@ export const StyledTimeField = styled(TimeField)`
     }
 `;
 
-export const StyledAMPMSelect = styled(Select)`
-    & .MuiOutlinedInput-input {
-        padding-right: 0 !important;
-    }
-    & .MuiOutlinedInput-input {
-        font-family: __Manrope_36d688;
-        ${({ theme, padding }) => `
-            padding: ${padding || '17px 16px'};
-            color: ${theme.fontColor.swxSlightlyBlack};
-        `}
-    }
-    & .MuiOutlinedInput-notchedOutline {
-        border-radius: 8px;
-        border: none;
-    }
-    &:hover .MuiOutlinedInput-notchedOutline {
-        border: none;
-    }
-    &.Mui-focused .MuiOutlinedInput-notchedOutline {
-        ${({ theme }) => `
-            border: none;
-            // box-shadow: ${theme.boxShadow.blueShadow} !important;
-        `}
-    }
+export const StyledTimePickerOverlay = styled.div`
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    cursor: pointer;
 `;
 
 export const StyledWrapper = styled.div`
@@ -61,11 +43,5 @@ export const StyledContainerwrapper = styled.div`
     height: 56px;
     border-radius: ${({ theme }) => theme.borderRadius.small};
     border: 1px solid ${({ theme }) => theme.borderColor.lightGray};
+    position: relative;
 `;
-export const styles = {
-    iconStyles: {
-        marginRight: '18',
-        marginLeft: '8',
-        cursor: 'pointer',
-    },
-};

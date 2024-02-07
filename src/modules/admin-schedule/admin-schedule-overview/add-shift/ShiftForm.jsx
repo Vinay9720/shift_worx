@@ -64,11 +64,11 @@ export default function ShiftForm({ modalName, title, action: addShift }) {
     const roleProps = {
         label: (
             <SwxTypography color='swxSlightlyBlack' size='semiMedium' weight='semiBold' className='Manrope'>
-                Role
+                Certification
             </SwxTypography>
         ),
         options: certificationOptions,
-        placeholder: 'Role',
+        placeholder: 'Certification',
         width: '100%',
         required: true,
         padding: '8px 8px',

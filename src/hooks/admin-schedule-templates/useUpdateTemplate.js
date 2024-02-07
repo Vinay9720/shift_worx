@@ -18,7 +18,7 @@ export const useUpdateTemplate = () => {
             shift_template: {
                 name: shiftData.template_name,
                 description: shiftData.description,
-                assigned: shiftData.assigned,
+                assigned: shiftData.assigned === false ? 'No' : 'Yes',
             },
         };
         return AdminScheduleTemplatesService.updateTemplate(templateId, payload);
