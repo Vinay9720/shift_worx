@@ -1,5 +1,5 @@
 import { Stack } from '@mui/material';
-import { SwxTypography } from '../../components';
+import { SwxTypography } from '../../components/';
 import { Icon } from '../../icons';
 import { styles } from './open-shifts.styles';
 

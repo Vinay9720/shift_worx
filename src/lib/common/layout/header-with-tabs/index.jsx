@@ -3,7 +3,7 @@
 import { useSearchParams } from 'next/navigation';
 import { Stack } from '@mui/material';
 
-import { SwxTypography, SwxTabs } from '../../components';
+import { SwxTypography, SwxTabs } from '../../components/';
 
 export default function HeaderWithTabs({ title, tabs }) {
     const searchParams = useSearchParams();

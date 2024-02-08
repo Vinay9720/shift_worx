@@ -6,7 +6,7 @@ import { formatDate } from '@/lib/util';
 
 import { NoteWrapper, NoteLeftContainer, NoteContainer, DescriptionContainer, styles } from './note-card.styles';
 
-import { SwxTypography, SwxChip, SwxPopupMenu } from '../../components';
+import { SwxTypography, SwxChip, SwxPopupMenu } from '../../components/';
 import { Icon } from '../../icons';
 
 export default function NoteCard({ note, actions }) {

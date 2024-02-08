@@ -3,7 +3,7 @@
 import React from 'react';
 import { Controller, useFormContext } from 'react-hook-form';
 
-import { SwxSwitch } from '../components';
+import { SwxSwitch } from '../components/';
 import { Stack } from '@mui/material';
 
 const FormSwitch = props => {

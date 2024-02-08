@@ -3,7 +3,7 @@
 import { Stack } from '@mui/material';
 import { useSelector } from 'react-redux';
 
-import { SwxLoader, SwxTypography } from '../../components';
+import { SwxLoader, SwxTypography } from '../../components/';
 import { ScheduleTemplateTitleContainer } from './admin-layout.styles';
 
 export default function AdminScheduleTemplateLayout({

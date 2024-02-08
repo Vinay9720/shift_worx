@@ -2,7 +2,7 @@
 
 import { useFormContext } from 'react-hook-form';
 
-import { SwxButton } from '../components';
+import { SwxButton } from '../components/';
 
 const FormSubmitButton = props => {
     const { formState } = useFormContext();
