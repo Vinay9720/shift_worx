@@ -2,7 +2,7 @@
 
 import { Controller, useFormContext } from 'react-hook-form';
 
-import { SwxTimeComponent } from '../components/';
+import { SwxTimeComponent } from '../components';
 
 const TimePickerField = props => {
     const { control } = useFormContext();

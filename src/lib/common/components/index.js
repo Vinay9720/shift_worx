@@ -17,7 +17,6 @@ import SwxCalenderInput from './calender-input';
 import SwxFileUpload from './file-upload';
 import SwxSwitch from './switch';
 import SwxMultiSelectButtonGroup from './multi-select-button-group';
-import SwxPopover from './popover';
 
 export {
     SwxInput,
@@ -39,5 +38,4 @@ export {
     SwxFileUpload,
     SwxSwitch,
     SwxMultiSelectButtonGroup,
-    SwxPopover,
 };

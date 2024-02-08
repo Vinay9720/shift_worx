@@ -5,7 +5,7 @@ import { isEmpty } from 'lodash';
 
 import { Badge } from '@/lib/common/layout/daily-schedule-banner';
 import { Icon } from '@/lib/common/icons';
-import { SwxChip, SwxPopover, SwxPopupMenu, SwxTypography } from '@/lib/common/components';
+import { SwxChip, SwxPopupMenu, SwxTypography } from '@/lib/common/components';
 
 import {
     UsersContainer,
@@ -25,7 +25,6 @@ import {
     StyledDayContainer,
     StyledNoScheduleContainer,
     StyledGridWeekDayContainer,
-    StyledMoreShiftsContainer,
 } from './schedule-templates.styles';
 import { DynamicPromptModal, OpenShifts, SwxModal } from '@/lib/common/layout';
 import { useDispatch } from 'react-redux';
@@ -76,43 +75,6 @@ export default function WeeklyTemplate({ templateShifts }) {
     };
 
     const weekdays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-
-    const renderShift = (shift, emp, key) => {
-        return (
-            <div style={{ width: '200px', height: '90px' }} key={key}>
-                <Badge
-                    text={getScheduleBanner(
-                        shift.start_time,
-                        shift.end_time,
-                        shift.location || 'First Floor',
-                        shift.session_type || 'Morning',
-                        shift.certificate.abbreviation || 'RN',
-                        shift.id,
-                        shift.facility,
-                        emp.name,
-                        shift.speciality,
-                        shift.day,
-                        shift.certificate.id,
-                        shift.nurse_id
-                    )}
-                    kind={
-                        shift.certificate.abbreviation === 'RN'
-                            ? 'scheduleOrange'
-                            : shift.certificate.abbreviation === 'LPN'
-                            ? 'scheduleCyan'
-                            : shift.certificate.abbreviation === 'CNA'
-                            ? 'scheduleMistyRose'
-                            : 'scheduleOrange'
-                    }
-                    styles={{
-                        width: '100%',
-                        padding: '8px',
-                        backgroundColor: !emp.name ? '#E9E9EC' : null,
-                    }}
-                />
-            </div>
-        );
-    };
 
     // eslint-disable-next-line no-unused-vars
     const getScheduleBanner = (
@@ -317,43 +279,58 @@ export default function WeeklyTemplate({ templateShifts }) {
                                                     Object.entries(emp.shifts).map(([day, shifts]) => {
                                                         if (day === weekDay) {
                                                             const duplicateShifts = [...shifts];
-                                                            const remainingShifts = duplicateShifts.slice(1);
                                                             return duplicateShifts.slice(0, 1).map((shift, key) => {
                                                                 return (
-                                                                    <div
-                                                                        key={key}
-                                                                        style={{
-                                                                            display: 'flex',
-                                                                            flexDirection: 'column',
-                                                                        }}>
-                                                                        {renderShift(shift, emp)}
-                                                                        {shifts.length > 1 && (
-                                                                            <SwxPopover
-                                                                                buttonElement={
-                                                                                    <ShowMoreButtonWrapper>
-                                                                                        <StyledShowMoreButton>
-                                                                                            {`View ${
-                                                                                                shifts.slice(1, 4)
-                                                                                                    .length
-                                                                                            } `}
-                                                                                            More&nbsp;
-                                                                                        </StyledShowMoreButton>
-                                                                                    </ShowMoreButtonWrapper>
+                                                                    <div key={key}>
+                                                                        <div style={{ width: '200px', height: '90px' }}>
+                                                                            <Badge
+                                                                                text={getScheduleBanner(
+                                                                                    shift.start_time,
+                                                                                    shift.end_time,
+                                                                                    shift.location || 'First Floor',
+                                                                                    shift.session_type || 'Morning',
+                                                                                    shift.certificate.abbreviation ||
+                                                                                        'RN',
+                                                                                    shift.id,
+                                                                                    shift.facility,
+                                                                                    emp.name,
+                                                                                    shift.speciality,
+                                                                                    shift.day,
+                                                                                    shift.certificate.id,
+                                                                                    shift.nurse_id
+                                                                                )}
+                                                                                kind={
+                                                                                    shift.certificate.abbreviation ===
+                                                                                    'RN'
+                                                                                        ? 'scheduleOrange'
+                                                                                        : shift.certificate
+                                                                                              .abbreviation === 'LPN'
+                                                                                        ? 'scheduleCyan'
+                                                                                        : shift.certificate
+                                                                                              .abbreviation === 'CNA'
+                                                                                        ? 'scheduleMistyRose'
+                                                                                        : 'scheduleOrange'
                                                                                 }
-                                                                                content={
-                                                                                    <StyledMoreShiftsContainer>
-                                                                                        {remainingShifts.map(
-                                                                                            (shft, shiftKey) => {
-                                                                                                return renderShift(
-                                                                                                    shft,
-                                                                                                    emp,
-                                                                                                    shiftKey
-                                                                                                );
-                                                                                            }
-                                                                                        )}
-                                                                                    </StyledMoreShiftsContainer>
-                                                                                }
+                                                                                styles={{
+                                                                                    width: '100%',
+                                                                                    padding: '8px',
+                                                                                    backgroundColor: !emp.name
+                                                                                        ? '#E9E9EC'
+                                                                                        : null,
+                                                                                }}
                                                                             />
+                                                                        </div>
+                                                                        {shifts.length > 1 && (
+                                                                            <ShowMoreButtonWrapper>
+                                                                                <StyledShowMoreButton
+                                                                                // onClick={() => showShiftsPopup(day.date)}
+                                                                                >
+                                                                                    {`View ${
+                                                                                        shifts.slice(1, 4).length
+                                                                                    } `}
+                                                                                    More&nbsp;
+                                                                                </StyledShowMoreButton>
+                                                                            </ShowMoreButtonWrapper>
                                                                         )}
                                                                     </div>
                                                                 );
