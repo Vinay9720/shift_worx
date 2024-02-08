@@ -6,7 +6,7 @@ import { useFileUpload, useUploadedFile, useDeleteFile } from '@/hooks/common';
 import { StyledBorderContainer, StyledBorderContainerSecondary, styles } from './file-upload.styles';
 
 import SwxTypography from '../typography';
-import { SwxButton } from '../';
+import { SwxButton } from '..';
 import { Icon } from '../../icons';
 
 const SwxFileUpload = ({ onChange, kind, label, fileKey }) => {

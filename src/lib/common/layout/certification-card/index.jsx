@@ -12,7 +12,7 @@ import {
     CertificationLowerRightSection,
 } from './certification-card.styles';
 
-import { SwxTypography, SwxButton } from '../../components/';
+import { SwxTypography, SwxButton } from '../../components';
 import { Icon } from '../../icons';
 import { useUploadedFile } from '@/hooks/common';
 

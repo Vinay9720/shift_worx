@@ -2,7 +2,7 @@
 
 import { Controller, useFormContext } from 'react-hook-form';
 
-import { SwxPhoneNumberInput } from '../components/';
+import { SwxPhoneNumberInput } from '../components';
 
 const PhoneNumberField = props => {
     const { control } = useFormContext();

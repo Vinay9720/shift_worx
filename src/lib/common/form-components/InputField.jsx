@@ -2,7 +2,7 @@
 
 import { Controller, useFormContext } from 'react-hook-form';
 
-import { SwxInput } from '../components/';
+import { SwxInput } from '../components';
 
 const InputField = props => {
     const { control } = useFormContext();
