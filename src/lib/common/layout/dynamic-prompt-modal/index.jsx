@@ -7,7 +7,7 @@ import { ModalContainer } from './dynamic-prompt-modal.styles';
 
 import { SwxModal } from '..';
 import { Icon } from '../../icons';
-import { SwxTypography, SwxButton } from '../../components/';
+import { SwxTypography, SwxButton } from '../../components';
 
 export default function DynamicPromptModal({
     modalName,

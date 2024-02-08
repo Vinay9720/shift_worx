@@ -1,7 +1,7 @@
 'use client';
 
 import { Stack } from '@mui/material';
-import { SwxTypography } from '../../components/';
+import { SwxTypography } from '../../components';
 import {
     TimeOfRequestWidgetWrapper,
     ShiftsAndExpirationsWidgetsWrapper,
