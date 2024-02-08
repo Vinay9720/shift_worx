@@ -13,6 +13,7 @@ import { useParams, useRouter } from 'next/navigation';
 function Filter({ editingTemplate }) {
     const dispatch = useDispatch();
     const { templateId } = useParams();
+
     const router = useRouter();
     const [selectedTemplateType, setSelecteTemplateType] = useState(null);
     const { templateType } = useSelector(state => state.adminScheduleTemplatesModule);
