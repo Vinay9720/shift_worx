@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { Stack } from '@mui/material';
 
-import { SwxInput, SwxSelect, SwxMultiSelect, SwxButton } from '../../components';
+import { SwxInput, SwxSelect, SwxMultiSelect, SwxButton } from '../../components/';
 import { Icon } from '../../icons';
 
 function SearchFilter({ actionButton: ActionButton, style }) {

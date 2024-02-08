@@ -24,7 +24,7 @@ import {
     styles,
 } from './admin-layout.styles';
 
-import { SwxTypography, SwxTabs, SwxButtonGroup, SwxCalenderInput } from '../../components';
+import { SwxTypography, SwxTabs, SwxButtonGroup, SwxCalenderInput } from '../../components/';
 import { Icon } from '../../icons';
 
 const adminScheduleTabs = [

@@ -2,7 +2,7 @@
 
 import { Controller, useFormContext } from 'react-hook-form';
 
-import { SwxSelect } from '../components';
+import { SwxSelect } from '../components/';
 
 const SelectField = props => {
     const { control } = useFormContext();

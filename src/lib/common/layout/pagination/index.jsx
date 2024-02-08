@@ -6,7 +6,7 @@ import { useEffect } from 'react';
 import { usePagination } from '@/hooks/common';
 import { createNumberArray } from '@/lib/util';
 
-import { SwxSelect, SwxButton, SwxTypography } from '../../components';
+import { SwxSelect, SwxButton, SwxTypography } from '../../components/';
 import { Icon } from '../../icons';
 import { styles } from './pagination.styles';
 

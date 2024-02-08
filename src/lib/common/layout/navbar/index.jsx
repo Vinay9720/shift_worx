@@ -17,7 +17,7 @@ import {
     MobileLogoContainer,
 } from './header.styles';
 
-import { SwxPopupMenu } from '../../components';
+import { SwxPopupMenu } from '../../components/';
 import { Icon } from '../../icons';
 
 const NavBar = ({ navLinks }) => {

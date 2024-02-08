@@ -276,3 +276,13 @@ export const StyledNoScheduleContainer = styled.div`
     border-right: 0;
     width: 1435px;
 `;
+
+export const StyledMoreShiftsContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding: 2px;
+    max-height: 210px;
+    overflow-y: scroll;
+    border-radius: 8px;
+`;

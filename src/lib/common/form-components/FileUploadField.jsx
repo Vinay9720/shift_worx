@@ -3,7 +3,7 @@
 import React from 'react';
 import { Controller, useFormContext } from 'react-hook-form';
 
-import { SwxFileUpload } from '../components';
+import { SwxFileUpload } from '../components/';
 
 const FileUploadField = props => {
     const { control } = useFormContext();
