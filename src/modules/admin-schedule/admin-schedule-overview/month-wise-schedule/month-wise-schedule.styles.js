@@ -30,7 +30,7 @@ export const MenuContainer = styled.div`
 `;
 export const DayContainer = styled.div`
     min-width: 178px;
-    height: 206px;
+    height: 178px;
     background-color: ${({ isToday }) => (isToday ? '#f7f7f8' : '#ffffff')};
     ${({ theme }) => `
         border-left: 1px solid ${theme.borderColor.lightGray};

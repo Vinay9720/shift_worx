@@ -16,7 +16,7 @@ import {
 } from './publish-schedule-template.styles';
 import { today } from '@/lib/util';
 
-export default function PublishScheduleTemplateForm({ modalName, action }) {
+export default function PublishScheduleTemplateForm({ modalName, action, loading }) {
     const { templateTobePublished } = useSelector(state => state.adminScheduleTemplatesModule);
     const dispatch = useDispatch();
     const TemplateNameProps = {
@@ -148,7 +148,7 @@ export default function PublishScheduleTemplateForm({ modalName, action }) {
                             size='medium'>
                             Cancel
                         </SwxButton>
-                        <FormSubmitButton variant='contained' buttonName='Apply' />
+                        <FormSubmitButton variant='contained' buttonName='Apply' loading={loading} />
                     </Stack>
                 </Stack>
             </Form>

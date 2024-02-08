@@ -25,10 +25,10 @@ export default function AdminPto() {
     const [employeeId, setEmployeeId] = useState();
     const [employeeData, setEmployeeData] = useState();
     const dispatch = useDispatch();
-    const { mutate: addNote } = useAddNote();
-    const { mutate: editPto } = useEditPto(employeeId);
-    const { mutate: approvePto } = useApprovePto();
-    const { mutate: denyPto } = useDenyPto();
+    const { mutate: addNote, isLoading: noteLoadingState } = useAddNote();
+    const { mutate: editPto, isLoading: editPtoLoadingState } = useEditPto(employeeId);
+    const { mutate: approvePto, isLoading: approveLoadingState } = useApprovePto();
+    const { mutate: denyPto, isLoading: denyLoadingState } = useDenyPto();
     const { data: ptoData, isLoading, isSuccess } = usePto();
 
     const menuOptions = ({ id }) => {
@@ -252,12 +252,18 @@ export default function AdminPto() {
             </WidgetCardsContainer>
             <SearchFilter actionButton={AddRequest} style={{ marginTop: '3.5rem', marginBottom: '1rem' }} />
             <SwxModal modalName='addNoteModal'>
-                <NoteForm modalName='addNoteModal' action={addNote} employee={employeeId} />
+                <NoteForm modalName='addNoteModal' action={addNote} employee={employeeId} loading={noteLoadingState} />
             </SwxModal>
             <SwxModal modalName='editPtoModal'>
-                <PtoForm modalName='editPtoModal' action={editPto} employee={employeeData} />
+                <PtoForm
+                    modalName='editPtoModal'
+                    action={editPto}
+                    employee={employeeData}
+                    loading={editPtoLoadingState}
+                />
             </SwxModal>
             <DynamicPromptModal
+                loading={approveLoadingState}
                 modalName='approveRequestModal'
                 entityName='request'
                 iconName='approve-check'
@@ -265,6 +271,7 @@ export default function AdminPto() {
                 onConfirm={() => approvePto(employeeId)}
             />
             <DynamicPromptModal
+                loading={denyLoadingState}
                 modalName='denyRequestModal'
                 entityName='request'
                 iconName='circle-close-delete'

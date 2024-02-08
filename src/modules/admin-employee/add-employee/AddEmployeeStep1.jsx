@@ -20,7 +20,7 @@ import { FooterContainer, styles } from './add-employee.styles';
 import { today } from '@/lib/util';
 
 function AddEmployeeStep1() {
-    const { mutate: addEmployee } = useAddEmployee();
+    const { mutate: addEmployee, isLoading } = useAddEmployee();
     const dispatch = useDispatch();
     const firstNameProps = {
         label: (
@@ -186,7 +186,7 @@ function AddEmployeeStep1() {
                         size='medium'>
                         Cancel
                     </SwxButton>
-                    <FormSubmitButton variant='contained' buttonName='Next' />
+                    <FormSubmitButton variant='contained' buttonName='Next' loading={isLoading} />
                 </FooterContainer>
             </Form>
         </>

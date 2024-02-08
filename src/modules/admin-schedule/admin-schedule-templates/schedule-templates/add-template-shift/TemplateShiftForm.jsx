@@ -2,7 +2,7 @@
 
 import { useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Stack, CircularProgress } from '@mui/material';
+import { Stack } from '@mui/material';
 
 import { closeModal } from '@/lib/store/slices/modal-slice';
 import { Icon } from '@/lib/common/icons';
@@ -241,11 +241,7 @@ export default function TemplateShiftForm({ modalName, title, action, onCancel, 
                             size='medium'>
                             Cancel
                         </SwxButton>
-                        {loading ? (
-                            <CircularProgress color='primary' />
-                        ) : (
-                            <FormSubmitButton variant='contained' buttonName='Submit' />
-                        )}
+                        <FormSubmitButton variant='contained' buttonName='Submit' loading={loading} />
                     </Stack>
                 </Stack>
             </Form>

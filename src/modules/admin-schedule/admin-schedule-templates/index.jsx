@@ -25,7 +25,7 @@ export default function AdminScheduleTemplates() {
     const dispatch = useDispatch();
     const router = useRouter();
     const { data: templatesData, isLoading: templatesLoading, isSuccess } = useTemplates();
-    const { mutate: deleteTemplate } = useDeleteTemplate();
+    const { mutate: deleteTemplate, isLoading: deleteTemplateLoading } = useDeleteTemplate();
 
     const templates = useMemo(() => {
         if (isSuccess) {
@@ -206,6 +206,7 @@ export default function AdminScheduleTemplates() {
             <PublishScheduleTemplate action='publish' />
             <SwxDataGrid checkboxSelection columns={columns} rows={templates || []} loading={templatesLoading} />
             <DynamicPromptModal
+                loading={deleteTemplateLoading}
                 modalName='deleteScheduleTemplateModal'
                 entityName='template'
                 onConfirm={() => deleteTemplate()}

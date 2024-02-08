@@ -17,6 +17,7 @@ export default function DynamicPromptModal({
     onConfirm,
     actionName,
     iconName,
+    loading,
 }) {
     const dispatch = useDispatch();
     return (
@@ -48,7 +49,7 @@ export default function DynamicPromptModal({
                     <SwxButton onClick={() => dispatch(closeModal({ modalName }))} variant='text' size='medium'>
                         Cancel
                     </SwxButton>
-                    <SwxButton onClick={onConfirm} variant='contained' buttonName='Submit'>
+                    <SwxButton onClick={onConfirm} variant='contained' buttonName='Submit' loading={loading}>
                         Yes
                     </SwxButton>
                 </Stack>

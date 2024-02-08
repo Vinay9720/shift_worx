@@ -46,9 +46,9 @@ import { certificateBackground } from '@/lib/util/dynamicChipColor';
 
 export default function WeekWiseSchedule({ scheduleData }) {
     const dispatch = useDispatch();
-    const { mutate: deleteShift } = useDeleteShift();
+    const { mutate: deleteShift, isLoading: loadingState } = useDeleteShift();
     const [employeeId, setEmployeeId] = useState(null);
-    const { mutate: updateShift } = useEditShift();
+    const { mutate: updateShift, isLoading } = useEditShift();
     const { currentTimeValue } = useSelector(state => state.adminScheduleModule);
     const getCurrentWeekdays = () => {
         const weekdaysWithDates = [];
@@ -365,12 +365,13 @@ export default function WeekWiseSchedule({ scheduleData }) {
                 )}
             </div>
             <DynamicPromptModal
+                loading={loadingState}
                 modalName='deleteShiftModal'
                 entityName='Shift'
                 onConfirm={() => deleteShift(employeeId)}
             />
             <SwxModal modalName='editShiftModal'>
-                <ShiftForm modalName='editShiftModal' title='Edit' action={updateShift} />
+                <ShiftForm modalName='editShiftModal' title='Edit' action={updateShift} loading={isLoading} />
             </SwxModal>
         </StyledRootContainer>
     );

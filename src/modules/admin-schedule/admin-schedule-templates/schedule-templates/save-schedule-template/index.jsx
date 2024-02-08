@@ -9,7 +9,7 @@ import { SwxModal } from '@/lib/common/layout';
 import { IconButton } from '@mui/material';
 import SaveScheduleTemplateForm from './save-schedule-templateForm';
 
-export default function SaveScheduleTemplate({ scheduleType, hideButton, action }) {
+export default function SaveScheduleTemplate({ scheduleType, hideButton, action, loading }) {
     const dispatch = useDispatch();
 
     return (
@@ -23,7 +23,7 @@ export default function SaveScheduleTemplate({ scheduleType, hideButton, action 
                 </IconButton>
             ) : null}
             <SwxModal modalName='saveScheduleTemplateModal'>
-                <SaveScheduleTemplateForm modalName='saveScheduleTemplateModal' action={action} />
+                <SaveScheduleTemplateForm modalName='saveScheduleTemplateModal' action={action} loading={loading} />
             </SwxModal>
         </div>
     );

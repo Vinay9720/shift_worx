@@ -14,10 +14,10 @@ import { openModal } from '@/lib/store/slices/modal-slice';
 import { useDispatch } from 'react-redux';
 import { setShiftData } from '@/lib/store/slices/admin-schedule-module';
 
-export default function ScheduleList({ scheduleData, isLoading }) {
-    const { mutate: deleteShift } = useDeleteShift();
+export default function ScheduleList({ scheduleData }) {
+    const { mutate: deleteShift, isLoading: loadingState } = useDeleteShift();
     const [employeeId, setEmployeeId] = useState(null);
-    const { mutate: updateShift } = useEditShift();
+    const { mutate: updateShift, isLoading } = useEditShift();
     const dispatch = useDispatch();
     const menuOptions = ({
         start,
@@ -246,12 +246,19 @@ export default function ScheduleList({ scheduleData, isLoading }) {
         <>
             <SwxDataGrid checkboxSelection loading={isLoading} rows={scheduleData.records} columns={columns} />
             <DynamicPromptModal
+                loading={loadingState}
                 modalName='deleteShiftModal'
                 entityName='Shift'
                 onConfirm={() => deleteShift(employeeId)}
             />
-            <SwxModal modalName='editShiftModal'>
-                <ShiftForm modalName='editShiftModal' title='Edit' action={updateShift} />
+            <SwxModal modalName='editShiftModal' onCancel={() => dispatch(setShiftData(null))}>
+                <ShiftForm
+                    modalName='editShiftModal'
+                    title='Edit'
+                    action={updateShift}
+                    loading={isLoading}
+                    onCancel={() => dispatch(setShiftData(null))}
+                />
             </SwxModal>
             <SwxPagination
                 itemsPerPageOptions={['5', '10', '15']}

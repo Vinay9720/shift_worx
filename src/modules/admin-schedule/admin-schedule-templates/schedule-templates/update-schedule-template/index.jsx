@@ -6,13 +6,14 @@ import SaveScheduleTemplateForm from '../save-schedule-template/save-schedule-te
 import { useUpdateTemplate } from '@/hooks/admin-schedule-templates';
 
 export default function UpdateScheduleTemplate() {
-    const { mutate: updateTemplate } = useUpdateTemplate();
+    const { mutate: updateTemplate, isLoading } = useUpdateTemplate();
     return (
         <SwxModal modalName='updateScheduleTemplateModal'>
             <SaveScheduleTemplateForm
                 title='Edit Schedule Template'
                 modalName='updateScheduleTemplateModal'
                 action={updateTemplate}
+                loading={isLoading}
                 isEditing
             />
         </SwxModal>

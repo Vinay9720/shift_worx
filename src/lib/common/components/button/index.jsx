@@ -1,10 +1,24 @@
 'use client';
 
+import { CircularProgress } from '@mui/material';
 import { StyledButton } from './Button.styles';
 
-function SwxButton({ startIcon, size, padding, radius, variant, endIcon, children, themecolor, styles, ...rest }) {
+function SwxButton({
+    startIcon,
+    size,
+    padding,
+    radius,
+    variant,
+    endIcon,
+    children,
+    themecolor,
+    styles,
+    loading,
+    ...rest
+}) {
     return (
         <StyledButton
+            disabled={loading}
             style={{ ...styles }}
             padding={padding}
             size={size}
@@ -14,7 +28,7 @@ function SwxButton({ startIcon, size, padding, radius, variant, endIcon, childre
             variant={variant}
             startIcon={startIcon}
             endIcon={endIcon}>
-            {children}
+            {loading ? <CircularProgress color='primary' variant='indeterminate' /> : children}
         </StyledButton>
     );
 }

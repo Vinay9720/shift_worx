@@ -12,11 +12,11 @@ import UpdateScheduleTemplate from '../update-schedule-template';
 function ActionButtons({ editingTemplate }) {
     const dispatch = useDispatch();
     const router = useRouter();
-    const { mutate: saveTemplate } = useAddTemplateShift();
+    const { mutate: saveTemplate, isLoading } = useAddTemplateShift();
     const { templateId } = useParams();
     return (
         <>
-            <SaveScheduleTemplate hideButton action={saveTemplate} />
+            <SaveScheduleTemplate hideButton action={saveTemplate} loading={isLoading} />
             <UpdateScheduleTemplate />
             <FooterContainer>
                 <SwxButton onClick={() => router.push('/admin/schedule?step=templates')} variant='text' size='medium'>

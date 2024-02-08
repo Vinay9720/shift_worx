@@ -24,7 +24,7 @@ const statusOptions = ['Filled', 'Unfilled'];
 
 function SearchFilter({ scheduleType }) {
     const { roles, filterApplied, status, searchLabel } = useSelector(state => state.scheduleFilter);
-    const { mutate: createTemplate } = useCreateTemplate();
+    const { mutate: createTemplate, isLoading } = useCreateTemplate();
     const searchInputRef = useRef(null);
     const dispatch = useDispatch();
 
@@ -104,7 +104,7 @@ function SearchFilter({ scheduleType }) {
                 </Stack>
             </Stack>
             <Stack sx={styles.actionButtons}>
-                <SaveScheduleTemplate scheduleType={scheduleType} action={createTemplate} />
+                <SaveScheduleTemplate scheduleType={scheduleType} action={createTemplate} loading={isLoading} />
                 <AddShift />
             </Stack>
         </Stack>

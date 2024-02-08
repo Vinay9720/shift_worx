@@ -20,7 +20,7 @@ const noteTypeOptions = [
     { label: 'Tardiness', value: '12' },
 ];
 
-export default function NoteForm({ title = 'Add Note', employee, modalName, action: addNote, defaultValues }) {
+export default function NoteForm({ title = 'Add Note', employee, modalName, action: addNote, defaultValues, loading }) {
     const dispatch = useDispatch();
     const noteTypeProps = {
         label: 'Select type',
@@ -91,7 +91,7 @@ export default function NoteForm({ title = 'Add Note', employee, modalName, acti
                         <SwxButton onClick={() => dispatch(closeModal({ modalName }))} variant='text' size='medium'>
                             Cancel
                         </SwxButton>
-                        <FormSubmitButton variant='contained' buttonName='Submit' />
+                        <FormSubmitButton variant='contained' buttonName='Submit' loading={loading} />
                     </Stack>
                 </Stack>
             </Form>

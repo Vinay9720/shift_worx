@@ -19,7 +19,7 @@ import {
 import { SwxTypography, SwxButton, SwxLoader } from '@/lib/common/components';
 import { today } from '@/lib/util';
 
-function CertificateForm({ defaultValues, onSubmit, onCancel }) {
+function CertificateForm({ defaultValues, onSubmit, onCancel, loading }) {
     const { data: certificationOptions, isLoading: isCertificateOptionsLoading } = useCertificateOptions();
     const { data: specialityOptions, isLoading: isSpecialityOptionsLoading } = useSpecialityOptions();
 
@@ -154,6 +154,7 @@ function CertificateForm({ defaultValues, onSubmit, onCancel }) {
                             variant='contained'
                             buttonName='Save'
                             weight='bold'
+                            loading={loading}
                         />
                     </div>
                 </Stack>

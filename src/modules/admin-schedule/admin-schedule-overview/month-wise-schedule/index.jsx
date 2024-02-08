@@ -33,8 +33,8 @@ import { useEditShift, useDeleteShift } from '@/hooks/admin-schedule';
 export default function MonthWiseSchedule({ scheduleData }) {
     const dispatch = useDispatch();
     const [employeeId, setEmployeeId] = useState(null);
-    const { mutate: updateShift } = useEditShift();
-    const { mutate: deleteShift } = useDeleteShift();
+    const { mutate: updateShift, isLoading } = useEditShift();
+    const { mutate: deleteShift, isLoading: loadingState } = useDeleteShift();
     const { currentTimeValue } = useSelector(state => state.adminScheduleModule);
     const fixedWeekDays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
     const getCurrentMonthDays = () => {
@@ -289,12 +289,13 @@ export default function MonthWiseSchedule({ scheduleData }) {
                 </DaysConatiner>
             </StyledBorderContainer>
             <DynamicPromptModal
+                loading={loadingState}
                 modalName='deleteShiftModal'
                 entityName='Shift'
                 onConfirm={() => deleteShift(employeeId)}
             />
             <SwxModal modalName='editShiftModal'>
-                <ShiftForm modalName='editShiftModal' title='Edit' action={updateShift} />
+                <ShiftForm modalName='editShiftModal' title='Edit' action={updateShift} loading={isLoading} />
             </SwxModal>
         </StyledRootMainContainer>
     );

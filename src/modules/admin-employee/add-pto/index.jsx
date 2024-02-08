@@ -12,7 +12,7 @@ import PtoForm from './PtoForm';
 import { styles } from './add-pto.styles';
 
 export default function AddRequest() {
-    const { mutate: addPto } = useAddPto();
+    const { mutate: addPto, isLoading } = useAddPto();
     const dispatch = useDispatch();
 
     return (
@@ -31,7 +31,7 @@ export default function AddRequest() {
                 Add Request
             </SwxButton>
             <SwxModal modalName='addPtoModal'>
-                <PtoForm modalName='addPtoModal' requestType='Add' action={addPto} />
+                <PtoForm modalName='addPtoModal' requestType='Add' action={addPto} loading={isLoading} />
             </SwxModal>
         </div>
     );

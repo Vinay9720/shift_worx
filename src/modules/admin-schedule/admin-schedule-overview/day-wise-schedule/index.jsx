@@ -40,10 +40,10 @@ import { useEditShift, useDeleteShift } from '@/hooks/admin-schedule';
 const twidth = '1920';
 
 export default function DayWiseSchedule({ scheduleData }) {
-    const { mutate: deleteShift } = useDeleteShift();
+    const { mutate: deleteShift, isLoading: loadingState } = useDeleteShift();
     const [employeeId, setEmployeeId] = useState(null);
     const [shiftData, setShiftData] = useState();
-    const { mutate: updateShift } = useEditShift(shiftData && shiftData);
+    const { mutate: updateShift, isLoading } = useEditShift(shiftData && shiftData);
     const { currentTimeValue } = useSelector(state => state.adminScheduleModule);
     const currentTime = new Date();
     const currentHour = currentTime.getHours();
@@ -254,12 +254,19 @@ export default function DayWiseSchedule({ scheduleData }) {
                 </div>
             </StyledGridMainDiv>
             <DynamicPromptModal
+                loading={loadingState}
                 modalName='deleteShiftModal'
                 entityName='Shift'
                 onConfirm={() => deleteShift(employeeId)}
             />
             <SwxModal modalName='editShiftModal'>
-                <ShiftForm modalName='editShiftModal' title='Edit' action={updateShift} employeeShiftData={shiftData} />
+                <ShiftForm
+                    modalName='editShiftModal'
+                    title='Edit'
+                    action={updateShift}
+                    employeeShiftData={shiftData}
+                    loading={isLoading}
+                />
             </SwxModal>
         </StyledMainDiv>
     );
