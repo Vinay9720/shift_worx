@@ -34,7 +34,7 @@ import { useEditTemplateShift } from '@/hooks/admin-schedule-templates/useEditTe
 
 export default function MonthlyTemplate({ templateShifts = [] }) {
     const dispatch = useDispatch();
-    const { mutate: deleteShift } = useDeleteTemplateShift();
+    const { mutate: deleteShift, isLoading: deleteLoadingState } = useDeleteTemplateShift();
     const { mutate: updateShift, isLoading } = useEditTemplateShift();
     const fixedWeekDays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
     const getMonthDays = () => {
@@ -254,6 +254,7 @@ export default function MonthlyTemplate({ templateShifts = [] }) {
                 </DaysConatiner>
             </StyledBorderContainer>
             <DynamicPromptModal
+                loading={deleteLoadingState}
                 modalName='deleteTemplateShiftModal'
                 entityName='Shift'
                 onConfirm={() => deleteShift()}

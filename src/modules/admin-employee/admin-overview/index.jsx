@@ -19,7 +19,7 @@ import AddEmployee from '../add-employee';
 
 export default function AdminOverview() {
     const { data: overviewData, isSuccess, isLoading } = useEmployees();
-    const { mutate: deleteEmployee } = useDelelteEmployee();
+    const { mutate: deleteEmployee, isLoading: loadingState } = useDelelteEmployee();
     const [employeeIdToBeDeleted, setEmployeeIdToBeDeleted] = useState(null);
     const dispatch = useDispatch();
     const router = useRouter();
@@ -262,6 +262,7 @@ export default function AdminOverview() {
                 })}
             </WidgetCardsContainer>
             <DynamicPromptModal
+                loading={loadingState}
                 modalName='deleteEmployeeModal'
                 entityName='Employee'
                 onConfirm={() => deleteEmployee(employeeIdToBeDeleted)}

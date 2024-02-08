@@ -25,7 +25,7 @@ function AddCerfification({ defaultValues, employeeId, onCancel }) {
         formattedDefaultValues = {};
     }
 
-    const { mutate: addEmployee } = useAddEmployee();
+    const { mutate: addEmployee, isLoading } = useAddEmployee();
 
     return (
         <Stack direction='column' spacing={3} sx={styles.mainStack}>
@@ -33,6 +33,7 @@ function AddCerfification({ defaultValues, employeeId, onCancel }) {
                 onSubmit={employeeData => addEmployee({ employeeData, employeeId })}
                 defaultValues={formattedDefaultValues}
                 onCancel={onCancel || (() => dispatch(closeAddCertificateForm()))}
+                loading={isLoading}
             />
         </Stack>
     );

@@ -34,7 +34,7 @@ import {
 } from './add-pto.styles';
 import { useEmployees } from '@/hooks/admin-employee';
 
-export default function PtoForm({ modalName, requestType, action: addPto, employee }) {
+export default function PtoForm({ modalName, requestType, action: addPto, employee, loading }) {
     const { data: employeesData, isSuccess } = useEmployees(true);
     const [formattedData, setFormattedData] = useState({});
     const dispatch = useDispatch();
@@ -241,7 +241,7 @@ export default function PtoForm({ modalName, requestType, action: addPto, employ
                         <SwxButton onClick={() => dispatch(closeModal({ modalName }))} variant='text' size='medium'>
                             Cancel
                         </SwxButton>
-                        <FormSubmitButton variant='contained' buttonName='Submit' />
+                        <FormSubmitButton variant='contained' buttonName='Submit' loading={loading} />
                     </Stack>
                 </Form>
             </BodyContainer>

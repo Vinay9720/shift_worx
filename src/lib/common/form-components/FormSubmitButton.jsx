@@ -6,11 +6,12 @@ import { SwxButton } from '../components';
 
 const FormSubmitButton = props => {
     const { formState } = useFormContext();
-    const { disabled, buttonId, styles, buttonName, ...rest } = props;
+    const { disabled, buttonId, styles, buttonName, loading, ...rest } = props;
 
     return (
         <SwxButton
-            disabled={!formState.isValid || disabled}
+            loading={loading}
+            disabled={!formState.isValid || loading}
             id={buttonId}
             styles={{ ...styles }}
             {...rest}

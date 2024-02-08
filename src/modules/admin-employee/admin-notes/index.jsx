@@ -19,7 +19,7 @@ import NoteForm from '../add-note/noteForm';
 export default function AdminNotes({ employeeData, addNote }) {
     const dispatch = useDispatch();
     const { data: notesData, isLoading } = useNotes({ employeeData });
-    const { mutate: updateNote } = useUpdateNote();
+    const { mutate: updateNote, isLoading: noteUpdateLoadingState } = useUpdateNote();
     const { mutate: deleteNote } = useDeleteNote();
     const { mutate: readNote } = useReadNote();
     const { noteToBeUpdated } = useSelector(state => state.adminNotesModule);
@@ -112,6 +112,7 @@ export default function AdminNotes({ employeeData, addNote }) {
                     <Stack direction='column' spacing={3} style={{ width: '100%' }}>
                         <SwxModal modalName='editNoteModal'>
                             <NoteForm
+                                loading={noteUpdateLoadingState}
                                 modalName='editNoteModal'
                                 defaultValues={noteToBeUpdated}
                                 title='Edit Note'

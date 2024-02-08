@@ -12,7 +12,7 @@ import ShiftForm from './ShiftForm';
 import { styles } from './add-shift.styles';
 
 export default function AddShift() {
-    const { mutate: addShift } = useAddShift();
+    const { mutate: addShift, isLoading } = useAddShift();
     const dispatch = useDispatch();
 
     return (
@@ -31,7 +31,7 @@ export default function AddShift() {
                 Add Shift
             </SwxButton>
             <SwxModal modalName='addShiftModal'>
-                <ShiftForm modalName='addShiftModal' action={addShift} />
+                <ShiftForm modalName='addShiftModal' action={addShift} loading={isLoading} />
             </SwxModal>
         </div>
     );

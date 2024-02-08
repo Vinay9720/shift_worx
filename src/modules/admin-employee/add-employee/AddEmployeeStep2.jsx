@@ -13,7 +13,7 @@ import { today } from '@/lib/util';
 
 function AddEmployeeStep2() {
     const dispatch = useDispatch();
-    const { mutate: addEmployee } = useAddEmployee();
+    const { mutate: addEmployee, isLoading } = useAddEmployee();
 
     const ssnProps = {
         label: (
@@ -90,7 +90,7 @@ function AddEmployeeStep2() {
                         size='medium'>
                         Cancel
                     </SwxButton>
-                    <FormSubmitButton variant='contained' buttonName='Next' />
+                    <FormSubmitButton variant='contained' buttonName='Next' loading={isLoading} />
                 </FooterContainer>
             </Form>
         </>

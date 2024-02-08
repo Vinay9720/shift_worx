@@ -10,7 +10,7 @@ import { SwxButton, SwxTypography } from '@/lib/common/components';
 import { InputField, Form, FormSubmitButton, FormSwitch } from '@/lib/common/form-components';
 import { CloseContainer, EllipseContainer, HeaderContainer, ModalContainer } from './save-schedule-template.styles';
 
-export default function SaveScheduleTemplateForm({ modalName, action, title, isEditing }) {
+export default function SaveScheduleTemplateForm({ modalName, action, title, isEditing, loading }) {
     const dispatch = useDispatch();
     const { templateDetails, scheduleTemplateModalData } = useSelector(state => state.adminScheduleTemplatesModule);
     const templateProps = {
@@ -85,7 +85,7 @@ export default function SaveScheduleTemplateForm({ modalName, action, title, isE
                         <SwxButton onClick={() => dispatch(closeModal({ modalName }))} variant='text' size='medium'>
                             Cancel
                         </SwxButton>
-                        <FormSubmitButton variant='contained' buttonName='Save' />
+                        <FormSubmitButton variant='contained' buttonName='Save' loading={loading} />
                     </Stack>
                 </Stack>
             </Form>

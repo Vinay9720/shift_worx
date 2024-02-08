@@ -41,7 +41,7 @@ import { certificateBackground } from '@/lib/util/dynamicChipColor';
 
 export default function WeeklyTemplate({ templateShifts }) {
     const dispatch = useDispatch();
-    const { mutate: deleteShift } = useDeleteTemplateShift();
+    const { mutate: deleteShift, isLoading: deleteLoadingState } = useDeleteTemplateShift();
     const { mutate: updateShift, isLoading } = useEditTemplateShift();
     const sortedShifts = useMemo(() => {
         if (templateShifts) {
@@ -350,6 +350,7 @@ export default function WeeklyTemplate({ templateShifts }) {
                 )}
             </div>
             <DynamicPromptModal
+                loading={deleteLoadingState}
                 modalName='deleteTemplateShiftModal'
                 entityName='Shift'
                 onConfirm={() => deleteShift()}
