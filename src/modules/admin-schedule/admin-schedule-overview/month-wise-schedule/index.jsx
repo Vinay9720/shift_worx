@@ -29,6 +29,7 @@ import { openModal } from '@/lib/store/slices/modal-slice';
 import { setCurrentTimeValue, setScheduleType, setShiftData } from '@/lib/store/slices/admin-schedule-module';
 import { useState } from 'react';
 import { useEditShift, useDeleteShift } from '@/hooks/admin-schedule';
+import { certificateBackground } from '@/lib/util/dynamicChipColor';
 
 export default function MonthWiseSchedule({ scheduleData }) {
     const dispatch = useDispatch();
@@ -115,18 +116,6 @@ export default function MonthWiseSchedule({ scheduleData }) {
     };
 
     const monthDays = getCurrentMonthDays();
-    const getBackGroundColor = kind => {
-        switch (kind) {
-            case 'LPN':
-                return 'swxBlue';
-            case 'RN':
-                return 'pink';
-            case 'CNA':
-                return 'lightOrange';
-            default:
-                return 'pink';
-        }
-    };
 
     const getScheduleBanner = (
         empName,
@@ -170,7 +159,7 @@ export default function MonthWiseSchedule({ scheduleData }) {
                 </TimeContainer>
                 <EmployeeNameContainer>{empName ? empName.substring(0, 5) : 'Open'}</EmployeeNameContainer>
                 <MenuContainer>
-                    <SwxChip label={cert} color='white' background={getBackGroundColor(cert)} size='smallest' />
+                    <SwxChip label={cert} color='white' background={certificateBackground(cert)} size='smallest' />
                     <div>
                         <SwxPopupMenu
                             buttonElement={
