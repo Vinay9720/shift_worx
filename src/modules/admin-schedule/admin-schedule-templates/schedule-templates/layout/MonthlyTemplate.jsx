@@ -5,7 +5,7 @@ import { useDispatch } from 'react-redux';
 import { IconButton } from '@mui/material';
 
 import { Badge } from '@/lib/common/layout/daily-schedule-banner';
-import { SwxPopupMenu, SwxChip } from '@/lib/common/components';
+import { SwxPopupMenu, SwxChip, SwxPopover } from '@/lib/common/components';
 import { Icon } from '@/lib/common/icons';
 import {
     DayContainer,
@@ -21,6 +21,7 @@ import {
     WeekDayContainer,
     MonthlyWeekDaysContainer,
     MenuContainer,
+    StyledMoreShiftsContainer,
 } from './schedule-templates.styles';
 import { SwxModal, DynamicPromptModal } from '@/lib/common/layout';
 import { openModal } from '@/lib/store/slices/modal-slice';
@@ -31,6 +32,7 @@ import {
     setTemplateShiftTobeEdited,
 } from '@/lib/store/slices/admin-schedule-templates-module';
 import { useEditTemplateShift } from '@/hooks/admin-schedule-templates/useEditTemplateShift';
+import { certificateBackground } from '@/lib/util/dynamicChipColor';
 
 export default function MonthlyTemplate({ templateShifts = [] }) {
     const dispatch = useDispatch();
@@ -95,17 +97,45 @@ export default function MonthlyTemplate({ templateShifts = [] }) {
         ];
     };
 
-    const getBackGroundColor = kind => {
-        switch (kind) {
-            case 'LPN':
-                return 'swxBlue';
-            case 'RN':
-                return 'pink';
-            case 'CNA':
-                return 'lightOrange';
-            default:
-                return 'pink';
-        }
+    const renderShift = (shift, key) => {
+        return (
+            <ScheduleBannerWrapper key={key}>
+                <Badge
+                    text={getScheduleBanner(
+                        shift.nurse_name,
+                        shift.certificate.abbreviation || 'RN',
+                        shift.start_time,
+                        shift.end_time,
+                        shift.session || 'Morning',
+                        shift.location || 'First Floor',
+                        shift.id,
+                        shift.nurse_id,
+                        shift.day,
+                        shift.certificate.id,
+                        shift.speciality,
+                        shift.facility,
+                        shift.week
+                    )}
+                    kind={
+                        shift.certificate.abbreviation === 'RN'
+                            ? 'scheduleOrange'
+                            : shift.certificate.abbreviation === 'LPN'
+                            ? 'scheduleCyan'
+                            : shift.certificate.abbreviation === 'CNA'
+                            ? 'scheduleMistyRose'
+                            : 'scheduleOrange'
+                    }
+                    styles={{
+                        padding: '4px',
+                        width: '100%',
+                        display: 'flex',
+                        alignItems: 'center',
+                        backgroundColor: !shift.nurse_name ? '#E9E9EC' : null,
+                        border: !shift.nurse_name ? '1.5px solid #F47602' : null,
+                    }}
+                />
+            </ScheduleBannerWrapper>
+        );
     };
 
     const getScheduleBanner = (
@@ -151,7 +181,7 @@ export default function MonthlyTemplate({ templateShifts = [] }) {
                 </TimeContainer>
                 <EmployeeNameContainer>{empName ? empName.substring(0, 5) : 'Open'}</EmployeeNameContainer>
                 <MenuContainer>
-                    <SwxChip label={cert} color='white' background={getBackGroundColor(cert)} size='smallest' />
+                    <SwxChip label={cert} color='white' background={certificateBackground(cert)} size='smallest' />
                     <div>
                         <SwxPopupMenu
                             buttonElement={
@@ -174,10 +204,6 @@ export default function MonthlyTemplate({ templateShifts = [] }) {
         );
     };
 
-    const handleShowMoreButton = () => {
-        return null;
-    };
-
     return (
         <StyledRootMainContainer>
             <StyledBorderContainer>
@@ -192,62 +218,37 @@ export default function MonthlyTemplate({ templateShifts = [] }) {
                     {monthDays.map((day, i) => {
                         let noOfShifts = 0;
                         const shiftsToShow = [];
+                        const remainingShifts = [];
                         return (
                             <DayContainer style={{ gridColumnStart: `${day.startingColumn}` }} key={i}>
                                 {templateShifts.map((shift, key) => {
                                     if (shift.day === day.dayName && shift.week === day.week) {
                                         noOfShifts += 1;
                                         if (noOfShifts <= 3) {
-                                            shiftsToShow.push(
-                                                <ScheduleBannerWrapper key={key}>
-                                                    <Badge
-                                                        text={getScheduleBanner(
-                                                            shift.nurse_name,
-                                                            shift.certificate.abbreviation || 'RN',
-                                                            shift.start_time,
-                                                            shift.end_time,
-                                                            shift.session || 'Morning',
-                                                            shift.location || 'First Floor',
-                                                            shift.id,
-                                                            shift.nurse_id,
-                                                            shift.day,
-                                                            shift.certificate.id,
-                                                            shift.speciality,
-                                                            shift.facility,
-                                                            shift.week
-                                                        )}
-                                                        kind={
-                                                            shift.certificate.abbreviation === 'RN'
-                                                                ? 'scheduleOrange'
-                                                                : shift.certificate.abbreviation === 'LPN'
-                                                                ? 'scheduleCyan'
-                                                                : shift.certificate.abbreviation === 'CNA'
-                                                                ? 'scheduleMistyRose'
-                                                                : 'scheduleOrange'
-                                                        }
-                                                        styles={{
-                                                            padding: '4px',
-                                                            width: '100%',
-                                                            display: 'flex',
-                                                            alignItems: 'center',
-                                                            backgroundColor: !shift.nurse_name ? '#E9E9EC' : null,
-                                                            border: !shift.nurse_name ? '1.5px solid #F47602' : null,
-                                                        }}
-                                                    />
-                                                </ScheduleBannerWrapper>
-                                            );
+                                            shiftsToShow.push(renderShift(shift, key));
+                                        } else {
+                                            remainingShifts.push(renderShift(shift, key));
                                         }
                                     }
                                     return null;
                                 })}
                                 {shiftsToShow}
-                                {noOfShifts > 2 && (
-                                    <ShowMoreButtonWrapper>
-                                        <StyledShowMoreButton onClick={() => handleShowMoreButton(day.date)}>
-                                            {`View ${noOfShifts - 2}`} More&nbsp;
-                                        </StyledShowMoreButton>
-                                    </ShowMoreButtonWrapper>
-                                )}
+                                <div style={{ display: 'flex', justifyContent: 'center' }}>
+                                    {noOfShifts > 3 && (
+                                        <SwxPopover
+                                            buttonElement={
+                                                <ShowMoreButtonWrapper>
+                                                    <StyledShowMoreButton>
+                                                        {`View ${noOfShifts - 3}`} More&nbsp;
+                                                    </StyledShowMoreButton>
+                                                </ShowMoreButtonWrapper>
+                                            }
+                                            content={
+                                                <StyledMoreShiftsContainer>{remainingShifts}</StyledMoreShiftsContainer>
+                                            }
+                                        />
+                                    )}
+                                </div>
                             </DayContainer>
                         );
                     })}
