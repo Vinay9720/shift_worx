@@ -3,12 +3,12 @@ import styled from 'styled-components';
 
 export const BannerWrapper = styled.div`
     height: 74px;
-    position: absolute;
+    display: flex;
+    align-items: center;
 `;
 
 export const Bannercontainer = styled.div`
     height: 56px;
-    margin-top: 9px;
     padding: 9px 12px;
     border-radius: 10px;
     display: flex;
@@ -18,5 +18,6 @@ export const Bannercontainer = styled.div`
     background-color: ${
         !employeeName ? theme.backgroundColor.darkGray : theme.backgroundColor[scheduleBannerBackgroundColor(kind)]
     };
+    z-index: 1;
 `};
 `;
