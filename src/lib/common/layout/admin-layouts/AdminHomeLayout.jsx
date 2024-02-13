@@ -24,7 +24,7 @@ export default function AdminHomeLayout({
     return (
         <>
             <Stack spacing={3} direction='column' sx={{ mt: 7 }}>
-                <SwxTypography color='swxBlack' size='extraLarge' weight='bold' sx={{ fontFamily: '__Manrope_36d688' }}>
+                <SwxTypography color='swxBlack' size='extraLarge' weight='bold' className='Manrope'>
                     {title}
                 </SwxTypography>
                 {cards}

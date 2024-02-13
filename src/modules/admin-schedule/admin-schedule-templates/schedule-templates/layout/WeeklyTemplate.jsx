@@ -225,7 +225,7 @@ export default function WeeklyTemplate({ templateShifts }) {
                                                   />
                                               </StyledIconContainer>
                                               <StyledNumberContainer>
-                                                  {emp.start_time || '08:00hrs'}
+                                                  {emp.nurse_shift_summary.total_schedule_hours || '08:00hrs'}
                                               </StyledNumberContainer>
                                               <StyledDot />
                                               <StyledIconContainer>
@@ -237,7 +237,9 @@ export default function WeeklyTemplate({ templateShifts }) {
                                                       width={16}
                                                   />
                                               </StyledIconContainer>
-                                              <StyledNumberContainer>{emp.schedule_count || 1}</StyledNumberContainer>
+                                              <StyledNumberContainer>
+                                                  {emp.nurse_shift_summary.total_number_of_shifts || 1}
+                                              </StyledNumberContainer>
                                           </Stack>
                                       ) : null}
                                   </div>

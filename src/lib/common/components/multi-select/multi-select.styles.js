@@ -4,7 +4,7 @@ import { Select, InputLabel } from '@mui/material';
 export const StyledSelect = styled(Select)`
     & .MuiOutlinedInput-input {
         ${({ theme, padding }) => `
-            font-family: __Manrope_36d688;
+            // font-family: __Manrope_36d688;
             padding: ${padding || '17px 16px'};
             color: ${theme.fontColor.lightGray};
         `}
