@@ -24,7 +24,7 @@ export const useEditShift = () => {
                         id: employeeShiftData.shift_id,
                         certificate_ids: [shiftData.role.value || employeeShiftData.certificate_ids],
                         speciality_ids: [shiftData.speciality.value || employeeShiftData.speciality_ids[0].id],
-                        nurse_id: shiftData.employee ? shiftData.employee.value : employeeShiftData.nurseId,
+                        nurse_id: shiftData.employee ? shiftData.employee.value || null : employeeShiftData.nurseId,
                         additional_nurse_id: shiftData.employee_2 ? shiftData.employee_2.value : '',
                         mandatory_lunch: true,
                     },

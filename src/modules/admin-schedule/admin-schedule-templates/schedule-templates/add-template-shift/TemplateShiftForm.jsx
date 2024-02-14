@@ -35,7 +35,6 @@ export default function TemplateShiftForm({ modalName, title, action, onCancel, 
 
     const employeeOptions = [
         'Leave Open',
-        'None',
         ...employees.map(employee => {
             return { label: employee.name, value: employee.id, avatar: true, groupBy: 'Select Employee' };
         }),

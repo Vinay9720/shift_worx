@@ -23,7 +23,7 @@ export const useEditTemplateShift = () => {
                 role: shiftData.role.value || templateShiftTobeEdited.certificate_ids,
                 speciality_id: shiftData.speciality.value || templateShiftTobeEdited.speciality_ids.id,
                 facility_id: 1,
-                nurse_id: shiftData.employee?.value || templateShiftTobeEdited.nurseId,
+                nurse_id: shiftData.employee ? shiftData.employee.value || null : templateShiftTobeEdited.nurseId,
                 additional_nurse_id: shiftData.employee_2 ? shiftData.employee_2.value : '',
             },
             shift_template: {
