@@ -1,10 +1,15 @@
 import styled from 'styled-components';
 
-export const StyledMainDiv = styled.div`
-    display: flex;
-    flex-direction: row;
+export const StyledCtn = styled.div``;
+
+export const StyledRightCtn = styled.div`
+    width: 1040px;
+    overflow: auto;
 `;
-export const StyledGridMainDiv = styled.div`
+
+export const StyledUsersLeftBar = styled.div``;
+
+export const StyledFlexBox = styled.div`
     display: flex;
     flex-direction: row;
     ${({ theme }) => `
@@ -18,7 +23,7 @@ export const StyledGridSubDiv = styled.div`
 `;
 export const StyledViewUsersDiv = styled.div`
     width: 200px;
-    height: 45px;
+    height: 46px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -27,20 +32,14 @@ export const StyledViewUsersDiv = styled.div`
         color: ${theme.fontColor.swxBlack};
         font-weight: ${theme.fontWeight.thin};
         font-size: ${theme.fontSize.semiMedium};
+        border-bottom: 1px solid ${theme.borderColor.lightGray};
     `}
 `;
 export const StyledFlexDiv = styled.div`
     display: flex;
-    min-height: 74px;
-    ${({ theme, employeeName }) => `
-    border-top:  ${
-        !employeeName ? `2px solid ${theme.backgroundColor.lightOrange}` : `1px solid ${theme.borderColor.lightGray}`
-    };
-    border-left: 2px solid ${!employeeName ? theme.backgroundColor.lightOrange : null};
-    border-bottom: 2px solid ${!employeeName ? theme.backgroundColor.lightOrange : null};
-    border-right: 0;
-`};
+    height: 74px;
 `;
+
 export const StyledSubFlexDiv = styled.div`
     display: flex;
     justify-content: center;
@@ -50,12 +49,29 @@ export const StyledSubFlexDiv = styled.div`
          color: ${theme.fontColor.lighterGray};
     `}
 `;
+export const StyledGridRow = styled.div`
+    display: flex;
+`;
+export const StyledGridCell = styled.div`
+    border: 1px solid #e6e8e9;
+    height: 74px;
+    width: 100px;
+    box-sizing: border-box;
+`;
+export const StyledGridLinesCtn = styled.div`
+    position: absolute;
+    top: 0;
+    left: 0;
+`;
+
 export const StyledAvatarGridContainer = styled.div`
     display: flex;
     flex-wrap: wrap;
     align-items: center;
     justify-content: center;
     gap: 5px;
+    height: ${({ height }) => height}px;
+    border-top: 1px solid ${({ theme, showTopBorder }) => (showTopBorder ? theme.borderColor.lightGray : 'none')};
 `;
 export const StyledNameFlexContainer = styled.div`
     display: flex;
@@ -133,19 +149,17 @@ export const StyledBoderBoxSlotDiv = styled.div`
         border-bottom: 0.5px solid ${theme.borderColor.lightGray};
         border-left: 0.5px solid ${theme.borderColor.lightGray};
     `}
+
+    height: 74px;
 `;
-export const StyledShiftByDateContainer = styled.div`
-    display: grid;
-    grid-column: span 12;
-`;
+export const StyledShiftByDateContainer = styled.div``;
 export const StyledTimePositionContainer = styled.div`
     position: absolute;
     top: 0;
     left: 0;
     ${({ theme }) => `
         border: 1px solid ${theme.borderColor.blue};
-    `}
-    margin-top: 39px;
+    `};
 `;
 export const StyledSortedShiftsMainContainer = styled.div`
     display: flex;
@@ -153,9 +167,9 @@ export const StyledSortedShiftsMainContainer = styled.div`
     min-height: 74px;
 `;
 export const StyledSortedShiftsContainer = styled.div`
-    display: flex;
     min-height: 74px;
-    position: absolute;
+    width: 2400px;
+    position: relative;
     top: 0;
     ${({ theme, employeeName }) => `
     border: 2px solid ${!employeeName ? theme.backgroundColor.lightOrange : null};
