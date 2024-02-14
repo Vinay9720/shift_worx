@@ -10,7 +10,7 @@ export default function HeaderWithTabs({ title, tabs }) {
     const currentStep = searchParams.get('step');
     return (
         <Stack direction='column' spacing={5} sx={{ mt: 7 }}>
-            <SwxTypography color='swxBlack' size='extraLarge' weight='bold' sx={{ fontFamily: '__Manrope_36d688' }}>
+            <SwxTypography color='swxBlack' size='extraLarge' weight='bold' className='Manrope'>
                 {title}
             </SwxTypography>
             <SwxTabs tabs={tabs} currentStep={currentStep} />

@@ -18,7 +18,7 @@ export default function AdminScheduleTemplateLayout({
     return (
         <>
             <ScheduleTemplateTitleContainer>
-                <SwxTypography color='swxBlack' size='extraLarge' weight='bold' sx={{ fontFamily: '__Manrope_36d688' }}>
+                <SwxTypography color='swxBlack' size='extraLarge' weight='bold' className='Manrope'>
                     {title}
                 </SwxTypography>
             </ScheduleTemplateTitleContainer>

@@ -109,7 +109,7 @@ function DailyScheduleBanner({
                     <SwxChip label={kind} color='white' background={getBackGroundColor()} size='smallest' />
                     <Stack direction='column' sx={{ ml: '4px' }}>
                         <SwxTypography
-                            sx={{ fontFamily: '__Manrope_36d688' }}
+                            className='Manrope'
                             color='swxBlack'
                             size={timeDifference && timeDifference <= 3 ? 'smaller' : 'small'}
                             lineHeight={timeDifference && timeDifference <= 2 ? 1 : null}
@@ -120,7 +120,7 @@ function DailyScheduleBanner({
                             color='lightGray'
                             size={timeDifference && timeDifference <= 2 ? 'verySmall' : 'small'}
                             weight='semiBold'
-                            sx={{ fontFamily: '__Manrope_36d688' }}>
+                            className='Manrope'>
                             {floor || 'Second Floor'}
                         </SwxTypography>
                     </Stack>
