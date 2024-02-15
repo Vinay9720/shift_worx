@@ -46,6 +46,11 @@ export const EllipseContainer = styled.div`
     cursor: pointer;
     justify-content: center;
 `;
+export const AddShiftContainer = styled.div`
+    display: flex;
+    align-items: center;
+    width: 100%;
+`;
 export const styles = {
     stack1: {
         paddingRight: '96px',

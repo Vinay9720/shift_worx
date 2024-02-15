@@ -9,7 +9,7 @@ export const StyledAutoCompleteSelect = styled(Autocomplete)`
         `}
     }
     & .MuiOutlinedInput-input {
-        // font-family: __Manrope_36d688;
+        font-family: var(--font-Manrope) !important;
         ${({ theme, padding, placeholderColor }) => `
             color: ${placeholderColor || theme.fontColor.swxSlightlyBlack};
             padding: ${padding || '17px 16px'};

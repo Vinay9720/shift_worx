@@ -5,6 +5,9 @@ export const FooterContainer = styled.div`
     gap: 24px;
     padding-bottom: 24px;
     justify-content: end;
+    @media (max-width: 800px) {
+        flex-direction: column-reverse;
+    }
 `;
 export const StyledRootContainer = styled.div`
     display: flex;
@@ -285,4 +288,19 @@ export const StyledMoreShiftsContainer = styled.div`
     max-height: 210px;
     overflow-y: scroll;
     border-radius: 8px;
+`;
+export const TemplateFilterContainer = styled.div`
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    @media (max-width: 600px) {
+        flex-direction: column;
+        gap: 16px;
+    }
+`;
+export const StyledSelectContainer = styled.div`
+    width: 270px;
+    @media (max-width: 600px) {
+        width: 100%;
+    }
 `;

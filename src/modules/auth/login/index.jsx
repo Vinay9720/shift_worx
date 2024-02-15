@@ -70,7 +70,7 @@ export default function LoginForm() {
         radius: '4px',
         background: 'white',
         placeholderColor: 'darkestGray',
-        font: '__Nunito_3dc409',
+        font: 'var(--font-Nunito)',
     };
 
     const passwordProps = {
@@ -85,7 +85,7 @@ export default function LoginForm() {
         radius: '4px',
         background: 'white',
         placeholderColor: 'darkestGray',
-        font: '__Nunito_3dc409',
+        font: 'var(--font-Nunito)',
         minLength: {
             value: 6,
             message: 'Password must be at least 6 characters long',
@@ -122,7 +122,7 @@ export default function LoginForm() {
             fontSize: '24px',
             padding: '6px 24px',
             borderRadius: '5px',
-            fontFamily: '__Nunito_3dc409',
+            fontFamily: 'var(--font-Nunito)',
         },
     };
 

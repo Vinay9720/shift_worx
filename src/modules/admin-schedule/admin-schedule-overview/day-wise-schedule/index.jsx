@@ -33,7 +33,6 @@ export default function DayWiseSchedule({ scheduleData }) {
         const sortedShiftsByDate = sortedShiftsByName(shiftsByDate);
         setData(sortedShiftsByDate);
     }, [scheduleData]);
-
     const getShiftsByDate = (dat, date) => {
         const shifts = [];
         const formattedDate = moment(date, 'ddd, MMM D').format('MM-DD-YYYY');

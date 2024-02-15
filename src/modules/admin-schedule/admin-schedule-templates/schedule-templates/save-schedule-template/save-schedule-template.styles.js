@@ -33,6 +33,9 @@ export const HeaderContainer = styled.div`
     ${({ theme }) => `
         border-bottom: 1px solid ${theme.borderColor.lightGray};
     `}
+    @media (max-width: 800px) {
+        padding: 0;
+    }
 `;
 
 export const StyledBorderContainer = styled.div`
@@ -51,10 +54,22 @@ export const EllipseContainer = styled.div`
     position: relative;
     justify-content: center;
 `;
-export const styles = {
-    addNoteButton: {
-        '@media (max-width: 980px)': {
-            width: '100%',
-        },
-    },
-};
+export const ActionButtonContainer = styled.div`
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    gap: 24px;
+    padding-bottom: 24px;
+    padding-top: 47px;
+    @media (max-width: 800px) {
+        padding-top: 8px;
+        padding-bottom: 0;
+        flex-direction: column-reverse;
+    }
+`;
+export const ShiftDataContainer = styled.div`
+    padding: 10px 150px 21px 16px;
+    ${({ theme }) => `
+        background: ${theme.backgroundColor.lightestBlue};
+    `}
+`;
