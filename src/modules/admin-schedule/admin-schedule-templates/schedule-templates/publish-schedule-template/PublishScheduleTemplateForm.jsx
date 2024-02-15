@@ -12,6 +12,7 @@ import {
     EllipseContainer,
     HeaderContainer,
     ModalContainer,
+    StyledShiftDataContainer,
     styles,
 } from './publish-schedule-template.styles';
 import { today } from '@/lib/util';
@@ -91,41 +92,33 @@ export default function PublishScheduleTemplateForm({ modalName, action, loading
                 </EllipseContainer>
             </HeaderContainer>
             <Form onSubmit={templateData => action({ templateData })} defaultValues={templateTobePublished}>
-                <Stack direction='column' spacing={2} sx={{ padding: '0px 24px', mt: 1 }}>
-                    <Stack
-                        sx={{
-                            height: '72px',
-                            backgroundColor: '#F6FAFD',
-                            display: 'flex',
-                            flexDirection: 'row',
-                            justifyContent: 'space-between',
-                            padding: '13px 60px 14px 24px',
-                        }}>
-                        <Stack>
-                            <SwxTypography color='lightGray' size='small' weight='extraThin' className='Manrope'>
-                                Total Shift
-                            </SwxTypography>
-                            <SwxTypography color='swxSlightlyBlack' size='semiLarge' weight='bold' className='Manrope'>
-                                {templateTobePublished.total_shifts || 0}
-                            </SwxTypography>
-                        </Stack>
-                        <Stack>
-                            <SwxTypography color='lightGray' size='small' weight='extraThin' className='Manrope'>
-                                Total Hours
-                            </SwxTypography>
-                            <SwxTypography color='swxSlightlyBlack' size='semiLarge' weight='bold' className='Manrope'>
-                                {templateTobePublished.scheduled_hours || 0}
-                            </SwxTypography>
-                        </Stack>
-                        <Stack>
-                            <SwxTypography color='lightGray' size='small' weight='extraThin' className='Manrope'>
-                                Publish Schedule Template
-                            </SwxTypography>
-                            <SwxTypography color='swxSlightlyBlack' size='semiLarge' weight='bold' className='Manrope'>
-                                1
-                            </SwxTypography>
-                        </Stack>
+                <StyledShiftDataContainer>
+                    <Stack>
+                        <SwxTypography color='lightGray' size='small' weight='extraThin' className='Manrope'>
+                            Total Shift
+                        </SwxTypography>
+                        <SwxTypography color='swxSlightlyBlack' size='semiLarge' weight='bold' className='Manrope'>
+                            {templateTobePublished.total_shifts || 0}
+                        </SwxTypography>
                     </Stack>
+                    <Stack>
+                        <SwxTypography color='lightGray' size='small' weight='extraThin' className='Manrope'>
+                            Total Hours
+                        </SwxTypography>
+                        <SwxTypography color='swxSlightlyBlack' size='semiLarge' weight='bold' className='Manrope'>
+                            {templateTobePublished.scheduled_hours || 0}
+                        </SwxTypography>
+                    </Stack>
+                    <Stack>
+                        <SwxTypography color='lightGray' size='small' weight='extraThin' className='Manrope'>
+                            Publish Schedule Template
+                        </SwxTypography>
+                        <SwxTypography color='swxSlightlyBlack' size='semiLarge' weight='bold' className='Manrope'>
+                            1
+                        </SwxTypography>
+                    </Stack>
+                </StyledShiftDataContainer>
+                <Stack direction='column' spacing={2} sx={{ padding: '0px 24px', mt: 1 }}>
                     <Stack direction={{ xs: 'column', sm: 'row' }}>
                         <InputField name='name' SWXInputProps={TemplateNameProps} />
                     </Stack>

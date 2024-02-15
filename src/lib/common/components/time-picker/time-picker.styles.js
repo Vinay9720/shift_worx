@@ -4,7 +4,7 @@ import styled from 'styled-components';
 export const StyledTimeField = styled(TimePicker)`
     width: 100%;
     & .MuiOutlinedInput-input {
-        // font-family: __Manrope_36d688;
+        font-family: var(--font-Manrope) !important;
         ${({ theme, padding }) => `
             padding:${padding || '17px 14px'} ;
             color: ${theme.fontColor.swxSlightlyBlack};

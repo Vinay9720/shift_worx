@@ -19,7 +19,7 @@ export const styles = {
         display: 'flex',
         flexDirection: 'row',
         gap: '16px',
-        '@media(max-width:900px)': {
+        '@media(max-width:700px)': {
             justifyContent: 'space-between',
         },
     },
@@ -51,16 +51,12 @@ export const styles = {
     },
     multiSelect: {
         width: '126px',
-        '@media(max-width:700px)': {
+        '@media(max-width:600px)': {
             width: '100%',
-        },
-        '@media(max-width:400px)': {
-            width: '126px',
         },
     },
     actionButtons: {
         dislplay: 'flex',
         flexDirection: 'row',
-        gap: '8px',
     },
 };

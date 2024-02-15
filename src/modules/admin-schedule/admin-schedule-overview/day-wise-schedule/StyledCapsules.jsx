@@ -19,6 +19,7 @@ export const StyledCapsules = ({
     setShiftData,
     data,
 }) => {
+    const handleTimePositionHeight = data && data.map(el => el.shifts).flat(Infinity);
     return (
         <StyledShiftByDateContainer style={{ position: 'relative' }}>
             {isCurrentDayEqualsCurrentTimeVal() && (
@@ -27,8 +28,10 @@ export const StyledCapsules = ({
                     <StyledTimePositionContainer
                         style={{
                             left: currentTimePosition,
-                            zIndex: '1',
-                            height: `${!isEmpty(shiftsByDate) ? shiftsByDate.length * 74 : '88'}px`,
+                            zIndex: '2',
+                            height: `${
+                                !isEmpty(handleTimePositionHeight) ? handleTimePositionHeight.length * 75 : '75'
+                            }px`,
                         }}
                     />
                 </>

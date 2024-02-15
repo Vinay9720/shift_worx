@@ -46,6 +46,20 @@ export const EllipseContainer = styled.div`
     cursor: pointer;
     justify-content: center;
 `;
+export const StyledShiftDataContainer = styled.div`
+    height: 72px;
+    ${({ theme }) => `
+    background-color: ${theme.backgroundColor.lightestBlue};
+    `}
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 13px 60px 14px 24px;
+    @media (max-width: 800px) {
+        flex-direction: column;
+        height: fit-content;
+    }
+`;
 export const styles = {
     actionButtons: {
         display: 'flex',

@@ -75,7 +75,7 @@ function SearchFilter({ actionButton: ActionButton, style }) {
                             style={{ width: '100%' }}
                             options={['RN', 'LPN', 'CNA']}
                             value={roles}
-                            padding='12px 12px'
+                            padding='12px 6px'
                             onChange={onRoleChange}
                         />
                     </Stack>

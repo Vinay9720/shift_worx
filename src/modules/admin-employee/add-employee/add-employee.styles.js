@@ -111,6 +111,9 @@ export const FooterContainer = styled.div`
     padding: 0px 24px 24px 24px;
     margin-top: 38px;
     justify-content: end;
+    @media (max-width: 800px) {
+        flex-direction: column-reverse;
+    }
 `;
 
 export const CertificationsContainer = styled.div`

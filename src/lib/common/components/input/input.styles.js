@@ -11,7 +11,7 @@ export const InputContainer = styled.div`
 export const StyledOutlinedInput = styled(OutlinedInput)`
     & .MuiOutlinedInput-input {
         ${({ theme, padding, background, radius, placeholderColor, font }) => `
-            font-family:  ${font};
+            font-family: ${font || 'var(--font-Manrope)'} !important;
             padding: ${padding || '17px 16px'};
             color: ${theme.fontColor[placeholderColor] || theme.fontColor.swxSlightlyBlack};
             border-radius: ${radius || '8px'};

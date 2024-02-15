@@ -9,14 +9,14 @@ import { SwxModal } from '@/lib/common/layout';
 import { useAddShift } from '@/hooks/admin-schedule';
 
 import ShiftForm from './ShiftForm';
-import { styles } from './add-shift.styles';
+import { AddShiftContainer, styles } from './add-shift.styles';
 
 export default function AddShift() {
     const { mutate: addShift, isLoading } = useAddShift();
     const dispatch = useDispatch();
 
     return (
-        <div className='flex items-center mt-0'>
+        <AddShiftContainer>
             <SwxButton
                 startIcon={<Icon width={17} height={12} name='addition' styles={{ fill: '#FFFFFF' }} />}
                 size='medium'
@@ -33,6 +33,6 @@ export default function AddShift() {
             <SwxModal modalName='addShiftModal'>
                 <ShiftForm modalName='addShiftModal' action={addShift} loading={isLoading} />
             </SwxModal>
-        </div>
+        </AddShiftContainer>
     );
 }

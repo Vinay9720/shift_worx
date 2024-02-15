@@ -31,6 +31,7 @@ import {
     StyledBorderContainer,
     StyledWrapperContainer,
     styles,
+    FooterContainer,
 } from './add-pto.styles';
 import { useEmployees } from '@/hooks/admin-employee';
 
@@ -233,16 +234,12 @@ export default function PtoForm({ modalName, requestType, action: addPto, employ
                             <FileUploadField name='file_name' SWXInputProps={fileUploadProps} />
                         </StyledBorderContainer>
                     </StyledWrapperContainer>
-                    <Stack
-                        spacing={3}
-                        justifyContent='flex-end'
-                        direction='row'
-                        style={{ margin: '17px 30px 9px 0px' }}>
+                    <FooterContainer>
                         <SwxButton onClick={() => dispatch(closeModal({ modalName }))} variant='text' size='medium'>
                             Cancel
                         </SwxButton>
                         <FormSubmitButton variant='contained' buttonName='Submit' loading={loading} />
-                    </Stack>
+                    </FooterContainer>
                 </Form>
             </BodyContainer>
         </ModalContainer>

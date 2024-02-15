@@ -46,6 +46,7 @@ export const styles = {
             },
             border: '1px solid #e6e8e9',
             borderRadius: '8px',
+            minWidth: '48px',
         },
     },
 };

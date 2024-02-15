@@ -8,7 +8,14 @@ import { closeModal } from '@/lib/store/slices/modal-slice';
 import { Icon } from '@/lib/common/icons';
 import { SwxButton, SwxTypography } from '@/lib/common/components';
 import { InputField, Form, FormSubmitButton, FormSwitch } from '@/lib/common/form-components';
-import { CloseContainer, EllipseContainer, HeaderContainer, ModalContainer } from './save-schedule-template.styles';
+import {
+    ActionButtonContainer,
+    CloseContainer,
+    EllipseContainer,
+    HeaderContainer,
+    ModalContainer,
+    ShiftDataContainer,
+} from './save-schedule-template.styles';
 
 export default function SaveScheduleTemplateForm({ modalName, action, title, isEditing, loading }) {
     const dispatch = useDispatch();
@@ -62,11 +69,11 @@ export default function SaveScheduleTemplateForm({ modalName, action, title, isE
             <Form
                 onSubmit={shiftData => action({ shiftData, savingTemplate: !isEditing })}
                 defaultValues={scheduleTemplateModalData}>
-                <Stack sx={{ padding: '10px 150px 21px 16px', backgroundColor: '#F6FAFD' }}>
+                <ShiftDataContainer>
                     {/* <SwxTypography>Save shift schedule for the week of Jan 1 to Jan 7</SwxTypography> */}
                     <SwxTypography>Total Shifts: {templateDetails.total_shifts || 0}</SwxTypography>
                     <SwxTypography>Total Hours: {templateDetails.total_hours || 0}</SwxTypography>
-                </Stack>
+                </ShiftDataContainer>
                 <Stack direction='column' spacing={2} sx={{ padding: '10px 34px 0px 14px' }}>
                     <Stack direction={{ xs: 'column', sm: 'row' }}>
                         <InputField name='template_name' SWXInputProps={templateProps} />
@@ -77,16 +84,12 @@ export default function SaveScheduleTemplateForm({ modalName, action, title, isE
                     <Stack direction='row'>
                         <FormSwitch name='assigned' SWXInputProps={assginedProps} />
                     </Stack>
-                    <Stack
-                        spacing={3}
-                        justifyContent='flex-end'
-                        direction='row'
-                        style={{ marginBottom: '24px', marginTop: '47px' }}>
+                    <ActionButtonContainer>
                         <SwxButton onClick={() => dispatch(closeModal({ modalName }))} variant='text' size='medium'>
                             Cancel
                         </SwxButton>
                         <FormSubmitButton variant='contained' buttonName='Save' loading={loading} />
-                    </Stack>
+                    </ActionButtonContainer>
                 </Stack>
             </Form>
         </ModalContainer>

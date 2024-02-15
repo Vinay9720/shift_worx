@@ -83,10 +83,12 @@ export const FooterContainer = styled.div`
     display: flex;
     gap: 24px;
     padding: 0px 24px 24px 24px;
-    margin-top: 62px;
+    margin-top: 38px;
     justify-content: end;
+    @media (max-width: 800px) {
+        flex-direction: column-reverse;
+    }
 `;
-
 export const TitleContainer = styled.div`
     display: flex;
     justify-content: center;

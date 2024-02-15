@@ -4,10 +4,13 @@ import { Select, InputLabel } from '@mui/material';
 export const StyledSelect = styled(Select)`
     & .MuiOutlinedInput-input {
         ${({ theme, padding }) => `
-            // font-family: __Manrope_36d688;
+            font-family: var(--font-Manrope) !important;
             padding: ${padding || '17px 16px'};
             color: ${theme.fontColor.lightGray};
         `}
+    }
+    & .MuiOutlinedInput-input:first-child {
+        padding-right: 0;
     }
     & .MuiOutlinedInput-notchedOutline {
         border-radius: 8px;

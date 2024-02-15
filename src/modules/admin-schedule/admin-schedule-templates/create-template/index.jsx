@@ -19,7 +19,7 @@ export default function CreateTemplate() {
                 }}
                 padding='10px 16px'
                 variant='contained'
-                sx={styles.addShiftButton}
+                sx={styles.createTemplateButton}
                 weight='semiBold'>
                 Create A Template
             </SwxButton>
