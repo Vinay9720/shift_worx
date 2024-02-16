@@ -171,15 +171,19 @@ export default function AdminScheduleTemplates() {
             width: 15,
             sortable: false,
             filterable: false,
-            renderCell: params => (
-                <IconButton
-                    onClick={() => {
-                        router.push(`/admin/schedule/edit-template/${params.row.id}`);
-                        dispatch(setTemplateType(capitalize(params.row.template_week) || 'Weekly'));
-                    }}>
-                    <Icon styles={{ fill: '#838A91' }} name='pencil' height={16} width={16} />
-                </IconButton>
-            ),
+            renderCell: params => {
+                return (
+                    params.row.status !== 'published' && (
+                        <IconButton
+                            onClick={() => {
+                                router.push(`/admin/schedule/edit-template/${params.row.id}`);
+                                dispatch(setTemplateType(capitalize(params.row.template_week) || 'Weekly'));
+                            }}>
+                            <Icon styles={{ fill: '#838A91' }} name='pencil' height={16} width={16} />
+                        </IconButton>
+                    )
+                );
+            },
         },
         {
             field: 'delete',
