@@ -10,6 +10,9 @@ export const FooterContainer = styled.div`
     }
 `;
 export const StyledRootContainer = styled.div`
+    @media (max-width: 1200px) {
+        overflow: auto;
+    }
     display: flex;
     border: 1px solid #e6e8e9;
     border-radius: 8px;
@@ -250,7 +253,6 @@ export const StyledGridWeekDayContainer = styled.div`
     align-items: center;
     justify-content: center;
     min-width: 205px;
-    padding: 0.75rem;
     ${({ theme }) => `
     font-size: ${theme.fontSize.small};
     font-weight: ${theme.fontWeight.thin};
@@ -302,5 +304,12 @@ export const StyledSelectContainer = styled.div`
     width: 270px;
     @media (max-width: 600px) {
         width: 100%;
+    }
+`;
+export const StyledRightCtn = styled.div`
+    overflow: auto;
+
+    @media (max-width: 1200px) {
+        overflow: initial;
     }
 `;

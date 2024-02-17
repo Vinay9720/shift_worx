@@ -34,6 +34,7 @@ import {
     StyledSessionContainer,
     StyledGridWeekDayContainer,
     StyledMainDiv,
+    StyledRightCtn,
 } from './week-wise-schedule.styles';
 import ShiftForm from '../add-shift/ShiftForm';
 import { SwxModal, DynamicPromptModal, OpenShifts } from '@/lib/common/layout';
@@ -224,7 +225,7 @@ export default function WeekWiseSchedule({ scheduleData }) {
                       })
                     : null}
             </div>
-            <div style={{ overflowX: 'auto' }}>
+            <StyledRightCtn>
                 <UsersContainer>
                     {weekdays.map((weekDay, index) => (
                         <WeekDaysContainer
@@ -363,7 +364,7 @@ export default function WeekWiseSchedule({ scheduleData }) {
                 ) : (
                     <StyledNoScheduleContainer>No schedules to display.</StyledNoScheduleContainer>
                 )}
-            </div>
+            </StyledRightCtn>
             <DynamicPromptModal
                 loading={loadingState}
                 modalName='deleteShiftModal'
