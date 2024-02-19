@@ -40,7 +40,7 @@ import TemplateShiftForm from '../add-template-shift/TemplateShiftForm';
 import { useMemo } from 'react';
 import { certificateBackground } from '@/lib/util/dynamicChipColor';
 
-export default function WeeklyTemplate({ templateShifts }) {
+export default function WeeklyTemplate({ templateShifts, daySummary }) {
     const dispatch = useDispatch();
     const { mutate: deleteShift, isLoading: deleteLoadingState } = useDeleteTemplateShift();
     const { mutate: updateShift, isLoading } = useEditTemplateShift();
@@ -251,6 +251,7 @@ export default function WeeklyTemplate({ templateShifts }) {
             <div style={{ overflowX: 'auto' }}>
                 <UsersContainer>
                     {weekdays.map((weekDay, index) => {
+                        const summary = daySummary[weekDay];
                         return (
                             <WeekDaysContainer key={index}>
                                 <Stack direction='row'>
@@ -275,7 +276,9 @@ export default function WeeklyTemplate({ templateShifts }) {
                                                 width={16}
                                             />
                                         </StyledIconContainer>
-                                        <StyledNumberContainer>0:00</StyledNumberContainer>
+                                        <StyledNumberContainer>
+                                            {summary ? summary.total_schedule_hour_of_nurse : '0.00'}
+                                        </StyledNumberContainer>
                                         <StyledDot />
                                         <StyledIconContainer>
                                             <Icon
@@ -286,7 +289,9 @@ export default function WeeklyTemplate({ templateShifts }) {
                                                 width={16}
                                             />
                                         </StyledIconContainer>
-                                        <StyledNumberContainer>0</StyledNumberContainer>
+                                        <StyledNumberContainer>
+                                            {summary ? summary.total_number_of_shifts : 0}
+                                        </StyledNumberContainer>
                                         <StyledDot />
                                         <StyledIconContainer>
                                             <Icon
@@ -297,7 +302,9 @@ export default function WeeklyTemplate({ templateShifts }) {
                                                 width={16}
                                             />
                                         </StyledIconContainer>
-                                        <StyledNumberContainer>0</StyledNumberContainer>
+                                        <StyledNumberContainer>
+                                            {summary ? summary.total_number_of_employee.length : 0}
+                                        </StyledNumberContainer>
                                     </div>
                                 </div>
                             </WeekDaysContainer>
