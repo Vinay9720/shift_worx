@@ -15,7 +15,12 @@ export default function AdminScheduleTemplate({ editingTemplate }) {
                     : 'Create New Template'
             }
             filter={<Filter editingTemplate={editingTemplate} />}
-            weeklyTemplate={<WeeklyTemplate templateShifts={isSuccess ? templateData.records : []} />}
+            weeklyTemplate={
+                <WeeklyTemplate
+                    templateShifts={isSuccess ? templateData.records : []}
+                    daySummary={isSuccess ? templateData.days_shift_summary : []}
+                />
+            }
             monthlyTemplate={<MonthlyTemplate templateShifts={isSuccess ? templateData.records : []} />}
             footer={<ActionButtons editingTemplate={editingTemplate} />}
             loading={isLoading}
