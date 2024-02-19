@@ -6,6 +6,7 @@ import { closeModal } from '@/lib/store/slices/modal-slice';
 import { useToast } from '../common';
 import AdminScheduleTemplatesService from '@/services/admin-schedule-templates';
 import { clearState, setTemplateShiftTobeEdited } from '@/lib/store/slices/admin-schedule-templates-module';
+import { isObject } from 'lodash';
 
 export const useEditTemplateShift = () => {
     const { templateShiftTobeEdited } = useSelector(state => state.adminScheduleTemplatesModule);
@@ -23,7 +24,12 @@ export const useEditTemplateShift = () => {
                 role: shiftData.role.value || templateShiftTobeEdited.certificate_ids,
                 speciality_id: shiftData.speciality.value || templateShiftTobeEdited.speciality_ids.id,
                 facility_id: 1,
-                nurse_id: shiftData.employee ? shiftData.employee.value || null : templateShiftTobeEdited.nurseId,
+                nurse_id:
+                    shiftData.employee === 'Leave Open'
+                        ? null
+                        : isObject(shiftData.employee)
+                        ? shiftData.employee.value || null
+                        : templateShiftTobeEdited.nurseId,
                 additional_nurse_id: shiftData.employee_2 ? shiftData.employee_2.value : '',
             },
             shift_template: {
