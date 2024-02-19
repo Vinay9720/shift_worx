@@ -5,7 +5,7 @@ import AdminScheduleService from '@/services/admin-schedule';
 import { closeModal } from '@/lib/store/slices/modal-slice';
 
 import { useToast } from '../common';
-import { isArray } from 'lodash';
+import { isArray, isObject } from 'lodash';
 import { clearState } from '@/lib/store/slices/admin-schedule-module';
 
 export const useEditShift = () => {
@@ -24,7 +24,12 @@ export const useEditShift = () => {
                         id: employeeShiftData.shift_id,
                         certificate_ids: [shiftData.role.value || employeeShiftData.certificate_ids],
                         speciality_ids: [shiftData.speciality.value || employeeShiftData.speciality_ids[0].id],
-                        nurse_id: shiftData.employee ? shiftData.employee.value || null : employeeShiftData.nurseId,
+                        nurse_id:
+                            shiftData.employee === 'Leave Open'
+                                ? null
+                                : isObject(shiftData.employee)
+                                ? shiftData.employee.value || null
+                                : employeeShiftData.nurseId,
                         additional_nurse_id: shiftData.employee_2 ? shiftData.employee_2.value : '',
                         mandatory_lunch: true,
                     },
@@ -37,7 +42,6 @@ export const useEditShift = () => {
                 end_time: shiftData.end_time,
             },
         };
-
         return AdminScheduleService.updateShift(employeeShiftData.shift_id, payload);
     };
 
@@ -47,6 +51,7 @@ export const useEditShift = () => {
             dispatch(closeModal({ modalName: 'editShiftModal' }));
             dispatch(clearState());
             showToast('Shift Successfully Updated!', 'success');
+            // dispatch(setShiftData({}));
         },
         onError: error => {
             showToast(error.response.data.message, 'error');
