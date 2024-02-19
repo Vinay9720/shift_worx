@@ -30,7 +30,7 @@ export const StyledCapsules = ({
                             left: currentTimePosition,
                             zIndex: '2',
                             height: `${
-                                !isEmpty(handleTimePositionHeight) ? handleTimePositionHeight.length * 75 : '75'
+                                !isEmpty(handleTimePositionHeight) ? handleTimePositionHeight.length * 74 : '74'
                             }px`,
                         }}
                     />
