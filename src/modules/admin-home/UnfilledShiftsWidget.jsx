@@ -1,12 +1,25 @@
 import moment from 'moment';
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { SwxTypography, SwxButton, SwxDataGrid, SwxPopupMenu } from '@/lib/common/components';
 import { Stack, IconButton } from '@mui/material';
 import { Icon } from '@/lib/common/icons';
 import { UnfilledShiftsWidgetWrapper } from './admin-home.styles';
 import { useUnfilledShifts } from '@/hooks/admin-home';
+import { setShiftData, setScheduleType } from '@/lib/store/slices/admin-schedule-module';
+import { openModal } from '@/lib/store/slices/modal-slice';
+import { useDeleteShift, useEditShift } from '@/hooks/admin-schedule';
+import { DynamicPromptModal, SwxModal } from '@/lib/common/layout';
+import ShiftForm from '../admin-schedule/admin-schedule-overview/add-shift/ShiftForm';
+import { setStatus } from '@/lib/store/slices/filter/scheduleFilterSlice';
+import { useRouter } from 'next/navigation';
 
 export default function UnfilledShiftsWidget() {
+    const { mutate: deleteShift, isLoading: loadingState } = useDeleteShift();
+    const [employeeId, setEmployeeId] = useState(null);
+    const router = useRouter();
+    const { mutate: updateShift, isLoading: shiftLoading } = useEditShift();
+    const dispatch = useDispatch();
     const { data: unfilledShifts, isLoading, isSuccess } = useUnfilledShifts();
 
     const formattedShifts = useMemo(() => {
@@ -35,26 +48,55 @@ export default function UnfilledShiftsWidget() {
         return [];
     }, [unfilledShifts, isSuccess]);
 
-    const menuOptions = () => {
+    const menuOptions = ({
+        start,
+        end,
+        floor,
+        cert,
+        id,
+        shiftId,
+        specialities,
+        facility,
+        startDate,
+        certId,
+        empName,
+    }) => {
+        const employeeShiftData = {
+            employee: empName,
+            id,
+            facility_id: facility,
+            shift_id: shiftId,
+            certificate_ids: certId,
+            speciality_ids: specialities,
+            station: floor,
+            start_date: startDate,
+            start_time: start,
+            end_time: end,
+            role: cert,
+        };
         return [
             {
-                label: 'Note',
-                action: () => null,
-                icon: <Icon styles={{ fill: '#838A91' }} name='notes' height={20} width={20} />,
+                label: 'Edit Shift',
+                action: async e => {
+                    e.preventDefault();
+                    dispatch(setShiftData(employeeShiftData));
+                    dispatch(openModal({ modalName: 'editShiftModal' }));
+                },
+                icon: <Icon styles={{ fill: '#838A91' }} name='pencil' height={14} width={14} />,
             },
             {
-                label: 'Edit',
-                action: () => null,
-                icon: <Icon styles={{ fill: '#838A91' }} name='pencil' height={20} width={20} />,
-            },
-            {
-                label: 'Delete',
-                action: () => null,
+                label: 'Delete Shift',
+                action: async e => {
+                    e.preventDefault();
+                    dispatch(openModal({ modalName: 'deleteShiftModal' }));
+                    setEmployeeId(shiftId);
+                },
                 color: 'red',
-                icon: <Icon name='trash' height={26} width={26} />,
+                icon: <Icon styles={{ fill: '#F43C02' }} name='trash' height={14} width={14} />,
             },
         ];
     };
+
     const columns = [
         {
             field: 'certificate',
@@ -113,6 +155,21 @@ export default function UnfilledShiftsWidget() {
 
     return (
         <UnfilledShiftsWidgetWrapper direction='column' sx={{ my: 5, mr: 5 }}>
+            <DynamicPromptModal
+                loading={loadingState}
+                modalName='deleteShiftModal'
+                entityName='Shift'
+                onConfirm={() => deleteShift(employeeId)}
+            />
+            <SwxModal modalName='editShiftModal' onCancel={() => dispatch(setShiftData(null))}>
+                <ShiftForm
+                    modalName='editShiftModal'
+                    title='Edit'
+                    action={updateShift}
+                    loading={isLoading}
+                    onCancel={() => dispatch(setShiftData(null))}
+                />
+            </SwxModal>
             <Stack justifyContent='space-between' direction='row'>
                 <SwxTypography className='Manrope' size='semiLarge' color='swxSlightlyBlack' weight='semiBold'>
                     Unfilled Shifts
@@ -120,6 +177,11 @@ export default function UnfilledShiftsWidget() {
                 <SwxButton
                     endIcon={<Icon width={12} height={12} name='right-arrow' styles={{ fill: '#1F6FA9' }} />}
                     variant='text'
+                    onClick={() => {
+                        router.push('/admin/schedule?step=overview');
+                        dispatch(setScheduleType('list'));
+                        dispatch(setStatus('Unfilled'));
+                    }}
                     size='small'
                     label='link'
                     weight='bold'>
@@ -129,7 +191,7 @@ export default function UnfilledShiftsWidget() {
             <SwxDataGrid
                 columns={columns}
                 rows={formattedShifts.slice(0, 6)}
-                loading={isLoading}
+                loading={shiftLoading}
                 isRowSelectable={false}
                 checkboxSelection={false}
             />
