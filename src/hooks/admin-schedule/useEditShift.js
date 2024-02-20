@@ -48,6 +48,7 @@ export const useEditShift = () => {
     return useMutation(updateShift, {
         onSuccess: async () => {
             queryClient.invalidateQueries('admin-schedule');
+            queryClient.invalidateQueries('widget-unfilled-shifts');
             dispatch(closeModal({ modalName: 'editShiftModal' }));
             dispatch(clearState());
             showToast('Shift Successfully Updated!', 'success');
