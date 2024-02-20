@@ -19,7 +19,6 @@ export default function DayWiseSchedule({ scheduleData }) {
     const { mutate: deleteShift, isLoading: loadingState } = useDeleteShift();
     const [employeeId, setEmployeeId] = useState(null);
     const [shiftData, setShiftData] = useState();
-    const [screenWidth, setScreenWidth] = useState(null);
     const { mutate: updateShift, isLoading } = useEditShift(shiftData && shiftData);
     const { currentTimeValue } = useSelector(state => state.adminScheduleModule);
     const currentTime = new Date();
@@ -46,17 +45,6 @@ export default function DayWiseSchedule({ scheduleData }) {
 
         return shifts;
     };
-    useEffect(() => {
-        const updateScreenWidth = () => {
-            const width = window.innerWidth;
-            setScreenWidth(width);
-        };
-        updateScreenWidth();
-        window.addEventListener('resize', updateScreenWidth);
-        return () => {
-            window.removeEventListener('resize', updateScreenWidth);
-        };
-    }, []);
 
     const shiftsByDate = getShiftsByDate(scheduleData?.records, currentTimeValue);
 
@@ -83,7 +71,7 @@ export default function DayWiseSchedule({ scheduleData }) {
     };
 
     return (
-        <StyledCtn width={screenWidth}>
+        <StyledCtn>
             <StyledFlexBox>
                 <UsersLeftBar data={data} />
                 <StyledRightCtn>

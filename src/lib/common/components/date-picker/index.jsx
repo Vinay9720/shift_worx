@@ -28,7 +28,7 @@ export default function SwxDatePicker({
     minDate,
     maxDate,
 }) {
-    const calendarPosition = useCalendarPosition();
+    const { calendarPosition } = useCalendarPosition();
 
     return (
         <Stack direction='column' spacing={0.5} style={{ width }}>
