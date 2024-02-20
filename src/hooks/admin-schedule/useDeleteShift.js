@@ -16,6 +16,7 @@ export const useDeleteShift = () => {
     return useMutation(deleteShift, {
         onSuccess: async () => {
             queryClient.invalidateQueries('admin-schedule');
+            queryClient.invalidateQueries('widget-unfilled-shifts');
             dispatch(closeModal({ modalName: 'deleteShiftModal' }));
             showToast('Shift Deleted Successfully !', 'success');
         },

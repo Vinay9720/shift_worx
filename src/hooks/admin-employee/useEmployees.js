@@ -9,7 +9,7 @@ import { usePagination } from '../common';
 export const useEmployees = returnAllEmployees => {
     const { itemsPerPage, currentPage, setPagination } = usePagination('adminEmployeesPagination');
     const { search, status, roles } = useSelector(state => state.employeesFilter);
-    const formattedSearch = lowerCase(status);
+    const formattedStatus = lowerCase(status);
     return useQuery(
         ['admin-employees', itemsPerPage, currentPage, search, status, roles],
         () =>
@@ -18,7 +18,7 @@ export const useEmployees = returnAllEmployees => {
                 currentPage,
                 search,
                 roles,
-                formattedSearch
+                !returnAllEmployees ? formattedStatus : 'active'
             ),
         {
             select: data => {

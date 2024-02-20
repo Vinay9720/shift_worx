@@ -28,7 +28,7 @@ export default function UnfilledShiftsWidget() {
                 unfilledShifts &&
                 unfilledShifts
                     .filter(shift => shift.date && shift.time) // Filter out shifts with null date or time
-                    .map((shift, index) => {
+                    .map(shift => {
                         const date = moment(shift.date);
                         const time = shift.time.split('-');
                         const startTime = moment(time[0], 'hh:mma');
@@ -39,7 +39,6 @@ export default function UnfilledShiftsWidget() {
 
                         return {
                             ...shift,
-                            id: `unfilled-shift-${index}`,
                             dateTime,
                         };
                     })
@@ -48,31 +47,19 @@ export default function UnfilledShiftsWidget() {
         return [];
     }, [unfilledShifts, isSuccess]);
 
-    const menuOptions = ({
-        start,
-        end,
-        floor,
-        cert,
-        id,
-        shiftId,
-        specialities,
-        facility,
-        startDate,
-        certId,
-        empName,
-    }) => {
+    const menuOptions = ({ shift }) => {
         const employeeShiftData = {
-            employee: empName,
-            id,
-            facility_id: facility,
-            shift_id: shiftId,
-            certificate_ids: certId,
-            speciality_ids: specialities,
-            station: floor,
-            start_date: startDate,
-            start_time: start,
-            end_time: end,
-            role: cert,
+            employee: shift.name,
+            id: shift.id,
+            facility_id: shift?.facility.id,
+            shift_id: shift.shift_id,
+            certificate_ids: shift?.certificate.id,
+            speciality_ids: shift.specialities,
+            station: shift.station || 'First Floor',
+            start_date: shift.start_date,
+            start_time: shift.start_time,
+            end_time: shift.end_time,
+            role: shift?.certificate.abbreviation,
         };
         return [
             {
@@ -89,7 +76,7 @@ export default function UnfilledShiftsWidget() {
                 action: async e => {
                     e.preventDefault();
                     dispatch(openModal({ modalName: 'deleteShiftModal' }));
-                    setEmployeeId(shiftId);
+                    setEmployeeId(shift.shift_id);
                 },
                 color: 'red',
                 icon: <Icon styles={{ fill: '#F43C02' }} name='trash' height={14} width={14} />,
@@ -104,7 +91,7 @@ export default function UnfilledShiftsWidget() {
             width: 150,
             renderCell: params => (
                 <SwxTypography color='swxBlack' size='semiMedium' weight='semiBold' className='Manrope'>
-                    {params.value}
+                    {params.value.abbreviation}
                 </SwxTypography>
             ),
             align: 'left',
@@ -146,7 +133,7 @@ export default function UnfilledShiftsWidget() {
                         </IconButton>
                     }
                     options={menuOptions({
-                        id: params.value,
+                        shift: params.row,
                     })}
                 />
             ),
