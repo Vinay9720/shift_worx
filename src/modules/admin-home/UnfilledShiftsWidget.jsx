@@ -48,6 +48,9 @@ export default function UnfilledShiftsWidget() {
     }, [unfilledShifts, isSuccess]);
 
     const menuOptions = ({ shift }) => {
+        const [startTime, endTime] = shift.time.split(' - ');
+        const parsedStartTime = moment(startTime, 'hh:mma').format('hh:mma');
+        const parsedEndTime = moment(endTime, 'hh:mma').format('hh:mma');
         const employeeShiftData = {
             employee: shift.name,
             id: shift.id,
@@ -56,9 +59,9 @@ export default function UnfilledShiftsWidget() {
             certificate_ids: shift?.certificate.id,
             speciality_ids: shift.specialities,
             station: shift.station || 'First Floor',
-            start_date: shift.start_date,
-            start_time: shift.start_time,
-            end_time: shift.end_time,
+            start_date: shift.date,
+            start_time: parsedStartTime,
+            end_time: parsedEndTime,
             role: shift?.certificate.abbreviation,
         };
         return [
