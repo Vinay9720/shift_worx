@@ -1,7 +1,6 @@
 import { useMutation, useQueryClient } from 'react-query';
 import { useDispatch } from 'react-redux';
 
-// import AdminEmployeeService from '@/services/admin-employee';
 import AdminEmployeeService from '@/services/admin-employee';
 import { closeModal } from '@/lib/store/slices/modal-slice';
 
@@ -15,7 +14,7 @@ export const useAddPto = () => {
     const addPto = ptoData => {
         const payload = {
             ...ptoData,
-            request_type: ptoData.request_type[0],
+            request_type: ptoData.request_type.value,
             state: PENDING,
         };
         return AdminEmployeeService.addPto(JSON.stringify(payload));

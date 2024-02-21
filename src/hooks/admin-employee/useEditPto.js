@@ -14,7 +14,7 @@ export const useEditPto = id => {
     const updatePto = ptoData => {
         const payload = {
             ...ptoData,
-            request_type: ptoData.request_type[0],
+            request_type: ptoData.request_type.value,
         };
 
         return AdminEmployeeService.updatePto(id, JSON.stringify(payload));

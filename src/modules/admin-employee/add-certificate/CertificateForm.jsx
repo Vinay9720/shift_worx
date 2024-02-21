@@ -12,9 +12,9 @@ import {
     Form,
     InputField,
     DatePickerField,
-    ListBoxField,
     FormSubmitButton,
     FileUploadField,
+    SelectField,
 } from '@/lib/common/form-components';
 import { SwxTypography, SwxButton, SwxLoader } from '@/lib/common/components';
 import { today } from '@/lib/util';
@@ -24,10 +24,11 @@ function CertificateForm({ defaultValues, onSubmit, onCancel, loading }) {
     const { data: specialityOptions, isLoading: isSpecialityOptionsLoading } = useSpecialityOptions();
 
     const certificationProps = {
-        label: 'Select type',
+        placeholder: 'Select type',
         validate: value => restrictEmptyArray(value, 'field can not be empty'),
         options: certificationOptions,
         required: true,
+        padding: '3px',
     };
 
     const effectiveDateProps = {
@@ -59,19 +60,21 @@ function CertificateForm({ defaultValues, onSubmit, onCancel, loading }) {
     };
 
     const specilityProps = {
-        label: 'speciality',
+        placeholder: 'speciality',
         validate: value => restrictEmptyArray(value, 'field can not be empty'),
         required: true,
         options: specialityOptions,
         multiple: true,
+        padding: '3px',
     };
 
     const jurisdictionProps = {
-        label: 'Select jurisdiction',
+        placeholder: 'Select jurisdiction',
         options: statesWithCodes,
         required: true,
         validate: value => restrictEmptyArray(value, 'field can not be empty'),
         maxHeight: '100px',
+        padding: '3px',
     };
 
     const fileUploadProps = {
@@ -105,7 +108,7 @@ function CertificateForm({ defaultValues, onSubmit, onCancel, loading }) {
                         <SwxTypography color='swxSlightlyBlack' size='smallOdd' weight='semiBold' className='Manrope'>
                             Certificate/License Type
                         </SwxTypography>
-                        <ListBoxField name='certificate_id' SWXInputProps={certificationProps} />
+                        <SelectField name='certificate_id' SWXInputProps={certificationProps} />
                     </div>
                 </Stack>
                 <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2} sx={{ padding: '0px 24px' }}>
@@ -113,7 +116,7 @@ function CertificateForm({ defaultValues, onSubmit, onCancel, loading }) {
                         <SwxTypography color='swxSlightlyBlack' size='smallOdd' weight='semiBold' className='Manrope'>
                             Specialties
                         </SwxTypography>
-                        <ListBoxField name='speciality_ids' SWXInputProps={specilityProps} />
+                        <SelectField name='speciality_ids' SWXInputProps={specilityProps} />
                     </div>
                 </Stack>
                 <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2} sx={{ padding: '0px 24px' }}>
@@ -121,7 +124,7 @@ function CertificateForm({ defaultValues, onSubmit, onCancel, loading }) {
                         <SwxTypography color='swxSlightlyBlack' size='smallOdd' weight='semiBold' className='Manrope'>
                             Jurisdiction
                         </SwxTypography>
-                        <ListBoxField name='jurisdiction' SWXInputProps={jurisdictionProps} />
+                        <SelectField name='jurisdiction' SWXInputProps={jurisdictionProps} />
                     </div>
                     <InputField name='cert_license_number' SWXInputProps={certificateNumberProps} />
                 </Stack>
