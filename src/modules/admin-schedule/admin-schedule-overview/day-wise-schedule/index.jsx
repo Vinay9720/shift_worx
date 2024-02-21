@@ -45,6 +45,7 @@ export default function DayWiseSchedule({ scheduleData }) {
 
         return shifts;
     };
+
     const shiftsByDate = getShiftsByDate(scheduleData?.records, currentTimeValue);
 
     const getMarginLeft = start => {

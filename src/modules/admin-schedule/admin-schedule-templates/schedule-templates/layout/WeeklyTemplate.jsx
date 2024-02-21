@@ -26,6 +26,7 @@ import {
     StyledNoScheduleContainer,
     StyledGridWeekDayContainer,
     StyledMoreShiftsContainer,
+    StyledRightCtn,
 } from './schedule-templates.styles';
 import { DynamicPromptModal, OpenShifts, SwxModal } from '@/lib/common/layout';
 import { useDispatch } from 'react-redux';
@@ -248,7 +249,7 @@ export default function WeeklyTemplate({ templateShifts, daySummary }) {
                       })
                     : null}
             </div>
-            <div style={{ overflowX: 'auto' }}>
+            <StyledRightCtn>
                 <UsersContainer>
                     {weekdays.map((weekDay, index) => {
                         const summary = daySummary[weekDay];
@@ -380,7 +381,7 @@ export default function WeeklyTemplate({ templateShifts, daySummary }) {
                 ) : (
                     <StyledNoScheduleContainer>No schedules to display.</StyledNoScheduleContainer>
                 )}
-            </div>
+            </StyledRightCtn>
             <DynamicPromptModal
                 loading={deleteLoadingState}
                 modalName='deleteTemplateShiftModal'

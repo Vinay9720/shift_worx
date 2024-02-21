@@ -2,11 +2,13 @@ import { useState, useEffect } from 'react';
 
 export const useCalendarPosition = () => {
     const [calendarPosition, setCalendarPosition] = useState('bottom-center');
+    const [innerWidth, setInnerWidth] = useState();
 
     useEffect(() => {
         const handleResize = () => {
             const screenWidth = window.innerWidth;
             const screenHeight = window.innerHeight;
+            setInnerWidth(screenWidth);
 
             let newPosition = 'top-right'; // Default position for large screens
 
@@ -34,5 +36,5 @@ export const useCalendarPosition = () => {
         };
     }, []);
 
-    return calendarPosition;
+    return { calendarPosition, innerWidth };
 };

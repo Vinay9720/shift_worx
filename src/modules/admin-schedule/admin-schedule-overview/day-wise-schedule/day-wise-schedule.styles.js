@@ -1,22 +1,31 @@
 import styled from 'styled-components';
 
-export const StyledCtn = styled.div``;
+export const StyledCtn = styled.div`
+    @media (max-width: 1200px) {
+        width: ${({ width }) => width - 30}px;
+        overflow: auto;
+    }
+`;
 
 export const StyledRightCtn = styled.div`
     width: 1040px;
     overflow: auto;
+    @media (max-width: 1200px) {
+        width: initial;
+        overflow: initial;
+    }
 `;
 
-export const StyledUsersLeftBar = styled.div``;
-
 export const StyledFlexBox = styled.div`
+    overflow: auto;
     display: flex;
     flex-direction: row;
     ${({ theme }) => `
         border: 1px solid ${theme.borderColor.lightGray};
         border-radius: ${theme.borderRadius.aboveMedium};
-    `}
+`}
 `;
+export const StyledUsersLeftBar = styled.div``;
 export const StyledGridSubDiv = styled.div`
     display: flex;
     flex-direction: column;

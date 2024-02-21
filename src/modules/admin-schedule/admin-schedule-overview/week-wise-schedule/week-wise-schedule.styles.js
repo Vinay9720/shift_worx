@@ -28,6 +28,9 @@ export const StyledMainDiv = styled.div`
 `};
 `;
 export const StyledRootContainer = styled.div`
+    @media (max-width: 1200px) {
+        overflow: auto;
+    }
     display: flex;
     ${({ theme }) => `
     border: 1px solid ${theme.borderColor.lightGray};
@@ -188,7 +191,6 @@ export const StyledGridWeekDayContainer = styled.div`
     align-items: center;
     justify-content: center;
     min-width: 205px;
-    padding: 0.75rem;
     ${({ theme }) => `
     font-size: ${theme.fontSize.small};
     font-weight: ${theme.fontWeight.thin};
@@ -208,4 +210,11 @@ export const StyledGridWeekDayContainer = styled.div`
         css`
             background-color: #f7f7f8;
         `}
+`;
+export const StyledRightCtn = styled.div`
+    overflow: auto;
+
+    @media (max-width: 1200px) {
+        overflow: initial;
+    }
 `;
