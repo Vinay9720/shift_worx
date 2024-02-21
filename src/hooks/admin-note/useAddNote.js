@@ -20,7 +20,7 @@ export const useAddNote = () => {
             facility_user_id: employee.id || employee,
         };
         // eslint-disable-next-line prefer-destructuring
-        payload.note.note_type_id = noteData.note_type_id[0];
+        payload.note.note_type_id = noteData.note_type_id.value;
         return AdminNoteService.addNote(payload);
     };
 

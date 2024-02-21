@@ -102,11 +102,13 @@ export default function UnfilledShiftsWidget() {
             field: 'certificate',
             headerName: 'Role',
             width: 150,
-            renderCell: params => (
-                <SwxTypography color='swxBlack' size='semiMedium' weight='semiBold' className='Manrope'>
-                    {params.value}
-                </SwxTypography>
-            ),
+            renderCell: params => {
+                return (
+                    <SwxTypography color='swxBlack' size='semiMedium' weight='semiBold' className='Manrope'>
+                        {params.value.abbreviation}
+                    </SwxTypography>
+                );
+            },
             align: 'left',
             filterable: false,
             minWidth: 150,

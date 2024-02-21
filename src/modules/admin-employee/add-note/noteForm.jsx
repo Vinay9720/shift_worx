@@ -8,7 +8,7 @@ import { restrictEmptyArray } from '@/lib/validators';
 // import { useFileUpload } from '@/hooks/common';
 import { Icon } from '@/lib/common/icons';
 import { SwxButton, SwxTypography } from '@/lib/common/components';
-import { ListBoxField, InputField, Form, FormSubmitButton, FileUploadField } from '@/lib/common/form-components';
+import { InputField, Form, FormSubmitButton, FileUploadField, SelectField } from '@/lib/common/form-components';
 
 import { ModalContainer, HeaderContainer, EllipseContainer, CloseContainer } from './add-note.styles';
 
@@ -23,11 +23,11 @@ const noteTypeOptions = [
 export default function NoteForm({ title = 'Add Note', employee, modalName, action: addNote, defaultValues, loading }) {
     const dispatch = useDispatch();
     const noteTypeProps = {
-        label: 'Select type',
         validate: value => restrictEmptyArray(value, 'field can not be empty'),
         options: noteTypeOptions,
-        maxHeight: '188px',
+        placeholder: 'Select note',
         required: true,
+        padding: '4px',
     };
 
     const noteDescriptionProps = {
@@ -75,7 +75,7 @@ export default function NoteForm({ title = 'Add Note', employee, modalName, acti
                         <SwxTypography color='swxSlightlyBlack' size='semiMedium' weight='semiBold' className='Manrope'>
                             Note Type
                         </SwxTypography>
-                        <ListBoxField name='note_type_id' SWXInputProps={noteTypeProps} />
+                        <SelectField name='note_type_id' SWXInputProps={noteTypeProps} />
                     </div>
                     <Stack direction={{ xs: 'column', sm: 'row' }}>
                         <InputField name='description' SWXInputProps={noteDescriptionProps} />

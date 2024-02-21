@@ -15,7 +15,6 @@ import {
     Form,
     FormSubmitButton,
     InputField,
-    ListBoxField,
     SelectField,
     TimePickerField,
 } from '@/lib/common/form-components';
@@ -50,7 +49,7 @@ export default function PtoForm({ modalName, requestType, action: addPto, employ
             const formattedStartDate = moment(startDate).format('DD-MM-YYYY');
             const formattedEndDate = moment(endDate).format('DD-MM-YYYY');
             const formattedEmployee = {
-                employee: employee.name || 'Admin4 User',
+                nurse_id: employee.name || 'Admin4 User',
                 description: employee.description,
                 time_start: formattedStartTime,
                 time_end: formattedEndTime,
@@ -96,17 +95,17 @@ export default function PtoForm({ modalName, requestType, action: addPto, employ
         options: employeeOptions,
         placeholder: 'Employee Name',
         width: '100%',
-        padding: '0px',
+        padding: '1px',
         radius: '5px',
         required: true,
     };
     const requestTypeProps = {
-        label: 'Request Type',
         placeholder: 'Request Type',
         validate: value => restrictEmptyArray(value, 'field can not be empty'),
         options: requestTypeOptions,
-        maxHeight: '188px',
         required: true,
+        padding: '1px',
+        radius: '5px',
     };
     const startDateProps = {
         label: (
@@ -212,7 +211,7 @@ export default function PtoForm({ modalName, requestType, action: addPto, employ
                                     className='Manrope'>
                                     Request Type
                                 </SwxTypography>
-                                <ListBoxField name='request_type' SWXInputProps={requestTypeProps} />
+                                <SelectField name='request_type' SWXInputProps={requestTypeProps} />
                             </div>
                             <Stack sx={styles.datePickerStackStyles}>
                                 <DatePickerField name='start_date' SWXInputProps={startDateProps} />
