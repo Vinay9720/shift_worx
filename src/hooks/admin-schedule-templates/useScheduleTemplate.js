@@ -33,7 +33,7 @@ export const useScheduleTemplate = () => {
             },
             onError: error => {
                 showToast(error.response.data.message, 'error');
-                router.push('/admin/employees?step=overview');
+                router.push('/admin/schedule?step=templates');
             },
             refetchOnWindowFocus: false,
         }
