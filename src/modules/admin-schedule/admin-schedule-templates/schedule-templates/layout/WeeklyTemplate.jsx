@@ -252,7 +252,7 @@ export default function WeeklyTemplate({ templateShifts, daySummary }) {
             <StyledRightCtn>
                 <UsersContainer>
                     {weekdays.map((weekDay, index) => {
-                        const summary = daySummary[weekDay];
+                        const summary = daySummary && daySummary[weekDay];
                         return (
                             <WeekDaysContainer key={index}>
                                 <Stack direction='row'>
