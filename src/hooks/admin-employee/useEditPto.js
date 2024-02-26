@@ -5,7 +5,7 @@ import AdminEmployeeService from '@/services/admin-employee';
 import { closeModal } from '@/lib/store/slices/modal-slice';
 
 import { useToast } from '../common';
-import { getRequestTypeByLabel } from '@/lib/util/getRequestType';
+import { getRequestTypeByLabel } from '@/lib/util';
 
 export const useEditPto = id => {
     const queryClient = useQueryClient();

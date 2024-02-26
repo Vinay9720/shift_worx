@@ -5,7 +5,7 @@ import AdminNoteService from '@/services/admin-note';
 import { closeModal } from '@/lib/store/slices/modal-slice';
 
 import { useToast } from '../common';
-import { getNoteTypeByLabel } from '@/lib/util/getNoteType';
+import { getNoteTypeByLabel } from '@/lib/util';
 
 export const useUpdateNote = () => {
     const queryClient = useQueryClient();

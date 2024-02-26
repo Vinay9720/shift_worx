@@ -1,4 +1,4 @@
-import { getNoteTypeByValue } from '@/lib/util/getNoteType';
+import { getNoteTypeByValue } from '@/lib/util';
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
