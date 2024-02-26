@@ -1,6 +1,6 @@
 import http from '../../httpCommon';
 
-const fetchSchedule = (term, date, dates, search, status, roles) => {
+const fetchSchedule = (term, date, dates, search, status, roles, itemsPerPage, page) => {
     const queryParams = [];
 
     const roleIdMap = {
@@ -15,6 +15,8 @@ const fetchSchedule = (term, date, dates, search, status, roles) => {
     if (dates) queryParams.push(`shift_start_range=${dates[0]}`);
     if (dates) queryParams.push(`shift_end_range=${dates[1]}`);
     if (search) queryParams.push(`search=${search}`);
+    if (itemsPerPage) queryParams.push(`per_page=${itemsPerPage}`);
+    if (page) queryParams.push(`page=${page}`);
     // if (roles) queryParams.push(`certificate_id=${roles}`);
     if (roles && roles.length > 0) {
         roles.forEach(role => {

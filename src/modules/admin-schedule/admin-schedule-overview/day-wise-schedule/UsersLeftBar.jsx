@@ -35,9 +35,11 @@ export const UsersLeftBar = ({ data }) => {
                                     .toUpperCase()}`}</Avatar>
                             </div>
                             <StyledNameFlexContainer>
-                                <StyledEmployeeName>
-                                    {`${emp.name.slice(0, 7)} ${emp.name.slice(7, 8).toUpperCase()}`}
-                                </StyledEmployeeName>
+                                <StyledEmployeeName>{`${emp.name.split(' ')[0]} ${emp.name
+                                    .split(' ')
+                                    .pop()
+                                    .charAt(0)
+                                    .toUpperCase()}`}</StyledEmployeeName>
 
                                 <StyledFlexRow>
                                     <StyledMarginDiv>

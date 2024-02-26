@@ -1,3 +1,4 @@
+import { getNoteTypeByValue } from '@/lib/util/getNoteType';
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
@@ -16,7 +17,8 @@ const AdminNotesModule = createSlice({
             state.editingNote = false;
         },
         setnoteToBeUpdated: (state, action) => {
-            state.noteToBeUpdated = action.payload;
+            const { payload } = action;
+            state.noteToBeUpdated = { ...payload, note_type_id: getNoteTypeByValue(payload.note_type.id) };
         },
     },
 });

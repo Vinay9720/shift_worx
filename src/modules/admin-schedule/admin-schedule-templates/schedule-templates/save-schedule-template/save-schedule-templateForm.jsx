@@ -17,7 +17,7 @@ import {
     ShiftDataContainer,
 } from './save-schedule-template.styles';
 
-export default function SaveScheduleTemplateForm({ modalName, action, title, isEditing, loading }) {
+export default function SaveScheduleTemplateForm({ modalName, action, title, isEditing, loading, onCancel }) {
     const dispatch = useDispatch();
     const { templateDetails, scheduleTemplateModalData } = useSelector(state => state.adminScheduleTemplatesModule);
     const templateProps = {
@@ -85,7 +85,15 @@ export default function SaveScheduleTemplateForm({ modalName, action, title, isE
                         <FormSwitch name='assigned' SWXInputProps={assginedProps} />
                     </Stack>
                     <ActionButtonContainer>
-                        <SwxButton onClick={() => dispatch(closeModal({ modalName }))} variant='text' size='medium'>
+                        <SwxButton
+                            onClick={() => {
+                                dispatch(closeModal({ modalName }));
+                                if (onCancel) {
+                                    onCancel();
+                                }
+                            }}
+                            variant='text'
+                            size='medium'>
                             Cancel
                         </SwxButton>
                         <FormSubmitButton variant='contained' buttonName='Save' loading={loading} />

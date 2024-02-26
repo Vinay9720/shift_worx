@@ -9,12 +9,20 @@ import { Icon } from '@/lib/common/icons';
 import { setSearch, setStatus, setRoles, clearFilters } from '@/lib/store/slices/filter/ptoFilterSlice';
 
 import { styles } from './admin-pto.styles';
+import { useEffect, useRef } from 'react';
 
 const statusOptions = ['Approved', 'Declined', 'Pending'];
 
 function SearchFilter({ actionButton: ActionButton, style }) {
     const { roles, filterApplied, status } = useSelector(state => state.ptoFilter);
     const dispatch = useDispatch();
+    const searchInputRef = useRef(null);
+
+    useEffect(() => {
+        return () => {
+            dispatch(clearFilters());
+        };
+    }, []);
 
     const onRoleChange = event => {
         dispatch(setRoles(event.target.value));
@@ -26,6 +34,11 @@ function SearchFilter({ actionButton: ActionButton, style }) {
         };
         debounce(setParams, 1000)();
     };
+    const clearSearch = () => {
+        if (searchInputRef.current) {
+            searchInputRef.current.value = '';
+        }
+    };
 
     return (
         <Stack direction='row' sx={styles.mainContainer} style={{ ...style }}>
@@ -34,6 +47,7 @@ function SearchFilter({ actionButton: ActionButton, style }) {
                     placeholderColor='lightGray'
                     type='text'
                     sx={styles.inputField}
+                    ref={searchInputRef}
                     onChange={onSearch}
                     padding='0.75rem 0.85rem'
                     placeholder='Search name, email, phone...'
@@ -69,7 +83,10 @@ function SearchFilter({ actionButton: ActionButton, style }) {
                             // endIcon={<Icon width={17} height={12} name='close' styles={{ fill: '#030303' }} />}
                             size='semiMedium'
                             weight='thin'
-                            onClick={() => dispatch(clearFilters())}
+                            onClick={() => {
+                                dispatch(clearFilters());
+                                clearSearch();
+                            }}
                             themecolor='swxBlack'
                             sx={styles.clearAllButton}
                             variant='text'>

@@ -23,7 +23,7 @@ import { useFacilityOptions } from '@/hooks/facility';
 import { ModalContainer, HeaderContainer, EllipseContainer, CloseContainer, styles } from './add-shift.styles';
 import { today } from '@/lib/util';
 
-export default function ShiftForm({ modalName, title, action: addShift, loading }) {
+export default function ShiftForm({ modalName, title, action: addShift, loading, onCancel }) {
     const { data: employeesData, isSuccess } = useEmployees(true);
     const { data: certificationOptions } = useCertificateOptions();
     const { data: specialityOptions } = useSpecialityOptions();
@@ -220,7 +220,15 @@ export default function ShiftForm({ modalName, title, action: addShift, loading 
                         <InputField name='description' SWXInputProps={SpecialInstructionsProps} />
                     </Stack>
                     <Stack sx={styles.actionButtons} style={{ marginBottom: '24px', marginTop: '30px' }}>
-                        <SwxButton onClick={() => dispatch(closeModal({ modalName }))} variant='text' size='medium'>
+                        <SwxButton
+                            onClick={() => {
+                                dispatch(closeModal({ modalName }));
+                                if (onCancel) {
+                                    onCancel();
+                                }
+                            }}
+                            variant='text'
+                            size='medium'>
                             Cancel
                         </SwxButton>
                         <FormSubmitButton variant='contained' buttonName='Submit' loading={loading} />

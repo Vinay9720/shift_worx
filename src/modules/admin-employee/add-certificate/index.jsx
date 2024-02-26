@@ -32,7 +32,12 @@ function AddCerfification({ defaultValues, employeeId, onCancel }) {
             <CertificateForm
                 onSubmit={employeeData => addEmployee({ employeeData, employeeId })}
                 defaultValues={formattedDefaultValues}
-                onCancel={onCancel || (() => dispatch(closeAddCertificateForm()))}
+                onCancel={
+                    onCancel ||
+                    (() => {
+                        dispatch(closeAddCertificateForm());
+                    })
+                }
                 loading={isLoading}
             />
         </Stack>

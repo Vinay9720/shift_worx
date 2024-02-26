@@ -1,7 +1,7 @@
 'use client';
 
 import moment from 'moment';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { timeSlots } from '@/lib/constants';
 import { StyledFlexBox, StyledCtn, StyledRightCtn } from './day-wise-schedule.styles';
 import { SwxModal, DynamicPromptModal } from '@/lib/common/layout';
@@ -12,10 +12,12 @@ import { useEditShift, useDeleteShift } from '@/hooks/admin-schedule';
 import { UsersLeftBar } from './UsersLeftBar';
 import { TimeSlots } from './TimeSlots';
 import { StyledCapsules } from './StyledCapsules';
+import { clearState } from '@/lib/store/slices/admin-schedule-module';
 
 // const twidth = '1920';
 
 export default function DayWiseSchedule({ scheduleData }) {
+    const dispatch = useDispatch();
     const { mutate: deleteShift, isLoading: loadingState } = useDeleteShift();
     const [employeeId, setEmployeeId] = useState(null);
     const [shiftData, setShiftData] = useState();
@@ -94,11 +96,12 @@ export default function DayWiseSchedule({ scheduleData }) {
                 entityName='Shift'
                 onConfirm={() => deleteShift(employeeId)}
             />
-            <SwxModal modalName='editShiftModal'>
+            <SwxModal modalName='editShiftModal' onCancel={() => dispatch(clearState())}>
                 <ShiftForm
                     modalName='editShiftModal'
                     title='Edit'
                     action={updateShift}
+                    onCancel={() => dispatch(clearState())}
                     employeeShiftData={shiftData}
                     loading={isLoading}
                 />

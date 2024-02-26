@@ -8,8 +8,9 @@ import { SwxModal } from '@/lib/common/layout';
 
 import { IconButton } from '@mui/material';
 import SaveScheduleTemplateForm from './save-schedule-templateForm';
+import { clearState } from '@/lib/store/slices/admin-schedule-templates-module';
 
-export default function SaveScheduleTemplate({ scheduleType, hideButton, action, loading }) {
+export default function SaveScheduleTemplate({ scheduleType, hideButton, action, loading, onCancel }) {
     const dispatch = useDispatch();
 
     return (
@@ -17,13 +18,19 @@ export default function SaveScheduleTemplate({ scheduleType, hideButton, action,
             {(scheduleType === 'weekly' || scheduleType === 'monthly') && !hideButton ? (
                 <IconButton
                     onClick={() => {
+                        dispatch(clearState());
                         dispatch(openModal({ modalName: 'saveScheduleTemplateModal' }));
                     }}>
                     <Icon width={35} height={35} name='save-schedule-template' />
                 </IconButton>
             ) : null}
-            <SwxModal modalName='saveScheduleTemplateModal'>
-                <SaveScheduleTemplateForm modalName='saveScheduleTemplateModal' action={action} loading={loading} />
+            <SwxModal modalName='saveScheduleTemplateModal' onCancel={() => dispatch(clearState())}>
+                <SaveScheduleTemplateForm
+                    modalName='saveScheduleTemplateModal'
+                    action={action}
+                    loading={loading}
+                    onCancel={onCancel}
+                />
             </SwxModal>
         </div>
     );

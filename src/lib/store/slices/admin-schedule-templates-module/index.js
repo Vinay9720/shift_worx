@@ -67,6 +67,7 @@ const AdminScheduleTemplatesModule = createSlice({
             state.templateShiftTobeEdited = {};
             state.templateDetails = {};
             state.templateIdsTobePublished = [];
+            state.scheduleTemplateModalData = {};
         },
     },
 });

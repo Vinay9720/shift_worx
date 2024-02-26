@@ -5,6 +5,7 @@ import AdminEmployeeService from '@/services/admin-employee';
 import { closeModal } from '@/lib/store/slices/modal-slice';
 
 import { useToast } from '../common';
+import { getRequestTypeByLabel } from '@/lib/util/getRequestType';
 
 export const useEditPto = id => {
     const queryClient = useQueryClient();
@@ -14,7 +15,7 @@ export const useEditPto = id => {
     const updatePto = ptoData => {
         const payload = {
             ...ptoData,
-            request_type: ptoData.request_type.value,
+            request_type: getRequestTypeByLabel(ptoData.request_type[0]),
         };
 
         return AdminEmployeeService.updatePto(id, JSON.stringify(payload));

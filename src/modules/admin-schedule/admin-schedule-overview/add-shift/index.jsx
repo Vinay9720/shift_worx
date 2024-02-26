@@ -10,6 +10,7 @@ import { useAddShift } from '@/hooks/admin-schedule';
 
 import ShiftForm from './ShiftForm';
 import { AddShiftContainer, styles } from './add-shift.styles';
+import { setShiftData } from '@/lib/store/slices/admin-schedule-module';
 
 export default function AddShift() {
     const { mutate: addShift, isLoading } = useAddShift();
@@ -30,7 +31,7 @@ export default function AddShift() {
                 weight='semiBold'>
                 Add Shift
             </SwxButton>
-            <SwxModal modalName='addShiftModal'>
+            <SwxModal modalName='addShiftModal' onCancel={() => dispatch(setShiftData(null))}>
                 <ShiftForm modalName='addShiftModal' action={addShift} loading={isLoading} />
             </SwxModal>
         </AddShiftContainer>

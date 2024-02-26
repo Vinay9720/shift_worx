@@ -61,6 +61,7 @@ function SearchFilter({ style, addNote }) {
                         style={{ width: '100%' }}
                         padding='0.75rem 0.85rem'
                         onChange={onSearch}
+                        ref={searchInputRef}
                         placeholder='Search note'
                         startIcon={
                             <Icon

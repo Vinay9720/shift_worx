@@ -39,7 +39,12 @@ import {
 import ShiftForm from '../add-shift/ShiftForm';
 import { SwxModal, DynamicPromptModal, OpenShifts } from '@/lib/common/layout';
 import { openModal } from '@/lib/store/slices/modal-slice';
-import { setCurrentTimeValue, setScheduleType, setShiftData } from '@/lib/store/slices/admin-schedule-module';
+import {
+    clearState,
+    setCurrentTimeValue,
+    setScheduleType,
+    setShiftData,
+} from '@/lib/store/slices/admin-schedule-module';
 import { useState } from 'react';
 import { useEditShift, useDeleteShift } from '@/hooks/admin-schedule';
 import { sortedShiftsByName } from '@/lib/util';
@@ -186,9 +191,11 @@ export default function WeekWiseSchedule({ scheduleData }) {
                                   ) : null}
                                   <div>
                                       {emp.name ? (
-                                          <StyledNameContainer>
-                                              {`${emp.name.slice(0, 7)} ${emp.name.slice(7, 8).toUpperCase()}`}
-                                          </StyledNameContainer>
+                                          <StyledNameContainer>{`${emp.name.split(' ')[0]} ${emp.name
+                                              .split(' ')
+                                              .pop()
+                                              .charAt(0)
+                                              .toUpperCase()}`}</StyledNameContainer>
                                       ) : (
                                           <OpenShifts modalName='editShiftModal' />
                                       )}
@@ -371,8 +378,14 @@ export default function WeekWiseSchedule({ scheduleData }) {
                 entityName='Shift'
                 onConfirm={() => deleteShift(employeeId)}
             />
-            <SwxModal modalName='editShiftModal'>
-                <ShiftForm modalName='editShiftModal' title='Edit' action={updateShift} loading={isLoading} />
+            <SwxModal modalName='editShiftModal' onCancel={() => dispatch(clearState())}>
+                <ShiftForm
+                    modalName='editShiftModal'
+                    title='Edit'
+                    action={updateShift}
+                    loading={isLoading}
+                    onCancel={() => dispatch(clearState())}
+                />
             </SwxModal>
         </StyledRootContainer>
     );
