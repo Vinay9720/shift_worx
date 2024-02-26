@@ -12,7 +12,7 @@ import { DynamicPromptModal, OpenShifts, SwxModal } from '@/lib/common/layout';
 import ShiftForm from '../add-shift/ShiftForm';
 import { openModal } from '@/lib/store/slices/modal-slice';
 import { useDispatch } from 'react-redux';
-import { setShiftData } from '@/lib/store/slices/admin-schedule-module';
+import { clearState, setShiftData } from '@/lib/store/slices/admin-schedule-module';
 
 export default function ScheduleList({ scheduleData }) {
     const { mutate: deleteShift, isLoading: loadingState } = useDeleteShift();
@@ -251,13 +251,13 @@ export default function ScheduleList({ scheduleData }) {
                 entityName='Shift'
                 onConfirm={() => deleteShift(employeeId)}
             />
-            <SwxModal modalName='editShiftModal' onCancel={() => dispatch(setShiftData(null))}>
+            <SwxModal modalName='editShiftModal' onCancel={() => dispatch(clearState())}>
                 <ShiftForm
                     modalName='editShiftModal'
                     title='Edit'
                     action={updateShift}
                     loading={isLoading}
-                    onCancel={() => dispatch(setShiftData(null))}
+                    onCancel={() => dispatch(clearState())}
                 />
             </SwxModal>
             <SwxPagination

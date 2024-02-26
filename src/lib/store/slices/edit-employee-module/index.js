@@ -54,6 +54,9 @@ const editEmployeeModule = createSlice({
         closeEditCertificateForm: state => {
             state.editingCertificate = false;
         },
+        clearState: state => {
+            state.certificateToBeEdited = {};
+        },
     },
 });
 
@@ -65,5 +68,6 @@ export const {
     openEditCertificateForm,
     setCertificateToBeEdited,
     closeEditCertificateForm,
+    clearState,
 } = editEmployeeModule.actions;
 export default editEmployeeModule.reducer;

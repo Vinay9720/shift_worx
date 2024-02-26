@@ -55,18 +55,21 @@ const AdminScheduleModule = createSlice({
         },
         setShiftData: (state, action) => {
             const { payload } = action;
-            const formattedShiftData = {
-                date: payload.start_date,
-                start_time: payload.start_time,
-                end_time: payload.end_time,
-                facility_name: payload.station,
-                role: payload.role,
-                speciality: payload.speciality_ids[0].name,
-                facility: payload.facility_id.name,
-                employee: payload.employee,
-                description: payload.description ? payload.description : 'test',
-                nurseId: payload.nurseId,
-            };
+            let formattedShiftData;
+            if (payload) {
+                formattedShiftData = {
+                    date: payload.start_date,
+                    start_time: payload.start_time,
+                    end_time: payload.end_time,
+                    facility_name: payload.station,
+                    role: payload.role,
+                    speciality: payload.speciality_ids[0].name,
+                    facility: payload.facility_id.name,
+                    employee: payload.employee,
+                    description: payload.description ? payload.description : 'test',
+                    nurseId: payload.nurseId,
+                };
+            }
             state.shiftEditModalData = formattedShiftData;
             state.shiftData = action.payload;
         },

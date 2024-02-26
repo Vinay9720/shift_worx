@@ -13,7 +13,7 @@ import { SwxButton, SwxTypography } from '@/lib/common/components';
 import { CertificationCard } from '@/lib/common/layout';
 
 import { FooterContainer, CertificationsWrapper, CertificationsContainer } from './add-employee.styles';
-import { setCertificateToBeEdited } from '@/lib/store/slices/edit-employee-module';
+import { clearState, setCertificateToBeEdited } from '@/lib/store/slices/edit-employee-module';
 
 import AddCerfification from '../add-certificate';
 
@@ -67,7 +67,10 @@ function AddEmployeeStep3() {
                                 })}
                         </CertificationsContainer>
                         <SwxButton
-                            onClick={() => dispatch(openAddCertificateForm())}
+                            onClick={() => {
+                                dispatch(openAddCertificateForm());
+                                dispatch(clearState());
+                            }}
                             startIcon={<Icon width={17} height={12} name='addition' styles={{ fill: '#1F6FA9' }} />}
                             size='medium'
                             variant='text'
@@ -82,7 +85,10 @@ function AddEmployeeStep3() {
             <Divider orientation='vertical' flexItem sx={{ borderBottom: '1px solid #E6E8E9' }} />
             <FooterContainer>
                 <SwxButton
-                    onClick={() => dispatch(closeModal({ modalName: 'addEmployeeModal' }))}
+                    onClick={() => {
+                        dispatch(closeModal({ modalName: 'addEmployeeModal' }));
+                        dispatch(clearState());
+                    }}
                     variant='text'
                     size='medium'>
                     Cancel

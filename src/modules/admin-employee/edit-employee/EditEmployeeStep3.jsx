@@ -10,6 +10,7 @@ import {
     openEditCertificateForm,
     closeEditCertificateForm,
     setCertificateToBeEdited,
+    clearState,
 } from '@/lib/store/slices/edit-employee-module';
 import { CertificationCard } from '@/lib/common/layout';
 import { SwxTypography, SwxButton } from '@/lib/common/components';
@@ -59,7 +60,10 @@ function EditEmployeeStep3({ employeeData, footer }) {
                             })}
                         <div style={{ display: 'flex' }}>
                             <SwxButton
-                                onClick={() => dispatch(openAddCertificateForm())}
+                                onClick={() => {
+                                    dispatch(clearState());
+                                    dispatch(openAddCertificateForm());
+                                }}
                                 style={{ justifySelft: 'left' }}
                                 startIcon={<Icon width={17} height={12} name='addition' styles={{ fill: '#1F6FA9' }} />}
                                 size='medium'

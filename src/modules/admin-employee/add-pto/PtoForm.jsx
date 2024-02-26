@@ -33,6 +33,7 @@ import {
     FooterContainer,
 } from './add-pto.styles';
 import { useEmployees } from '@/hooks/admin-employee';
+import { getRequestTypeByValue } from '@/lib/util';
 
 export default function PtoForm({ modalName, requestType, action: addPto, employee, loading }) {
     const { data: employeesData, isSuccess } = useEmployees(true);
@@ -55,7 +56,7 @@ export default function PtoForm({ modalName, requestType, action: addPto, employ
                 time_end: formattedEndTime,
                 start_date: formattedStartDate,
                 end_date: formattedEndDate,
-                request_type: [employee.request_type],
+                request_type: [getRequestTypeByValue(employee.request_type)],
             };
             setFormattedData(formattedEmployee);
         }

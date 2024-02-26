@@ -5,6 +5,7 @@ import AdminNoteService from '@/services/admin-note';
 import { closeModal } from '@/lib/store/slices/modal-slice';
 
 import { useToast } from '../common';
+import { getNoteTypeByLabel } from '@/lib/util';
 
 export const useUpdateNote = () => {
     const queryClient = useQueryClient();
@@ -16,6 +17,7 @@ export const useUpdateNote = () => {
         const payload = {
             ...noteData.noteData,
             id: noteToBeUpdated.id,
+            note_type_id: getNoteTypeByLabel(noteData.noteData.note_type_id),
         };
         return AdminNoteService.updateNote(noteToBeUpdated.id, payload);
     };

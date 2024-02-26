@@ -26,7 +26,12 @@ import {
 import { SwxModal, DynamicPromptModal } from '@/lib/common/layout';
 import ShiftForm from '../add-shift/ShiftForm';
 import { openModal } from '@/lib/store/slices/modal-slice';
-import { setCurrentTimeValue, setScheduleType, setShiftData } from '@/lib/store/slices/admin-schedule-module';
+import {
+    clearState,
+    setCurrentTimeValue,
+    setScheduleType,
+    setShiftData,
+} from '@/lib/store/slices/admin-schedule-module';
 import { useState } from 'react';
 import { useEditShift, useDeleteShift } from '@/hooks/admin-schedule';
 import { certificateBackground } from '@/lib/util/dynamicChipColor';
@@ -283,8 +288,14 @@ export default function MonthWiseSchedule({ scheduleData }) {
                 entityName='Shift'
                 onConfirm={() => deleteShift(employeeId)}
             />
-            <SwxModal modalName='editShiftModal'>
-                <ShiftForm modalName='editShiftModal' title='Edit' action={updateShift} loading={isLoading} />
+            <SwxModal modalName='editShiftModal' onCancel={() => dispatch(clearState())}>
+                <ShiftForm
+                    modalName='editShiftModal'
+                    title='Edit'
+                    action={updateShift}
+                    loading={isLoading}
+                    onCancel={() => dispatch(clearState())}
+                />
             </SwxModal>
         </StyledRootMainContainer>
     );

@@ -26,6 +26,7 @@ import {
 import AddEmployeeStep1 from './AddEmployeeStep1';
 import AddEmployeeStep2 from './AddEmployeeStep2';
 import AddEmployeeStep3 from './AddEmployeeStep3';
+import { clearState } from '@/lib/store/slices/edit-employee-module';
 
 export default function AddEmployee() {
     const dispatch = useDispatch();
@@ -38,6 +39,7 @@ export default function AddEmployee() {
                 size='medium'
                 onClick={e => {
                     e.preventDefault();
+                    dispatch(clearState());
                     dispatch(openModal({ modalName: 'addEmployeeModal' }));
                 }}
                 padding='10px 16px'
@@ -46,7 +48,7 @@ export default function AddEmployee() {
                 weight='semiBold'>
                 Add Employee
             </SwxButton>
-            <SwxModal modalName='addEmployeeModal'>
+            <SwxModal modalName='addEmployeeModal' onCancel={() => dispatch(clearState())}>
                 <ModalContainer>
                     <HeaderContainer>
                         <TitleContainer>

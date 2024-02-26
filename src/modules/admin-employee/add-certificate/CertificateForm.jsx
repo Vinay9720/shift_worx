@@ -4,7 +4,7 @@
 
 import { Stack } from '@mui/material';
 
-import { statesWithCodes } from '@/lib/constants';
+import { statesWithkeys } from '@/lib/constants';
 import { restrictEmptyArray } from '@/lib/validators';
 import { useCertificateOptions } from '@/hooks/certificate';
 import { useSpecialityOptions } from '@/hooks/speciality';
@@ -22,7 +22,6 @@ import { today } from '@/lib/util';
 function CertificateForm({ defaultValues, onSubmit, onCancel, loading }) {
     const { data: certificationOptions, isLoading: isCertificateOptionsLoading } = useCertificateOptions();
     const { data: specialityOptions, isLoading: isSpecialityOptionsLoading } = useSpecialityOptions();
-
     const certificationProps = {
         placeholder: 'Select type',
         validate: value => restrictEmptyArray(value, 'field can not be empty'),
@@ -59,18 +58,17 @@ function CertificateForm({ defaultValues, onSubmit, onCancel, loading }) {
         padding: '10px 12px',
     };
 
-    const specilityProps = {
-        placeholder: 'speciality',
-        validate: value => restrictEmptyArray(value, 'field can not be empty'),
-        required: true,
+    const specialityProps = {
         options: specialityOptions,
-        multiple: true,
+        placeholder: 'Speciality',
+        width: '100%',
+        required: true,
         padding: '3px',
     };
 
     const jurisdictionProps = {
         placeholder: 'Select jurisdiction',
-        options: statesWithCodes,
+        options: statesWithkeys,
         required: true,
         validate: value => restrictEmptyArray(value, 'field can not be empty'),
         maxHeight: '100px',
@@ -116,7 +114,7 @@ function CertificateForm({ defaultValues, onSubmit, onCancel, loading }) {
                         <SwxTypography color='swxSlightlyBlack' size='smallOdd' weight='semiBold' className='Manrope'>
                             Specialties
                         </SwxTypography>
-                        <SelectField name='speciality_ids' SWXInputProps={specilityProps} />
+                        <SelectField name='speciality_ids' SWXInputProps={specialityProps} />
                     </div>
                 </Stack>
                 <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2} sx={{ padding: '0px 24px' }}>
