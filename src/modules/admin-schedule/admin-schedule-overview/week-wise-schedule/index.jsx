@@ -42,54 +42,10 @@ import { openModal } from '@/lib/store/slices/modal-slice';
 import { setCurrentTimeValue, setScheduleType, setShiftData } from '@/lib/store/slices/admin-schedule-module';
 import { useState } from 'react';
 import { useEditShift, useDeleteShift } from '@/hooks/admin-schedule';
-import { sortedShiftsByName, convertTo24HourFormat } from '@/lib/util';
+import { sortedShiftsByName } from '@/lib/util';
 import { certificateBackground } from '@/lib/util/dynamicChipColor';
 
 export default function WeekWiseSchedule({ scheduleData }) {
-    function getTimeRange(start, end) {
-        // Define time ranges
-        const timeRanges = [
-            { name: 'Morning', start: 6, end: 12 },
-            { name: 'Afternoon', start: 12, end: 18 },
-            { name: 'Evening', start: 18, end: 24 },
-            { name: 'Night', start: 0, end: 6 },
-        ];
-
-        // Convert start and end to 24-hour format
-        const startTime = convertTo24HourFormat(start);
-        const endTime = convertTo24HourFormat(end);
-
-        // Calculate duration spent in each time range
-        const durationInRanges = timeRanges.map(range => {
-            let duration = 0;
-            if (startTime <= endTime) {
-                // Shift does not cross midnight
-                if (startTime <= range.end && endTime >= range.start) {
-                    duration = Math.min(endTime, range.end) - Math.max(startTime, range.start);
-                }
-            } else {
-                // Shift crosses midnight
-                if ((startTime <= range.end && range.end < 24) || (range.start <= endTime && endTime < 24)) {
-                    duration +=
-                        (startTime <= range.end ? Math.min(endTime, range.end) : endTime) -
-                        Math.max(startTime, range.start);
-                }
-                if (range.start <= endTime && endTime < 24) {
-                    duration += Math.min(endTime, range.end) - range.start;
-                }
-            }
-            return { name: range.name, duration };
-        });
-
-        // Find the time range with the maximum duration
-        const maxDurationRange = durationInRanges.reduce((maxRange, currentRange) =>
-            currentRange.duration > maxRange.duration ? currentRange : maxRange
-        );
-
-        console.log('session', maxDurationRange.name);
-
-        return maxDurationRange.name;
-    }
     const dispatch = useDispatch();
     const { mutate: deleteShift, isLoading: loadingState } = useDeleteShift();
     const [employeeId, setEmployeeId] = useState(null);
@@ -371,10 +327,7 @@ export default function WeekWiseSchedule({ scheduleData }) {
                                                                             shift.start_time,
                                                                             shift.end_time,
                                                                             shift.station || 'First Floor',
-                                                                            getTimeRange(
-                                                                                shift.start_time,
-                                                                                shift.end_time
-                                                                            ) || 'Morning',
+                                                                            shift.session_type || 'Morning',
                                                                             shift.certificate.abbreviation || 'RN',
                                                                             shift.id,
                                                                             shift.shift_id,
