@@ -47,7 +47,7 @@ import {
 } from '@/lib/store/slices/admin-schedule-module';
 import { useState } from 'react';
 import { useEditShift, useDeleteShift } from '@/hooks/admin-schedule';
-import { sortedShiftsByName } from '@/lib/util';
+import { sortedShiftsByName, getShiftSession } from '@/lib/util';
 import { certificateBackground } from '@/lib/util/dynamicChipColor';
 
 export default function WeekWiseSchedule({ scheduleData }) {
@@ -334,7 +334,10 @@ export default function WeekWiseSchedule({ scheduleData }) {
                                                                             shift.start_time,
                                                                             shift.end_time,
                                                                             shift.station || 'First Floor',
-                                                                            shift.session_type || 'Morning',
+                                                                            getShiftSession(
+                                                                                shift.start_time,
+                                                                                shift.end_time
+                                                                            ) || 'Morning',
                                                                             shift.certificate.abbreviation || 'RN',
                                                                             shift.id,
                                                                             shift.shift_id,

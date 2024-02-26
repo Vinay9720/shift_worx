@@ -18,6 +18,9 @@ import { sortedShiftsByName } from './sortedShiftsByName';
 import { getWeek } from './getWeek';
 import { getNoteTypeByLabel, getNoteTypeByValue } from './getNoteType';
 import { getRequestTypeByLabel, getRequestTypeByValue } from './getRequestType';
+import { getShiftSession } from './getShiftSession';
+
+
 
 export {
     redirectUser,
@@ -41,4 +44,5 @@ export {
     getNoteTypeByValue,
     getRequestTypeByLabel,
     getRequestTypeByValue,
+    getShiftSession,
 };

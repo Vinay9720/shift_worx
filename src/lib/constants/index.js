@@ -253,3 +253,10 @@ export const statesWithCodes = [
     { value: 'WI', label: 'WI' },
     { value: 'WY', label: 'WY' },
 ];
+
+export const shiftSessions = [
+    { name: 'Morning', start: 6, end: 12 },
+    { name: 'Afternoon', start: 12, end: 18 },
+    { name: 'Evening', start: 18, end: 24 },
+    { name: 'Night', start: 0, end: 6 },
+];

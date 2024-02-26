@@ -40,6 +40,7 @@ import { useEditTemplateShift } from '@/hooks/admin-schedule-templates/useEditTe
 import TemplateShiftForm from '../add-template-shift/TemplateShiftForm';
 import { useMemo } from 'react';
 import { certificateBackground } from '@/lib/util/dynamicChipColor';
+import { getShiftSession } from '@/lib/util';
 
 export default function WeeklyTemplate({ templateShifts, daySummary }) {
     const dispatch = useDispatch();
@@ -86,7 +87,7 @@ export default function WeeklyTemplate({ templateShifts, daySummary }) {
                         shift.start_time,
                         shift.end_time,
                         shift.location || 'First Floor',
-                        shift.session_type || 'Morning',
+                        getShiftSession(shift.start_time, shift.end_time) || 'Morning',
                         shift.certificate.abbreviation || 'RN',
                         shift.id,
                         shift.facility,
@@ -256,7 +257,7 @@ export default function WeeklyTemplate({ templateShifts, daySummary }) {
             <StyledRightCtn>
                 <UsersContainer>
                     {weekdays.map((weekDay, index) => {
-                        const summary = daySummary[weekDay];
+                        const summary = daySummary && daySummary[weekDay];
                         return (
                             <WeekDaysContainer key={index}>
                                 <Stack direction='row'>
