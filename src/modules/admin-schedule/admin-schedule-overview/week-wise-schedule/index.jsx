@@ -68,6 +68,7 @@ export default function WeekWiseSchedule({ scheduleData }) {
         return weekdaysWithDates;
     };
     const sortedShiftsByDate = sortedShiftsByName(scheduleData.records);
+    const daySummary = scheduleData.days_shift_summary;
 
     const menuOptions = employeeShiftData => {
         return [
@@ -211,7 +212,7 @@ export default function WeekWiseSchedule({ scheduleData }) {
                                                   />
                                               </StyledIconContainer>
                                               <StyledNumberContainer>
-                                                  {emp.start_time || '08:00hrs'}
+                                                  {emp.nurse_shift_summary.total_schedule_hours || '08:00hrs'}
                                               </StyledNumberContainer>
                                               <StyledDot />
                                               <StyledIconContainer>
@@ -223,7 +224,9 @@ export default function WeekWiseSchedule({ scheduleData }) {
                                                       width={16}
                                                   />
                                               </StyledIconContainer>
-                                              <StyledNumberContainer>{emp.schedule_count || 1}</StyledNumberContainer>
+                                              <StyledNumberContainer>
+                                                  {emp.nurse_shift_summary.total_number_of_shifts || 1}
+                                              </StyledNumberContainer>
                                           </Stack>
                                       ) : null}
                                   </div>
@@ -234,62 +237,77 @@ export default function WeekWiseSchedule({ scheduleData }) {
             </div>
             <StyledRightCtn>
                 <UsersContainer>
-                    {weekdays.map((weekDay, index) => (
-                        <WeekDaysContainer
-                            isCurrentDate={parseInt(weekDay.date.split('-')[0]) === new Date().getDate()}
-                            key={index}>
-                            <Stack direction='row'>
-                                <StyledCurrentWeekDay>
-                                    {parseInt(weekDay.date.split('-')[0]) === new Date().getDate() ? (
-                                        <StyledCurrentDayButton>{weekDay.date.split('-')[0]}</StyledCurrentDayButton>
-                                    ) : (
-                                        <>
-                                            <p>{weekDay.date.split('-')[0]}</p>
-                                        </>
-                                    )}
-                                </StyledCurrentWeekDay>
-                                <StyledDayContainer>
-                                    <SwxTypography size='semiLarge' color='swxBlack' weight='thin' className='Manrope'>
-                                        {weekDay.weekday}
-                                    </SwxTypography>
-                                </StyledDayContainer>
-                            </Stack>
-                            <StyledSubWeekDayContainer>
-                                <StyledIconContainer>
-                                    <Icon
-                                        styles={{ fill: '#838A91' }}
-                                        name='clock'
-                                        aria-hidden='true'
-                                        height={16}
-                                        width={16}
-                                    />
-                                </StyledIconContainer>
-                                <StyledNumberContainer>0:00</StyledNumberContainer>
-                                <StyledDot />
-                                <StyledIconContainer>
-                                    <Icon
-                                        styles={{ fill: '#838A91' }}
-                                        name='calender'
-                                        aria-hidden='true'
-                                        height={16}
-                                        width={16}
-                                    />
-                                </StyledIconContainer>
-                                <StyledNumberContainer>0</StyledNumberContainer>
-                                <StyledDot />
-                                <StyledIconContainer>
-                                    <Icon
-                                        styles={{ fill: '#838A91' }}
-                                        name='user'
-                                        aria-hidden='true'
-                                        height={16}
-                                        width={16}
-                                    />
-                                </StyledIconContainer>
-                                <StyledNumberContainer>0</StyledNumberContainer>
-                            </StyledSubWeekDayContainer>
-                        </WeekDaysContainer>
-                    ))}
+                    {weekdays.map((weekDay, index) => {
+                        const summary = daySummary[weekDay.weekday];
+                        return (
+                            <WeekDaysContainer
+                                isCurrentDate={parseInt(weekDay.date.split('-')[0]) === new Date().getDate()}
+                                key={index}>
+                                <Stack direction='row'>
+                                    <StyledCurrentWeekDay>
+                                        {parseInt(weekDay.date.split('-')[0]) === new Date().getDate() ? (
+                                            <StyledCurrentDayButton>
+                                                {weekDay.date.split('-')[0]}
+                                            </StyledCurrentDayButton>
+                                        ) : (
+                                            <>
+                                                <p>{weekDay.date.split('-')[0]}</p>
+                                            </>
+                                        )}
+                                    </StyledCurrentWeekDay>
+                                    <StyledDayContainer>
+                                        <SwxTypography
+                                            size='semiLarge'
+                                            color='swxBlack'
+                                            weight='thin'
+                                            className='Manrope'>
+                                            {weekDay.weekday}
+                                        </SwxTypography>
+                                    </StyledDayContainer>
+                                </Stack>
+                                <StyledSubWeekDayContainer>
+                                    <StyledIconContainer>
+                                        <Icon
+                                            styles={{ fill: '#838A91' }}
+                                            name='clock'
+                                            aria-hidden='true'
+                                            height={16}
+                                            width={16}
+                                        />
+                                    </StyledIconContainer>
+                                    <StyledNumberContainer>
+                                        {summary ? summary.total_schedule_hour_of_nurse : '0.00'}
+                                    </StyledNumberContainer>
+                                    <StyledDot />
+                                    <StyledIconContainer>
+                                        <Icon
+                                            styles={{ fill: '#838A91' }}
+                                            name='calender'
+                                            aria-hidden='true'
+                                            height={16}
+                                            width={16}
+                                        />
+                                    </StyledIconContainer>
+                                    <StyledNumberContainer>
+                                        {summary ? summary.total_number_of_shifts : 0}
+                                    </StyledNumberContainer>
+                                    <StyledDot />
+                                    <StyledIconContainer>
+                                        <Icon
+                                            styles={{ fill: '#838A91' }}
+                                            name='user'
+                                            aria-hidden='true'
+                                            height={16}
+                                            width={16}
+                                        />
+                                    </StyledIconContainer>
+                                    <StyledNumberContainer>
+                                        {summary ? summary.total_number_of_employee.length : 0}
+                                    </StyledNumberContainer>
+                                </StyledSubWeekDayContainer>
+                            </WeekDaysContainer>
+                        );
+                    })}
                 </UsersContainer>
                 {!isEmpty(scheduleData.records) ? (
                     sortedShiftsByDate.map((emp, i) => {
