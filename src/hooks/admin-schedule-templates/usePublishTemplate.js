@@ -21,6 +21,7 @@ export const usePublishTemplate = () => {
                 name: templateData.name,
                 description: templateData.description,
                 assigned: templateData.assigned,
+                occurrence: templateData.occurrence,
                 start_date: formatDate(templateData.start_date, 'MM/DD/YYYY'),
                 publish: templateData.publish,
                 template_type: templateData.template_week,
