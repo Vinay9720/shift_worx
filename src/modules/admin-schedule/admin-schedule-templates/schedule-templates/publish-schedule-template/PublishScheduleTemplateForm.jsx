@@ -6,7 +6,14 @@ import { Stack } from '@mui/material';
 import { closeModal } from '@/lib/store/slices/modal-slice';
 import { Icon } from '@/lib/common/icons';
 import { SwxButton, SwxTypography } from '@/lib/common/components';
-import { Form, FormSubmitButton, InputField, DatePickerField, FormSwitch } from '@/lib/common/form-components';
+import {
+    Form,
+    FormSubmitButton,
+    InputField,
+    DatePickerField,
+    FormSwitch,
+    SelectField,
+} from '@/lib/common/form-components';
 import {
     CloseContainer,
     EllipseContainer,
@@ -42,18 +49,18 @@ export default function PublishScheduleTemplateForm({ modalName, action, loading
         rows: 4,
     };
 
-    // const weekProps = {
-    //     label: (
-    //         <SwxTypography color='swxSlightlyBlack' size='semiMedium' weight='semiBold' className='Manrope'>
-    //             Week
-    //         </SwxTypography>
-    //     ),
-    //     options: ['Week 1', 'Week 2', 'Week 3', 'Week 4', 'Every Week'],
-    //     placeholder: '',
-    //     width: '100%',
-    //     required: true,
-    //     padding: '8px 8px',
-    // };
+    const weekProps = {
+        label: (
+            <SwxTypography color='swxSlightlyBlack' size='semiMedium' weight='semiBold' className='Manrope'>
+                Occurence
+            </SwxTypography>
+        ),
+        options: ['1', '2', '3', '4', '5'],
+        placeholder: '',
+        width: '100%',
+        required: true,
+        padding: '8px 8px',
+    };
 
     const dateProps = {
         label: (
@@ -128,9 +135,9 @@ export default function PublishScheduleTemplateForm({ modalName, action, loading
                     <Stack direction='row' spacing={2}>
                         <DatePickerField name='start_date' SWXInputProps={dateProps} />
                     </Stack>
-                    {/* <Stack direction='row'>
-                        <SelectField name='week' SWXInputProps={weekProps} />
-                    </Stack> */}
+                    <Stack direction='row'>
+                        <SelectField name='occurrence' SWXInputProps={weekProps} />
+                    </Stack>
                     <Stack direction='row'>
                         <FormSwitch name='assigned' SWXInputProps={assginedProps} />
                     </Stack>
