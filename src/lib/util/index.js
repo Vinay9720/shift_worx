@@ -20,8 +20,6 @@ import { getNoteTypeByLabel, getNoteTypeByValue } from './getNoteType';
 import { getRequestTypeByLabel, getRequestTypeByValue } from './getRequestType';
 import { getShiftSession } from './getShiftSession';
 
-
-
 export {
     redirectUser,
     getS3Url,

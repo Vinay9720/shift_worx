@@ -4,7 +4,7 @@ import { Stack } from '@mui/material';
 import { useDispatch } from 'react-redux';
 
 import { useAddEmployee } from '@/hooks/admin-employee';
-import { closeAddCertificateForm } from '@/lib/store/slices/add-employee-module';
+import { closeAddCertificateForm, setAddEmployeeDataStep3 } from '@/lib/store/slices/add-employee-module';
 
 import CertificateForm from './CertificateForm';
 import { styles } from './add-certificate.styles';
@@ -30,7 +30,10 @@ function AddCerfification({ defaultValues, employeeId, onCancel }) {
     return (
         <Stack direction='column' spacing={3} sx={styles.mainStack}>
             <CertificateForm
-                onSubmit={employeeData => addEmployee({ employeeData, employeeId })}
+                onSubmit={employeeData => {
+                    dispatch(setAddEmployeeDataStep3(employeeData));
+                    addEmployee({ employeeData, employeeId });
+                }}
                 defaultValues={formattedDefaultValues}
                 onCancel={
                     onCancel ||

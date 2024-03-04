@@ -1,7 +1,7 @@
 'use client';
 
 import { Divider, Stack } from '@mui/material';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { useAddEmployee } from '@/hooks/admin-employee';
 import { closeModal } from '@/lib/store/slices/modal-slice';
@@ -10,8 +10,10 @@ import { Form, InputField, DatePickerField, FormSubmitButton } from '@/lib/commo
 
 import { FooterContainer, styles } from './add-employee.styles';
 import { today } from '@/lib/util';
+import { clearState, setAddEmployeeDataStep2, setCurrentStep } from '@/lib/store/slices/add-employee-module';
 
 function AddEmployeeStep2() {
+    const { addEmployeeDataStep2 } = useSelector(state => state.addEmployeeModule);
     const dispatch = useDispatch();
     const { mutate: addEmployee, isLoading } = useAddEmployee();
 
@@ -69,7 +71,13 @@ function AddEmployeeStep2() {
                     Upload employee personal documents
                 </SwxTypography>
             </Stack>
-            <Form onSubmit={employeeData => addEmployee({ employeeData })} styles='flex flex-col gap-y-5'>
+            <Form
+                defaultValues={addEmployeeDataStep2 || {}}
+                onSubmit={employeeData => {
+                    dispatch(setAddEmployeeDataStep2(employeeData));
+                    addEmployee({ employeeData });
+                }}
+                styles='flex flex-col gap-y-5'>
                 <Stack direction='column' spacing={3} sx={{ marginTop: '24px' }}>
                     <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2} sx={{ padding: '0px 24px' }}>
                         <InputField name='ssn' SWXInputProps={ssnProps} />
@@ -85,7 +93,11 @@ function AddEmployeeStep2() {
                 </Stack>
                 <FooterContainer>
                     <SwxButton
-                        onClick={() => dispatch(closeModal({ modalName: 'addEmployeeModal' }))}
+                        onClick={() => {
+                            dispatch(closeModal({ modalName: 'addEmployeeModal' }));
+                            dispatch(clearState());
+                            dispatch(setCurrentStep(1));
+                        }}
                         variant='text'
                         size='medium'>
                         Cancel
