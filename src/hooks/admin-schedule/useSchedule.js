@@ -26,13 +26,12 @@ export const useSchedule = () => {
         [
             'admin-schedule',
             scheduleType,
-            currentTimeValue,
-            currentListTimeValue,
+            ...(scheduleType !== 'list' ? [currentTimeValue] : []),
+            ...(scheduleType === 'list' ? [currentListTimeValue] : []),
             search,
             status,
             roles,
-            itemsPerPage,
-            currentPage,
+            ...(scheduleType === 'list' ? [itemsPerPage, currentPage] : []),
         ],
         () =>
             AdminScheduleService.fetchSchedule(
@@ -42,21 +41,23 @@ export const useSchedule = () => {
                 search,
                 status,
                 roles,
-                itemsPerPage,
-                currentPage
+                scheduleType === 'list' ? itemsPerPage : null,
+                scheduleType === 'list' ? currentPage : null
             ),
         {
             select: data => {
                 const res = data.data;
                 return res;
             },
-            onSuccess: data => {
+            onSuccess: async data => {
                 const pagination = data.pagination_data;
-                setPagination({
-                    currentPage: pagination && pagination.current_page,
-                    itemsPerPage: pagination && pagination.per_page,
-                    totalItems: pagination && pagination.total_count,
-                });
+                if (scheduleType === 'list') {
+                    setPagination({
+                        currentPage: pagination && pagination.current_page,
+                        itemsPerPage: pagination && pagination.per_page,
+                        totalItems: pagination && pagination.total_count,
+                    });
+                }
             },
             refetchOnWindowFocus: false,
         }
