@@ -76,15 +76,13 @@ export default function AdminPto() {
             return (
                 ptoData &&
                 ptoData.recordData.map(user => {
-                    const starttime = user.start_time;
-                    const endtime = user.end_time;
-                    const startTime = moment(starttime.slice(11, 16), 'HH:mm').format('hh:mm A');
-                    const endTime = moment(endtime.slice(11, 16), 'HH:mm').format('hh:mm A');
-                    const formattedOutput = `${moment(starttime).format('M/D')} - ${startTime} - ${endTime}`;
+                    const startTime = moment(user.time_start, 'HH:mm:ss').format('hh:mm: A');
+                    const endTime = moment(user.time_end, 'HH:mm:ss').format('hh:mm: A');
+                    const formattedOutput = `${moment(user.date_start).format('M/D')} - ${startTime} - ${endTime}`;
                     return {
                         id: user.id,
-                        employee: user.name || 'Temporary Employee',
-                        role: user.role || 'RN',
+                        employee: user.name,
+                        role: user.role,
                         status: user.state.split('')[0].toUpperCase() + user.state.slice(1),
                         timeOffRequested: formattedOutput,
                         description: user.description,
@@ -124,8 +122,13 @@ export default function AdminPto() {
             sortable: false,
             filterable: false,
             renderCell: params => {
-                const background = roleBackground(params.value);
-                return <SwxChip label={params.value} color='white' background={background} size='semiMedium' />;
+                const background = roleBackground(params.value[0]);
+                return (
+                    <div style={{ display: 'flex', alignItems: 'center' }}>
+                        <SwxChip label={params.value[0]} color='white' background={background} size='semiMedium' />
+                        {` + ${params.value?.length}`}
+                    </div>
+                );
             },
         },
         {
@@ -254,12 +257,13 @@ export default function AdminPto() {
             <SwxModal modalName='addNoteModal'>
                 <NoteForm modalName='addNoteModal' action={addNote} employee={employeeId} loading={noteLoadingState} />
             </SwxModal>
-            <SwxModal modalName='editPtoModal'>
+            <SwxModal modalName='editPtoModal' onCancel={() => setEmployeeData(null)}>
                 <PtoForm
                     modalName='editPtoModal'
                     action={editPto}
                     employee={employeeData}
                     loading={editPtoLoadingState}
+                    onCancel={() => setEmployeeData(null)}
                 />
             </SwxModal>
             <DynamicPromptModal
