@@ -1,7 +1,7 @@
 'use client';
 
 import { Divider, Stack } from '@mui/material';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { SwxButton, SwxTypography } from '@/lib/common/components';
 import {
@@ -18,8 +18,10 @@ import { closeModal } from '@/lib/store/slices/modal-slice';
 
 import { FooterContainer, styles } from './add-employee.styles';
 import { today } from '@/lib/util';
+import { clearState, setAddEmployeeDataStep1 } from '@/lib/store/slices/add-employee-module';
 
 function AddEmployeeStep1() {
+    const { addEmployeeDataStep1 } = useSelector(state => state.addEmployeeModule);
     const { mutate: addEmployee, isLoading } = useAddEmployee();
     const dispatch = useDispatch();
     const firstNameProps = {
@@ -152,7 +154,12 @@ function AddEmployeeStep1() {
                     Add employee profile information here
                 </SwxTypography>
             </Stack>
-            <Form onSubmit={employeeData => addEmployee({ employeeData })}>
+            <Form
+                defaultValues={addEmployeeDataStep1 || {}}
+                onSubmit={employeeData => {
+                    dispatch(setAddEmployeeDataStep1(employeeData));
+                    addEmployee({ employeeData });
+                }}>
                 <Stack direction='column'>
                     <Stack sx={styles.namePropStyles} direction='row'>
                         <InputField name='first_name' SWXInputProps={firstNameProps} />
@@ -181,7 +188,10 @@ function AddEmployeeStep1() {
                 </Stack>
                 <FooterContainer>
                     <SwxButton
-                        onClick={() => dispatch(closeModal({ modalName: 'addEmployeeModal' }))}
+                        onClick={() => {
+                            dispatch(closeModal({ modalName: 'addEmployeeModal' }));
+                            dispatch(clearState());
+                        }}
                         variant='text'
                         size='medium'>
                         Cancel

@@ -3,7 +3,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Stack } from '@mui/material';
-import moment from 'moment';
 
 import { closeModal } from '@/lib/store/slices/modal-slice';
 import { Icon } from '@/lib/common/icons';
@@ -35,27 +34,20 @@ import {
 import { useEmployees } from '@/hooks/admin-employee';
 import { getRequestTypeByValue } from '@/lib/util';
 
-export default function PtoForm({ modalName, requestType, action: addPto, employee, loading }) {
+export default function PtoForm({ modalName, requestType, action: addPto, employee, loading, onCancel }) {
     const { data: employeesData, isSuccess } = useEmployees(true);
     const [formattedData, setFormattedData] = useState({});
     const dispatch = useDispatch();
+
     useEffect(() => {
         if (employee && Object.keys(formattedData).length === 0) {
-            const startDate = employee.start_time;
-            const endDate = employee.end_time;
-            const startTime = employee.start_time;
-            const endTime = employee.end_time;
-            const formattedStartTime = moment(startTime).format('hh:mma');
-            const formattedEndTime = moment(endTime).format('hh:mma');
-            const formattedStartDate = moment(startDate).format('DD-MM-YYYY');
-            const formattedEndDate = moment(endDate).format('DD-MM-YYYY');
             const formattedEmployee = {
                 nurse_id: employee.name || 'Admin4 User',
                 description: employee.description,
-                time_start: formattedStartTime,
-                time_end: formattedEndTime,
-                start_date: formattedStartDate,
-                end_date: formattedEndDate,
+                time_start: employee.time_start,
+                time_end: employee.time_end,
+                start_date: employee.date_start,
+                end_date: employee.date_end,
                 request_type: [getRequestTypeByValue(employee.request_type)],
             };
             setFormattedData(formattedEmployee);
@@ -179,7 +171,11 @@ export default function PtoForm({ modalName, requestType, action: addPto, employ
                 <TitleContainer>
                     <StyledTitle>{requestType || 'Edit'} PTO Request</StyledTitle>
                 </TitleContainer>
-                <EllipseContainer onClick={() => dispatch(closeModal({ modalName }))}>
+                <EllipseContainer
+                    onClick={() => {
+                        dispatch(closeModal({ modalName }));
+                        if (!requestType) onCancel();
+                    }}>
                     <CloseContainer>
                         <Icon name='ellipse' fill='#F7F8F8' height={30} width={30} />
                     </CloseContainer>
@@ -235,7 +231,13 @@ export default function PtoForm({ modalName, requestType, action: addPto, employ
                         </StyledBorderContainer>
                     </StyledWrapperContainer>
                     <FooterContainer>
-                        <SwxButton onClick={() => dispatch(closeModal({ modalName }))} variant='text' size='medium'>
+                        <SwxButton
+                            onClick={() => {
+                                dispatch(closeModal({ modalName }));
+                                if (!requestType) onCancel();
+                            }}
+                            variant='text'
+                            size='medium'>
                             Cancel
                         </SwxButton>
                         <FormSubmitButton variant='contained' buttonName='Submit' loading={loading} />

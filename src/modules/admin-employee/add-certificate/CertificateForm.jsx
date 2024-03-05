@@ -2,7 +2,7 @@
 
 'use client';
 
-import { Stack } from '@mui/material';
+import { CircularProgress, Stack } from '@mui/material';
 
 import { statesWithkeys } from '@/lib/constants';
 import { restrictEmptyArray } from '@/lib/validators';
@@ -16,8 +16,9 @@ import {
     FileUploadField,
     SelectField,
 } from '@/lib/common/form-components';
-import { SwxTypography, SwxButton, SwxLoader } from '@/lib/common/components';
+import { SwxTypography, SwxButton } from '@/lib/common/components';
 import { today } from '@/lib/util';
+import { StyledLoaderContainer } from './add-certificate.styles';
 
 function CertificateForm({ defaultValues, onSubmit, onCancel, loading }) {
     const { data: certificationOptions, isLoading: isCertificateOptionsLoading } = useCertificateOptions();
@@ -95,7 +96,13 @@ function CertificateForm({ defaultValues, onSubmit, onCancel, loading }) {
     };
 
     if (isCertificateOptionsLoading || isSpecialityOptionsLoading) {
-        return <SwxLoader loading={isCertificateOptionsLoading || isSpecialityOptionsLoading} />;
+        return (
+            <StyledLoaderContainer>
+                <center>
+                    <CircularProgress loading={isCertificateOptionsLoading || isSpecialityOptionsLoading} />
+                </center>
+            </StyledLoaderContainer>
+        );
     }
 
     return (

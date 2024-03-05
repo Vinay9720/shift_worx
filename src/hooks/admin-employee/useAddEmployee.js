@@ -7,9 +7,9 @@ import { isEmpty } from 'lodash';
 import AdminEmployeeService from '@/services/admin-employee';
 import {
     closeAddCertificateForm,
-    handleNext,
     setFacilityUserId,
     setCertificates,
+    setCurrentStep,
 } from '@/lib/store/slices/add-employee-module';
 import { closeAddCertificateForm as closeCertificateFormFromEditEmployee } from '@/lib/store/slices/edit-employee-module';
 
@@ -39,8 +39,9 @@ export const useAddEmployee = () => {
             },
         };
         if (isCertificationStep || urlStep === 'certificates') {
-            nurseCertificateDetails.nurse_certificate.certificate_id = employeeData.certificate_id[0];
-            nurseCertificateDetails.nurse_certificate.jurisdiction = employeeData.jurisdiction[0];
+            nurseCertificateDetails.nurse_certificate.certificate_id = employeeData.certificate_id.value;
+            nurseCertificateDetails.nurse_certificate.jurisdiction = employeeData.jurisdiction.value;
+            nurseCertificateDetails.nurse_certificate.speciality_ids = [employeeData.speciality_ids.value];
         }
 
         const payload = {
@@ -58,16 +59,16 @@ export const useAddEmployee = () => {
     return useMutation(addEmployee, {
         onSuccess: async response => {
             if (currentStep !== 3) {
-                dispatch(handleNext());
-                dispatch(setFacilityUserId(response.data.facility_user.id));
+                dispatch(setCurrentStep(currentStep + 1));
             }
             if (isCertificationStep || urlStep === 'certificates') {
                 showToast('saved successfully', 'success');
+                dispatch(setCertificates(response.data.certificates));
                 dispatch(closeAddCertificateForm());
             }
+            dispatch(setFacilityUserId(response.data?.facility_user?.id || response.data?.id));
             dispatch(closeAddCertificateForm());
             dispatch(closeCertificateFormFromEditEmployee());
-            dispatch(setCertificates(response.data.certificates));
         },
         onError: error => {
             showToast(error.response.data.errors[0], 'error');

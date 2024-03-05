@@ -103,9 +103,14 @@ export default function AdminOverview() {
             sortable: false,
             filterable: false,
             renderCell: params => {
-                const background = roleBackground(params.value[1] || 'RN');
+                const background = roleBackground(params.value ? params.value[1] : 'RN');
                 return (
-                    <SwxChip label={params.value[1] || 'RN'} color='white' background={background} size='semiMedium' />
+                    <SwxChip
+                        label={params.value ? params.value[1] : 'RN'}
+                        color='white'
+                        background={background}
+                        size='semiMedium'
+                    />
                 );
             },
         },

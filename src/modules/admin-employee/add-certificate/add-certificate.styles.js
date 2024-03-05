@@ -19,3 +19,7 @@ export const styles = {
         },
     },
 };
+export const StyledLoaderContainer = styled.div`
+    margin-bottom: 3rem;
+    margin-top: -1rem;
+`;

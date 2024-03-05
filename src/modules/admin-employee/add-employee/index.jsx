@@ -4,7 +4,6 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Stack } from '@mui/material';
 
 import { closeModal, openModal } from '@/lib/store/slices/modal-slice';
-// import { setCurrentStep } from '@/lib/store/slices/add-employee-module';
 import { Icon } from '@/lib/common/icons';
 import { SwxButton, SwxTypography } from '@/lib/common/components';
 import { SwxModal } from '@/lib/common/layout';
@@ -27,10 +26,17 @@ import AddEmployeeStep1 from './AddEmployeeStep1';
 import AddEmployeeStep2 from './AddEmployeeStep2';
 import AddEmployeeStep3 from './AddEmployeeStep3';
 import { clearState } from '@/lib/store/slices/edit-employee-module';
+import {
+    clearState as clearAddEmployeeState,
+    setCertificates,
+    setCurrentStep,
+    setFacilityUserId,
+} from '@/lib/store/slices/add-employee-module';
+import { isEmpty } from 'lodash';
 
 export default function AddEmployee() {
     const dispatch = useDispatch();
-    const { currentStep } = useSelector(state => state.addEmployeeModule);
+    const { currentStep, addEmployeeDataStep2, certificates } = useSelector(state => state.addEmployeeModule);
 
     return (
         <div className='flex items-center mt-0'>
@@ -40,6 +46,8 @@ export default function AddEmployee() {
                 onClick={e => {
                     e.preventDefault();
                     dispatch(clearState());
+                    dispatch(setCertificates(null));
+                    dispatch(setFacilityUserId(null));
                     dispatch(openModal({ modalName: 'addEmployeeModal' }));
                 }}
                 padding='10px 16px'
@@ -48,12 +56,25 @@ export default function AddEmployee() {
                 weight='semiBold'>
                 Add Employee
             </SwxButton>
-            <SwxModal modalName='addEmployeeModal' onCancel={() => dispatch(clearState())}>
+            <SwxModal
+                modalName='addEmployeeModal'
+                onCancel={() => {
+                    dispatch(clearState());
+                    dispatch(clearAddEmployeeState());
+                    dispatch(setCertificates(null));
+                    dispatch(setCurrentStep(1));
+                }}>
                 <ModalContainer>
                     <HeaderContainer>
                         <TitleContainer>
                             <StyledTitle>Add Employee</StyledTitle>
-                            <EllipseContainer onClick={() => dispatch(closeModal({ modalName: 'addEmployeeModal' }))}>
+                            <EllipseContainer
+                                onClick={() => {
+                                    dispatch(closeModal({ modalName: 'addEmployeeModal' }));
+                                    dispatch(clearState());
+                                    dispatch(clearAddEmployeeState());
+                                    dispatch(setCurrentStep(1));
+                                }}>
                                 <CloseContainer>
                                     <Icon name='ellipse' fill='#F7F8F8' height={30} width={30} />
                                 </CloseContainer>
@@ -63,22 +84,37 @@ export default function AddEmployee() {
                             </EllipseContainer>
                         </TitleContainer>
                         <StepsContainer>
-                            {/* <StyledStep onClick={() => dispatch(setCurrentStep(1))}> */}
-                            <StyledStep>
+                            <StyledStep
+                                onClick={() => {
+                                    if (currentStep === 2 || currentStep === 3) {
+                                        dispatch(setCurrentStep(1));
+                                    }
+                                }}>
                                 <StyledNumber active={currentStep === 1 && true}>1</StyledNumber>
                                 <SwxTypography color='swxBlack' size='smallest' weight='thin' className='Manrope'>
                                     Profile Information
                                 </SwxTypography>
                             </StyledStep>
-                            {/* <StyledStep onClick={() => dispatch(setCurrentStep(2))}> */}
-                            <StyledStep>
+                            <StyledStep
+                                onClick={() => {
+                                    if (currentStep === 3) {
+                                        dispatch(setCurrentStep(2));
+                                    }
+                                    if (!isEmpty(addEmployeeDataStep2) && currentStep === 1) {
+                                        dispatch(setCurrentStep(2));
+                                    }
+                                }}>
                                 <StyledNumber active={currentStep === 2 && true}>2</StyledNumber>
                                 <SwxTypography color='swxBlack' size='smallest' weight='thin' className='Manrope'>
                                     Personal Document
                                 </SwxTypography>
                             </StyledStep>
-                            {/* <StyledStep onClick={() => dispatch(setCurrentStep(3))}> */}
-                            <StyledStep>
+                            <StyledStep
+                                onClick={() => {
+                                    if (!isEmpty(certificates) && (currentStep === 1 || currentStep === 2)) {
+                                        dispatch(setCurrentStep(3));
+                                    }
+                                }}>
                                 <StyledNumber active={currentStep === 3 && true}>3</StyledNumber>
                                 <SwxTypography color='swxBlack' size='smallest' weight='thin' className='Manrope'>
                                     Certifications

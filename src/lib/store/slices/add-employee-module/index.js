@@ -17,6 +17,9 @@ const initialState = {
     certificates: [],
     editingCertificate: false,
     certificateToBeEdited: {},
+    addEmployeeDataStep1: {},
+    addEmployeeDataStep2: {},
+    addEmployeeDataStep3: {},
 };
 
 const addEmployeeModule = createSlice({
@@ -49,9 +52,11 @@ const addEmployeeModule = createSlice({
             state.currentStep = action.payload;
             if (state.currentStep > 1) {
                 state.isPreviousStep = true;
+                state.currentStepName = stepsMap[action.payload];
             }
             if (state.currentStep < 3) {
                 state.isNextStep = true;
+                state.currentStepName = stepsMap[action.payload];
             }
         },
         setFacilityUserId: (state, action) => {
@@ -75,6 +80,20 @@ const addEmployeeModule = createSlice({
         setCertificateToBeEdited: (state, action) => {
             state.certificateToBeEdited = action.payload;
         },
+        setAddEmployeeDataStep1: (state, action) => {
+            state.addEmployeeDataStep1 = action.payload;
+        },
+        setAddEmployeeDataStep2: (state, action) => {
+            state.addEmployeeDataStep2 = action.payload;
+        },
+        setAddEmployeeDataStep3: (state, action) => {
+            state.addEmployeeDataStep3 = action.payload;
+        },
+        clearState: state => {
+            state.addEmployeeDataStep1 = {};
+            state.addEmployeeDataStep2 = {};
+            state.addEmployeeDataStep3 = {};
+        },
     },
 });
 
@@ -89,5 +108,9 @@ export const {
     openEditCertificateForm,
     closeEditCertificateForm,
     setCertificateToBeEdited,
+    setAddEmployeeDataStep1,
+    setAddEmployeeDataStep2,
+    setAddEmployeeDataStep3,
+    clearState,
 } = addEmployeeModule.actions;
 export default addEmployeeModule.reducer;
