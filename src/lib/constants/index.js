@@ -9,7 +9,7 @@ export const EMPLOYEE_NAV_LINKS = [
     },
     {
         label: 'Schedule',
-        destination: '/employee/schedule',
+        destination: '/employee/schedule/?step=overview',
     },
 ];
 
