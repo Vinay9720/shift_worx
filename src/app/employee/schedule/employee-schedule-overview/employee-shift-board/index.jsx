@@ -1,5 +1,6 @@
 /* eslint-disable camelcase */
 import { IconButton, Stack, Avatar } from '@mui/material';
+import { useMemo } from 'react';
 
 import { SwxDataGrid, SwxChip, SwxPopupMenu, SwxTypography } from '@/lib/common/components';
 import { capitalize } from 'lodash';
@@ -10,6 +11,9 @@ import moment from 'moment';
 import { openModal } from '@/lib/store/slices/modal-slice';
 import { useDispatch } from 'react-redux';
 import { setShiftData } from '@/lib/store/slices/admin-schedule-module';
+import { WidgetCard } from '@/lib/common/layout';
+import { WidgetCardsContainer } from '@/modules/admin-home/admin-home.styles';
+import SearchFilter from '../SearchFilter';
 
 const shiftBoardData = [
     {
@@ -196,6 +200,33 @@ export default function EmployeeShiftBoard() {
         ];
     };
 
+    const cardsData = useMemo(
+        () => [
+            {
+                title: 'Total shifts',
+                iconName: 'people-group',
+                totalCount: 120,
+                percentage: '80%',
+                badgeArrow: 'up-arrow',
+            },
+            {
+                title: 'Scheduled Employees',
+                iconName: 'calender-check',
+                totalCount: 35,
+                percentage: '40%',
+                badgeArrow: 'up-arrow',
+            },
+            {
+                title: 'Open Shifts',
+                iconName: 'calender-todo',
+                totalCount: 40,
+                percentage: '89%',
+                badgeArrow: 'down-arrow',
+            },
+        ],
+        []
+    );
+
     const columns = [
         {
             field: 'employee',
@@ -371,12 +402,29 @@ export default function EmployeeShiftBoard() {
 
     return (
         <>
-            <SwxDataGrid checkboxSelection rows={shiftBoardData} columns={columns} />
-            <SwxPagination
-                itemsPerPageOptions={['5', '10', '15']}
-                paginationName='adminScheduleListPagination'
-                style={{ marginBottom: '20px', marginTop: '20px' }}
-            />
+            <WidgetCardsContainer style={{ marginTop: '1rem' }}>
+                {cardsData.map((card, index) => {
+                    return (
+                        <WidgetCard
+                            key={index}
+                            title={card.title}
+                            iconName={card.iconName}
+                            totalCount={card.totalCount}
+                            percentage={card.percentage}
+                            badgeArrow={card.badgeArrow}
+                        />
+                    );
+                })}
+            </WidgetCardsContainer>
+            <SearchFilter />
+            <div style={{ marginBottom: '2rem' }}>
+                <SwxDataGrid checkboxSelection rows={shiftBoardData} columns={columns} />
+                <SwxPagination
+                    itemsPerPageOptions={['5', '10', '15']}
+                    paginationName='adminScheduleListPagination'
+                    style={{ marginBottom: '20px', marginTop: '20px' }}
+                />
+            </div>
         </>
     );
 }
